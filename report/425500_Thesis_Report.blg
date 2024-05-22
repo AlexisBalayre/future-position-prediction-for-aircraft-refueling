@@ -1,54 +1,59 @@
 This is BibTeX, Version 0.99d (TeX Live 2023)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: 425500_Thesis_Report.aux
-The style file: CranfieldNumbered.bst.bst
-Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
-Reallocated global_strs (elt_size=200001) to 20 items from 10.
-Reallocated glb_str_end (elt_size=4) to 20 items from 10.
-Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+The style file: abbrvnat.bst
 Database file #1: LaTeX.bib
 Database file #2: CUCitations.bib
-Warning--empty author and editor in iata2019guidance
-Warning--missing publisher in iata2019guidance
-You've used 4 entries,
-            3506 wiz_defined-function locations,
-            714 strings with 5554 characters,
-and the built_in function-call counts, 5433 in all, are:
-= -- 617
-> -- 52
-< -- 36
-+ -- 21
-- -- 10
-* -- 376
-:= -- 606
-add.period$ -- 14
-call.type$ -- 4
-change.case$ -- 2
-chr.to.int$ -- 81
-cite$ -- 6
-duplicate$ -- 542
-empty$ -- 515
-format.name$ -- 12
-if$ -- 1289
-int.to.chr$ -- 0
-int.to.str$ -- 4
-missing$ -- 35
-newline$ -- 22
-num.names$ -- 4
-pop$ -- 108
+Warning--empty booktitle in Alahi2016
+Warning--empty booktitle in iata2019guidance
+Warning--empty booktitle in Bennett1991
+Warning--empty booktitle in Chen2011
+Warning--empty booktitle in Feng2018
+Warning--empty booktitle in HowDoUGoWhere
+Warning--empty booktitle in DatasetAGR
+Warning--empty booktitle in Vaswani2017
+Warning--empty booktitle in AGRPoseEstimation
+Warning--empty booktitle in HybridDatasetAGRV1
+Warning--empty booktitle in AAREKF
+You've used 27 entries,
+            2773 wiz_defined-function locations,
+            795 strings with 11249 characters,
+and the built_in function-call counts, 13469 in all, are:
+= -- 1129
+> -- 1031
+< -- 11
++ -- 345
+- -- 318
+* -- 1163
+:= -- 2175
+add.period$ -- 115
+call.type$ -- 27
+change.case$ -- 187
+chr.to.int$ -- 27
+cite$ -- 65
+duplicate$ -- 568
+empty$ -- 952
+format.name$ -- 351
+if$ -- 2749
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 27
+newline$ -- 177
+num.names$ -- 108
+pop$ -- 370
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 160
 quote$ -- 0
-skip$ -- 78
+skip$ -- 452
 stack$ -- 0
-substring$ -- 812
-swap$ -- 90
-text.length$ -- 12
+substring$ -- 122
+swap$ -- 34
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
-warning$ -- 2
-while$ -- 33
-width$ -- 5
-write$ -- 44
-(There were 2 warnings)
+type$ -- 292
+warning$ -- 11
+while$ -- 86
+width$ -- 0
+write$ -- 408
+(There were 11 warnings)

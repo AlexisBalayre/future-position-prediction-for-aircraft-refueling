@@ -74,7 +74,6 @@
 \makeatletter % Reference list option change to number and period
 \renewcommand\@biblabel[1]{#1.} % from [1] to 1
 \makeatother %
-\setcitestyle{numbers} % use round citations
 
 \begin{document}
 
@@ -121,9 +120,24 @@ The author would like to thank \dots
 
 % The list of abbreviations can't be automatically generated so you need to populate it yourself
 \begin{listofabbreviations}
-    \abbrev{SATM}{School of Aerospace, Technology and Manufacturing}
-    \abbrev{SEEA}{School of Energy, Environment and Agrifoods}
-    \abbrev{CDS}{Cranfield Defence and Security}
+    \abbrev{ML}{Machine Learning}
+    \abbrev{DL}{Deep Learning}
+    \abbrev{AI}{Artificial Intelligence}
+    \abbrev{CNN}{Convolutional Neural Network}
+    \abbrev{RNN}{Recurrent Neural Network}
+    \abbrev{LSTM}{Long Short-Term Memory}
+    \abbrev{GRU}{Gated Recurrent Unit}
+    \abbrev{EKF}{Extended Kalman Filter}
+    \abbrev{AAGR}{Autonomous Aircraft Ground Refueling}
+    \abbrev{AGR}{Aircraft Ground Refueling}
+    \abbrev{UAV}{Unmanned Aerial Vehicle}
+    \abbrev{AAR}{Autonomous Aerial Refueling}
+    \abbrev{DGPS}{Differential Global Positioning System}
+    \abbrev{SVM}{Support Vector Machine}
+    \abbrev{HOG}{Histogram of Oriented Gradients}
+    \abbrev{SOTA}{State-of-the-Art}
+    \abbrev{AIS}{Automatic Identification System}
+    \abbrev{GPS}{Global Positioning System}
 \end{listofabbreviations}
 
 %% Main Matter
@@ -134,8 +148,9 @@ The author would like to thank \dots
 \fancyhead[L]{\nouppercase{\leftmark}}
 \fancyhead[R]{\nouppercase{\rightmark}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}
-
 Ground pressure refuelling is a standard method used to refuel commercial
 aircraft safely and efficiently. This process involves using a hydrant system,
 which consists of underground fuel pipelines connected to a network of fuel
@@ -208,48 +223,334 @@ reducing computing power requirements. The proposed framework has the potential
 to be applied in various scenarios, such as different lighting conditions,
 angles and orientations of refuelling ports, making it a versatile and
 effective solution to the challenges of automated refuelling systems.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% LITERATURE REVIEW %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Literature Review}
 \section{Automated Refulling Systems in the Aviation Industry}
-\subsection{Introduction to Automated Refuelling}
+\subsection{Introduction to Automated Refuelling Systems}
+Automated refueling systems have gained substantial importance in the aviation
+industry due to their potential to enhance safety and efficiency. The concept
+of Autonomous Aircraft Ground Refueling (AAGR) emerged in the 1980s, with
+initial implementations featuring numbered markers near refueling ports to aid
+in image processing and robotic automation~\cite{Schultz1986, Bennett1991,
+    DatasetAGR}.
 
-\subsection{Current Technologies and Methods}
+These systems streamline the refuelling process by using state-of-the-art
+mechanisms and technologies to ensure accuracy and speed. A key element is the
+pressurised fuel adaptor, which connects seamlessly to the aircraft
+~\cite{HybridDatasetAGRV2}. Methods such as `PosEst' have been proposed to
+capture and track objects in 3D, with the aim of increasing the safety and
+efficiency of refuelling tasks through autonomous systems
+~\cite{AGRPoseEstimation}.
+
+In addition, autonomous in-flight refuelling technologies for Unmanned Aerial
+Vehicles (UAV-AARs) have also been developed to extend their range, endurance
+and payload capacity without significantly altering their original design. This
+technology overcomes limitations in fuel capacity and endurance, enabling UAVs
+to undertake longer missions~\cite{AARBinocularVision}.
 
 \subsection{Challenges in Automated Refuelling}
+The implementation of AAGR presents a number of challenges, including varying
+lighting conditions, different refuelling port designs and potential
+obstructions. Confidentiality issues associated with aircraft refuelling data,
+as well as the lack of standardised workflows, also complicate the deployment
+of advanced AAGR solutions, based on~\cite{DatasetAGR} data.
 
-\subsection{Role of Computer Vision in Automated Refuelling}
+Accurately detecting and estimating the position of the fuelling adaptor is a
+major hurdle. Current methods that rely on artificial features often encounter
+occlusions and suffer from reduced reliability due to a low signal-to-noise
+ratio, particularly over long distances~\cite{AGRPoseEstimation}. Variability
+in lighting, weather conditions and the physical state of the refuelling
+adapter further complicates detection and
+localisation~\cite{HybridDatasetAGRV1}. Vision-based systems must operate in
+real time and with minimal computational load, adding a new layer of
+complexity.
+
+The development of high-quality data sets for training and monitoring automated
+refuelling systems is another major challenge. Collecting and processing these
+datasets is often time-consuming and requires meticulous
+configuration~\cite{HybridDatasetAGRV2}.
+
+\subsection{Current Technologies and Methods}
+Visual measurement methods based on artificial features, such as spray marks or
+LEDs, are commonly used in today's automated refuelling systems. The VisNav
+system, developed by Valsek, uses light-emitting diodes emitting at different
+frequencies to locate the centre of a beacon, employing a Gaussian least
+squares differential correction algorithm to calculate the position of
+the~\cite{AGRPoseEstimation} refuelling adaptor. Despite the advantages of
+these methods, they remain sensitive to occlusion and low signal-to-noise
+ratios at long distances.
+
+Recent advances in Automatic Aircraft Ground Refuelling (AAGR) rely on computer
+vision, artificial intelligence and robotics to achieve high levels of
+automation. The integration of these technologies with Big Data has
+significantly improved the feasibility and accuracy of AAGR systems thanks to
+the creation of large datasets for training and validation. For example, an
+Aircraft Ground Refuelling (AGR) dataset comprising more than 3,000 images from
+13 databases was expanded to more than 26,000 images after augmentation,
+enabling AGR scene recognition through image mining, augmentation and
+classification~\cite{DatasetAGR}. In addition, recent innovations have
+introduced hybrid datasets combining real and synthetic data for training and
+validating~\cite{HybridDatasetAGRV1} systems. This approach offers a wide range
+of scenarios and conditions, improving the robustness and accuracy of automated
+refuelling systems.
+
+Furthermore, in the field of autonomous aerial refuelling, current technologies
+rely mainly on vision-based systems and sophisticated control algorithms. These
+methods use a variety of sensors, including monocular and binocular cameras, to
+detect and track drugs and refuelling probes.~\citet{AARCNN} demonstrated the
+feasibility of real-time drug recognition and 3D localisation for autonomous
+aerial drone refuelling using monocular computer vision. In
+addition,~\citet{Chen2011} explored the application of 3D flash lidar for drug
+tracking~\cite{AARCNN}. The probe and drogue refuelling system involves the
+refuelling aircraft towing a refuelling hose with a drogue at the end, while
+the pilot of the receiving aircraft manoeuvres to insert the probe into the
+drogue. For unmanned aerial refuelling, this process is carried out
+autonomously. Although DGPS offers high location accuracy, it faces challenges
+such as lock-in problems and low bandwidth in air-to-air refuelling
+applications~\cite{AAREKF}.
 
 \subsection{Future Directions and Innovations}
+Future progress in AAGR will depend on systematic research and improvements in
+training processes and classifier design. One promising approach is to use
+image style transformation technologies based on generative models to simulate
+changes in real-world visual conditions such as weather, lighting and camera
+angles~\cite{DatasetAGR}. However, these technologies need to be refined to
+become specific to aircraft ground refuelling scenarios.
 
-\newpage
+Expanding the training datasets to encompass various aircraft models and
+exploring alternative filtering methods to reduce system delays are also key to
+future improvements. Ongoing technological developments are expected to
+minimise human intervention in refuelling tasks, paving the way for more
+efficient and accurate autonomous systems~\cite{AGRPoseEstimation}.
+
+Validation of the results using other measurement methods, such as laser
+trackers, and testing of the systems developed on passenger aircraft under real
+conditions are essential steps. This research aims to ensure the reliability
+and applicability of automated refuelling systems in operational
+environments~\cite{HybridDatasetAGRV1}.
+
+Advances in computer vision algorithms and hardware will be key to improving
+the accuracy and reliability of position measurements. Innovations in sensor
+fusion, combining data from various sources such as vision systems and
+Differential Global Positioning Systems (DGPS), could lead to more robust
+solutions. Improved real-time image processing capabilities and sophisticated
+filtering techniques, such as the Extended Kalman Filter (EKF), are likely to
+play a key role in the evolution of autonomous aerial refuelling
+technologies~\cite{AAREKF}.
+
+Further integration of advanced computer vision techniques and machine learning
+algorithms can significantly improve the accuracy and reliability of the
+refuelling process. The development of more sophisticated synthetic datasets
+that simulate a wider range of conditions and scenarios will improve the
+system's ability to handle real-world variations and
+anomalies~\cite{HybridDatasetAGRV2}.
+
+By continually refining these systems, the aviation industry is one step closer
+to achieving fully autonomous and highly efficient refuelling operations,
+marking an important milestone in intelligent airport operations and advances
+in aviation safety.
+
 \section{Object Detection and Tracking in Computer Vision}
 \subsection{Fundamentals of Object Detection}
+Object detection is an essential task in computer vision, involving the
+identification and location of instances of specific classes (e.g. humans,
+animals, vehicles) in digital images. The aim is to develop algorithms capable
+of accurately and efficiently determining the presence and location of these
+objects. Key performance metrics for object detection include classification
+accuracy, location accuracy and processing speed~\cite{SurveyODIn20Years}. This
+fundamental technology underpins a range of applications such as autonomous
+vehicles, surveillance systems and robotics.
 
 \subsection{Techniques and Algorithms for Object Detection}
+The rapid development of deep learning has led to substantial advances in
+object detection, propelling it to the forefront of computer vision research.
+Object detection is an integral part of many other tasks such as instance
+segmentation, image captioning and object tracking~\cite{SurveyODIn20Years}.
+
+Traditional object detection methods include techniques such as edge detection,
+shape matching, Haar cascades, histogram of oriented gradients (HOG) and
+support vector machines (SVM). Modern approaches are based on deep learning
+models such as convolutional neural networks (CNNs), region-based CNNs (R-CNNs)
+and the `You Only Look Once' (YOLO) method. These advanced techniques have
+significantly improved detection accuracy and enabled real-time performance.
+
+In specific applications such as autonomous aerial refuelling, new methods such
+as the one proposed in~\citet{AAREKF} use monocular vision to estimate relative
+positions. This approach calculates coordinates by recognising beacons on the
+drogue, using image processing techniques and the Extended Kalman Filter (EKF)
+to improve robustness and increase detection frequency~\cite{AAREKF}.
 
 \subsection{Challenges in Object Detection and Tracking}
+Despite significant progress, object detection still faces several major
+challenges:
+
+\begin{itemize}
+    \item \textbf{Intra-class Variation:} Variations within the same object class due to factors like occlusion, lighting, pose, and viewpoint can significantly affect appearance, complicating accurate detection.
+    \item \textbf{Efficiency:} Accurate detection models often require significant computational resources. As mobile and peripheral devices become more common, there is a pressing need for efficient object detectors~\cite{SurveyModernODModels}.
+    \item \textbf{Environmental Factors:} Varying lighting conditions, weather, and high-speed object movements further complicate detection and tracking. In applications like autonomous air refuelling, maintaining high precision during the docking phase is particularly critical~\cite{AAREKF}.
+\end{itemize}
 
 \subsection{Applications in the Aviation Industry}
 
-\subsection{Recent Advances and Future Trends}
+Object detection and tracking are essential in the aviation industry to improve
+the safety and efficiency of various operations.
 
-\newpage
+For example, the paper of~\citet{AAREKF} details its application to autonomous
+aerial refuelling (AAR) of unmanned aircraft. Using a monocular vision system
+supplemented by the EKF, the method ensures accurate measurements of the
+relative position between the receiver and the tanker aircraft during docking,
+enabling successful autonomous refuelling operations~\cite{AAREKF}.
+
+In addition, the paper of~\citet{AARCNN} presents a real-time method for drug
+detection in autonomous PD-UAV-AAR refuelling. Based on the Caffe deep learning
+framework with CNNs, this approach achieves high accuracy and robustness
+without depending on artificial features, making it suitable for complex
+aeronautical environments~\cite{AARCNN}.
+
+\subsection{Recent Advances and Future Trends}
+The field of object detection has seen rapid advances, particularly with the
+proliferation of improved deep learning models. A comprehensive overview of
+these advances is provided in the review work presented
+in~\cite{SurveyModernODModels}.
+
+Recent innovations include the integration of deep learning techniques, which
+notably improve accuracy and robustness. The adoption of extended Kalman
+filters, as shown in the paper of~\citet{AAREKF}, improves the reliability of
+vision-based systems under dynamic conditions. Future trends may involve the
+development of more sophisticated algorithms and sensors to further refine
+detection and tracking performance.
+
+In summary, continued advances in deep learning and related technologies
+promise to address existing challenges, improving the capabilities of object
+detection systems for a variety of critical applications, including those in
+the aerospace industry. 
+
 \section{Deep Learning for Time-Series Prediction}
 \subsection{Deep Learning Models for Time-Series Prediction}
-\subsection{Long Short-Term Memory (LSTM) Networks}
-\subsection{Recurrent Neural Networks (RNN)}
-\subsection{Transformer Models}
-\subsection{Applications in Predictive Modelling}
+Time series prediction involves processing sequential data to predict future
+events or values. Various deep learning models have been applied to this task,
+requiring several preparatory steps such as collecting data, designating
+attribute types, dealing with inconsistencies and storing datasets. These
+datasets are usually classified into units of time such as seconds, minutes and
+hours, allowing the construction of metadata for machine
+learning~\cite{FFPSpaceSystemVehicles}.
+
+The problem of locating future objects has been widely studied, particularly
+for static surveillance cameras, from a bird's-eye view. Early work used
+recurrent neural networks (RNNs), including long-term memory networks (LSTMs)
+and managed recurrent units (GRUs), in an encoder-decoder format to encode past
+observations and decode future locations. Additional inputs, such as
+environmental information and semantic actions, were used to improve prediction
+accuracy.~\citet{Alahi2016} proposed a Social-LSTM to model pedestrian
+trajectories and interactions, further improving global context capture through
+a social pooling module~\cite{FusionGRU}. Recent advances have taken advantage
+of generative models and attention mechanisms to handle complex scenes
+involving various interacting agents~\cite{FusionGRU}.
+
+The article of \citet{SpatioTemporalTransformerRecommender} discusses various
+deep learning models used to predict time series. In particular, the work
+by~\citet{Feng2018} uses attentional recurrent networks to predict human
+mobility~\cite{SpatioTemporalTransformerRecommender}. In addition, the paper
+highlights the use of BERT4Rec, which exploits bidirectional representations of
+transformer encoders for sequential recommendation
+tasks~\cite{SpatioTemporalTransformerRecommender}.
+
+Several models for predicting ship trajectories have been proposed. Anderson
+considered ship trajectories as a one-dimensional Gaussian process and
+predicted smoothed trajectories by combining the dynamics with joint prior
+density and covariance matrices.~\citet{Jiang} used a polynomial Kalman filter
+for recursive trajectory prediction with minimal memory
+usage.~\citet{Zhang2018} adopted a spatial clustering method for prediction,
+using the DBSCAN model to cluster and denoise the original AIS trajectories.
+Rong introduced a probabilistic model describing the uncertainty of future ship
+positions through continuous probability distributions, which achieved high
+prediction accuracy~\cite{WaterShipTrajectoryPrediction}.
+
+\subsection{Recurrent Neural Networks and Long Short-Term Memory Networks}
+Recurrent neural networks (RNNs), including long-term memory networks (LSTMs)
+and managed recurrent units (GRUs), have shown promise for predicting the
+future locations of traffic agents~\cite{FusionGRU}. However, many RNN-based
+models suffer from performance degradation over time due to their reliance on
+recurrent prediction of future bounding boxes from previous outputs. The
+Fusion-GRU model addresses these challenges by exploiting multiple sources of
+information, such as location scale data, monocular depth information and
+optical flow data. This approach improves representation learning by capturing
+the complex interactions between the various information cues, thereby
+improving the future localisation of traffic agents in congested and risky
+driving scenes~\cite{FusionGRU}.
+
+RNNs are powerful for processing sequence information and making time-based
+predictions. Hochreiter et al. improved the structure of the RNN unit,
+introducing the LSTM model to solve the problems of gradient fading, gradient
+explosion and insufficient information memory through a
+gating~\cite{WaterShipTrajectoryPrediction} mechanism. LSTMs make efficient use
+of long-range temporal information, which is useful in a variety of prediction
+tasks. However, BP neural networks and SVMs also exist for trajectory
+prediction, but have limitations such as weaker handling of non-linear problems
+and susceptibility to local extrema~\cite{WaterShipTrajectoryPrediction}.
+
+\subsection{Transformer models for sequence prediction}
+Recent research has used transform-based methods for estimating the future
+location of traffic~cite{FusionGRU} agents. Despite advances in deep learning
+for locating objects in typical driving scenarios, predicting locations in
+risky scenarios remains challenging due to abrupt changes in motion and
+interdependencies between successive images~\cite{FusionGRU}.
+
+The Transformer model, introduced by~\citet{Vaswani2017}, has revolutionised
+sequence modelling with its efficient and powerful network structure. For
+mobility prediction, Transformer models are increasingly recognised for
+addressing the challenges of predicting individual mobility patterns.
+The~\citet{HowDoUGoWhere} study shows how Transformers are tackling:
+
+\begin{itemize}
+    \item \textbf{Multiple Periodicities:} Individual location visitation patterns exhibit multiple periodicities (e.g., daily, weekly), which vary considerably across individuals. The multi-head self-attention mechanism in transformers allows the network to focus on multiple steps in the input sequence, effectively capturing these periodicities.
+    \item \textbf{Long-term Dependencies:} Human mobility depends on behaviors conducted days or weeks before. The design of the transformer model enables efficient learning of these long-term dependencies.
+\end{itemize}
+
+This study proposes a Transformer-based model that uses historical travel
+behaviour to predict individuals' next locations. The model learns mobility
+transition patterns from historical sequences of location, temporality and mode
+of travel, enabling it to achieve peak performance in next location prediction
+tasks.
+
+\begin{itemize}
+    \item \textbf{Joint Learning:} The model jointly learns the next location and the next travel mode, which improves the prediction performance for both tasks.
+    \item \textbf{Empirical Validation:} Extensive experiments on two real-world GPS tracking datasets show that considering additional aspects of travel behavior significantly increases the performance of next location prediction.
+\end{itemize}
+
+In summary, the transformer model's ability to capture complex spatio-temporal
+dependencies and long-term patterns makes it a powerful tool for sequence
+prediction tasks, including those in the domain of human mobility.
+
+\subsection{Applications in the Aviation Industry}
+
 \subsection{Challenges and Future Research Directions}
+Despite significant advances, several challenges persist in deep learning
+models for time series prediction. One of the main challenges is the
+performance degradation of RNN-based models over time, addressed by models such
+as Fusion-GRU, which exploit multiple data sources for better
+representation~\cite{FusionGRU}. Accurate prediction in risky driving
+scenarios, involving sudden or abrupt changes in motion, is still unresolved.
+Future research could focus on improving model robustness in these scenarios
+and integrating additional data sources to improve prediction
+accuracy~\cite{FusionGRU}.
+
+The article of~\citet{MLTechniqueFPP} identifies several challenges in location
+prediction using machine learning, highlighting the need for trajectory data
+quality and extensive pre-processing. Future research could incorporate
+semantic information to improve prediction accuracy, taking advantage of
+ensemble techniques and overcoming data limitations. The ensemble architecture
+recommended in the paper shows a significant reduction in mean distance error
+compared to reference models~\cite{MLTechniqueFPP}.
 
 %% Back matter
 %
 % This is where we include references and appendices
 
-\bibliographystyle{CranfieldNumbered.bst}
+\bibliographystyle{abbrvnat}
 \bibliography{LaTeX,CUCitations}
 
 \appendix

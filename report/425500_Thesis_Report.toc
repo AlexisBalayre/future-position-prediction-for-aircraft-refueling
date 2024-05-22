@@ -2,30 +2,28 @@
 \contentsline {chapter}{Abstract}{ii}{chapter*.1}%
 \contentsline {chapter}{Acknowledgements}{iii}{chapter*.2}%
 \contentsline {chapter}{Table of Contents}{iv}{chapter*.3}%
-\contentsline {chapter}{List of Figures}{vi}{chapter*.4}%
-\contentsline {chapter}{List of Tables}{vii}{chapter*.5}%
-\contentsline {chapter}{List of Abbreviations}{viii}{chapter*.6}%
+\contentsline {chapter}{List of Figures}{v}{chapter*.4}%
+\contentsline {chapter}{List of Tables}{vi}{chapter*.5}%
+\contentsline {chapter}{List of Abbreviations}{vii}{chapter*.6}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Literature Review}{3}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Automated Refulling Systems in the Aviation Industry}{3}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Introduction to Automated Refuelling}{3}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Current Technologies and Methods}{3}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Challenges in Automated Refuelling}{3}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Role of Computer Vision in Automated Refuelling}{3}{subsection.2.1.4}%
-\contentsline {subsection}{\numberline {2.1.5}Future Directions and Innovations}{3}{subsection.2.1.5}%
-\contentsline {section}{\numberline {2.2}Object Detection and Tracking in Computer Vision}{4}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Fundamentals of Object Detection}{4}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Techniques and Algorithms for Object Detection}{4}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Challenges in Object Detection and Tracking}{4}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.2.4}Applications in the Aviation Industry}{4}{subsection.2.2.4}%
-\contentsline {subsection}{\numberline {2.2.5}Recent Advances and Future Trends}{4}{subsection.2.2.5}%
-\contentsline {section}{\numberline {2.3}Deep Learning for Time-Series Prediction}{5}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Deep Learning Models for Time-Series Prediction}{5}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Long Short-Term Memory (LSTM) Networks}{5}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Recurrent Neural Networks (RNN)}{5}{subsection.2.3.3}%
-\contentsline {subsection}{\numberline {2.3.4}Transformer Models}{5}{subsection.2.3.4}%
-\contentsline {subsection}{\numberline {2.3.5}Applications in Predictive Modelling}{5}{subsection.2.3.5}%
-\contentsline {subsection}{\numberline {2.3.6}Challenges and Future Research Directions}{5}{subsection.2.3.6}%
-\contentsline {chapter}{References}{6}{chapter*.8}%
-\contentsline {chapter}{\numberline {A}Ethical Approval Letter}{7}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Extra Data}{8}{appendix.B}%
+\contentsline {subsection}{\numberline {2.1.1}Introduction to Automated Refuelling Systems}{3}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Challenges in Automated Refuelling}{3}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Current Technologies and Methods}{4}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Future Directions and Innovations}{4}{subsection.2.1.4}%
+\contentsline {section}{\numberline {2.2}Object Detection and Tracking in Computer Vision}{5}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Fundamentals of Object Detection}{5}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Techniques and Algorithms for Object Detection}{5}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Challenges in Object Detection and Tracking}{5}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Applications in the Aviation Industry}{6}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}Recent Advances and Future Trends}{6}{subsection.2.2.5}%
+\contentsline {section}{\numberline {2.3}Deep Learning for Time-Series Prediction}{6}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Deep Learning Models for Time-Series Prediction}{6}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Recurrent Neural Networks and Long Short-Term Memory Networks}{7}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Transformer models for sequence prediction}{7}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Applications in the Aviation Industry}{8}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Challenges and Future Research Directions}{8}{subsection.2.3.5}%
+\contentsline {chapter}{References}{9}{chapter*.8}%
+\contentsline {chapter}{\numberline {A}Ethical Approval Letter}{12}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Extra Data}{13}{appendix.B}%

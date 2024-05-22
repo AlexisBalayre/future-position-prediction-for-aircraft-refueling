@@ -1,35 +1,18 @@
-@inproceedings{Zhong2017,
-  abstract = {For autonomous air refueling (AAR) of unmanned aircraft, the measurement of relative position between receiver aircraft and tanker aircraft is critical in the docking phase. This paper proposes a monocular vision-based relative position estimation method, which calculates the location coordinate by recognizing the beacons on the drogue with image processing. To increase the robustness for rejecting air disturbance and improve output frequency of drogue detection, the extended Kalman filter is applied to this system for estimating the states. The EKF can provides position estimation of drogue in camera frame if the image detection failed because of disturbance. And the region of interest (ROI) can be estimated according to the predicted drogue position in pixel frame, which reduce the time of image processing significantly. In order to evaluate the performance of this machine vision strategy for AAR based on EKF, a simulation validation platform is established. The real relative position can be obtained on this platform, the comparison between real values and estimated values indicates that the EKF has a high accuracy on drogue position estimation, meanwhile, the ROI can track the drogue smoothly.},
-  author   = {Zhenwei Zhong and Dawei Li and Honglun Wang and Zikang Su},
-  doi      = {10.1109/IHMSC.2017.151},
-  journal  = {Proceedings - 9th International Conference on Intelligent Human-Machine Systems and Cybernetics, IHMSC 2017},
-  title    = {Drogue position and tracking with machine vision for autonomous air refueling based on EKF},
-  volume   = {2},
-  year     = {2017}
+@inproceedings{,
+  journal = {Aircraft Engineer},
+  month   = {4},
+  title   = {Aircraft refueling procedures},
+  url     = {https://www.aircraftengineer.info/aircraft-refueling-procedures},
+  year    = {2018}
 }
-@article{Zou2023,
-  abstract = {Object detection, as of one the most fundamental and challenging problems in computer vision, has received great attention in recent years. Over the past two decades, we have seen a rapid technological evolution of object detection and its profound impact on the entire computer vision field. If we consider today's object detection technique as a revolution driven by deep learning, then, back in the 1990s, we would see the ingenious thinking and long-term perspective design of early computer vision. This article extensively reviews this fast-moving research field in the light of technical evolution, spanning over a quarter-century's time (from the 1990s to 2022). A number of topics have been covered in this article, including the milestone detectors in history, detection datasets, metrics, fundamental building blocks of the detection system, speedup techniques, and recent state-of-the-art detection methods.},
-  author   = {Zhengxia Zou and Keyan Chen and Zhenwei Shi and Yuhong Guo and Jieping Ye},
-  doi      = {10.1109/JPROC.2023.3238524},
-  issn     = {15582256},
-  issue    = {3},
-  journal  = {Proceedings of the IEEE},
-  title    = {Object Detection in 20 Years: A Survey},
-  volume   = {111},
-  year     = {2023}
+@inproceedings{,
+  journal = {SKYbrary Aviation Safety},
+  month   = {5},
+  title   = {Refuelling with Passengers on Board},
+  url     = {https://www.skybrary.aero/index.php/Refuelling_with_Passengers_on_Board},
+  year    = {2019}
 }
-@article{Yang2011,
-  abstract = {The goal of this paper is to review the state-of-the-art progress on visual tracking methods, classify them into different categories, as well as identify future trends. Visual tracking is a fundamental task in many computer vision applications and has been well studied in the last decades. Although numerous approaches have been proposed, robust visual tracking remains a huge challenge. Difficulties in visual tracking can arise due to abrupt object motion, appearance pattern change, non-rigid object structures, occlusion and camera motion. In this paper, we first analyze the state-of-the-art feature descriptors which are used to represent the appearance of tracked objects. Then, we categorize the tracking progresses into three groups, provide detailed descriptions of representative methods in each group, and examine their positive and negative aspects. At last, we outline the future trends for visual tracking research. © 2011 Elsevier B.V.},
-  author   = {Hanxuan Yang and Ling Shao and Feng Zheng and Liang Wang and Zhan Song},
-  doi      = {10.1016/j.neucom.2011.07.024},
-  issn     = {18728286},
-  issue    = {18},
-  journal  = {Neurocomputing},
-  title    = {Recent advances and trends in visual tracking: A review},
-  volume   = {74},
-  year     = {2011}
-}
-@article{Gong2023,
+@article{AARBinocularVision,
   abstract = {In this paper, a visual navigation method based on binocular vision and a deep learning approach is proposed to solve the navigation problem of the unmanned aerial vehicle autonomous aerial refueling docking process. First, to meet the requirements of high accuracy and high frame rate in aerial refueling tasks, this paper proposes a single-stage lightweight drogue detection model, which greatly increases the inference speed of binocular images by introducing image alignment and depth-separable convolution and improves the feature extraction capability and scale adaptation performance of the model by using an efficient attention mechanism (ECA) and adaptive spatial feature fusion method (ASFF). Second, this paper proposes a novel method for estimating the pose of the drogue by spatial geometric modeling using optical markers, and further improves the accuracy and robustness of the algorithm by using visual reprojection. Moreover, this paper constructs a visual navigation vision simulation and semi-physical simulation experiments for the autonomous aerial refueling task, and the experimental results show the following: (1) the proposed drogue detection model has high accuracy and real-time performance, with a mean average precision (mAP) of 98.23% and a detection speed of 41.11 FPS in the embedded module; (2) the position estimation error of the proposed visual navigation algorithm is less than ±0.1 m, and the attitude estimation error of the pitch and yaw angle is less than ±0.5°; and (3) through comparison experiments with the existing advanced methods, the positioning accuracy of this method is improved by 1.18% compared with the current advanced methods.},
   author   = {Kun Gong and Bo Liu and Xin Xu and Yuelei Xu and Yakun He and Zhaoxiang Zhang and Jarhinbek Rasol},
   doi      = {10.3390/drones7070433},
@@ -40,155 +23,19 @@
   volume   = {7},
   year     = {2023}
 }
-@article{Oueslati2021,
-  abstract = {Currently, huge amount of data, resulting from the continuous tracking of moving objects, are collected, and stored in appropriate repositories. From these data trajectory data are generated and analyzed to produce knowledge useful for decision-making. Obviously, trajectory data sets need efficient and effective analysis and mining processes to infer mobility patterns and consequently constitute rich sources for many contributions such those related to predictions. Most of researches, presented in the literature, focus on tracking and predicting moving object positions, without taking into account their ever-changing contexts and their environmental impacts. Any environment surrounding any object is dynamic vs static and its influence goes beyond current state to the predicted ones. The aim of this paper is not only to propose a new approach to predict the future position of a moving object based on mobility patterns but also it takes into account the ever-evolving contexts and environments of the underlying objects. We experimented our approach on real case study datasets related to hurricanes’ activities. The proposed approach is performed in three phases. The first phase allows the generation of object mobility patterns. In the second phase, spatiotemporal mobility rules are extracted from the previously generated patterns. In the third and last phase, hurricane future position prediction is accomplished by using the extracted rules enhanced by context and environmental characteristics. The proposed model leads to a generic one representing facts and discovering knowledge through various applications including different mobile objects and their associated patterns, environmental and contexts.},
-  author   = {Wided Oueslati and Sonia Tahri and Hela Limam and Jalel Akaichi},
-  doi      = {10.1080/08839514.2021.1998299},
-  issn     = {10876545},
-  issue    = {15},
-  journal  = {Applied Artificial Intelligence},
-  title    = {A New Approach for Predicting the Future Position of a Moving Object: Hurricanes’ Case Study},
-  volume   = {35},
-  year     = {2021}
+
+@article{Zhang2018,
+  abstract = {Motivated by new technologies, such as Internet of Things, Big Data, Cloud Computing, data-driven based smart maritime related research is attracting more and more attention. With the establishment of China Automatic Identification System (AIS) Asia-Pacific Data Center and its network with IALA-Net, worldwide ship trajectory data is becoming increasingly available, thus providing plenty of materials for data-driven based smart maritime researches. This paper presents a novel approach to automatic maritime routing algorithm, given a set of ship trajectories, infer a routable road network by combining data-driven based algorithms, specially by focusing on: (i) After appropriate pre-processing, simplify AIS trajectory data using Douglas-Peucker algorithm, which can simplify AIS trajectory data by extracting characteristic points, in the meanwhile, compressing redundant information and improving subsequent processing efficiency. (ii) By setting similarity metric of characteristic points, cluster them using DBSCAN algorithm, consequently, deduce general behavior and spatial pattern of trajectories following the similar route. Also, the turning nodes of routes can be obtained in this step. Unlike past published works that focus on partitioned trajectory and require dense-sampling, trajectory point based method proposed in this paper has the merits of robustness to noise and disparity, low computational complexity and space complexity. (iii) Determine the connectivity of turning nodes according to ship trajectories. In this step, isolated turning nodes are linked together to form a coherent chain modeled as a directed graph. (iv) Given a starting location, infer the optimal route to the destination using Ant Colony Algorithm. By comparing the main route generated automatically and the macroscopic traffic flow situation, the result indicate that the method proposed in this paper is effective.},
+  author   = {Shu kai Zhang and Guo you Shi and Zheng jiang Liu and Zhi wei Zhao and Zhao lin Wu},
+  doi      = {10.1016/j.oceaneng.2018.02.060},
+  issn     = {00298018},
+  journal  = {Ocean Engineering},
+  title    = {Data-driven based automatic maritime routing from massive AIS trajectories in the face of disparity},
+  volume   = {155},
+  year     = {2018}
 }
-@article{Ficco2016,
-  abstract = {The interworking between cellular and wireless local area networks, as well as the spreading of mobile devices equipped with several positioning technologies pave the ground to new and more favorable indoor/outdoor location-based services (LBSs). Thus, wireless internet service providers are required to take several positioning methods into account at the same time, to leverage the different features of existing technologies. This would allow providing LBSs satisfying the user-required quality of position in terms of accuracy, privacy, power consumption, and often, conflicting features. Therefore, this paper presents GlobalPreLoc, a multi-objective strategy for the dynamic and optimal selection of positioning technologies. The strategy exploits a pattern-mining algorithm for future position prediction combined with conventional multi-objective evolutionary algorithms, for choosing continuously the best location providers, accounting for the user requirements, the terminal capabilities, and the surrounding positioning infrastructures. To practically implement the strategy, we also designed an architecture based on secure user plane location specification to provide indoor and outdoor LBSs in interworking wireless networks exploiting GlobalPreLoc features.},
-  author   = {Massimo Ficco and Roberto Pietrantuono and Stefano Russo},
-  doi      = {10.1007/s00500-015-1665-x},
-  issn     = {14337479},
-  issue    = {7},
-  journal  = {Soft Computing},
-  title    = {Using multi-objective metaheuristics for the optimal selection of positioning systems},
-  volume   = {20},
-  year     = {2016}
-}
-@inproceedings{Wang2008,
-  abstract = {The classical problem of anti-aircraft gun fire control is the accurate prediction of the future position of a given target at the time of projectile intercept. Current approaches of the future position prediction of target are separated into two general classes. One use only target state estimates (position, velocity, and perhaps acceleration) at the instant of firing, and is called "State-Based." The other assumes additional knowledge of the target's destination or attacking goal, and is called "Goal-Based." The two approaches are alterable in a manual way in the battles. In this paper, a intent-based future position prediction algorithm is proposed. We added the pilot's intent inference which decides the maneuver pattern of target in the special missions to the traditional future position predication algorithm. The two approaches can automatically switch without man's interference. And at last, the anti-aircraft defense capability of a military force is enhanced.},
-  author   = {Fujun Wang and Guangyuan Zhang and Zhensheng Wei},
-  journal  = {2nd International Symposium on Test Automation and Instrumentation, ISTAI 2008},
-  title    = {Intent-based future position prediction of target},
-  year     = {2008}
-}
-@article{Islam2022,
-  abstract = {Coasts and coastlines in many parts of the world are highly dynamic in nature, where large changes in the shoreline position can occur due to natural and anthropogenic influences. The prediction of future shoreline positions is of great importance in the better planning and management of coastal areas. With an aim to assess the different methods of prediction, this study investigates the performance of future shoreline position predictions by quantifying how prediction performance varies depending on the time depths of input historical shoreline data and the time horizons of predicted shorelines. Multi-temporal Landsat imagery, from 1988 to 2021, was used to quantify the rates of shoreline movement for different time period. Predictions using the simple extrapolation of the end point rate (EPR), linear regression rate (LRR), weighted linear regression rate (WLR), and the Kalman filter method were used to predict future shoreline positions. Root mean square error (RMSE) was used to assess prediction accuracies. For time depth, our results revealed that the higher the number of shorelines used in calculating and predicting shoreline change rates the better predictive performance was yielded. For the time horizon, prediction accuracies were substantially higher for the immediate future years (138 m/year) compared to the more distant future (152 m/year). Our results also demonstrated that the forecast performance varied temporally and spatially by time period and region. Though the study area is located in coastal Bangladesh, this study has the potential for forecasting applications to other deltas and vulnerable shorelines globally.},
-  author   = {Md Sariful Islam and Thomas W. Crawford},
-  doi      = {10.3390/rs14246364},
-  issn     = {20724292},
-  issue    = {24},
-  journal  = {Remote Sensing},
-  title    = {Assessment of Spatio-Temporal Empirical Forecasting Performance of Future Shoreline Positions},
-  volume   = {14},
-  year     = {2022}
-}
-@article{Liu2020,
-  abstract = {Object detection, one of the most fundamental and challenging problems in computer vision, seeks to locate object instances from a large number of predefined categories in natural images. Deep learning techniques have emerged as a powerful strategy for learning feature representations directly from data and have led to remarkable breakthroughs in the field of generic object detection. Given this period of rapid evolution, the goal of this paper is to provide a comprehensive survey of the recent achievements in this field brought about by deep learning techniques. More than 300 research contributions are included in this survey, covering many aspects of generic object detection: detection frameworks, object feature representation, object proposal generation, context modeling, training strategies, and evaluation metrics. We finish the survey by identifying promising directions for future research.},
-  author   = {Li Liu and Wanli Ouyang and Xiaogang Wang and Paul Fieguth and Jie Chen and Xinwang Liu and Matti Pietikäinen},
-  doi      = {10.1007/s11263-019-01247-4},
-  issn     = {15731405},
-  issue    = {2},
-  journal  = {International Journal of Computer Vision},
-  title    = {Deep Learning for Generic Object Detection: A Survey},
-  volume   = {128},
-  year     = {2020}
-}
-@misc{Zhao2019,
-  abstract = {Due to object detection's close relationship with video analysis and image understanding, it has attracted much research attention in recent years. Traditional object detection methods are built on handcrafted features and shallow trainable architectures. Their performance easily stagnates by constructing complex ensembles that combine multiple low-level image features with high-level context from object detectors and scene classifiers. With the rapid development in deep learning, more powerful tools, which are able to learn semantic, high-level, deeper features, are introduced to address the problems existing in traditional architectures. These models behave differently in network architecture, training strategy, and optimization function. In this paper, we provide a review of deep learning-based object detection frameworks. Our review begins with a brief introduction on the history of deep learning and its representative tool, namely, the convolutional neural network. Then, we focus on typical generic object detection architectures along with some modifications and useful tricks to improve detection performance further. As distinct specific detection tasks exhibit different characteristics, we also briefly survey several specific tasks, including salient object detection, face detection, and pedestrian detection. Experimental analyses are also provided to compare various methods and draw some meaningful conclusions. Finally, several promising directions and tasks are provided to serve as guidelines for future work in both object detection and relevant neural network-based learning systems.},
-  author   = {Zhong Qiu Zhao and Peng Zheng and Shou Tao Xu and Xindong Wu},
-  doi      = {10.1109/TNNLS.2018.2876865},
-  issn     = {21622388},
-  issue    = {11},
-  journal  = {IEEE Transactions on Neural Networks and Learning Systems},
-  title    = {Object Detection with Deep Learning: A Review},
-  volume   = {30},
-  year     = {2019}
-}
-@article{Jiao2019,
-  abstract = {Object detection is one of the most important and challenging branches of computer vision, which has been widely applied in people's life, such as monitoring security, autonomous driving and so on, with the purpose of locating instances of semantic objects of a certain class. With the rapid development of deep learning algorithms for detection tasks, the performance of object detectors has been greatly improved. In order to understand the main development status of object detection pipeline thoroughly and deeply, in this survey, we analyze the methods of existing typical detection models and describe the benchmark datasets at first. Afterwards and primarily, we provide a comprehensive overview of a variety of object detection methods in a systematic manner, covering the one-stage and two-stage detectors. Moreover, we list the traditional and new applications. Some representative branches of object detection are analyzed as well. Finally, we discuss the architecture of exploiting these object detection methods to build an effective and efficient system and point out a set of development trends to better follow the state-of-the-art algorithms and further research.},
-  author   = {Licheng Jiao and Fan Zhang and Fang Liu and Shuyuan Yang and Lingling Li and Zhixi Feng and Rong Qu},
-  doi      = {10.1109/ACCESS.2019.2939201},
-  issn     = {21693536},
-  journal  = {IEEE Access},
-  title    = {A survey of deep learning-based object detection},
-  volume   = {7},
-  year     = {2019}
-}
-@article{Diwan2023,
-  abstract = {Object detection is one of the predominant and challenging problems in computer vision. Over the decade, with the expeditious evolution of deep learning, researchers have extensively experimented and contributed in the performance enhancement of object detection and related tasks such as object classification, localization, and segmentation using underlying deep models. Broadly, object detectors are classified into two categories viz. two stage and single stage object detectors. Two stage detectors mainly focus on selective region proposals strategy via complex architecture; however, single stage detectors focus on all the spatial region proposals for the possible detection of objects via relatively simpler architecture in one shot. Performance of any object detector is evaluated through detection accuracy and inference time. Generally, the detection accuracy of two stage detectors outperforms single stage object detectors. However, the inference time of single stage detectors is better compared to its counterparts. Moreover, with the advent of YOLO (You Only Look Once) and its architectural successors, the detection accuracy is improving significantly and sometime it is better than two stage detectors. YOLOs are adopted in various applications majorly due to their faster inferences rather than considering detection accuracy. As an example, detection accuracies are 63.4 and 70 for YOLO and Fast-RCNN respectively, however, inference time is around 300 times faster in case of YOLO. In this paper, we present a comprehensive review of single stage object detectors specially YOLOs, regression formulation, their architecture advancements, and performance statistics. Moreover, we summarize the comparative illustration between two stage and single stage object detectors, among different versions of YOLOs, applications based on two stage detectors, and different versions of YOLOs along with the future research directions.},
-  author   = {Tausif Diwan and G. Anirudh and Jitendra V. Tembhurne},
-  doi      = {10.1007/s11042-022-13644-y},
-  issn     = {15737721},
-  issue    = {6},
-  journal  = {Multimedia Tools and Applications},
-  title    = {Object detection using YOLO: challenges, architectural successors, datasets and applications},
-  volume   = {82},
-  year     = {2023}
-}
-@article{Wu2020,
-  abstract = {Object detection is a fundamental visual recognition problem in computer vision and has been widely studied in the past decades. Visual object detection aims to find objects of certain target classes with precise localization in a given image and assign each object instance a corresponding class label. Due to the tremendous successes of deep learning based image classification, object detection techniques using deep learning have been actively studied in recent years. In this paper, we give a comprehensive survey of recent advances in visual object detection with deep learning. By reviewing a large body of recent related work in literature, we systematically analyze the existing object detection frameworks and organize the survey into three major parts: (i) detection components, (ii) learning strategies, and (iii) applications & benchmarks. In the survey, we cover a variety of factors affecting the detection performance in detail, such as detector architectures, feature learning, proposal generation, sampling strategies, etc. Finally, we discuss several future directions to facilitate and spur future research for visual object detection with deep learning.},
-  author   = {Xiongwei Wu and Doyen Sahoo and Steven C.H. Hoi},
-  doi      = {10.1016/j.neucom.2020.01.085},
-  issn     = {18728286},
-  journal  = {Neurocomputing},
-  title    = {Recent advances in deep learning for object detection},
-  volume   = {396},
-  year     = {2020}
-}
-@article{Ren2017,
-  abstract = {State-of-the-art object detection networks depend on region proposal algorithms to hypothesize object locations. Advances like SPPnet [1] and Fast R-CNN [2] have reduced the running time of these detection networks, exposing region proposal computation as a bottleneck. In this work, we introduce a Region Proposal Network (RPN) that shares full-image convolutional features with the detection network, thus enabling nearly cost-free region proposals. An RPN is a fully convolutional network that simultaneously predicts object bounds and objectness scores at each position. The RPN is trained end-to-end to generate high-quality region proposals, which are used by Fast R-CNN for detection. We further merge RPN and Fast R-CNN into a single network by sharing their convolutional features - using the recently popular terminology of neural networks with 'attention' mechanisms, the RPN component tells the unified network where to look. For the very deep VGG-16 model [3], our detection system has a frame rate of 5 fps (including all steps) on a GPU, while achieving state-of-the-art object detection accuracy on PASCAL VOC 2007, 2012, and MS COCO datasets with only 300 proposals per image. In ILSVRC and COCO 2015 competitions, Faster R-CNN and RPN are the foundations of the 1st-place winning entries in several tracks. Code has been made publicly available.},
-  author   = {Shaoqing Ren and Kaiming He and Ross Girshick and Jian Sun},
-  doi      = {10.1109/TPAMI.2016.2577031},
-  issn     = {01628828},
-  issue    = {6},
-  journal  = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  title    = {Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks},
-  volume   = {39},
-  year     = {2017}
-}
-@article{Kaur2022,
-  abstract = {Object detection is one of the most fundamental and challenging tasks to locate objects in images and videos. Over the past, it has gained much attention to do more research on computer vision tasks such as object classification, counting of objects, and object monitoring. This study provides a detailed literature review focusing on object detection and discusses the object detection techniques. A systematic review has been followed to summarize the current research work’s findings and discuss seven research questions related to object detection. Our contribution to the current research work is (i) analysis of traditional, two-stage, one-stage object detection techniques, (ii) Dataset preparation and available standard dataset, (iii) Annotation tools, and (iv) performance evaluation metrics. In addition, a comparative analysis has been performed and analyzed that the proposed techniques are different in their architecture, optimization function, and training strategies. With the remarkable success of deep neural networks in object detection, the performance of the detectors has improved. Various research challenges and future directions for object detection also has been discussed in this research paper.},
-  author   = {Jaskirat Kaur and Williamjeet Singh},
-  doi      = {10.1007/s11042-022-13153-y},
-  issn     = {15737721},
-  issue    = {27},
-  journal  = {Multimedia Tools and Applications},
-  title    = {Tools, techniques, datasets and application areas for object detection in an image: a review},
-  volume   = {81},
-  year     = {2022}
-}
-@article{Huang2023,
-  abstract = {Labeling data is often expensive and time-consuming, especially for tasks such as object detection and instance segmentation, which require dense labeling of the image. While few-shot object detection is about training a model on novel (unseen) object classes with little data, it still requires prior training on many labeled examples of base (seen) classes. On the other hand, self-supervised methods aim at learning representations from unlabeled data which transfer well to downstream tasks such as object detection. Combining few-shot and self-supervised object detection is a promising research direction. In this survey, we review and characterize the most recent approaches on few-shot and self-supervised object detection. Then, we give our main takeaways and discuss future research directions. Project page: https://gabrielhuang.github.io/fsod-survey/.},
-  author   = {Gabriel Huang and Issam Laradji and David Vazquez and Simon Lacoste-Julien and Pau Rodriguez},
-  doi      = {10.1109/TPAMI.2022.3199617},
-  issn     = {19393539},
-  issue    = {4},
-  journal  = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  title    = {A Survey of Self-Supervised and Few-Shot Object Detection},
-  volume   = {45},
-  year     = {2023}
-}
-@article{Cheng2023,
-  abstract = {With the rise of deep convolutional neural networks, object detection has achieved prominent advances in past years. However, such prosperity could not camouflage the unsatisfactory situation of Small Object Detection (SOD), one of the notoriously challenging tasks in computer vision, owing to the poor visual appearance and noisy representation caused by the intrinsic structure of small targets. In addition, large-scale dataset for benchmarking small object detection methods remains a bottleneck. In this paper, we first conduct a thorough review of small object detection. Then, to catalyze the development of SOD, we construct two large-scale Small Object Detection dAtasets (SODA), SODA-D and SODA-A, which focus on the Driving and Aerial scenarios respectively. SODA-D includes 24828 high-quality traffic images and 278433 instances of nine categories. For SODA-A, we harvest 2513 high resolution aerial images and annotate 872069 instances over nine classes. The proposed datasets, as we know, are the first-ever attempt to large-scale benchmarks with a vast collection of exhaustively annotated instances tailored for multi-category SOD. Finally, we evaluate the performance of mainstream methods on SODA. We expect the released benchmarks could facilitate the development of SOD and spawn more breakthroughs in this field.},
-  author   = {Gong Cheng and Xiang Yuan and Xiwen Yao and Kebing Yan and Qinghua Zeng and Xingxing Xie and Junwei Han},
-  doi      = {10.1109/TPAMI.2023.3290594},
-  issn     = {19393539},
-  issue    = {11},
-  journal  = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  title    = {Towards Large-Scale Small Object Detection: Survey and Benchmarks},
-  volume   = {45},
-  year     = {2023}
-}
-@article{Lou2023,
-  abstract = {Traditional camera sensors rely on human eyes for observation. However, human eyes are prone to fatigue when observing objects of different sizes for a long time in complex scenes, and human cognition is limited, which often leads to judgment errors and greatly reduces efficiency. Object recognition technology is an important technology used to judge the object’s category on a camera sensor. In order to solve this problem, a small-size object detection algorithm for special scenarios was proposed in this paper. The advantage of this algorithm is that it not only has higher precision for small-size object detection but also can ensure that the detection accuracy for each size is not lower than that of the existing algorithm. There are three main innovations in this paper, as follows: (1) A new downsampling method which could better preserve the context feature information is proposed. (2) The feature fusion network is improved to effectively combine shallow information and deep information. (3) A new network structure is proposed to effectively improve the detection accuracy of the model. From the point of view of detection accuracy, it is better than YOLOX, YOLOR, YOLOv3, scaled YOLOv5, YOLOv7-Tiny, and YOLOv8. Three authoritative public datasets are used in these experiments: (a) In the Visdron dataset (small-size objects), the map, precision, and recall ratios of DC-YOLOv8 are 2.5%, 1.9%, and 2.1% higher than those of YOLOv8s, respectively. (b) On the Tinyperson dataset (minimal-size objects), the map, precision, and recall ratios of DC-YOLOv8 are 1%, 0.2%, and 1.2% higher than those of YOLOv8s, respectively. (c) On the PASCAL VOC2007 dataset (normal-size objects), the map, precision, and recall ratios of DC-YOLOv8 are 0.5%, 0.3%, and 0.4% higher than those of YOLOv8s, respectively.},
-  author   = {Haitong Lou and Xuehu Duan and Junmei Guo and Haiying Liu and Jason Gu and Lingyun Bi and Haonan Chen},
-  doi      = {10.3390/electronics12102323},
-  issn     = {20799292},
-  issue    = {10},
-  journal  = {Electronics (Switzerland)},
-  title    = {DC-YOLOv8: Small-Size Object Detection Algorithm Based on Camera Sensor},
-  volume   = {12},
-  year     = {2023}
-}
-@article{Wang2017,
+
+@article{AARCNN,
   abstract = {Drogue detection is a fundamental issue during the close docking phase of autonomous aerial refueling (AAR). To cope with this issue, a novel and effective method based on deep learning with convolutional neural networks (CNNs) is proposed. In order to ensure its robustness and wide application, a deep learning dataset of images was prepared by utilizing real data of “Probe and Drogue” aerial refueling, which contains diverse drogues in various environmental conditions without artificial features placed on the drogues. By employing deep learning ideas and graphics processing units (GPUs), a model for drogue detection using a Caffe deep learning framework with CNNs was designed to ensure the method's accuracy and real-time performance. Experiments were conducted to demonstrate the effectiveness of the proposed method, and results based on real AAR data compare its performance to other methods, validating the accuracy, speed, and robustness of its drogue detection ability.},
   author   = {Xufeng Wang and Xinmin Dong and Xingwei Kong and Jianmin Li and Bo Zhang},
   doi      = {10.1016/j.cja.2016.12.022},
@@ -198,6 +45,57 @@
   title    = {Drogue detection for autonomous aerial refueling based on convolutional neural networks},
   volume   = {30},
   year     = {2017}
+}
+
+@article{Jiang,
+  author  = {Jiang, Baichen and Guan, Jian and Zhou, Wei and Chen, Xiaolong},
+  doi     = {10.16798/j.issn.1003-0530.2019.05.002},
+  journal = {Journal of Signal Processing},
+  month   = {08},
+  pages   = {741-746},
+  title   = {Vessel Trajectory Prediction Algorithm Based on Polynomial Fitting Kalman Filtering},
+  volume  = {5},
+  year    = {2019}
+}
+
+@inproceedings{AAREKF,
+  abstract = {For autonomous air refueling (AAR) of unmanned aircraft, the measurement of relative position between receiver aircraft and tanker aircraft is critical in the docking phase. This paper proposes a monocular vision-based relative position estimation method, which calculates the location coordinate by recognizing the beacons on the drogue with image processing. To increase the robustness for rejecting air disturbance and improve output frequency of drogue detection, the extended Kalman filter is applied to this system for estimating the states. The EKF can provides position estimation of drogue in camera frame if the image detection failed because of disturbance. And the region of interest (ROI) can be estimated according to the predicted drogue position in pixel frame, which reduce the time of image processing significantly. In order to evaluate the performance of this machine vision strategy for AAR based on EKF, a simulation validation platform is established. The real relative position can be obtained on this platform, the comparison between real values and estimated values indicates that the EKF has a high accuracy on drogue position estimation, meanwhile, the ROI can track the drogue smoothly.},
+  author   = {Zhenwei Zhong and Dawei Li and Honglun Wang and Zikang Su},
+  doi      = {10.1109/IHMSC.2017.151},
+  journal  = {Proceedings - 9th International Conference on Intelligent Human-Machine Systems and Cybernetics, IHMSC 2017},
+  title    = {Drogue position and tracking with machine vision for autonomous air refueling based on EKF},
+  volume   = {2},
+  year     = {2017}
+}
+
+@inproceedings{AGRPoseEstimation,
+  abstract = {3D visual servoing systems need to detect the object and its pose in order to perform. As a result accurate, fast object detection and pose estimation play a vital role. Most visual servoing methods use low-level object detection and pose estimation algorithms. However, many approaches detect objects in 2D RGB sequences for servoing, which lacks reliability when estimating the object's pose in 3D space. To cope with these problems, firstly, a joint feature extractor is employed to fuse the object's 2D RGB image and 3D point cloud data. At this point, a novel method called PosEst is proposed to exploit the correlation between 2D and 3D features. Here are the results of the custom model using test data; precision: 0,9756, recall: 0.9876, F1 Score(beta=1): 0.9815, F1 Score(beta=2): 0.9779. The method used in this study can be easily implemented to 3D grasping and 3D tracking problems to make the solutions faster and more accurate. In a period where electric vehicles and autonomous systems are gradually becoming a part of our lives, this study offers a safer, more efficient and more comfortable environment.},
+  author   = {Suleyman Yildirim and Zeeshan Rana and Gilbert Tang},
+  doi      = {10.1109/DASC52595.2021.9594312},
+  issn     = {21557209},
+  journal  = {AIAA/IEEE Digital Avionics Systems Conference - Proceedings},
+  title    = {Autonomous Ground Refuelling Approach for Civil Aircrafts using Computer Vision and Robotics},
+  volume   = {2021-October},
+  year     = {2021}
+}
+@inproceedings{Alahi2016,
+  abstract = {Pedestrians follow different trajectories to avoid obstacles and accommodate fellow pedestrians. Any autonomous vehicle navigating such a scene should be able to foresee the future positions of pedestrians and accordingly adjust its path to avoid collisions. This problem of trajectory prediction can be viewed as a sequence generation task, where we are interested in predicting the future trajectory of people based on their past positions. Following the recent success of Recurrent Neural Network (RNN) models for sequence prediction tasks, we propose an LSTM model which can learn general human movement and predict their future trajectories. This is in contrast to traditional approaches which use hand-crafted functions such as Social forces. We demonstrate the performance of our method on several public datasets. Our model outperforms state-of-the-art methods on some of these datasets. We also analyze the trajectories predicted by our model to demonstrate the motion behaviour learned by our model.},
+  author   = {Alexandre Alahi and Kratarth Goel and Vignesh Ramanathan and Alexandre Robicquet and Li Fei-Fei and Silvio Savarese},
+  doi      = {10.1109/CVPR.2016.110},
+  issn     = {10636919},
+  journal  = {Proceedings of the IEEE Computer Society Conference on Computer Vision and Pattern Recognition},
+  title    = {Social LSTM: Human trajectory prediction in crowded spaces},
+  volume   = {2016-December},
+  year     = {2016}
+}
+@inproceedings{Alemany2019,
+  abstract = {Hurricanes are cyclones circulating about a defined center whose closed wind speeds exceed 75 mph originating over tropical and subtropical waters. At landfall, hurricanes can result in severe disasters. The accuracy of predicting their trajectory paths is critical to reduce economic loss and save human lives. Given the complexity and nonlinearity of weather data, a recurrent neural network (RNN) could be beneficial in modeling hurricane behavior. We propose the application of a fully connected RNN to predict the trajectory of hurricanes. We employed the RNN over a fine grid to reduce typical truncation errors. We utilized their latitude, longitude, wind speed, and pressure publicly provided by the National Hurricane Center (NHC) to predict the trajectory of a hurricane at 6-hour intervals. Results show that this proposed technique is competitive to methods currently employed by the NHC and can predict up to approximately 120 hours of hurricane path.},
+  author   = {Sheila Alemany and Jonathan Beltran and Adrian Perez and Sam Ganzfried},
+  doi      = {10.1609/aaai.v33i01.3301468},
+  issn     = {2159-5399},
+  journal  = {33rd AAAI Conference on Artificial Intelligence, AAAI 2019, 31st Innovative Applications of Artificial Intelligence Conference, IAAI 2019 and the 9th AAAI Symposium on Educational Advances in Artificial Intelligence, EAAI 2019},
+  title    = {Predicting hurricane trajectories using a recurrent neural network},
+  year     = {2019}
 }
 @article{Bemporad2023,
   abstract = {This article investigates the use of extended Kalman filtering to train recurrent neural networks with rather general convex loss functions and regularization terms on the network parameters, including ℓ1-regularization. We show that the learning method is competitive with respect to stochastic gradient descent in a nonlinear system identification benchmark and in training a linear system with binary outputs. We also explore the use of the algorithm in data-driven nonlinear model predictive control and its relation with disturbance models for offset-free closed-loop tracking.},
@@ -210,6 +108,25 @@
   volume   = {68},
   year     = {2023}
 }
+@inproceedings{Bennett1991,
+  abstract = {The application of robotic technologies to aircraft servicing is addressed, specifically the concept of semi-autonomous ground-based robotic refueling. Recognition of the refueling port in realistic lighting conditions was mandatory. A brightness invariant port recognition system (BIPRS) which relies on edge detection, line merging, loop formation, and knowledge-driven recognition was developed and experimentally validated. The BIPRS identified the simulated refueling port in different lighting conditions and was invariant to port orientation and size. BIPRS development is discussed, and highlights of experimental validation are presented. The pattern recognition portion of the refueling task is clearly feasible with current technology.},
+  author   = {R. A. Bennett and Y. C. Shiu and M. B. Leahy},
+  doi      = {10.1109/robot.1991.131568},
+  journal  = {Proceedings - IEEE International Conference on Robotics and Automation},
+  title    = {A robust light invariant vision system for aircraft refueling},
+  volume   = {1},
+  year     = {1991}
+}
+@article{blakey2011aviation,
+  author  = {Blakey, S and Rye, L and Wilson, C W},
+  doi     = {10.1016/j.proci.2010.09.011},
+  journal = {Proceedings of the Combustion Institute},
+  number  = {2},
+  pages   = {2863--2885},
+  title   = {Aviation gas turbine alternative fuels: a review},
+  volume  = {33},
+  year    = {2011}
+}
 @article{Cai2023,
   abstract = {EKF (Extended Kalman Filter) is a non-linear state estimation algorithm based on the development of Kalman filtering technology. In SLAM (Simultaneous Localization and Mapping), EKF technology is widely used to realize robots' independent positioning and map construction. EKF technology mainly estimates the state of the robot by using the information provided by the sensor, and then realizes the robot's self-positioning and the environment's map. This paper uses EKF algorithm for testing, and analyses the simulation results, which compared with Kalman filtering technology, the main difference between the two is that EKF can handle non -linear dynamic systems. In SLAM, robots often detect environmental detection through sensors such as laser radar, camera, and then update the position and posture of the robot by the receiving sensor data. In this process, the EKF technology can perform non -linearity by sensor data by sensor data Transformation makes the state of the robot more accurately estimate. Specifically, Extended Kalman Filtering technology can be divided into two steps: prediction and update. In the predicted phase, EKF uses the current robotic status and motion equation to predict the robot status of the next moment; in the update stage, EKF uses sensors to measure data to update the current state of the robot. By repeating the prediction and updating two steps, you can get the trajectory of the robot movement and the map of the environment where the robot is located.},
   author   = {Xuwen Cai},
@@ -220,6 +137,175 @@
   title    = {The application of extended kalman filtering based on SLAM},
   volume   = {12},
   year     = {2023}
+}
+@inproceedings{Carion2020,
+  abstract = {We present a new method that views object detection as a direct set prediction problem. Our approach streamlines the detection pipeline, effectively removing the need for many hand-designed components like a non-maximum suppression procedure or anchor generation that explicitly encode our prior knowledge about the task. The main ingredients of the new framework, called DEtection TRansformer or DETR, are a set-based global loss that forces unique predictions via bipartite matching, and a transformer encoder-decoder architecture. Given a fixed small set of learned object queries, DETR reasons about the relations of the objects and the global image context to directly output the final set of predictions in parallel. The new model is conceptually simple and does not require a specialized library, unlike many other modern detectors. DETR demonstrates accuracy and run-time performance on par with the well-established and highly-optimized Faster R-CNN baseline on the challenging COCO object detection dataset. Moreover, DETR can be easily generalized to produce panoptic segmentation in a unified manner. We show that it significantly outperforms competitive baselines. Training code and pretrained models are available at https://github.com/facebookresearch/detr.},
+  author   = {Nicolas Carion and Francisco Massa and Gabriel Synnaeve and Nicolas Usunier and Alexander Kirillov and Sergey Zagoruyko},
+  doi      = {10.1007/978-3-030-58452-8_13},
+  issn     = {16113349},
+  journal  = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
+  title    = {End-to-End Object Detection with Transformers},
+  volume   = {12346 LNCS},
+  year     = {2020}
+}
+@inproceedings{Chen2011,
+  abstract = {Autonomous aerial refueling (AAR) is an important capability for an unmanned aerial vehicle (UAV) to increase its flying range and endurance without increasing its size. This paper presents a novel tracking method that utilizes both 2D intensity and 3D point-cloud data acquired with a 3D Flash LIDAR sensor to establish relative position and orientation between the receiver vehicle and drogue during an aerial refueling process. Unlike classic, vision-based sensors, a 3D Flash LIDAR sensor can provide 3D point-cloud data in real time without motion blur, in the day or night, and is capable of imaging through fog and clouds. The proposed method segments out the drogue through 2D analysis and estimates the center of the drogue from 3D point-cloud data for flight trajectory determination. A level-set front propagation routine is first employed to identify the target of interest and establish its silhouette information. Sufficient domain knowledge, such as the size of the drogue and the expected operable distance, is integrated into our approach to quickly eliminate unlikely target candidates. A statistical analysis along with a random sample consensus (RANSAC) is performed on the target to reduce noise and estimate the center of the drogue after all 3D points on the drogue are identified. The estimated center and drogue silhouette serve as the seed points to efficiently locate the target in the next frame.},
+  author   = {Chao-I Chen and Roger Stettner},
+  doi      = {10.1117/12.886572},
+  issn     = {0277786X},
+  journal  = {Laser Radar Technology and Applications XVI},
+  title    = {Drogue tracking using 3D flash lidar for autonomous aerial refueling},
+  volume   = {8037},
+  year     = {2011}
+}
+@inproceedings{Cummins2020,
+  author  = {N Cummins},
+  journal = {Simple Flying},
+  month   = {9},
+  title   = {How Is An Aircraft Refueled?},
+  url     = {https://simpleflying.com/how-is-an-aircraft-refuled/},
+  year    = {2020}
+}
+@inproceedings{DatasetAGR,
+  abstract = {Automatic aircraft ground refueling (AAGR) can improve the safety, efficiency, and cost-effectiveness of aircraft ground refueling (AGR), a critical and frequent operation on almost all aircraft. Recent AAGR relies on machine vision, artificial intelligence, and robotics to implement automation. An essential step for automation is AGR scene recognition, which can support further component detection, tracking, process monitoring, and environmental awareness. As in many practical and commercial applications, aircraft refueling data is usually confidential, and no standardized workflow or definition is available. These are the prerequisites and critical challenges to deploying and benefitting advanced data-driven AGR. This study presents a dataset (the AGR Dataset) for AGR scene recognition using image crawling, augmentation, and classification, which has been made available to the community. The AGR dataset crawled over 3k images from 13 databases (over 26k images after augmentation), and different aircraft, illumination, and environmental conditions were included. The ground-truth labeling is conducted manually using a proposed tree-formed decision workflow and six specific AGR tags. Various professionals have independently reviewed the AGR dataset to keep it no-bias. This study proposes the first aircraft refueling image dataset, and an image labeling software with a UI to automate the labeling workflow.},
+  author   = {Boyu Kuang and Stuart Barnes and Gilbert Tang and Karl Jenkins},
+  doi      = {10.1109/ICAC57885.2023.10275212},
+  journal  = {ICAC 2023 - 28th International Conference on Automation and Computing},
+  title    = {A Dataset for Autonomous Aircraft Refueling on the Ground (AGR)},
+  year     = {2023}
+}
+@article{Diwan2023,
+  abstract = {Object detection is one of the predominant and challenging problems in computer vision. Over the decade, with the expeditious evolution of deep learning, researchers have extensively experimented and contributed in the performance enhancement of object detection and related tasks such as object classification, localization, and segmentation using underlying deep models. Broadly, object detectors are classified into two categories viz. two stage and single stage object detectors. Two stage detectors mainly focus on selective region proposals strategy via complex architecture; however, single stage detectors focus on all the spatial region proposals for the possible detection of objects via relatively simpler architecture in one shot. Performance of any object detector is evaluated through detection accuracy and inference time. Generally, the detection accuracy of two stage detectors outperforms single stage object detectors. However, the inference time of single stage detectors is better compared to its counterparts. Moreover, with the advent of YOLO (You Only Look Once) and its architectural successors, the detection accuracy is improving significantly and sometime it is better than two stage detectors. YOLOs are adopted in various applications majorly due to their faster inferences rather than considering detection accuracy. As an example, detection accuracies are 63.4 and 70 for YOLO and Fast-RCNN respectively, however, inference time is around 300 times faster in case of YOLO. In this paper, we present a comprehensive review of single stage object detectors specially YOLOs, regression formulation, their architecture advancements, and performance statistics. Moreover, we summarize the comparative illustration between two stage and single stage object detectors, among different versions of YOLOs, applications based on two stage detectors, and different versions of YOLOs along with the future research directions.},
+  author   = {Tausif Diwan and G. Anirudh and Jitendra V. Tembhurne},
+  doi      = {10.1007/s11042-022-13644-y},
+  issn     = {15737721},
+  issue    = {6},
+  journal  = {Multimedia Tools and Applications},
+  title    = {Object detection using YOLO: challenges, architectural successors, datasets and applications},
+  volume   = {82},
+  year     = {2023}
+}
+
+@article{ExpertSystemsAGR,
+  abstract = {This work aims to establish a general and optimized procedure for the initial refuelling of commercial airplanes, as this loading process is strongly related to safety and energy saving issues. The on-ground refuelling is addressed as an optimization problem whose cost function involves expert knowledge about constraints and factors that influence the aircraft stability and performance. Several heterogeneous criteria (fuelling time, structural load, flow transfers, etc.) have been considered and weighted accordance to its importance in terms of stability. This allows us to adapt the strategy to any type and planned trip of the airplane. The priority is the positioning of the centre of mass of the civil aircraft within safety and manoeuvrability margins, and near the optimal position. Evolutive algorithms are applied, keeping feasible solutions by modifying genetic operators. As a case of study, the initial refuelling of a long range type commercial aircraft, the Airbus A330-200, is analysed. Simulation results have proved this methodology to be efficient and optimal. Even more, this heuristic and general approach improves the traditional solution that follows a set of pre-defined rules that are specific for each type of aircraft.},
+  author   = {Elías Plaza and Matilde Santos},
+  doi      = {10.1111/exsy.12631},
+  issn     = {14680394},
+  issue    = {2},
+  journal  = {Expert Systems},
+  title    = {Knowledge based approach to ground refuelling optimization of commercial airplanes},
+  volume   = {38},
+  year     = {2021}
+}
+@inproceedings{Feng2018,
+  abstract = {Human mobility prediction is of great importance for a wide spectrum of location-based applications. However, predicting mobility is not trivial because of three challenges: 1) the complex sequential transition regularities exhibited with time-dependent and high-order nature; 2) the multi-level periodicity of human mobility; and 3) the heterogeneity and sparsity of the collected trajectory data. In this paper, we propose DeepMove, an attentional recurrent network for mobility prediction from lengthy and sparse trajectories. In DeepMove, we first design a multi-modal embedding recurrent neural network to capture the complicated sequential transitions by jointly embedding the multiple factors that govern the human mobility. Then, we propose a historical attention model with two mechanisms to capture the multi-level periodicity in a principle way, which effectively utilizes the periodicity nature to augment the recurrent neural network for mobility prediction. We perform experiments on three representative real-life mobility datasets, and extensive evaluation results demonstrate that our model outperforms the state-of-the-art models by more than 10%. Moreover, compared with the state-of-the-art neural network models, DeepMove provides intuitive explanations into the prediction and sheds light on interpretable mobility prediction.},
+  author   = {Jie Feng and Yong Li and Chao Zhang and Funing Sun and Fanchao Meng and Ang Guo and Depeng Jin},
+  doi      = {10.1145/3178876.3186058},
+  journal  = {The Web Conference 2018 - Proceedings of the World Wide Web Conference, WWW 2018},
+  title    = {DeepMove: Predicting human mobility with attentional recurrent networks},
+  year     = {2018}
+}
+@article{FFPSpaceSystemVehicles,
+  abstract = {This paper deals with the prediction of the future location of vehicles, which is attracting attention in the era of the fourth industrial revolution and is required in various fields, such as autonomous vehicles and smart city traffic management systems. Currently, vehicle traffic prediction models and accident prediction models are being tested in various places, and considerable progress is being made. However, there are always errors in positioning when using wireless sensors due to various variables, such as the appearance of various substances (water, metal) that occur in the space where radio waves exist. There have been various attempts to reduce the positioning error in such an Internet of Things environment, but there is no definitive method with confirmed performance. Of course, location prediction is also not accurate. In particular, since a vehicle moves rapidly in space, it is increasingly affected by changes in the environment. Firstly, it was necessary to develop a spatial positioning algorithm that can improve the positioning accuracy. Secondly, for the data generated by the positioning algorithm, a machine learning method suitable for position prediction was developed. Based on the above two developed algorithms, through experiments, we found a means to reduce the error of positioning through radio waves and to increase the accuracy of positioning. We started with the idea of changing the positioning space itself from a three-dimensional space into a twodimensional one. With changes in the time and space of radio wave measurement, the location was measured by transforming the spatial dimension to cope with environmental changes. This is a technology that predicts a location through machine learning on time series data using a direction angle classification technique. An experiment was conducted to verify the performance of the proposed technology. As a result, the accuracy of positioning was improved, and the accuracy of location prediction increased in proportion to the learning time. It was possible to confirm the prediction accuracy increase of up to 80% with changes. Considering that the accuracy result for location prediction presented by other researchers is 70%, through this study, the result was improved by 10% compared to the existing vehicle location prediction accuracy. In conclusion, this paper presents a positioning algorithm and machine learning methodology for vehicle positioning. By proving its usefulness through experiments, this study provides other researchers with a new definition of space for predicting the location of a vehicle, and a machine learning method using direction angles.},
+  author   = {Won Chan Lee and You Boo Jeon and Seong Soo Han and Chang Sung Jeong},
+  doi      = {10.3390/sym14061151},
+  issn     = {20738994},
+  issue    = {6},
+  journal  = {Symmetry},
+  title    = {Position Prediction in Space System for Vehicles Using Artificial Intelligence},
+  volume   = {14},
+  year     = {2022}
+}
+@article{Ficco2016,
+  abstract = {The interworking between cellular and wireless local area networks, as well as the spreading of mobile devices equipped with several positioning technologies pave the ground to new and more favorable indoor/outdoor location-based services (LBSs). Thus, wireless internet service providers are required to take several positioning methods into account at the same time, to leverage the different features of existing technologies. This would allow providing LBSs satisfying the user-required quality of position in terms of accuracy, privacy, power consumption, and often, conflicting features. Therefore, this paper presents GlobalPreLoc, a multi-objective strategy for the dynamic and optimal selection of positioning technologies. The strategy exploits a pattern-mining algorithm for future position prediction combined with conventional multi-objective evolutionary algorithms, for choosing continuously the best location providers, accounting for the user requirements, the terminal capabilities, and the surrounding positioning infrastructures. To practically implement the strategy, we also designed an architecture based on secure user plane location specification to provide indoor and outdoor LBSs in interworking wireless networks exploiting GlobalPreLoc features.},
+  author   = {Massimo Ficco and Roberto Pietrantuono and Stefano Russo},
+  doi      = {10.1007/s00500-015-1665-x},
+  issn     = {14337479},
+  issue    = {7},
+  journal  = {Soft Computing},
+  title    = {Using multi-objective metaheuristics for the optimal selection of positioning systems},
+  volume   = {20},
+  year     = {2016}
+}
+@article{FusionGRU,
+  abstract = {To ensure the safe and efficient navigation of autonomous vehicles and advanced driving assistance systems in complex traffic scenarios, predicting the future bounding boxes of surrounding traffic agents is crucial. However, simultaneously predicting the future location and scale of target traffic agents from the egocentric view poses challenges because the vehicles’ egomotion causes considerable field-of-view changes. Moreover, in anomalous or risky situations, tracking loss or abrupt motion changes limit the available observation time, requiring learning of cues within a short time window. Existing methods typically use a simple concatenation operation to combine different cues, overlooking their dynamics over time. To address this, this paper introduces the Fusion-Gated Recurrent Unit (Fusion-GRU) network, a novel encoder-decoder architecture for future bounding box localization. Unlike traditional gated recurrent units (GRUs), Fusion-GRU accounts for mutual and complex interactions among input features. Moreover, an intermediary estimator coupled with a self-attention aggregation layer is also introduced to learn sequential dependencies for long-range prediction. Finally, a GRU decoder is employed to predict the future bounding boxes. The proposed method is evaluated on two publicly available datasets, Risky Object Localization and Honda Egocentric Vehicle Intersection. The experimental results showcase the promising performance of the Fusion-GRU, demonstrating its effectiveness in predicting future bounding boxes of traffic agents.},
+  author   = {Muhammad Monjurul Karim and Ruwen Qin and Yinhai Wang},
+  doi      = {10.1177/03611981241230540},
+  issn     = {21694052},
+  journal  = {Transportation Research Record},
+  title    = {Fusion-GRU: A Deep Learning Model for Future Bounding Box Prediction of Traffic Agents in Risky Driving Videos},
+  year     = {2024}
+}
+@inproceedings{HowDoUGoWhere,
+  abstract = {Predicting the next visited location of an individual is a key problem in human mobility analysis, as it is required for the personalization and optimization of sustainable transport options. Here, we propose a transformer decoder-based neural network to predict the next location an individual will visit based on historical locations, time, and travel modes, which are behaviour dimensions often overlooked in previous work. In particular, the prediction of the next travel mode is designed as an auxiliary task to help guide the network's learning. For evaluation, we apply this approach to two large-scale and long-term GPS tracking datasets involving more than 600 individuals. Our experiments show that the proposed method significantly outperforms other state-of-the-art next location prediction methods by a large margin (8.05% and 5.60% relative increase in F1-score for the two datasets, respectively). We conduct an extensive ablation study that quantifies the influence of considering temporal features, travel mode information, and the auxiliary task on the prediction results. Moreover, we experimentally determine the performance upper bound when including the next mode prediction in our model. Finally, our analysis indicates that the performance of location prediction varies significantly with the chosen next travel mode by the individual. These results show potential for a more systematic consideration of additional dimensions of travel behaviour in human mobility prediction tasks. The source code of our model and experiments is available at https://github.com/mie-lab/location-mode-prediction.},
+  author   = {Ye Hong and Henry Martin and Martin Raubal},
+  doi      = {10.1145/3557915.3560996},
+  journal  = {GIS: Proceedings of the ACM International Symposium on Advances in Geographic Information Systems},
+  title    = {How do you go where?: improving next location prediction by learning travel mode information using transformers},
+  year     = {2022}
+}
+@article{HurricanesFPP,
+  abstract = {Currently, huge amount of data, resulting from the continuous tracking of moving objects, are collected, and stored in appropriate repositories. From these data trajectory data are generated and analyzed to produce knowledge useful for decision-making. Obviously, trajectory data sets need efficient and effective analysis and mining processes to infer mobility patterns and consequently constitute rich sources for many contributions such those related to predictions. Most of researches, presented in the literature, focus on tracking and predicting moving object positions, without taking into account their ever-changing contexts and their environmental impacts. Any environment surrounding any object is dynamic vs static and its influence goes beyond current state to the predicted ones. The aim of this paper is not only to propose a new approach to predict the future position of a moving object based on mobility patterns but also it takes into account the ever-evolving contexts and environments of the underlying objects. We experimented our approach on real case study datasets related to hurricanes’ activities. The proposed approach is performed in three phases. The first phase allows the generation of object mobility patterns. In the second phase, spatiotemporal mobility rules are extracted from the previously generated patterns. In the third and last phase, hurricane future position prediction is accomplished by using the extracted rules enhanced by context and environmental characteristics. The proposed model leads to a generic one representing facts and discovering knowledge through various applications including different mobile objects and their associated patterns, environmental and contexts.},
+  author   = {Wided Oueslati and Sonia Tahri and Hela Limam and Jalel Akaichi},
+  doi      = {10.1080/08839514.2021.1998299},
+  issn     = {10876545},
+  issue    = {15},
+  journal  = {Applied Artificial Intelligence},
+  title    = {A New Approach for Predicting the Future Position of a Moving Object: Hurricanes’ Case Study},
+  volume   = {35},
+  year     = {2021}
+}
+@inproceedings{HybridDatasetAGRV1,
+  author = {Suleyman Yildirim and Zeeshan A. Rana and Gibert Tang},
+  doi    = {10.2514/6.2023-1148},
+  title  = {Development of Vision Guided Real-Time Trajectory Planning System for Autonomous Ground Refuelling Operations using Hybrid Dataset},
+  year   = {2023}
+}
+@article{HybridDatasetAGRV2,
+  abstract = {This paper presents an ablation study aimed at investigating the impact of a hybrid dataset, domain randomisation, and custom-designed neural network architecture on the performance of object localisation. In this regard, real images were gathered from the Boeing 737-400 aircraft while synthetic images were generated using the domain randomisation technique involved randomising various parameters of the simulation environment in a photo-realistic manner. The study results indicated that the use of the hybrid dataset, domain randomisation, and the custom-designed neural network architecture yielded a significant enhancement in object localisation performance. Furthermore, the study demonstrated that domain randomisation facilitated the reduction of the reality gap between the real-world and simulation environments, leading to a better generalisation of the neural network architecture on real-world data. Additionally, the ablation study delved into the impact of each randomisation parameter on the neural network architecture’s performance. The insights gleaned from this investigation shed light on the importance of each constituent component of the proposed methodology and how they interact to enhance object localisation performance. The study affirms that deploying a hybrid dataset, domain randomisation, and custom-designed neural network architecture is an effective approach to training deep neural networks for object localisation tasks. The findings of this study can be applied to a wide range of computer vision applications, particularly in scenarios where collecting large amounts of labelled real-world data is challenging. The study employed a custom-designed neural network architecture that achieved 99.19% accuracy, 98.26% precision, 99.58% recall, and 97.92% mAP@.95 trained using a hybrid dataset comprising synthetic and real images.},
+  author   = {Suleyman Yildirim and Zeeshan A. Rana},
+  doi      = {10.3390/math11071696},
+  issn     = {22277390},
+  issue    = {7},
+  journal  = {Mathematics},
+  title    = {Reducing the Reality Gap Using Hybrid Data for Real-Time Autonomous Operations},
+  volume   = {11},
+  year     = {2023}
+}
+@inproceedings{iata2019guidance,
+  author       = {International Air Transport Association},
+  edition      = {4th ed.},
+  howpublished = {\url{https://www.iata.org/contentassets/c0f61fc821dc4f62bb6441d7abedb076/guidance-material-on-microbiological-contamination-in-aircraft-fuel-tanks-doc-9977.pdf}},
+  title        = {Guidance material on microbiological contamination in aircraft fuel tanks},
+  year         = {2019}
+}
+@article{Islam2022,
+  abstract = {Coasts and coastlines in many parts of the world are highly dynamic in nature, where large changes in the shoreline position can occur due to natural and anthropogenic influences. The prediction of future shoreline positions is of great importance in the better planning and management of coastal areas. With an aim to assess the different methods of prediction, this study investigates the performance of future shoreline position predictions by quantifying how prediction performance varies depending on the time depths of input historical shoreline data and the time horizons of predicted shorelines. Multi-temporal Landsat imagery, from 1988 to 2021, was used to quantify the rates of shoreline movement for different time period. Predictions using the simple extrapolation of the end point rate (EPR), linear regression rate (LRR), weighted linear regression rate (WLR), and the Kalman filter method were used to predict future shoreline positions. Root mean square error (RMSE) was used to assess prediction accuracies. For time depth, our results revealed that the higher the number of shorelines used in calculating and predicting shoreline change rates the better predictive performance was yielded. For the time horizon, prediction accuracies were substantially higher for the immediate future years (138 m/year) compared to the more distant future (152 m/year). Our results also demonstrated that the forecast performance varied temporally and spatially by time period and region. Though the study area is located in coastal Bangladesh, this study has the potential for forecasting applications to other deltas and vulnerable shorelines globally.},
+  author   = {Md Sariful Islam and Thomas W. Crawford},
+  doi      = {10.3390/rs14246364},
+  issn     = {20724292},
+  issue    = {24},
+  journal  = {Remote Sensing},
+  title    = {Assessment of Spatio-Temporal Empirical Forecasting Performance of Future Shoreline Positions},
+  volume   = {14},
+  year     = {2022}
+}
+@article{Jiao2019,
+  abstract = {Object detection is one of the most important and challenging branches of computer vision, which has been widely applied in people's life, such as monitoring security, autonomous driving and so on, with the purpose of locating instances of semantic objects of a certain class. With the rapid development of deep learning algorithms for detection tasks, the performance of object detectors has been greatly improved. In order to understand the main development status of object detection pipeline thoroughly and deeply, in this survey, we analyze the methods of existing typical detection models and describe the benchmark datasets at first. Afterwards and primarily, we provide a comprehensive overview of a variety of object detection methods in a systematic manner, covering the one-stage and two-stage detectors. Moreover, we list the traditional and new applications. Some representative branches of object detection are analyzed as well. Finally, we discuss the architecture of exploiting these object detection methods to build an effective and efficient system and point out a set of development trends to better follow the state-of-the-art algorithms and further research.},
+  author   = {Licheng Jiao and Fan Zhang and Fang Liu and Shuyuan Yang and Lingling Li and Zhixi Feng and Rong Qu},
+  doi      = {10.1109/ACCESS.2019.2939201},
+  issn     = {21693536},
+  journal  = {IEEE Access},
+  title    = {A survey of deep learning-based object detection},
+  volume   = {7},
+  year     = {2019}
+}
+@book{kazda2015airport,
+  author    = {Kazda, A and Caves, R E},
+  edition   = {3rd ed.},
+  publisher = {Emerald Group Publishing Limited},
+  title     = {Airport design and operation},
+  year      = {2015}
 }
 @article{Lee2020,
   abstract = {We propose a deep neural network model that recognizes the position and velocity of a fast-moving object in a video sequence and predicts the object’s future motion. When filming a fast-moving subject using a regular camera rather than a super-high-speed camera, there is often severe motion blur, making it difficult to recognize the exact location and speed of the object in the video. Additionally, because the fast moving object usually moves rapidly out of the camera’s field of view, the number of captured frames used as input for future-motion predictions should be minimized. Our model can capture a short video sequence of two frames with a high-speed moving object as input, use motion blur as additional information to recognize the position and velocity of the object, and predict the video frame containing the future motion of the object. Experiments show that our model has significantly better performance than existing future-frame prediction models in determining the future position and velocity of an object in two physical scenarios where a fast-moving two-dimensional object appears.},
@@ -232,18 +318,29 @@
   volume   = {20},
   year     = {2020}
 }
-@article{Sass2023,
-  abstract = {Automated cargo bikes are intended to complement public transportation in a sharing concept and provide an alternative transportation option for people and goods. In highly automated driving without a seated user, real-time trajectory prediction of other road users is crucial for collision avoidance with other motor vehicles or vulnerable road users (VRU). For this purpose, moving obstacles are detected by environmental sensors and classified and tracked using object detection and tracking algorithms. The current and past position data as well as environmental information are used to predict future positions. In this paper, we present several AI-based trajectory prediction models that are specifically suited for this use case. Our focus is not only on the accuracy of trajectory prediction, but additionally on a robust, real-time and practical application. We consider models that can predict the trajectories with position estimation or distributions for position estimation for each time step in the future. For this aim, we present generative network structures based on Conditional Variational Autoencoder (CVAE) in different variants. After training, the models are integrated into our production system and their computation time is determined on the hardware we use.},
-  author   = {Stefan Sass and Markus Höfer and Michael Schmidt and Stephan Schmidt},
-  doi      = {10.2478/ttj-2023-0006},
-  issn     = {14076179},
-  issue    = {1},
-  journal  = {Transport and Telecommunication},
-  title    = {Autonomous Cargo Bike Fleets - Approaches for AI-Based Trajectory Forecasts of Road Users},
-  volume   = {24},
+@article{Liu2020,
+  abstract = {Object detection, one of the most fundamental and challenging problems in computer vision, seeks to locate object instances from a large number of predefined categories in natural images. Deep learning techniques have emerged as a powerful strategy for learning feature representations directly from data and have led to remarkable breakthroughs in the field of generic object detection. Given this period of rapid evolution, the goal of this paper is to provide a comprehensive survey of the recent achievements in this field brought about by deep learning techniques. More than 300 research contributions are included in this survey, covering many aspects of generic object detection: detection frameworks, object feature representation, object proposal generation, context modeling, training strategies, and evaluation metrics. We finish the survey by identifying promising directions for future research.},
+  author   = {Li Liu and Wanli Ouyang and Xiaogang Wang and Paul Fieguth and Jie Chen and Xinwang Liu and Matti Pietikäinen},
+  doi      = {10.1007/s11263-019-01247-4},
+  issn     = {15731405},
+  issue    = {2},
+  journal  = {International Journal of Computer Vision},
+  title    = {Deep Learning for Generic Object Detection: A Survey},
+  volume   = {128},
+  year     = {2020}
+}
+@article{Lou2023,
+  abstract = {Traditional camera sensors rely on human eyes for observation. However, human eyes are prone to fatigue when observing objects of different sizes for a long time in complex scenes, and human cognition is limited, which often leads to judgment errors and greatly reduces efficiency. Object recognition technology is an important technology used to judge the object’s category on a camera sensor. In order to solve this problem, a small-size object detection algorithm for special scenarios was proposed in this paper. The advantage of this algorithm is that it not only has higher precision for small-size object detection but also can ensure that the detection accuracy for each size is not lower than that of the existing algorithm. There are three main innovations in this paper, as follows: (1) A new downsampling method which could better preserve the context feature information is proposed. (2) The feature fusion network is improved to effectively combine shallow information and deep information. (3) A new network structure is proposed to effectively improve the detection accuracy of the model. From the point of view of detection accuracy, it is better than YOLOX, YOLOR, YOLOv3, scaled YOLOv5, YOLOv7-Tiny, and YOLOv8. Three authoritative public datasets are used in these experiments: (a) In the Visdron dataset (small-size objects), the map, precision, and recall ratios of DC-YOLOv8 are 2.5%, 1.9%, and 2.1% higher than those of YOLOv8s, respectively. (b) On the Tinyperson dataset (minimal-size objects), the map, precision, and recall ratios of DC-YOLOv8 are 1%, 0.2%, and 1.2% higher than those of YOLOv8s, respectively. (c) On the PASCAL VOC2007 dataset (normal-size objects), the map, precision, and recall ratios of DC-YOLOv8 are 0.5%, 0.3%, and 0.4% higher than those of YOLOv8s, respectively.},
+  author   = {Haitong Lou and Xuehu Duan and Junmei Guo and Haiying Liu and Jason Gu and Lingyun Bi and Haonan Chen},
+  doi      = {10.3390/electronics12102323},
+  issn     = {20799292},
+  issue    = {10},
+  journal  = {Electronics (Switzerland)},
+  title    = {DC-YOLOv8: Small-Size Object Detection Algorithm Based on Camera Sensor},
+  volume   = {12},
   year     = {2023}
 }
-@article{Paszek2023,
+@article{LSTMFPPLowHighSpeedMovingObjects,
   abstract = {Automation of transportation will play a crucial role in the future when people driving vehicles will be replaced by autonomous systems. Currently, the positioning systems are not used alone but are combined in order to create cooperative positioning systems. The ultra-wideband (UWB) system is an excellent alternative to the global positioning system (GPS) in a limited area but has some drawbacks. Despite many advantages of various object positioning systems, none is free from the problem of object displacement during measurement (data acquisition), which affects positioning accuracy. In addition, temporarily missing data from the absolute positioning system can lead to dangerous situations. Moreover, data pre-processing is unavoidable and takes some time, affecting additionally the object’s displacement in relation to its previous position and its starting point of the new positioning process. So, the prediction of the position of an object is necessary to minimize the time when the position is unknown or out of date, especially when the object is moving at high speed and the position update rate is low. This article proposes using the long short-term memory (LSTM) artificial neural network to predict objects’ positions based on historical data from the UWB system and inertial navigation. The proposed solution creates a reliable positioning system that predicts 10 positions of low and high-speed moving objects with an error below 10 cm. Position prediction allows detection of possible collisions—the intersection of the trajectories of moving objects.},
   author   = {Krzysztof Paszek and Damian Grzechca},
   doi      = {10.3390/s23198270},
@@ -253,57 +350,6 @@
   title    = {Using the LSTM Neural Network and the UWB Positioning System to Predict the Position of Low and High Speed Moving Objects},
   volume   = {23},
   year     = {2023}
-}
-@article{Wu2021,
-  abstract = {Accurate object detection is important in computer vision. However, detecting small objects in low-resolution images remains a challenging and elusive problem, primarily because these objects are constructed of less visual information and cannot be easily distinguished from similar background regions. To resolve this problem, we propose a Hierarchical Small Object Detection Network in low-resolution remote sensing images, named HSOD-Net. We develop a point-to-region detection paradigm by first performing a key-point prediction to obtain position hypotheses, then only later super-resolving the image and detecting the objects around those candidate positions. By postponing the object prediction to after increasing its resolution, the obtained key-points are more stable than their traditional counterparts based on early object detection with less visual information. This hierarchical approach, HSOD-Net, saves significant run-time, which makes it more suitable for practical applications such as search and rescue, and drone navigation. In comparison with the state-of-art models, HSOD-Net achieves remarkable precision in detecting small objects in low-resolution remote sensing images.},
-  author   = {Jingqian Wu and Shibiao Xu},
-  doi      = {10.3390/rs13132620},
-  issn     = {20724292},
-  issue    = {13},
-  journal  = {Remote Sensing},
-  title    = {From point to region: Accurate and efficient hierarchical small object detection in low-resolution remote sensing images},
-  volume   = {13},
-  year     = {2021}
-}
-@article{Wu2023,
-  abstract = {Object detection remains a pivotal aspect of remote sensing image analysis, and recent strides in Earth observation technology coupled with convolutional neural networks (CNNs) have propelled the field forward. Despite advancements, challenges persist, especially in detecting objects across diverse scales and pinpointing small-sized targets. This paper introduces YOLO-SE, a novel YOLOv8-based network that innovatively addresses these challenges. First, the introduction of a lightweight convolution SEConv in lieu of standard convolutions reduces the network’s parameter count, thereby expediting the detection process. To tackle multi-scale object detection, the paper proposes the SEF module, an enhancement based on SEConv. Second, an ingenious Efficient Multi-Scale Attention (EMA) mechanism is integrated into the network, forming the SPPFE module. This addition augments the network’s feature extraction capabilities, adeptly handling challenges in multi-scale object detection. Furthermore, a dedicated prediction head for tiny object detection is incorporated, and the original detection head is replaced by a transformer prediction head. To address adverse gradients stemming from low-quality instances in the target detection training dataset, the paper introduces the Wise-IoU bounding box loss function. YOLO-SE showcases remarkable performance, achieving an average precision at IoU threshold 0.5 (AP50) of 86.5% on the optical remote sensing dataset SIMD. This represents a noteworthy 2.1% improvement over YOLOv8 and YOLO-SE outperforms the state-of-the-art model by 0.91%. In further validation, experiments on the NWPU VHR-10 dataset demonstrated YOLO-SE’s superiority with an accuracy of 94.9%, surpassing that of YOLOv8 by 2.6%. The proposed advancements position YOLO-SE as a compelling solution in the realm of deep learning-based remote sensing image object detection.},
-  author   = {Tianyong Wu and Youkou Dong},
-  doi      = {10.3390/app132412977},
-  issue    = {24},
-  journal  = {Applied Sciences},
-  title    = {YOLO-SE: Improved YOLOv8 for Remote Sensing Object Detection and Recognition},
-  volume   = {13},
-  year     = {2023}
-}
-@article{Pei2022,
-  abstract = {This paper studies moving object tracking in satellite videos. For the satellite videos, the object size in the images may be small, the object may be partly occluded, and the image may contain an area resembling dense objects. To handle the above problems, this paper puts forward a kernelized correlation filter based on the color-name feature and Kalman prediction. The original image is mapped to the color-name feature space so that the tracker can process the image with multichannel color features. The Kalman filter is used to predict the moving object position in the tracking process, and the detection area is determined according to the predicted position. The Kalman filter is updated with the detection results to improve the tracking accuracy. The proposed algorithm is tested on Jilin-1 datasets. Compared with the other seven tracking algorithms, the experiment results show that the proposed algorithm has stronger robustness for several complex situations such as rapid target motion and similar object interference. Besides, it is also shown that the proposed algorithm can prevent the problem of tracking failure when the moving object is partially occluded.},
-  author   = {Wenjing Pei and Xuhui Lu},
-  doi      = {10.1155/2022/9735887},
-  issn     = {15308677},
-  journal  = {Wireless Communications and Mobile Computing},
-  title    = {Moving Object Tracking in Satellite Videos by Kernelized Correlation Filter Based on Color-Name Features and Kalman Prediction},
-  volume   = {2022},
-  year     = {2022}
-}
-@article{Ye2023,
-  abstract = {Unmanned aerial vehicles (UAVs) play an important role in conducting automatic patrol inspections of cities, which can ensure the safety of urban residents' life and property and the normal operation of cities. However, during the inspection process, problems may arise. For example, numerous small objects in UAV images are difficult to detect, objects in UAV images are severely occluded, and requirements for real-time performances are posed. To address these issues, we first propose a real-time object detection network (RTD-Net) for UAV images. Besides, to deal with the lack of visual features of small objects, we design a feature fusion module (FFM) to interact and fuse features at different levels and improve the feature expression ability of small objects. To achieve real-time detection, we design a lightweight feature extraction module (LEM) to build the backbone network to control the calculation quantity and parameters. To solve the issue of discontinuous features of occluded objects, an efficient convolutional transformer block (ECTB)-based convolutional multihead self-attention (CMHSA) is designed to improve the recognition ability of occluded objects by extracting the context information of objects. Compared with multihead self-attention (MHSA) in the traditional transformer, CMHSA uses convolutional projection to replace the position-linear projection, which can reduce a large amount of calculation without performance loss. Finally, an attention prediction head (APH) is designed based on the attention mechanism to improve the ability of the model to extract attention regions in complex scenarios. The proposed method reaches a detection accuracy of 86.4% mean average precision (mAP) in our UAV image dataset. In addition, it achieves a detection accuracy of 86.0% mAP and a detection speed of 33.4 frames/s in the NVIDIA Jeston TX2 embedded device.},
-  author   = {Tao Ye and Wenyang Qin and Zongyang Zhao and Xiaozhi Gao and Xiangpeng Deng and Yu Ouyang},
-  doi      = {10.1109/TIM.2023.3241825},
-  issn     = {15579662},
-  journal  = {IEEE Transactions on Instrumentation and Measurement},
-  title    = {Real-Time Object Detection Network in UAV-Vision Based on CNN and Transformer},
-  volume   = {72},
-  year     = {2023}
-}
-@misc{Zaidi2022,
-  abstract = {Object Detection is the task of classification and localization of objects in an image or video. It has gained prominence in recent years due to its widespread applications. This article surveys recent developments in deep learning based object detectors. Concise overview of benchmark datasets and evaluation metrics used in detection is also provided along with some of the prominent backbone architectures used in recognition tasks. It also covers contemporary lightweight classification models used on edge devices. Lastly, we compare the performances of these architectures on multiple metrics.},
-  author   = {Syed Sahil Abbas Zaidi and Mohammad Samar Ansari and Asra Aslam and Nadia Kanwal and Mamoona Asghar and Brian Lee},
-  doi      = {10.1016/j.dsp.2022.103514},
-  issn     = {10512004},
-  journal  = {Digital Signal Processing: A Review Journal},
-  title    = {A survey of modern deep learning based object detection models},
-  volume   = {126},
-  year     = {2022}
 }
 @article{McDermott2019,
   abstract = {Recurrent neural networks (RNNs) are nonlinear dynamical models commonly used in the machine learning and dynamical systems literature to represent complex dynamical or sequential relationships between variables. Recently, as deep learning models have become more common, RNNs have been used to forecast increasingly complicated systems. Dynamical spatio-temporal processes represent a class of complex systems that can potentially benefit from these types of models. Although the RNN literature is expansive and highly developed, uncertainty quantification is often ignored. Even when considered, the uncertainty is generally quantified without the use of a rigorous framework, such as a fully Bayesian setting. Here we attempt to quantify uncertainty in a more formal framework while maintaining the forecast accuracy that makes these models appealing, by presenting a Bayesian RNN model for nonlinear spatio-temporal forecasting. Additionally, we make simple modifications to the basic RNN to help accommodate the unique nature of nonlinear spatio-temporal data. The proposed model is applied to a Lorenz simulation and two real-world nonlinear spatio-temporal forecasting applications.},
@@ -316,15 +362,283 @@
   volume   = {21},
   year     = {2019}
 }
-@inproceedings{Alemany2019,
-  abstract = {Hurricanes are cyclones circulating about a defined center whose closed wind speeds exceed 75 mph originating over tropical and subtropical waters. At landfall, hurricanes can result in severe disasters. The accuracy of predicting their trajectory paths is critical to reduce economic loss and save human lives. Given the complexity and nonlinearity of weather data, a recurrent neural network (RNN) could be beneficial in modeling hurricane behavior. We propose the application of a fully connected RNN to predict the trajectory of hurricanes. We employed the RNN over a fine grid to reduce typical truncation errors. We utilized their latitude, longitude, wind speed, and pressure publicly provided by the National Hurricane Center (NHC) to predict the trajectory of a hurricane at 6-hour intervals. Results show that this proposed technique is competitive to methods currently employed by the NHC and can predict up to approximately 120 hours of hurricane path.},
-  author   = {Sheila Alemany and Jonathan Beltran and Adrian Perez and Sam Ganzfried},
-  doi      = {10.1609/aaai.v33i01.3301468},
-  issn     = {2159-5399},
-  journal  = {33rd AAAI Conference on Artificial Intelligence, AAAI 2019, 31st Innovative Applications of Artificial Intelligence Conference, IAAI 2019 and the 9th AAAI Symposium on Educational Advances in Artificial Intelligence, EAAI 2019},
-  title    = {Predicting hurricane trajectories using a recurrent neural network},
-  year     = {2019}
+@article{MLTechniqueFPP,
+  abstract = {In the current era of internet and mobile phone usage, the prediction of a person's location at a specific moment has become a subject of great interest among researchers. As a result, there has been a growing focus on developing more effective techniques to accurately identify the precise location of a user at a given instant in time. The quality of GPS data plays a crucial role in obtaining high-quality results. Numerous algorithms are available that leverage user movement patterns and historical data for this purpose. This research presents a location prediction model that incorporates data from multiple users. To achieve the most accurate predictions, regression techniques are utilized for user trajectory prediction, and ensemble algorithmic procedures, such as the random forest approach, the Adaboost method, and the XGBoost method, are employed. The primary goal is to improve prediction accuracy. The improvement accuracy of proposed ensemble method is around 21.2% decrease in errors, which is much greater than earlier systems that are equivalent. Compared to previous comparable systems, the proposed system demonstrates an approximately 15% increase in accuracy when utilizing the ensemble methodology.},
+  author   = {Madhur Arora and Sanjay Agrawal and Ravindra Patel},
+  doi      = {10.37391/ijeer.110254},
+  issn     = {2347470X},
+  issue    = {2},
+  journal  = {International Journal of Electrical and Electronics Research},
+  title    = {Machine Learning Technique for Predicting Location},
+  volume   = {11},
+  year     = {2023}
 }
+@article{MovingObjectTrackingFPPKCF,
+  abstract = {This paper studies moving object tracking in satellite videos. For the satellite videos, the object size in the images may be small, the object may be partly occluded, and the image may contain an area resembling dense objects. To handle the above problems, this paper puts forward a kernelized correlation filter based on the color-name feature and Kalman prediction. The original image is mapped to the color-name feature space so that the tracker can process the image with multichannel color features. The Kalman filter is used to predict the moving object position in the tracking process, and the detection area is determined according to the predicted position. The Kalman filter is updated with the detection results to improve the tracking accuracy. The proposed algorithm is tested on Jilin-1 datasets. Compared with the other seven tracking algorithms, the experiment results show that the proposed algorithm has stronger robustness for several complex situations such as rapid target motion and similar object interference. Besides, it is also shown that the proposed algorithm can prevent the problem of tracking failure when the moving object is partially occluded.},
+  author   = {Wenjing Pei and Xuhui Lu},
+  doi      = {10.1155/2022/9735887},
+  issn     = {15308677},
+  journal  = {Wireless Communications and Mobile Computing},
+  title    = {Moving Object Tracking in Satellite Videos by Kernelized Correlation Filter Based on Color-Name Features and Kalman Prediction},
+  volume   = {2022},
+  year     = {2022}
+}
+@inproceedings{MultipleObjectForecasting,
+  abstract = {This paper introduces the problem of multiple object forecasting (MOF), in which the goal is to predict future bounding boxes of tracked objects. In contrast to existing works on object trajectory forecasting which primarily consider the problem from a birds-eye perspective, we formulate the problem from an object-level perspective and call for the prediction of full object bounding boxes, rather than trajectories alone. Towards solving this task, we introduce the Citywalks dataset, which consists of over 200k high-resolution video frames. Citywalks comprises of footage recorded in 21 cities from 10 European countries in a variety of weather conditions and over 3.5k unique pedestrian trajectories. For evaluation, we adapt existing trajectory forecasting methods for MOF and confirm cross-dataset generalizability on the MOT-17 dataset without fine-tuning. Finally, we present STED, a novel encoder-decoder architecture for MOF. STED combines visual and temporal features to model both object-motion and ego-motion, and outperforms existing approaches for MOF. Code dataset link: https://github.com/olly-styles/Multiple-Object-Forecasting.},
+  author   = {Olly Styles and Tanaya Guha and Victor Sanchez},
+  doi      = {10.1109/WACV45572.2020.9093446},
+  journal  = {Proceedings - 2020 IEEE Winter Conference on Applications of Computer Vision, WACV 2020},
+  title    = {Multiple object forecasting: Predicting future object locations in diverse environments},
+  year     = {2020}
+}
+@article{ODNetworkUAVCNNTransformer,
+  abstract = {Unmanned aerial vehicles (UAVs) play an important role in conducting automatic patrol inspections of cities, which can ensure the safety of urban residents' life and property and the normal operation of cities. However, during the inspection process, problems may arise. For example, numerous small objects in UAV images are difficult to detect, objects in UAV images are severely occluded, and requirements for real-time performances are posed. To address these issues, we first propose a real-time object detection network (RTD-Net) for UAV images. Besides, to deal with the lack of visual features of small objects, we design a feature fusion module (FFM) to interact and fuse features at different levels and improve the feature expression ability of small objects. To achieve real-time detection, we design a lightweight feature extraction module (LEM) to build the backbone network to control the calculation quantity and parameters. To solve the issue of discontinuous features of occluded objects, an efficient convolutional transformer block (ECTB)-based convolutional multihead self-attention (CMHSA) is designed to improve the recognition ability of occluded objects by extracting the context information of objects. Compared with multihead self-attention (MHSA) in the traditional transformer, CMHSA uses convolutional projection to replace the position-linear projection, which can reduce a large amount of calculation without performance loss. Finally, an attention prediction head (APH) is designed based on the attention mechanism to improve the ability of the model to extract attention regions in complex scenarios. The proposed method reaches a detection accuracy of 86.4% mean average precision (mAP) in our UAV image dataset. In addition, it achieves a detection accuracy of 86.0% mAP and a detection speed of 33.4 frames/s in the NVIDIA Jeston TX2 embedded device.},
+  author   = {Tao Ye and Wenyang Qin and Zongyang Zhao and Xiaozhi Gao and Xiangpeng Deng and Yu Ouyang},
+  doi      = {10.1109/TIM.2023.3241825},
+  issn     = {15579662},
+  journal  = {IEEE Transactions on Instrumentation and Measurement},
+  title    = {Real-Time Object Detection Network in UAV-Vision Based on CNN and Transformer},
+  volume   = {72},
+  year     = {2023}
+}
+@article{Parks1983,
+  abstract = {Transient pressures and flows in an aircraft aerial refueling system are presented for a sudden disconnect between a tanker aircraft and a receiver aircraft. Transient conditions are simulated in the tanker refueling system during and after the sudden closure of the poppet valve at the refueling nozzle of the tanker aircraft. The simulations are obtained using a transient flow analysis computer program originally developed for hydraulic systems. Transient pressure simulations are compared with pressure transients obtained experimentally during ground tests. Agreement between the simulations and experiment is obtained. Surge arrestors are shown to limit the surge pressure. © 1983 American Institute of Aeronautics and Astronautics, Inc., All rights reserved.},
+  author   = {S. E. Parks and Robert C. Donath},
+  doi      = {10.2514/3.48208},
+  issn     = {00218669},
+  issue    = {12},
+  journal  = {Journal of Aircraft},
+  title    = {Transient flow analysis of an aircraft refueling system},
+  volume   = {20},
+  year     = {1983}
+}
+
+
+@inproceedings{PositionPredictionPretrainingStrat,
+  abstract = {Transformers (Vaswani et al., 2017) have gained increasing popularity in a wide range of applications, including Natural Language Processing (NLP), Computer Vision and Speech Recognition, because of their powerful representational capacity. However, harnessing this representational capacity effectively requires a large amount of data, strong regularization, or both, to mitigate over-fitting. Recently, the power of the Transformer has been unlocked by self-supervised pretraining strategies based on masked autoencoders which rely on reconstructing masked inputs, directly, or contrastively from unmasked content. This pretraining strategy which has been used in BERT models in NLP (Devlin et al., 2019), Wav2Vec models in Speech (Baevski et al., 2020) and, recently, in MAE models in Vision (Bao et al., 2021; He et al., 2021), forces the model to learn about relationships between the content in different parts of the input using autoencoding related objectives. In this paper, we propose a novel, but surprisingly simple alternative to content reconstruction - that of predicting locations from content, without providing positional information for it. Doing so requires the Transformer to understand the positional relationships between different parts of the input, from their content alone. This amounts to an efficient implementation where the pretext task is a classification problem among all possible positions for each input token. We experiment on both Vision and Speech benchmarks, where our approach brings improvements over strong supervised training baselines and is comparable to modern unsupervised/self-supervised pretraining methods. Our method also enables Transformers trained without position embeddings to outperform ones trained with full position information.},
+  author   = {Shuangfei Zhai and Navdeep Jaitly and Jason Ramapuram and Dan Busbridge and Tatiana Likhomanenko and Joseph Yitan Cheng and Walter Talbott and Chen Huang and Hanlin Goh and Joshua Susskind},
+  issn     = {26403498},
+  journal  = {Proceedings of Machine Learning Research},
+  title    = {Position Prediction as an Effective Pretraining Strategy},
+  volume   = {162},
+  year     = {2022}
+}
+@article{Ren2017,
+  abstract = {State-of-the-art object detection networks depend on region proposal algorithms to hypothesize object locations. Advances like SPPnet [1] and Fast R-CNN [2] have reduced the running time of these detection networks, exposing region proposal computation as a bottleneck. In this work, we introduce a Region Proposal Network (RPN) that shares full-image convolutional features with the detection network, thus enabling nearly cost-free region proposals. An RPN is a fully convolutional network that simultaneously predicts object bounds and objectness scores at each position. The RPN is trained end-to-end to generate high-quality region proposals, which are used by Fast R-CNN for detection. We further merge RPN and Fast R-CNN into a single network by sharing their convolutional features - using the recently popular terminology of neural networks with 'attention' mechanisms, the RPN component tells the unified network where to look. For the very deep VGG-16 model [3], our detection system has a frame rate of 5 fps (including all steps) on a GPU, while achieving state-of-the-art object detection accuracy on PASCAL VOC 2007, 2012, and MS COCO datasets with only 300 proposals per image. In ILSVRC and COCO 2015 competitions, Faster R-CNN and RPN are the foundations of the 1st-place winning entries in several tracks. Code has been made publicly available.},
+  author   = {Shaoqing Ren and Kaiming He and Ross Girshick and Jian Sun},
+  doi      = {10.1109/TPAMI.2016.2577031},
+  issn     = {01628828},
+  issue    = {6},
+  journal  = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  title    = {Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks},
+  volume   = {39},
+  year     = {2017}
+}
+
+@article{ReviewAdvancesVisualTracking,
+  abstract = {The goal of this paper is to review the state-of-the-art progress on visual tracking methods, classify them into different categories, as well as identify future trends. Visual tracking is a fundamental task in many computer vision applications and has been well studied in the last decades. Although numerous approaches have been proposed, robust visual tracking remains a huge challenge. Difficulties in visual tracking can arise due to abrupt object motion, appearance pattern change, non-rigid object structures, occlusion and camera motion. In this paper, we first analyze the state-of-the-art feature descriptors which are used to represent the appearance of tracked objects. Then, we categorize the tracking progresses into three groups, provide detailed descriptions of representative methods in each group, and examine their positive and negative aspects. At last, we outline the future trends for visual tracking research. © 2011 Elsevier B.V.},
+  author   = {Hanxuan Yang and Ling Shao and Feng Zheng and Liang Wang and Zhan Song},
+  doi      = {10.1016/j.neucom.2011.07.024},
+  issn     = {18728286},
+  issue    = {18},
+  journal  = {Neurocomputing},
+  title    = {Recent advances and trends in visual tracking: A review},
+  volume   = {74},
+  year     = {2011}
+}
+
+@article{Sass2023,
+  abstract = {Automated cargo bikes are intended to complement public transportation in a sharing concept and provide an alternative transportation option for people and goods. In highly automated driving without a seated user, real-time trajectory prediction of other road users is crucial for collision avoidance with other motor vehicles or vulnerable road users (VRU). For this purpose, moving obstacles are detected by environmental sensors and classified and tracked using object detection and tracking algorithms. The current and past position data as well as environmental information are used to predict future positions. In this paper, we present several AI-based trajectory prediction models that are specifically suited for this use case. Our focus is not only on the accuracy of trajectory prediction, but additionally on a robust, real-time and practical application. We consider models that can predict the trajectories with position estimation or distributions for position estimation for each time step in the future. For this aim, we present generative network structures based on Conditional Variational Autoencoder (CVAE) in different variants. After training, the models are integrated into our production system and their computation time is determined on the hardware we use.},
+  author   = {Stefan Sass and Markus Höfer and Michael Schmidt and Stephan Schmidt},
+  doi      = {10.2478/ttj-2023-0006},
+  issn     = {14076179},
+  issue    = {1},
+  journal  = {Transport and Telecommunication},
+  title    = {Autonomous Cargo Bike Fleets - Approaches for AI-Based Trajectory Forecasts of Road Users},
+  volume   = {24},
+  year     = {2023}
+}
+@article{sati2019aircraft,
+  author  = {Sati, R and Singh, S and Yadav, R},
+  doi     = {10.1155/2019/6943787},
+  journal = {International Journal of Aerospace Engineering},
+  pages   = {1--12},
+  title   = {Aircraft fuel system: design, components, and safety},
+  volume  = {2019},
+  year    = {2019}
+}
+@article{Schultz1986,
+  abstract = {This paper explores concepts which apply emerging ground support technology (GST) to the rapid turnaround of tactical aircraft. This technology has the potential to reduce manpower requirements for ground servicing, increase sortie generation rates and expose fewer ground personnel to the lethal agents anticipated during biochemical warfare. The near term approach examines automated systems for refueling and rearming tactical aircraft assuming the returning aircraft suffer no disabling malfunctions or battle damage. In the far term, it is proposed that additional maintenance and servicing functions be performed by GST systems. Consideration is given to linking diagnostic computers on tactical aircraft with future robotic systems for direct repair and maintenance. It is concluded that GST systems, including robotics, provide the opportunity for revolutionary changes in aircraft servicing and maintenance and provide a viable option for generating sorties during and immediately following biochemical attack. © 1986 IEEE},
+  author   = {Edwin R. Schultz},
+  doi      = {10.1109/MAES.1986.5005018},
+  issn     = {08858985},
+  issue    = {12},
+  journal  = {IEEE Aerospace and Electronic Systems Magazine},
+  title    = {Robotic systems for aircraft servicing/maintenance},
+  volume   = {1},
+  year     = {1986}
+}
+@article{SemanticTrajectoriesFPP,
+  abstract = {Location prediction has attracted much attention due to its important role in many location-based services, including taxi services, route navigation, traffic planning, and location-based advertisements. Traditional methods only use spatial-temporal trajectory data to predict where a user will go next. The divorce of semantic knowledge from the spatial-temporal one inhibits our better understanding of users' activities. Inspired by the architecture of Long Short Term Memory (LSTM), we design ST-LSTM, which draws on semantic trajectories to predict future locations. Semantic data add a new dimension to our study, increasing the accuracy of prediction. Since semantic trajectories are sparser than the spatial-temporal ones, we propose a strategic filling algorithm to solve this problem. In addition, as the prediction is based on the historical trajectories of users, the cold-start problem arises. We build a new virtual social network for users to resolve the issue. Experiments on two real-world datasets show that the performance of our method is superior to those of the baselines.},
+  author   = {Heli Sun and Xianglan Guo and Zhou Yang and Xuguang Chu and Xinwang Liu and Liang He},
+  doi      = {10.1145/3465060},
+  issn     = {21576912},
+  issue    = {1},
+  journal  = {ACM Transactions on Intelligent Systems and Technology},
+  title    = {Predicting Future Locations with Semantic Trajectories},
+  volume   = {13},
+  year     = {2022}
+}
+@article{SmallObjectDetectionPositonPrediction,
+  abstract = {Accurate object detection is important in computer vision. However, detecting small objects in low-resolution images remains a challenging and elusive problem, primarily because these objects are constructed of less visual information and cannot be easily distinguished from similar background regions. To resolve this problem, we propose a Hierarchical Small Object Detection Network in low-resolution remote sensing images, named HSOD-Net. We develop a point-to-region detection paradigm by first performing a key-point prediction to obtain position hypotheses, then only later super-resolving the image and detecting the objects around those candidate positions. By postponing the object prediction to after increasing its resolution, the obtained key-points are more stable than their traditional counterparts based on early object detection with less visual information. This hierarchical approach, HSOD-Net, saves significant run-time, which makes it more suitable for practical applications such as search and rescue, and drone navigation. In comparison with the state-of-art models, HSOD-Net achieves remarkable precision in detecting small objects in low-resolution remote sensing images.},
+  author   = {Jingqian Wu and Shibiao Xu},
+  doi      = {10.3390/rs13132620},
+  issn     = {20724292},
+  issue    = {13},
+  journal  = {Remote Sensing},
+  title    = {From point to region: Accurate and efficient hierarchical small object detection in low-resolution remote sensing images},
+  volume   = {13},
+  year     = {2021}
+}
+@article{SmallObjectDetectionPositonPrediction,
+  abstract = {Accurate object detection is important in computer vision. However, detecting small objects in low-resolution images remains a challenging and elusive problem, primarily because these objects are constructed of less visual information and cannot be easily distinguished from similar background regions. To resolve this problem, we propose a Hierarchical Small Object Detection Network in low-resolution remote sensing images, named HSOD-Net. We develop a point-to-region detection paradigm by first performing a key-point prediction to obtain position hypotheses, then only later super-resolving the image and detecting the objects around those candidate positions. By postponing the object prediction to after increasing its resolution, the obtained key-points are more stable than their traditional counterparts based on early object detection with less visual information. This hierarchical approach, HSOD-Net, saves significant run-time, which makes it more suitable for practical applications such as search and rescue, and drone navigation. In comparison with the state-of-art models, HSOD-Net achieves remarkable precision in detecting small objects in low-resolution remote sensing images.},
+  author   = {Jingqian Wu and Shibiao Xu},
+  doi      = {10.3390/rs13132620},
+  issn     = {20724292},
+  issue    = {13},
+  journal  = {Remote Sensing},
+  title    = {From point to region: Accurate and efficient hierarchical small object detection in low-resolution remote sensing images},
+  volume   = {13},
+  year     = {2021}
+}
+@article{SpatioTemporalTransformerRecommender,
+  abstract = {Location-based social networks (LBSN) allow users to socialize with friends by sharing their daily life experiences online. In particular, a large amount of check-ins data generated by LBSNs capture the visit locations of users and open a new line of research of spatio-temporal big data, i.e., the next point-of-interest (POI) recommendation. At present, while some advanced methods have been proposed for POI recommendation, existing work only leverages the temporal information of two consecutive LBSN check-ins. Specifically, these methods only focus on adjacent visit sequences but ignore non-contiguous visits, while these visits can be important in understanding the spatio-temporal correlation within the trajectory. In order to fully mine this non-contiguous visit information, we propose a multi-layer Spatio-Temporal deep learning attention model for POI recommendation, Spatio-Temporal Transformer Recommender (STTF-Recommender). To incorporate the spatio-temporal patterns, we encode the information in the user’s trajectory as latent representations into their embeddings before feeding them. To mine the spatio-temporal relationship between any two visited locations, we utilize the Transformer aggregation layer. To match the most plausible candidates from all locations, we develop on an attention matcher based on the attention mechanism. The STTF-Recommender was evaluated with two real-world datasets, and the findings showed that STTF improves at least 13.75% in the mean value of the Recall index at different scales compared with the state-of-the-art models.},
+  author   = {Shuqiang Xu and Qunying Huang and Zhiqiang Zou},
+  doi      = {10.3390/ijgi12020079},
+  issn     = {22209964},
+  issue    = {2},
+  journal  = {ISPRS International Journal of Geo-Information},
+  title    = {Spatio-Temporal Transformer Recommender: Next Location Recommendation with Attention Mechanism by Mining the Spatio-Temporal Relationship between Visited Locations},
+  volume   = {12},
+  year     = {2023}
+}
+@inproceedings{SurveyFPP,
+  abstract = {Next location prediction has recently gained great attention from researchers due to its importance in different application areas. Recent growth of location-based service applications has vast domain influence such as traffic-flow prediction, weather forecast, and network resource optimization. Nowadays, due to the explosive increasing of positioning and sensor devices, big trajectory data are produced related to human movement. Using this big location-based trajectory data, researchers tend to predict human next location. Research efforts are spent on the put forward overall picture of next location prediction, and number of works has been done so as to realize robust next location prediction systems. However, in-depth study of those state-of-the-art works is required to know well the applications and challenges. Therefore, the aim of this paper is an extensive review on existing different next location prediction approaches. This work offers an extensive overview of location prediction enveloping basic definitions and concepts, data sources, approaches, and applications. In next location prediction, trajectory is represented by a sequence of timestamped geographical locations. It is challenging to analyze and mine trajectory data due to the complex characteristics reflected in human mobility, which is affected by multiple contextual information. Heterogeneous data generated from different sources, users’ random movement behavior, and the time sensitivity of trajectory data are some of the challenges. In this manuscript, we have discussed various location prediction approaches, applications, and challenges, and it sheds light on important points regarding future research directions. Furthermore, application and challenges are addressed related to the user’s next location prediction. Finally, we draw the overall conclusion of the survey, which is important for the development of robust next location prediction systems.},
+  author   = {Ayele Gobezie Chekol and Marta Sintayehu Fufa},
+  doi      = {10.1186/s13638-022-02114-6},
+  issn     = {16871499},
+  issue    = {1},
+  journal  = {Eurasip Journal on Wireless Communications and Networking},
+  title    = {A survey on next location prediction techniques, applications, and challenges},
+  volume   = {2022},
+  year     = {2022}
+}
+@misc{SurveyModernODModels,
+  abstract = {Object Detection is the task of classification and localization of objects in an image or video. It has gained prominence in recent years due to its widespread applications. This article surveys recent developments in deep learning based object detectors. Concise overview of benchmark datasets and evaluation metrics used in detection is also provided along with some of the prominent backbone architectures used in recognition tasks. It also covers contemporary lightweight classification models used on edge devices. Lastly, we compare the performances of these architectures on multiple metrics.},
+  author   = {Syed Sahil Abbas Zaidi and Mohammad Samar Ansari and Asra Aslam and Nadia Kanwal and Mamoona Asghar and Brian Lee},
+  doi      = {10.1016/j.dsp.2022.103514},
+  issn     = {10512004},
+  journal  = {Digital Signal Processing: A Review Journal},
+  title    = {A survey of modern deep learning based object detection models},
+  volume   = {126},
+  year     = {2022}
+}
+@article{SurveyODIn20Years,
+  abstract = {Object detection, as of one the most fundamental and challenging problems in computer vision, has received great attention in recent years. Over the past two decades, we have seen a rapid technological evolution of object detection and its profound impact on the entire computer vision field. If we consider today's object detection technique as a revolution driven by deep learning, then, back in the 1990s, we would see the ingenious thinking and long-term perspective design of early computer vision. This article extensively reviews this fast-moving research field in the light of technical evolution, spanning over a quarter-century's time (from the 1990s to 2022). A number of topics have been covered in this article, including the milestone detectors in history, detection datasets, metrics, fundamental building blocks of the detection system, speedup techniques, and recent state-of-the-art detection methods.},
+  author   = {Zhengxia Zou and Keyan Chen and Zhenwei Shi and Yuhong Guo and Jieping Ye},
+  doi      = {10.1109/JPROC.2023.3238524},
+  issn     = {15582256},
+  issue    = {3},
+  journal  = {Proceedings of the IEEE},
+  title    = {Object Detection in 20 Years: A Survey},
+  volume   = {111},
+  year     = {2023}
+}
+@article{SurveySelfSupervisedFewShotOD,
+  abstract = {Labeling data is often expensive and time-consuming, especially for tasks such as object detection and instance segmentation, which require dense labeling of the image. While few-shot object detection is about training a model on novel (unseen) object classes with little data, it still requires prior training on many labeled examples of base (seen) classes. On the other hand, self-supervised methods aim at learning representations from unlabeled data which transfer well to downstream tasks such as object detection. Combining few-shot and self-supervised object detection is a promising research direction. In this survey, we review and characterize the most recent approaches on few-shot and self-supervised object detection. Then, we give our main takeaways and discuss future research directions. Project page: https://gabrielhuang.github.io/fsod-survey/.},
+  author   = {Gabriel Huang and Issam Laradji and David Vazquez and Simon Lacoste-Julien and Pau Rodriguez},
+  doi      = {10.1109/TPAMI.2022.3199617},
+  issn     = {19393539},
+  issue    = {4},
+  journal  = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  title    = {A Survey of Self-Supervised and Few-Shot Object Detection},
+  volume   = {45},
+  year     = {2023}
+}
+@article{SurveySmallObjectDetection,
+  abstract = {With the rise of deep convolutional neural networks, object detection has achieved prominent advances in past years. However, such prosperity could not camouflage the unsatisfactory situation of Small Object Detection (SOD), one of the notoriously challenging tasks in computer vision, owing to the poor visual appearance and noisy representation caused by the intrinsic structure of small targets. In addition, large-scale dataset for benchmarking small object detection methods remains a bottleneck. In this paper, we first conduct a thorough review of small object detection. Then, to catalyze the development of SOD, we construct two large-scale Small Object Detection dAtasets (SODA), SODA-D and SODA-A, which focus on the Driving and Aerial scenarios respectively. SODA-D includes 24828 high-quality traffic images and 278433 instances of nine categories. For SODA-A, we harvest 2513 high resolution aerial images and annotate 872069 instances over nine classes. The proposed datasets, as we know, are the first-ever attempt to large-scale benchmarks with a vast collection of exhaustively annotated instances tailored for multi-category SOD. Finally, we evaluate the performance of mainstream methods on SODA. We expect the released benchmarks could facilitate the development of SOD and spawn more breakthroughs in this field.},
+  author   = {Gong Cheng and Xiang Yuan and Xiwen Yao and Kebing Yan and Qinghua Zeng and Xingxing Xie and Junwei Han},
+  doi      = {10.1109/TPAMI.2023.3290594},
+  issn     = {19393539},
+  issue    = {11},
+  journal  = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  title    = {Towards Large-Scale Small Object Detection: Survey and Benchmarks},
+  volume   = {45},
+  year     = {2023}
+}
+@article{ToolsTechniquesDatasetsOD,
+  abstract = {Object detection is one of the most fundamental and challenging tasks to locate objects in images and videos. Over the past, it has gained much attention to do more research on computer vision tasks such as object classification, counting of objects, and object monitoring. This study provides a detailed literature review focusing on object detection and discusses the object detection techniques. A systematic review has been followed to summarize the current research work’s findings and discuss seven research questions related to object detection. Our contribution to the current research work is (i) analysis of traditional, two-stage, one-stage object detection techniques, (ii) Dataset preparation and available standard dataset, (iii) Annotation tools, and (iv) performance evaluation metrics. In addition, a comparative analysis has been performed and analyzed that the proposed techniques are different in their architecture, optimization function, and training strategies. With the remarkable success of deep neural networks in object detection, the performance of the detectors has improved. Various research challenges and future directions for object detection also has been discussed in this research paper.},
+  author   = {Jaskirat Kaur and Williamjeet Singh},
+  doi      = {10.1007/s11042-022-13153-y},
+  issn     = {15737721},
+  issue    = {27},
+  journal  = {Multimedia Tools and Applications},
+  title    = {Tools, techniques, datasets and application areas for object detection in an image: a review},
+  volume   = {81},
+  year     = {2022}
+}
+@inproceedings{Vaswani2017,
+  abstract = {The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.0 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature.},
+  author   = {Ashish Vaswani and Noam Shazeer and Niki Parmar and Jakob Uszkoreit and Llion Jones and Aidan N. Gomez and Łukasz Kaiser and Illia Polosukhin},
+  issn     = {10495258},
+  journal  = {Advances in Neural Information Processing Systems},
+  title    = {Attention is all you need},
+  volume   = {2017-December},
+  year     = {2017}
+}
+@inproceedings{Wang2008,
+  abstract = {The classical problem of anti-aircraft gun fire control is the accurate prediction of the future position of a given target at the time of projectile intercept. Current approaches of the future position prediction of target are separated into two general classes. One use only target state estimates (position, velocity, and perhaps acceleration) at the instant of firing, and is called "State-Based." The other assumes additional knowledge of the target's destination or attacking goal, and is called "Goal-Based." The two approaches are alterable in a manual way in the battles. In this paper, a intent-based future position prediction algorithm is proposed. We added the pilot's intent inference which decides the maneuver pattern of target in the special missions to the traditional future position predication algorithm. The two approaches can automatically switch without man's interference. And at last, the anti-aircraft defense capability of a military force is enhanced.},
+  author   = {Fujun Wang and Guangyuan Zhang and Zhensheng Wei},
+  journal  = {2nd International Symposium on Test Automation and Instrumentation, ISTAI 2008},
+  title    = {Intent-based future position prediction of target},
+  year     = {2008}
+}
+@article{WaterShipTrajectoryPrediction,
+  abstract = {Ship position prediction plays a key role in the early warning and safety of inland waters and maritime navigation. Ship pilots must have in-depth knowledge of the future position of their ship and target ship in a specific time period when maneuvering the ship to effectively avoid collisions. However, prediction accuracy and computing efficiency are crucial issues that need to be worked out at present. To solve these problems, in this paper, the deep long short-term memory network framework (LSTM) and genetic algorithm (GA) are introduced to predict the ship trajectory of inland water. Firstly, the collected actual automatic identification system (AIS) data are preprocessed and a series of typical trajectories are extracted from them; then, the LSTM network is used to predict the typical trajectories in real time. Considering that the hyperparameters of the LSTM network have difficulty obtaining the optimal solution manually, the GA is used to optimize hyperparameters of LSTM; finally, the GA-LSTM trajectory prediction model is constructed with the optimal network parameters and compared with the traditional support vector machine (SVM) model and LSTM model. The experimental results show that the GA-LSTM model effectively improves the accuracy and speed of trajectory prediction, with outstanding performance and good generalization, which possess certain reference values for the development of collision avoidance of unmanned ships.},
+  author   = {Long Qian and Yuanzhou Zheng and Lei Li and Yong Ma and Chunhui Zhou and Dongfang Zhang},
+  doi      = {10.3390/app12084073},
+  issn     = {20763417},
+  issue    = {8},
+  journal  = {Applied Sciences (Switzerland)},
+  title    = {A New Method of Inland Water Ship Trajectory Prediction Based on Long Short-Term Memory Network Optimized by Genetic Algorithm},
+  volume   = {12},
+  year     = {2022}
+}
+
+
+@article{Wu2020,
+  abstract = {Object detection is a fundamental visual recognition problem in computer vision and has been widely studied in the past decades. Visual object detection aims to find objects of certain target classes with precise localization in a given image and assign each object instance a corresponding class label. Due to the tremendous successes of deep learning based image classification, object detection techniques using deep learning have been actively studied in recent years. In this paper, we give a comprehensive survey of recent advances in visual object detection with deep learning. By reviewing a large body of recent related work in literature, we systematically analyze the existing object detection frameworks and organize the survey into three major parts: (i) detection components, (ii) learning strategies, and (iii) applications & benchmarks. In the survey, we cover a variety of factors affecting the detection performance in detail, such as detector architectures, feature learning, proposal generation, sampling strategies, etc. Finally, we discuss several future directions to facilitate and spur future research for visual object detection with deep learning.},
+  author   = {Xiongwei Wu and Doyen Sahoo and Steven C.H. Hoi},
+  doi      = {10.1016/j.neucom.2020.01.085},
+  issn     = {18728286},
+  journal  = {Neurocomputing},
+  title    = {Recent advances in deep learning for object detection},
+  volume   = {396},
+  year     = {2020}
+}
+
+
+@article{Wu2023,
+  abstract = {Object detection remains a pivotal aspect of remote sensing image analysis, and recent strides in Earth observation technology coupled with convolutional neural networks (CNNs) have propelled the field forward. Despite advancements, challenges persist, especially in detecting objects across diverse scales and pinpointing small-sized targets. This paper introduces YOLO-SE, a novel YOLOv8-based network that innovatively addresses these challenges. First, the introduction of a lightweight convolution SEConv in lieu of standard convolutions reduces the network’s parameter count, thereby expediting the detection process. To tackle multi-scale object detection, the paper proposes the SEF module, an enhancement based on SEConv. Second, an ingenious Efficient Multi-Scale Attention (EMA) mechanism is integrated into the network, forming the SPPFE module. This addition augments the network’s feature extraction capabilities, adeptly handling challenges in multi-scale object detection. Furthermore, a dedicated prediction head for tiny object detection is incorporated, and the original detection head is replaced by a transformer prediction head. To address adverse gradients stemming from low-quality instances in the target detection training dataset, the paper introduces the Wise-IoU bounding box loss function. YOLO-SE showcases remarkable performance, achieving an average precision at IoU threshold 0.5 (AP50) of 86.5% on the optical remote sensing dataset SIMD. This represents a noteworthy 2.1% improvement over YOLOv8 and YOLO-SE outperforms the state-of-the-art model by 0.91%. In further validation, experiments on the NWPU VHR-10 dataset demonstrated YOLO-SE’s superiority with an accuracy of 94.9%, surpassing that of YOLOv8 by 2.6%. The proposed advancements position YOLO-SE as a compelling solution in the realm of deep learning-based remote sensing image object detection.},
+  author   = {Tianyong Wu and Youkou Dong},
+  doi      = {10.3390/app132412977},
+  issue    = {24},
+  journal  = {Applied Sciences},
+  title    = {YOLO-SE: Improved YOLOv8 for Remote Sensing Object Detection and Recognition},
+  volume   = {13},
+  year     = {2023}
+}
+
 @inproceedings{Xie2017,
   abstract = {We present a simple, highly modularized network architecture for image classification. Our network is constructed by repeating a building block that aggregates a set of transformations with the same topology. Our simple design results in a homogeneous, multi-branch architecture that has only a few hyper-parameters to set. This strategy exposes a new dimension, which we call “cardinality” (the size of the set of transformations), as an essential factor in addition to the dimensions of depth and width. On the ImageNet-1K dataset, we empirically show that even under the restricted condition of maintaining complexity, increasing cardinality is able to improve classification accuracy. Moreover, increasing cardinality is more effective than going deeper or wider when we increase the capacity. Our models, named ResNeXt, are the foundations of our entry to the ILSVRC 2016 classification task in which we secured 2nd place. We further investigate ResNeXt on an ImageNet-5K set and the COCO detection set, also showing better results than its ResNet counterpart. The code and models are publicly available online1.},
   author   = {Saining Xie and Ross Girshick and Piotr Dollár and Zhuowen Tu and Kaiming He},
@@ -334,16 +648,7 @@
   volume   = {2017-January},
   year     = {2017}
 }
-@inproceedings{Carion2020,
-  abstract = {We present a new method that views object detection as a direct set prediction problem. Our approach streamlines the detection pipeline, effectively removing the need for many hand-designed components like a non-maximum suppression procedure or anchor generation that explicitly encode our prior knowledge about the task. The main ingredients of the new framework, called DEtection TRansformer or DETR, are a set-based global loss that forces unique predictions via bipartite matching, and a transformer encoder-decoder architecture. Given a fixed small set of learned object queries, DETR reasons about the relations of the objects and the global image context to directly output the final set of predictions in parallel. The new model is conceptually simple and does not require a specialized library, unlike many other modern detectors. DETR demonstrates accuracy and run-time performance on par with the well-established and highly-optimized Faster R-CNN baseline on the challenging COCO object detection dataset. Moreover, DETR can be easily generalized to produce panoptic segmentation in a unified manner. We show that it significantly outperforms competitive baselines. Training code and pretrained models are available at https://github.com/facebookresearch/detr.},
-  author   = {Nicolas Carion and Francisco Massa and Gabriel Synnaeve and Nicolas Usunier and Alexander Kirillov and Sergey Zagoruyko},
-  doi      = {10.1007/978-3-030-58452-8_13},
-  issn     = {16113349},
-  journal  = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
-  title    = {End-to-End Object Detection with Transformers},
-  volume   = {12346 LNCS},
-  year     = {2020}
-}
+
 @inproceedings{Yildirim2021,
   abstract = {3D visual servoing systems need to detect the object and its pose in order to perform. As a result accurate, fast object detection and pose estimation play a vital role. Most visual servoing methods use low-level object detection and pose estimation algorithms. However, many approaches detect objects in 2D RGB sequences for servoing, which lacks reliability when estimating the object's pose in 3D space. To cope with these problems, firstly, a joint feature extractor is employed to fuse the object's 2D RGB image and 3D point cloud data. At this point, a novel method called PosEst is proposed to exploit the correlation between 2D and 3D features. Here are the results of the custom model using test data; precision: 0,9756, recall: 0.9876, F1 Score(beta=1): 0.9815, F1 Score(beta=2): 0.9779. The method used in this study can be easily implemented to 3D grasping and 3D tracking problems to make the solutions faster and more accurate. In a period where electric vehicles and autonomous systems are gradually becoming a part of our lives, this study offers a safer, more efficient and more comfortable environment.},
   author   = {Suleyman Yildirim and Zeeshan Rana and Gilbert Tang},
@@ -354,65 +659,15 @@
   volume   = {2021-October},
   year     = {2021}
 }
-@inproceedings{Kuang2023,
-  abstract = {Automatic aircraft ground refueling (AAGR) can improve the safety, efficiency, and cost-effectiveness of aircraft ground refueling (AGR), a critical and frequent operation on almost all aircraft. Recent AAGR relies on machine vision, artificial intelligence, and robotics to implement automation. An essential step for automation is AGR scene recognition, which can support further component detection, tracking, process monitoring, and environmental awareness. As in many practical and commercial applications, aircraft refueling data is usually confidential, and no standardized workflow or definition is available. These are the prerequisites and critical challenges to deploying and benefitting advanced data-driven AGR. This study presents a dataset (the AGR Dataset) for AGR scene recognition using image crawling, augmentation, and classification, which has been made available to the community. The AGR dataset crawled over 3k images from 13 databases (over 26k images after augmentation), and different aircraft, illumination, and environmental conditions were included. The ground-truth labeling is conducted manually using a proposed tree-formed decision workflow and six specific AGR tags. Various professionals have independently reviewed the AGR dataset to keep it no-bias. This study proposes the first aircraft refueling image dataset, and an image labeling software with a UI to automate the labeling workflow.},
-  author   = {Boyu Kuang and Stuart Barnes and Gilbert Tang and Karl Jenkins},
-  doi      = {10.1109/ICAC57885.2023.10275212},
-  journal  = {ICAC 2023 - 28th International Conference on Automation and Computing},
-  title    = {A Dataset for Autonomous Aircraft Refueling on the Ground (AGR)},
-  year     = {2023}
-}
 
-
-
-
-
-@article{Plaza2021,
-  abstract = {This work aims to establish a general and optimized procedure for the initial refuelling of commercial airplanes, as this loading process is strongly related to safety and energy saving issues. The on-ground refuelling is addressed as an optimization problem whose cost function involves expert knowledge about constraints and factors that influence the aircraft stability and performance. Several heterogeneous criteria (fuelling time, structural load, flow transfers, etc.) have been considered and weighted accordance to its importance in terms of stability. This allows us to adapt the strategy to any type and planned trip of the airplane. The priority is the positioning of the centre of mass of the civil aircraft within safety and manoeuvrability margins, and near the optimal position. Evolutive algorithms are applied, keeping feasible solutions by modifying genetic operators. As a case of study, the initial refuelling of a long range type commercial aircraft, the Airbus A330-200, is analysed. Simulation results have proved this methodology to be efficient and optimal. Even more, this heuristic and general approach improves the traditional solution that follows a set of pre-defined rules that are specific for each type of aircraft.},
-  author   = {Elías Plaza and Matilde Santos},
-  doi      = {10.1111/exsy.12631},
-  issn     = {14680394},
-  issue    = {2},
-  journal  = {Expert Systems},
-  title    = {Knowledge based approach to ground refuelling optimization of commercial airplanes},
-  volume   = {38},
-  year     = {2021}
-}
-
-
-@article{blakey2011aviation,
-  author  = {Blakey, S and Rye, L and Wilson, C W},
-  doi     = {10.1016/j.proci.2010.09.011},
-  journal = {Proceedings of the Combustion Institute},
-  number  = {2},
-  pages   = {2863--2885},
-  title   = {Aviation gas turbine alternative fuels: a review},
-  volume  = {33},
-  year    = {2011}
-}
-
-@misc{iata2019guidance,
-  author       = {International Air Transport Association},
-  edition      = {4th ed.},
-  howpublished = {\url{https://www.iata.org/contentassets/c0f61fc821dc4f62bb6441d7abedb076/guidance-material-on-microbiological-contamination-in-aircraft-fuel-tanks-doc-9977.pdf}},
-  title        = {Guidance material on microbiological contamination in aircraft fuel tanks},
-  year         = {2019}
-}
-
-@book{kazda2015airport,
-  author    = {Kazda, A and Caves, R E},
-  edition   = {3rd ed.},
-  publisher = {Emerald Group Publishing Limited},
-  title     = {Airport design and operation},
-  year      = {2015}
-}
-
-@article{sati2019aircraft,
-  author  = {Sati, R and Singh, S and Yadav, R},
-  doi     = {10.1155/2019/6943787},
-  journal = {International Journal of Aerospace Engineering},
-  pages   = {1--12},
-  title   = {Aircraft fuel system: design, components, and safety},
-  volume  = {2019},
-  year    = {2019}
+@misc{Zhao2019,
+  abstract = {Due to object detection's close relationship with video analysis and image understanding, it has attracted much research attention in recent years. Traditional object detection methods are built on handcrafted features and shallow trainable architectures. Their performance easily stagnates by constructing complex ensembles that combine multiple low-level image features with high-level context from object detectors and scene classifiers. With the rapid development in deep learning, more powerful tools, which are able to learn semantic, high-level, deeper features, are introduced to address the problems existing in traditional architectures. These models behave differently in network architecture, training strategy, and optimization function. In this paper, we provide a review of deep learning-based object detection frameworks. Our review begins with a brief introduction on the history of deep learning and its representative tool, namely, the convolutional neural network. Then, we focus on typical generic object detection architectures along with some modifications and useful tricks to improve detection performance further. As distinct specific detection tasks exhibit different characteristics, we also briefly survey several specific tasks, including salient object detection, face detection, and pedestrian detection. Experimental analyses are also provided to compare various methods and draw some meaningful conclusions. Finally, several promising directions and tasks are provided to serve as guidelines for future work in both object detection and relevant neural network-based learning systems.},
+  author   = {Zhong Qiu Zhao and Peng Zheng and Shou Tao Xu and Xindong Wu},
+  doi      = {10.1109/TNNLS.2018.2876865},
+  issn     = {21622388},
+  issue    = {11},
+  journal  = {IEEE Transactions on Neural Networks and Learning Systems},
+  title    = {Object Detection with Deep Learning: A Review},
+  volume   = {30},
+  year     = {2019}
 }

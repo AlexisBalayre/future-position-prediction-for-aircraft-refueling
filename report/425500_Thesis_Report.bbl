@@ -1,22 +1,177 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem{blakey2011aviation}
-Blakey S, Rye L, Wilson CW.
+\bibitem[Alahi et~al.(2016)Alahi, Goel, Ramanathan, Robicquet, Fei-Fei, and Savarese]{Alahi2016}
+A.~Alahi, K.~Goel, V.~Ramanathan, A.~Robicquet, L.~Fei-Fei, and S.~Savarese.
+\newblock Social lstm: Human trajectory prediction in crowded spaces.
+\newblock volume 2016-December, 2016.
+\newblock \doi{10.1109/CVPR.2016.110}.
+
+\bibitem[Arora et~al.(2023)Arora, Agrawal, and Patel]{MLTechniqueFPP}
+M.~Arora, S.~Agrawal, and R.~Patel.
+\newblock Machine learning technique for predicting location.
+\newblock \emph{International Journal of Electrical and Electronics Research}, 11, 2023.
+\newblock ISSN 2347470X.
+\newblock \doi{10.37391/ijeer.110254}.
+
+\bibitem[Association(2019)]{iata2019guidance}
+I.~A.~T. Association.
+\newblock Guidance material on microbiological contamination in aircraft fuel tanks.
+\newblock 2019.
+
+\bibitem[Bennett et~al.(1991)Bennett, Shiu, and Leahy]{Bennett1991}
+R.~A. Bennett, Y.~C. Shiu, and M.~B. Leahy.
+\newblock A robust light invariant vision system for aircraft refueling.
+\newblock volume~1, 1991.
+\newblock \doi{10.1109/robot.1991.131568}.
+
+\bibitem[Blakey et~al.(2011)Blakey, Rye, and Wilson]{blakey2011aviation}
+S.~Blakey, L.~Rye, and C.~W. Wilson.
 \newblock Aviation gas turbine alternative fuels: a review.
-\newblock Proceedings of the Combustion Institute. 2011;33(2):2863-85.
+\newblock \emph{Proceedings of the Combustion Institute}, 33\penalty0 (2):\penalty0 2863--2885, 2011.
+\newblock \doi{10.1016/j.proci.2010.09.011}.
 
-\bibitem{kazda2015airport}
-Kazda A, Caves RE.
-\newblock Airport design and operation.
-\newblock 3rd edn. Emerald Group Publishing Limited; 2015.
+\bibitem[Chen and Stettner(2011)]{Chen2011}
+C.-I. Chen and R.~Stettner.
+\newblock Drogue tracking using 3d flash lidar for autonomous aerial refueling.
+\newblock volume 8037, 2011.
+\newblock \doi{10.1117/12.886572}.
 
-\bibitem{sati2019aircraft}
-Sati R, Singh S, Yadav R.
+\bibitem[Feng et~al.(2018)Feng, Li, Zhang, Sun, Meng, Guo, and Jin]{Feng2018}
+J.~Feng, Y.~Li, C.~Zhang, F.~Sun, F.~Meng, A.~Guo, and D.~Jin.
+\newblock Deepmove: Predicting human mobility with attentional recurrent networks.
+\newblock 2018.
+\newblock \doi{10.1145/3178876.3186058}.
+
+\bibitem[Gong et~al.(2023)Gong, Liu, Xu, Xu, He, Zhang, and Rasol]{AARBinocularVision}
+K.~Gong, B.~Liu, X.~Xu, Y.~Xu, Y.~He, Z.~Zhang, and J.~Rasol.
+\newblock Research of an unmanned aerial vehicle autonomous aerial refueling docking method based on binocular vision.
+\newblock \emph{Drones}, 7, 2023.
+\newblock ISSN 2504446X.
+\newblock \doi{10.3390/drones7070433}.
+
+\bibitem[Hong et~al.(2022)Hong, Martin, and Raubal]{HowDoUGoWhere}
+Y.~Hong, H.~Martin, and M.~Raubal.
+\newblock How do you go where?: improving next location prediction by learning travel mode information using transformers.
+\newblock 2022.
+\newblock \doi{10.1145/3557915.3560996}.
+
+\bibitem[Jiang et~al.(2019)Jiang, Guan, Zhou, and Chen]{Jiang}
+B.~Jiang, J.~Guan, W.~Zhou, and X.~Chen.
+\newblock Vessel trajectory prediction algorithm based on polynomial fitting kalman filtering.
+\newblock \emph{Journal of Signal Processing}, 5:\penalty0 741--746, 08 2019.
+\newblock \doi{10.16798/j.issn.1003-0530.2019.05.002}.
+
+\bibitem[kai Zhang et~al.(2018)kai Zhang, you Shi, jiang Liu, wei Zhao, and lin Wu]{Zhang2018}
+S.~kai Zhang, G.~you Shi, Z.~jiang Liu, Z.~wei Zhao, and Z.~lin Wu.
+\newblock Data-driven based automatic maritime routing from massive ais trajectories in the face of disparity.
+\newblock \emph{Ocean Engineering}, 155, 2018.
+\newblock ISSN 00298018.
+\newblock \doi{10.1016/j.oceaneng.2018.02.060}.
+
+\bibitem[Karim et~al.(2024)Karim, Qin, and Wang]{FusionGRU}
+M.~M. Karim, R.~Qin, and Y.~Wang.
+\newblock Fusion-gru: A deep learning model for future bounding box prediction of traffic agents in risky driving videos.
+\newblock \emph{Transportation Research Record}, 2024.
+\newblock ISSN 21694052.
+\newblock \doi{10.1177/03611981241230540}.
+
+\bibitem[Kazda and Caves(2015)]{kazda2015airport}
+A.~Kazda and R.~E. Caves.
+\newblock \emph{Airport design and operation}.
+\newblock Emerald Group Publishing Limited, 3rd ed. edition, 2015.
+
+\bibitem[Kuang et~al.(2023)Kuang, Barnes, Tang, and Jenkins]{DatasetAGR}
+B.~Kuang, S.~Barnes, G.~Tang, and K.~Jenkins.
+\newblock A dataset for autonomous aircraft refueling on the ground (agr).
+\newblock 2023.
+\newblock \doi{10.1109/ICAC57885.2023.10275212}.
+
+\bibitem[Lee et~al.(2022)Lee, Jeon, Han, and Jeong]{FFPSpaceSystemVehicles}
+W.~C. Lee, Y.~B. Jeon, S.~S. Han, and C.~S. Jeong.
+\newblock Position prediction in space system for vehicles using artificial intelligence.
+\newblock \emph{Symmetry}, 14, 2022.
+\newblock ISSN 20738994.
+\newblock \doi{10.3390/sym14061151}.
+
+\bibitem[Qian et~al.(2022)Qian, Zheng, Li, Ma, Zhou, and Zhang]{WaterShipTrajectoryPrediction}
+L.~Qian, Y.~Zheng, L.~Li, Y.~Ma, C.~Zhou, and D.~Zhang.
+\newblock A new method of inland water ship trajectory prediction based on long short-term memory network optimized by genetic algorithm.
+\newblock \emph{Applied Sciences (Switzerland)}, 12, 2022.
+\newblock ISSN 20763417.
+\newblock \doi{10.3390/app12084073}.
+
+\bibitem[Sati et~al.(2019)Sati, Singh, and Yadav]{sati2019aircraft}
+R.~Sati, S.~Singh, and R.~Yadav.
 \newblock Aircraft fuel system: design, components, and safety.
-\newblock International Journal of Aerospace Engineering. 2019;2019:1-12.
+\newblock \emph{International Journal of Aerospace Engineering}, 2019:\penalty0 1--12, 2019.
+\newblock \doi{10.1155/2019/6943787}.
 
-\bibitem{iata2019guidance}
-Association IAT. Guidance material on microbiological contamination in aircraft fuel tanks; 2019.
-\newblock \url{https://www.iata.org/contentassets/c0f61fc821dc4f62bb6441d7abedb076/guidance-material-on-microbiological-contamination-in-aircraft-fuel-tanks-doc-9977.pdf}.
+\bibitem[Schultz(1986)]{Schultz1986}
+E.~R. Schultz.
+\newblock Robotic systems for aircraft servicing/maintenance.
+\newblock \emph{IEEE Aerospace and Electronic Systems Magazine}, 1, 1986.
+\newblock ISSN 08858985.
+\newblock \doi{10.1109/MAES.1986.5005018}.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Łukasz Kaiser, and Polosukhin]{Vaswani2017}
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez, Łukasz Kaiser, and I.~Polosukhin.
+\newblock Attention is all you need.
+\newblock volume 2017-December, 2017.
+
+\bibitem[Wang et~al.(2017)Wang, Dong, Kong, Li, and Zhang]{AARCNN}
+X.~Wang, X.~Dong, X.~Kong, J.~Li, and B.~Zhang.
+\newblock Drogue detection for autonomous aerial refueling based on convolutional neural networks.
+\newblock \emph{Chinese Journal of Aeronautics}, 30, 2017.
+\newblock ISSN 10009361.
+\newblock \doi{10.1016/j.cja.2016.12.022}.
+
+\bibitem[Xu et~al.(2023)Xu, Huang, and Zou]{SpatioTemporalTransformerRecommender}
+S.~Xu, Q.~Huang, and Z.~Zou.
+\newblock Spatio-temporal transformer recommender: Next location recommendation with attention mechanism by mining the spatio-temporal relationship between visited locations.
+\newblock \emph{ISPRS International Journal of Geo-Information}, 12, 2023.
+\newblock ISSN 22209964.
+\newblock \doi{10.3390/ijgi12020079}.
+
+\bibitem[Yildirim and Rana(2023)]{HybridDatasetAGRV2}
+S.~Yildirim and Z.~A. Rana.
+\newblock Reducing the reality gap using hybrid data for real-time autonomous operations.
+\newblock \emph{Mathematics}, 11, 2023.
+\newblock ISSN 22277390.
+\newblock \doi{10.3390/math11071696}.
+
+\bibitem[Yildirim et~al.(2021)Yildirim, Rana, and Tang]{AGRPoseEstimation}
+S.~Yildirim, Z.~Rana, and G.~Tang.
+\newblock Autonomous ground refuelling approach for civil aircrafts using computer vision and robotics.
+\newblock volume 2021-October, 2021.
+\newblock \doi{10.1109/DASC52595.2021.9594312}.
+
+\bibitem[Yildirim et~al.(2023)Yildirim, Rana, and Tang]{HybridDatasetAGRV1}
+S.~Yildirim, Z.~A. Rana, and G.~Tang.
+\newblock Development of vision guided real-time trajectory planning system for autonomous ground refuelling operations using hybrid dataset.
+\newblock 2023.
+\newblock \doi{10.2514/6.2023-1148}.
+
+\bibitem[Zaidi et~al.(2022)Zaidi, Ansari, Aslam, Kanwal, Asghar, and Lee]{SurveyModernODModels}
+S.~S.~A. Zaidi, M.~S. Ansari, A.~Aslam, N.~Kanwal, M.~Asghar, and B.~Lee.
+\newblock A survey of modern deep learning based object detection models, 2022.
+\newblock ISSN 10512004.
+
+\bibitem[Zhong et~al.(2017)Zhong, Li, Wang, and Su]{AAREKF}
+Z.~Zhong, D.~Li, H.~Wang, and Z.~Su.
+\newblock Drogue position and tracking with machine vision for autonomous air refueling based on ekf.
+\newblock volume~2, 2017.
+\newblock \doi{10.1109/IHMSC.2017.151}.
+
+\bibitem[Zou et~al.(2023)Zou, Chen, Shi, Guo, and Ye]{SurveyODIn20Years}
+Z.~Zou, K.~Chen, Z.~Shi, Y.~Guo, and J.~Ye.
+\newblock Object detection in 20 years: A survey.
+\newblock \emph{Proceedings of the IEEE}, 111, 2023.
+\newblock ISSN 15582256.
+\newblock \doi{10.1109/JPROC.2023.3238524}.
 
 \end{thebibliography}
