@@ -241,9 +241,8 @@ These systems streamline the refuelling process by using state-of-the-art
 mechanisms and technologies to ensure accuracy and speed. A key element is the
 pressurised fuel adaptor, which connects seamlessly to the aircraft
 ~\cite{HybridDatasetAGRV2}. Methods such as `PosEst' have been proposed to
-capture and track objects in 3D, with the aim of increasing the safety and
-efficiency of refuelling tasks through autonomous systems
-~\cite{AGRPoseEstimation}.
+capture and track objects in 3D, enabling the pressurised refuelling port to be
+located precisely.~\cite{AGRPoseEstimation}.
 
 In addition, autonomous in-flight refuelling technologies for Unmanned Aerial
 Vehicles (UAV-AARs) have also been developed to extend their range, endurance
@@ -354,82 +353,95 @@ marking an important milestone in intelligent airport operations and advances
 in aviation safety.
 
 \section{Object Detection and Tracking in Computer Vision}
-\subsection{Fundamentals of Object Detection}
-Object detection is an essential task in computer vision, involving the
-identification and location of instances of specific classes (e.g. humans,
-animals, vehicles) in digital images. The aim is to develop algorithms capable
-of accurately and efficiently determining the presence and location of these
-objects. Key performance metrics for object detection include classification
-accuracy, location accuracy and processing speed~\cite{SurveyODIn20Years}. This
-fundamental technology underpins a range of applications such as autonomous
-vehicles, surveillance systems and robotics.
 
-\subsection{Techniques and Algorithms for Object Detection}
-The rapid development of deep learning has led to substantial advances in
-object detection, propelling it to the forefront of computer vision research.
-Object detection is an integral part of many other tasks such as instance
-segmentation, image captioning and object tracking~\cite{SurveyODIn20Years}.
+\subsection{Fundamentals of Object Detection and Tracking}
+Object detection and tracking are fundamental tasks in computer vision,
+involving the identification and continuous observation of objects in a video
+sequence. Traditional tracking algorithms mainly use visual information to
+locate the target by building a model that estimates the similarity between the
+target and the search region. However, these models often fail in complex
+scenes populated with similar objects, leading to confusion and loss of the
+target. Innovations such as the KYS algorithm proposed by \citet{Bhat2020}
+incorporate scene information represented as dense localised state vectors,
+which are propagated throughout the sequence to provide additional context to
+the appearance model. The LaSOT dataset further enhances tracking by providing
+linguistic specifications that describe the target and its environment,
+conveying valuable semantic information that aids tracking in complex scenes
+\cite{SurveyVisualOT}. These advances are crucial for applications such as
+automated refuelling systems, intelligent transport and industrial automation,
+where accurate object detection and tracking are imperative for efficiency and
+safety \cite{OverviewCorrelationAlgoOT, SuveyAdvancesSingleOTMethods}.
 
-Traditional object detection methods include techniques such as edge detection,
-shape matching, Haar cascades, histogram of oriented gradients (HOG) and
-support vector machines (SVM). Modern approaches are based on deep learning
-models such as convolutional neural networks (CNNs), region-based CNNs (R-CNNs)
-and the `You Only Look Once' (YOLO) method. These advanced techniques have
-significantly improved detection accuracy and enabled real-time performance.
+\subsection{Algorithms and Techniques for Object Detection}
+In the field of object detection, a plethora of algorithms and techniques have
+been developed to improve accuracy and robustness. Performance metrics such as
+accuracy, robustness, precision, recall and mean accuracy (mAP) are essential
+\cite{SurveySmallObjectDetection}. The best-known models for single small
+object detection include the fast R-CNN, SSD: Single Shot Multibox Detector,
+and YOLO (You Only Look Once), each evaluated on datasets such as Microsoft
+COCO and PASCAL VOC \cite{SurveySmallObjectDetection,
+    SmallObjectDetectionPositonPrediction, SurveyModernODModels}. Generative
+trackers, capable of handling challenging scenarios such as occlusion and
+large-scale variation through particle sampling strategies, are often
+integrated with various appearance models, including sparse representation and
+energy of motion. Discriminative trackers, by contrast, build robust
+classifiers using hand-crafted or deep features \cite{SurveyVisualOT}. The
+combination of generative and discriminative approaches, as well as the
+integration of deep learning techniques such as fully revolutionary networks
+and Transformer models, has led to significant improvements in object detection
+performance \cite{OverviewCorrelationAlgoOT, SuveyAdvancesSingleOTMethods,
+    SurveyModernODModels}. In addition, the speed and computational requirements of
+these algorithms are critical factors influencing their practical applicability
+\cite{SuveyAdvancesSingleOTMethods, SurveyModernODModels,
+    SurveyTransformersSingleOT}.
 
-In specific applications such as autonomous aerial refuelling, new methods such
-as the one proposed in~\citet{AAREKF} use monocular vision to estimate relative
-positions. This approach calculates coordinates by recognising beacons on the
-drogue, using image processing techniques and the Extended Kalman Filter (EKF)
-to improve robustness and increase detection frequency~\cite{AAREKF}.
+\subsection{Advanced Techniques for Object Tracking}
+Advanced techniques in object tracking leverage both generative and
+discriminative models to amplify tracking efficacy. The utilisation of deep
+trackers has evidenced superior results on public tracking datasets, attributed
+to their potent feature extractors, accurate bounding box regressors, and
+discriminative classifiers \cite{SurveyTransformersSingleOT}. Techniques such
+as deformable convolution and Transformer models extend traditional convolution
+or correlation methodologies to execute global feature matching, thereby
+enhancing tracking accuracy. The incorporation of contextual or knowledge
+information can substantially elevate performance, with methodologies like
+Particle Filtering, also recognised as Sequential Monte Carlo (SMC) methods,
+framed as problems of Bayesian inference in state space
+\cite{SurveySmallObjectDetection, SmallObjectDetectionPositonPrediction}. The
+extended Kalman Filtering (EKF) is another advanced technique that has been
+employed to improve tracking accuracy by predicting the current status through
+the previous status and modifying the prediction result based on observation
+information \cite{SuveyAdvancesSingleOTMethods, SurveyModernODModels}. Despite
+these advancements, the integration of these methods in a complementary manner
+remains an open research area with substantial potential for advancing the
+field \cite{OverviewCorrelationAlgoOT, SuveyAdvancesSingleOTMethods}.
 
-\subsection{Challenges in Object Detection and Tracking}
-Despite significant progress, object detection still faces several major
-challenges:
+\subsection{Challenges and Future Research Directions}
+Despite considerable progress, several challenges persist in the domain of
+object detection and tracking. A primary challenge is the integration of
+language and visual information to enhance tracking in complex scenes. Semantic
+information derived from language specifications can furnish valuable context
+that aids trackers in more accurately locating targets \cite{SurveyVisualOT}.
+The Drifting Problem, where inaccuracies in foreground and background
+estimation degrade the appearance model over time, particularly during
+occlusions or imprecise object locations, remains a significant issue.
+Additionally, challenges such as motion blurring, limited camera equipment, and
+the necessity for real-time processing must be addressed
+\cite{OverviewCorrelationAlgoOT}. Future research should emphasise developing
+comprehensive large-scale datasets tailored for small object detection, like
+SODA-D and SODA-A, focusing on driving and aerial scenarios respectively
+\cite{SurveySmallObjectDetection, SmallObjectDetectionPositonPrediction}.
+Further, exploring the potential of multi-modal information, enhancing
+multi-frame processing techniques such as optical flow estimation for key
+frames, and creating adaptive tracking systems capable of adjusting to
+appearance variations due to rotations, geometric transformations, and texture
+changes, are critical areas for future exploration \cite{SurveyVisualOT,
+    OverviewCorrelationAlgoOT, SmallObjectDetectionPositonPrediction,
+    SuveyAdvancesSingleOTMethods, SurveyModernODModels,
+    SurveyTransformersSingleOT}.
 
-\begin{itemize}
-    \item \textbf{Intra-class Variation:} Variations within the same object class due to factors like occlusion, lighting, pose, and viewpoint can significantly affect appearance, complicating accurate detection.
-    \item \textbf{Efficiency:} Accurate detection models often require significant computational resources. As mobile and peripheral devices become more common, there is a pressing need for efficient object detectors~\cite{SurveyModernODModels}.
-    \item \textbf{Environmental Factors:} Varying lighting conditions, weather, and high-speed object movements further complicate detection and tracking. In applications like autonomous air refuelling, maintaining high precision during the docking phase is particularly critical~\cite{AAREKF}.
-\end{itemize}
-
-\subsection{Applications in the Aviation Industry}
-
-Object detection and tracking are essential in the aviation industry to improve
-the safety and efficiency of various operations.
-
-For example, the paper of~\citet{AAREKF} details its application to autonomous
-aerial refuelling (AAR) of unmanned aircraft. Using a monocular vision system
-supplemented by the EKF, the method ensures accurate measurements of the
-relative position between the receiver and the tanker aircraft during docking,
-enabling successful autonomous refuelling operations~\cite{AAREKF}.
-
-In addition, the paper of~\citet{AARCNN} presents a real-time method for drug
-detection in autonomous PD-UAV-AAR refuelling. Based on the Caffe deep learning
-framework with CNNs, this approach achieves high accuracy and robustness
-without depending on artificial features, making it suitable for complex
-aeronautical environments~\cite{AARCNN}.
-
-\subsection{Recent Advances and Future Trends}
-The field of object detection has seen rapid advances, particularly with the
-proliferation of improved deep learning models. A comprehensive overview of
-these advances is provided in the review work presented
-in~\cite{SurveyModernODModels}.
-
-Recent innovations include the integration of deep learning techniques, which
-notably improve accuracy and robustness. The adoption of extended Kalman
-filters, as shown in the paper of~\citet{AAREKF}, improves the reliability of
-vision-based systems under dynamic conditions. Future trends may involve the
-development of more sophisticated algorithms and sensors to further refine
-detection and tracking performance.
-
-In summary, continued advances in deep learning and related technologies
-promise to address existing challenges, improving the capabilities of object
-detection systems for a variety of critical applications, including those in
-the aerospace industry. 
-
-\section{Deep Learning for Time-Series Prediction}
-\subsection{Deep Learning Models for Time-Series Prediction}
+\section{Deep Learning for Spacio-Temporal Prediction}
+\subsection{Fundamentals of Time Series Prediction}
 Time series prediction involves processing sequential data to predict future
 events or values. Various deep learning models have been applied to this task,
 requiring several preparatory steps such as collecting data, designating
@@ -503,29 +515,15 @@ The Transformer model, introduced by~\citet{Vaswani2017}, has revolutionised
 sequence modelling with its efficient and powerful network structure. For
 mobility prediction, Transformer models are increasingly recognised for
 addressing the challenges of predicting individual mobility patterns.
-The~\citet{HowDoUGoWhere} study shows how Transformers are tackling:
+The~\citet{HowDoUGoWhere} study shows how transformers can effectively learn
+mobility patterns from historical data, achieving state-of-the-art performance
+in next-location prediction tasks.
 
-\begin{itemize}
-    \item \textbf{Multiple Periodicities:} Individual location visitation patterns exhibit multiple periodicities (e.g., daily, weekly), which vary considerably across individuals. The multi-head self-attention mechanism in transformers allows the network to focus on multiple steps in the input sequence, effectively capturing these periodicities.
-    \item \textbf{Long-term Dependencies:} Human mobility depends on behaviors conducted days or weeks before. The design of the transformer model enables efficient learning of these long-term dependencies.
-\end{itemize}
-
-This study proposes a Transformer-based model that uses historical travel
-behaviour to predict individuals' next locations. The model learns mobility
-transition patterns from historical sequences of location, temporality and mode
-of travel, enabling it to achieve peak performance in next location prediction
-tasks.
-
-\begin{itemize}
-    \item \textbf{Joint Learning:} The model jointly learns the next location and the next travel mode, which improves the prediction performance for both tasks.
-    \item \textbf{Empirical Validation:} Extensive experiments on two real-world GPS tracking datasets show that considering additional aspects of travel behavior significantly increases the performance of next location prediction.
-\end{itemize}
-
-In summary, the transformer model's ability to capture complex spatio-temporal
-dependencies and long-term patterns makes it a powerful tool for sequence
-prediction tasks, including those in the domain of human mobility.
-
-\subsection{Applications in the Aviation Industry}
+Further validation and extensive experiments on real-world datasets affirm
+their efficacy in improving prediction accuracy. The work
+of~\citet{SpatioTemporalTransformerRecommender} discusses the application of
+transformers and self-attention mechanisms in sequence prediction, highlighting
+their effectiveness in various contexts.
 
 \subsection{Challenges and Future Research Directions}
 Despite significant advances, several challenges persist in deep learning

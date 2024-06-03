@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.14)  22 MAY 2024 23:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.14)  23 MAY 2024 11:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -890,7 +890,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 
 ]
 Chapter 1.
-<figures/pressure-refuelling.jpeg, id=152, 2208.25pt x 1472.50125pt>
+<figures/pressure-refuelling.jpeg, id=148, 2208.25pt x 1472.50125pt>
 File: figures/pressure-refuelling.jpeg Graphic file (type jpg)
 <use figures/pressure-refuelling.jpeg>
 Package pdftex.def Info: figures/pressure-refuelling.jpeg  used on input line 189.
@@ -917,18 +917,18 @@ Package rerunfilecheck Info: File `425500_Thesis_Report.out' has not changed.
 (rerunfilecheck)             Checksum: 3DE68CF4B2FF5586B47D92A5F4E70791;1587.
  ) 
 Here is how much of TeX's memory you used:
- 23514 strings out of 476025
- 446408 string characters out of 5790016
- 1864388 words of memory out of 5000000
- 43522 multiletter control sequences out of 15000+600000
- 539589 words of font info for 88 fonts, out of 8000000 for 9000
+ 23540 strings out of 476025
+ 447190 string characters out of 5790016
+ 1865388 words of memory out of 5000000
+ 43544 multiletter control sequences out of 15000+600000
+ 540603 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,12n,117p,507b,1071s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,12n,117p,469b,1072s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on 425500_Thesis_Report.pdf (22 pages, 1898341 bytes).
+Output written on 425500_Thesis_Report.pdf (22 pages, 1900782 bytes).
 PDF statistics:
- 328 PDF objects out of 1000 (max. 8388607)
- 290 compressed objects within 3 object streams
- 77 named destinations out of 1000 (max. 500000)
+ 353 PDF objects out of 1000 (max. 8388607)
+ 314 compressed objects within 4 object streams
+ 81 named destinations out of 1000 (max. 500000)
  112 words of extra memory for PDF output out of 10000 (max. 10000000)
 

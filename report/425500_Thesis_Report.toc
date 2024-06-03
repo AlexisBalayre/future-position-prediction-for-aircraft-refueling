@@ -13,17 +13,15 @@
 \contentsline {subsection}{\numberline {2.1.3}Current Technologies and Methods}{4}{subsection.2.1.3}%
 \contentsline {subsection}{\numberline {2.1.4}Future Directions and Innovations}{4}{subsection.2.1.4}%
 \contentsline {section}{\numberline {2.2}Object Detection and Tracking in Computer Vision}{5}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Fundamentals of Object Detection}{5}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Techniques and Algorithms for Object Detection}{5}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Challenges in Object Detection and Tracking}{5}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.2.4}Applications in the Aviation Industry}{6}{subsection.2.2.4}%
-\contentsline {subsection}{\numberline {2.2.5}Recent Advances and Future Trends}{6}{subsection.2.2.5}%
-\contentsline {section}{\numberline {2.3}Deep Learning for Time-Series Prediction}{6}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Deep Learning Models for Time-Series Prediction}{6}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.2.1}Fundamentals of Object Detection and Tracking}{5}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Algorithms and Techniques for Object Detection}{5}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Advanced Techniques for Object Tracking}{6}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Challenges and Future Research Directions}{6}{subsection.2.2.4}%
+\contentsline {section}{\numberline {2.3}Deep Learning for Spacio-Temporal Prediction}{6}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Fundamentals of Time Series Prediction}{6}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Recurrent Neural Networks and Long Short-Term Memory Networks}{7}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}Transformer models for sequence prediction}{7}{subsection.2.3.3}%
-\contentsline {subsection}{\numberline {2.3.4}Applications in the Aviation Industry}{8}{subsection.2.3.4}%
-\contentsline {subsection}{\numberline {2.3.5}Challenges and Future Research Directions}{8}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.4}Challenges and Future Research Directions}{8}{subsection.2.3.4}%
 \contentsline {chapter}{References}{9}{chapter*.8}%
 \contentsline {chapter}{\numberline {A}Ethical Approval Letter}{12}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Extra Data}{13}{appendix.B}%

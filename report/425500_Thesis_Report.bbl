@@ -1,4 +1,4 @@
-\begin{thebibliography}{27}
+\begin{thebibliography}{33}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -29,6 +29,12 @@ R.~A. Bennett, Y.~C. Shiu, and M.~B. Leahy.
 \newblock volume~1, 1991.
 \newblock \doi{10.1109/robot.1991.131568}.
 
+\bibitem[Bhat et~al.(2020)Bhat, Danelljan, Gool, and Timofte]{Bhat2020}
+G.~Bhat, M.~Danelljan, L.~V. Gool, and R.~Timofte.
+\newblock Know your surroundings: Exploiting scene information for object tracking.
+\newblock volume 12368 LNCS, 2020.
+\newblock \doi{10.1007/978-3-030-58592-1_13}.
+
 \bibitem[Blakey et~al.(2011)Blakey, Rye, and Wilson]{blakey2011aviation}
 S.~Blakey, L.~Rye, and C.~W. Wilson.
 \newblock Aviation gas turbine alternative fuels: a review.
@@ -40,6 +46,20 @@ C.-I. Chen and R.~Stettner.
 \newblock Drogue tracking using 3d flash lidar for autonomous aerial refueling.
 \newblock volume 8037, 2011.
 \newblock \doi{10.1117/12.886572}.
+
+\bibitem[Chen et~al.(2022)Chen, Wang, Zhao, Lv, and Niu]{SurveyVisualOT}
+F.~Chen, X.~Wang, Y.~Zhao, S.~Lv, and X.~Niu.
+\newblock Visual object tracking: A survey.
+\newblock \emph{Computer Vision and Image Understanding}, 222, 9 2022.
+\newblock ISSN 1090235X.
+\newblock \doi{10.1016/j.cviu.2022.103508}.
+
+\bibitem[Cheng et~al.(2023)Cheng, Yuan, Yao, Yan, Zeng, Xie, and Han]{SurveySmallObjectDetection}
+G.~Cheng, X.~Yuan, X.~Yao, K.~Yan, Q.~Zeng, X.~Xie, and J.~Han.
+\newblock Towards large-scale small object detection: Survey and benchmarks.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 45, 2023.
+\newblock ISSN 19393539.
+\newblock \doi{10.1109/TPAMI.2023.3290594}.
 
 \bibitem[Feng et~al.(2018)Feng, Li, Zhang, Sun, Meng, Guo, and Jin]{Feng2018}
 J.~Feng, Y.~Li, C.~Zhang, F.~Sun, F.~Meng, A.~Guo, and D.~Jin.
@@ -91,12 +111,26 @@ B.~Kuang, S.~Barnes, G.~Tang, and K.~Jenkins.
 \newblock 2023.
 \newblock \doi{10.1109/ICAC57885.2023.10275212}.
 
+\bibitem[Kugarajeevan et~al.(2023)Kugarajeevan, Kokul, Ramanan, and Fernando]{SurveyTransformersSingleOT}
+J.~Kugarajeevan, T.~Kokul, A.~Ramanan, and S.~Fernando.
+\newblock Transformers in single object tracking: An experimental survey.
+\newblock \emph{IEEE Access}, 11, 2023.
+\newblock ISSN 21693536.
+\newblock \doi{10.1109/ACCESS.2023.3298440}.
+
 \bibitem[Lee et~al.(2022)Lee, Jeon, Han, and Jeong]{FFPSpaceSystemVehicles}
 W.~C. Lee, Y.~B. Jeon, S.~S. Han, and C.~S. Jeong.
 \newblock Position prediction in space system for vehicles using artificial intelligence.
 \newblock \emph{Symmetry}, 14, 2022.
 \newblock ISSN 20738994.
 \newblock \doi{10.3390/sym14061151}.
+
+\bibitem[Liu et~al.(2021)Liu, Liu, Srivastava, Połap, and Woźniak]{OverviewCorrelationAlgoOT}
+S.~Liu, D.~Liu, G.~Srivastava, D.~Połap, and M.~Woźniak.
+\newblock Overview and methods of correlation filter algorithms in object tracking.
+\newblock \emph{Complex and Intelligent Systems}, 7, 2021.
+\newblock ISSN 21986053.
+\newblock \doi{10.1007/s40747-020-00161-4}.
 
 \bibitem[Qian et~al.(2022)Qian, Zheng, Li, Ma, Zhou, and Zhang]{WaterShipTrajectoryPrediction}
 L.~Qian, Y.~Zheng, L.~Li, Y.~Ma, C.~Zhou, and D.~Zhang.
@@ -130,6 +164,13 @@ X.~Wang, X.~Dong, X.~Kong, J.~Li, and B.~Zhang.
 \newblock ISSN 10009361.
 \newblock \doi{10.1016/j.cja.2016.12.022}.
 
+\bibitem[Wu and Xu(2021)]{SmallObjectDetectionPositonPrediction}
+J.~Wu and S.~Xu.
+\newblock From point to region: Accurate and efficient hierarchical small object detection in low-resolution remote sensing images.
+\newblock \emph{Remote Sensing}, 13, 2021.
+\newblock ISSN 20724292.
+\newblock \doi{10.3390/rs13132620}.
+
 \bibitem[Xu et~al.(2023)Xu, Huang, and Zou]{SpatioTemporalTransformerRecommender}
 S.~Xu, Q.~Huang, and Z.~Zou.
 \newblock Spatio-temporal transformer recommender: Next location recommendation with attention mechanism by mining the spatio-temporal relationship between visited locations.
@@ -161,17 +202,17 @@ S.~S.~A. Zaidi, M.~S. Ansari, A.~Aslam, N.~Kanwal, M.~Asghar, and B.~Lee.
 \newblock A survey of modern deep learning based object detection models, 2022.
 \newblock ISSN 10512004.
 
+\bibitem[Zhang et~al.(2021)Zhang, Wang, Liu, Zhang, and Chen]{SuveyAdvancesSingleOTMethods}
+Y.~Zhang, T.~Wang, K.~Liu, B.~Zhang, and L.~Chen.
+\newblock Recent advances of single-object tracking methods: A brief survey.
+\newblock \emph{Neurocomputing}, 455, 2021.
+\newblock ISSN 18728286.
+\newblock \doi{10.1016/j.neucom.2021.05.011}.
+
 \bibitem[Zhong et~al.(2017)Zhong, Li, Wang, and Su]{AAREKF}
 Z.~Zhong, D.~Li, H.~Wang, and Z.~Su.
 \newblock Drogue position and tracking with machine vision for autonomous air refueling based on ekf.
 \newblock volume~2, 2017.
 \newblock \doi{10.1109/IHMSC.2017.151}.
-
-\bibitem[Zou et~al.(2023)Zou, Chen, Shi, Guo, and Ye]{SurveyODIn20Years}
-Z.~Zou, K.~Chen, Z.~Shi, Y.~Guo, and J.~Ye.
-\newblock Object detection in 20 years: A survey.
-\newblock \emph{Proceedings of the IEEE}, 111, 2023.
-\newblock ISSN 15582256.
-\newblock \doi{10.1109/JPROC.2023.3238524}.
 
 \end{thebibliography}
