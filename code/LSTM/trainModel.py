@@ -10,15 +10,15 @@ from LSTMLightningModel import LSTMLightningModel
 # Main execution block
 if __name__ == "__main__":
     # Model initialization with specified architecture parameters
-    train_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/synthetic/3d_nonlinear_motion_dataset_test6/train.json"
-    val_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/synthetic/3d_nonlinear_motion_dataset_test6/validation.json"
-    test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/synthetic/3d_nonlinear_motion_dataset_test6/test.json"
+    train_dataset_path = "./data/outdoor2/train.json"
+    val_dataset_path = "./data/outdoor2/validation.json"
+    test_dataset_path = "./data/outdoor2/test.json"
     num_workers = 8  # Number of workers for data loading
-    batch_size = 32  # Number of samples per batch
+    batch_size = 16  # Number of samples per batch
     seq_length = 15  # Length of the input sequence
     input_dim = 4  # Dimensionalityx of input features
     output_dim = 4  # Dimensionality of the model's output
-    hidden_dim = 64  # Size of the model's hidden layers
+    hidden_dim = 256  # Size of the model's hidden layers
     hidden_depth = 2  # Number of hidden layers
     learning_rate = 5e-4  # Initial learning rate
     max_epochs = 100000  # Maximum number of training epochs
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     )
 
     # Logger setup for TensorBoard
-    logger = TensorBoardLogger("tb_logs", name="lstm_model")
+    logger = TensorBoardLogger("tb_logs", name="lstm_model_indoor1")
 
     # Early stopping and checkpointing callbacks
     callbacks = [

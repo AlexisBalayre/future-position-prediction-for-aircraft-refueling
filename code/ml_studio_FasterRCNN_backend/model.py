@@ -4,7 +4,10 @@ from dotenv import load_dotenv
 import requests
 import torch
 from torch.utils.data import DataLoader, Dataset
-from torchvision.models.detection import fasterrcnn_resnet50_fpn
+from torchvision.models.detection import (
+    fasterrcnn_resnet50_fpn_v2,
+    FasterRCNN_ResNet50_FPN_V2_Weights,
+)
 from torchvision.transforms import ToTensor
 from label_studio_ml.model import LabelStudioMLBase
 from PIL import Image
@@ -40,25 +43,47 @@ class CustomDataset(Dataset):
 
 
 class AirplaneFuelPortDetector(LabelStudioMLBase):
-    def __init__(self, batch_size=8, num_epochs=10, lr=1e-4, **kwargs):
+    def __init__(self, batch_size=16, num_epochs=10, lr=5e-4, **kwargs):
+        """
+        Initialise the model.
+
+        Args:
+            batch_size (int, optional): Batch size for training. Defaults to 16.
+            num_epochs (int, optional): Number of epochs for training. Defaults to 10.
+            lr (_type_, optional): Learning rate for training. Defaults to 5e-4.
+        """
+
         super(AirplaneFuelPortDetector, self).__init__(**kwargs)
-        self.model = fasterrcnn_resnet50_fpn(pretrained=True)
+        weights = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
+        self.model = fasterrcnn_resnet50_fpn_v2(weights=weights)
         self.batch_size = batch_size
         self.num_epochs = num_epochs
         self.lr = lr
+        self.device = torch.device("cpu")
+        self.model.to(self.device)
 
     def predict(self, tasks, **kwargs):
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.model.to(device)
+        """
+        Make predictions on the given tasks.
+
+        Args:
+            tasks: List of tasks to make predictions on
+
+        Returns:
+            List of predictions
+        """
         self.model.eval()
 
         predictions = []
         for task in tasks:
             image_url = task["data"]["image"]
             image_path = self.get_local_path(image_url)
-
-            image = Image.open(image_path).convert("RGB")
-            image_tensor = ToTensor()(image).unsqueeze(0).to(device)
+            try:
+                image = Image.open(image_path).convert("RGB")
+            except Exception as e:
+                print(f"Error loading image: {e}")
+                continue
+            image_tensor = ToTensor()(image).unsqueeze(0).to(self.device)
 
             with torch.no_grad():
                 outputs = self.model(image_tensor)
@@ -95,23 +120,33 @@ class AirplaneFuelPortDetector(LabelStudioMLBase):
         return predictions
 
     def _get_annotated_dataset(self, project_id):
-        """Just for demo purposes: retrieve annotated data from Label Studio API"""
+        """Retrieve annotated data from Label Studio API"""
         HOSTNAME = os.getenv("LABEL_STUDIO_URL", "http://localhost:8080")
         API_KEY = os.getenv("LABEL_STUDIO_API_KEY", "my_api_key")
         download_url = f'{HOSTNAME.rstrip("/")}/api/projects/{project_id}/export'
-        response = requests.get(
-            download_url, headers={"Authorization": f"Token {API_KEY}"}
-        )
-        if response.status_code != 200:
-            raise Exception(
-                f"Can't load task data using {download_url}, "
-                f"response status_code = {response.status_code}"
+
+        for _ in range(3):  # Retry mechanism: 3 attempts
+            response = requests.get(
+                download_url, headers={"Authorization": f"Token {API_KEY}"}
             )
-        return json.loads(response.content)
+            if response.status_code == 200:
+                return json.loads(response.content)
+            else:
+                print(f"Failed to fetch data: {response.status_code}. Retrying...")
+
+        raise Exception(
+            f"Can't load task data using {download_url}, response status_code = {response.status_code}"
+        )
 
     def fit(self, event, data, **kwargs):
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.model.to(device)
+        """
+        Fit the model based on labeled data from Label Studio.
+
+        Args:
+            event: Event name
+            data: Data from Label Studio
+        """
+        self.model.train()
 
         project_id = data["project"]["id"]
         tasks = self._get_annotated_dataset(project_id)
@@ -122,36 +157,45 @@ class AirplaneFuelPortDetector(LabelStudioMLBase):
                 continue
 
             annotation = task["annotations"][0]
-            # get input text from task data
             if annotation.get("skipped") or annotation.get("was_cancelled"):
                 continue
 
             image_url = task["data"]["image"]
-            image_path = self.get_local_path(image_url)
-            width, height = Image.open(image_path).size
+            try:
+                image_path = self.get_local_path(image_url)
+                width, height = Image.open(image_path).size
+            except requests.HTTPError as e:
+                print(f"HTTP error for {image_url}: {e}")
+                continue
+            except Exception as e:
+                print(f"Failed to process {image_url}: {e}")
+                continue
 
-            boxes = []
-            labels = []
-            for result in annotation["result"]:
-                value = result["value"]
-                label = value["rectanglelabels"][0]
+            if len(annotation["result"]) != 1:
+                continue
+            result = annotation["result"][0]
+            value = result["value"]
+            label = value["rectanglelabels"][0]
 
-                if label == "Fuel Port":
-                    x = value["x"] / 100 * width
-                    y = value["y"] / 100 * height
-                    w = value["width"] / 100 * width
-                    h = value["height"] / 100 * height
-                    boxes.append([x, y, x + w, y + h])
-                    labels.append(1)
+            if label == "Fuel Port":
+                x = value["x"] / 100 * width
+                y = value["y"] / 100 * height
+                w = value["width"] / 100 * width
+                h = value["height"] / 100 * height
 
-            annotations.append(
-                {"image_path": image_path, "boxes": boxes, "labels": labels}
-            )
+                if x != 0 or y != 0 or w != 0 or h != 0:
+                    annotations.append(
+                        {
+                            "image_path": image_path,
+                            "boxes": [[x, y, x + w, y + h]],
+                            "labels": [1],
+                        }
+                    )
 
         dataset = CustomDataset(annotations, transform=ToTensor())
         data_loader = DataLoader(
             dataset,
-            batch_size=4,
+            batch_size=16,
             shuffle=True,
             collate_fn=lambda x: tuple(zip(*x)),
         )
@@ -159,11 +203,12 @@ class AirplaneFuelPortDetector(LabelStudioMLBase):
         params = [p for p in self.model.parameters() if p.requires_grad]
         optimizer = torch.optim.Adam(params, lr=self.lr)
 
-        self.model.train()
         for epoch in range(self.num_epochs):
             for images, targets in data_loader:
-                images = [image.to(device) for image in images]
-                targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
+                images = [image.to(self.device) for image in images]
+                targets = [
+                    {k: v.to(self.device) for k, v in t.items()} for t in targets
+                ]
 
                 optimizer.zero_grad()
                 loss_dict = self.model(images, targets)
