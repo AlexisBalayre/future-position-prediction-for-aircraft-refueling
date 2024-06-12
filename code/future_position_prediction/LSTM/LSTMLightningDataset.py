@@ -4,31 +4,33 @@ from torch.utils.data import Dataset
 
 
 class LSTMLightningDataset(Dataset):
-    def __init__(self, json_file, seq_length=10, stage="train"):
+    def __init__(self, json_file, input_frames=3, output_frames=1, stage="train"):
         with open(json_file, "r") as f:
-            annotations = json.load(f)
+            self.data = json.load(f)
 
-        self.seq_length = seq_length
-        self.annotations = annotations
-        self.data, self.targets = self._create_sequences()
+        self.input_frames = input_frames
+        self.output_frames = output_frames
+        self.samples = []
 
-    def _create_sequences(self):
-        xs = []
-        ys = []
-        for i in range(len(self.annotations) - self.seq_length):
-            seq = self.annotations[i : i + self.seq_length]
-            target = self.annotations[i + self.seq_length]
-            x = [anno["bbox"] for anno in seq]
-            y = target["bbox"]
-            xs.append(x)
-            ys.append(y)
-
-        return torch.tensor(xs, dtype=torch.float32), torch.tensor(
-            ys, dtype=torch.float32
-        )
+        for entry in self.data:
+            video_id = entry["video_id"]
+            frames = entry["frames"]
+            for idx in range(len(frames) - input_frames - output_frames + 1):
+                input_seq = frames[idx : idx + input_frames]
+                output_seq = frames[
+                    idx + input_frames : idx + input_frames + output_frames
+                ]
+                self.samples.append((video_id, input_seq, output_seq))
 
     def __len__(self):
-        return len(self.data)
+        return len(self.samples)
 
     def __getitem__(self, idx):
-        return self.data[idx], self.targets[idx]
+        video_id, input_seq, output_seq = self.samples[idx]
+        input_bboxes = [frame["bbox"] for frame in input_seq]
+        output_bboxes = [frame["bbox"] for frame in output_seq]
+        input_bboxes = torch.tensor(input_bboxes, dtype=torch.float32)
+        output_bboxes = torch.tensor(output_bboxes, dtype=torch.float32).squeeze(
+            0
+        )  # Ensure correct dimensions
+        return input_bboxes, output_bboxes

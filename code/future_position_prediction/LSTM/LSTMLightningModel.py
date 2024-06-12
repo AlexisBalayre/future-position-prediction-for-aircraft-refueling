@@ -48,14 +48,9 @@ class LSTMLightningModel(L.LightningModule):
         Returns:
             torch.Tensor: Output tensor.
         """
-        h0 = torch.zeros(
-            self.hparams.hidden_depth, x.size(0), self.hparams.hidden_dim
-        ).to(x.device)
-        c0 = torch.zeros(
-            self.hparams.hidden_depth, x.size(0), self.hparams.hidden_dim
-        ).to(x.device)
-        out, _ = self.lstm(x, (h0, c0))
-        out = self.fc(out[:, -1, :])
+        lstm_out, _ = self.lstm(x)
+        lstm_out = lstm_out[:, -1, :]
+        out = self.fc(lstm_out)
         return out
 
     def training_step(self, batch, batch_idx):

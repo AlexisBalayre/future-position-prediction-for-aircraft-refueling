@@ -4,7 +4,7 @@ import lightning as L
 from lightning.pytorch.loggers import TensorBoardLogger
 from lightning.pytorch.callbacks import ModelCheckpoint, EarlyStopping
 
-from LSTMLightningDataModule import LSTMLightningDataModule
+from TransformerLightningDataModule import TransformerLightningDataModule
 from LSTMLightningModel import LSTMLightningModel
 
 # Main execution block
@@ -14,14 +14,14 @@ if __name__ == "__main__":
     val_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/validation.json"
     test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test.json"
     num_workers = 8  # Number of workers for data loading
-    batch_size = 32  # Number of samples per batch
-    input_frames = 19  # Number of input frames
+    batch_size = 16  # Number of samples per batch
+    input_frames = 13  # Number of input frames
     output_frames = 1  # Number of output frames
     input_dim = 4  # Dimensionalityx of input features
     output_dim = 4  # Dimensionality of the model's output
     hidden_dim = 256  # Size of the model's hidden layers
     hidden_depth = 1  # Number of hidden layers
-    learning_rate = 1e-3  # Initial learning rate
+    learning_rate = 9e-4  # Initial learning rate
     max_epochs = 100000  # Maximum number of training epochs
 
     # Fixed random seed for reproducibility of results
