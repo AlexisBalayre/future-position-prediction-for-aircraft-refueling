@@ -23,7 +23,7 @@ class LSTMLightningDataModule(L.LightningDataModule):
     def setup(
         self, stage=None, input_frames=3, output_frames=1, predict_dataset_path=None
     ):
-        if stage == "fit" or stage is None:
+        if stage == "train" or stage is None:
             self.train_dataset = LSTMLightningDataset(
                 self.train_dataset_path,
                 input_frames=input_frames,

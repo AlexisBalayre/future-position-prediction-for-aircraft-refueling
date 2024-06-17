@@ -5,7 +5,7 @@ from lightning.pytorch.loggers import TensorBoardLogger
 from lightning.pytorch.callbacks import ModelCheckpoint, EarlyStopping
 
 from TransformerLightningDataModule import TransformerLightningDataModule
-from LSTMLightningModel import LSTMLightningModel
+from TransformerLightningModel import TransformerLightningModel
 
 # Main execution block
 if __name__ == "__main__":
@@ -15,11 +15,11 @@ if __name__ == "__main__":
     test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test.json"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = 13  # Number of input frames
+    input_frames = 20  # Number of input frames
     output_frames = 1  # Number of output frames
     input_dim = 4  # Dimensionalityx of input features
     output_dim = 4  # Dimensionality of the model's output
-    hidden_dim = 256  # Size of the model's hidden layers
+    hidden_dim = 80  # Size of the model's hidden layers
     hidden_depth = 1  # Number of hidden layers
     learning_rate = 9e-4  # Initial learning rate
     max_epochs = 100000  # Maximum number of training epochs
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     torch.manual_seed(123)
 
     # Data Module
-    data_module = LSTMLightningDataModule(
+    data_module = TransformerLightningDataModule(
         train_dataset_path=train_dataset_path,
         val_dataset_path=val_dataset_path,
         test_dataset_path=test_dataset_path,
@@ -37,21 +37,22 @@ if __name__ == "__main__":
     )
 
     data_module.setup(
-        "fit", input_frames=input_frames, output_frames=output_frames
+        input_frames, output_frames, stage="train"
     )  # Prepare data for training
 
     # Initialize the model
-    model = LSTMLightningModel(
+    model = TransformerLightningModel(
         lr=learning_rate,
         batch_size=batch_size,
         input_dim=input_dim,
         hidden_dim=hidden_dim,
         output_dim=output_dim,
-        hidden_depth=hidden_depth,
+        input_frames=input_frames,
+        output_frames=output_frames,
     )
 
     # Logger setup for TensorBoard
-    logger = TensorBoardLogger("tb_logs", name="lstm_model_indoor1")
+    logger = TensorBoardLogger("tb_logs", name="transformer")
 
     # Early stopping and checkpointing callbacks
     callbacks = [
@@ -76,5 +77,7 @@ if __name__ == "__main__":
     )  # Start training the model
 
     # Testing phase
-    data_module.setup("test")  # Prepare data for testing
+    data_module.setup(
+        input_frames, output_frames, stage="test"
+    )  # Prepare data for testing
     trainer.test(model, datamodule=data_module)  # Evaluate the model on the test set

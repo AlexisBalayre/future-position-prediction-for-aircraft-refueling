@@ -20,31 +20,29 @@ class TransformerLightningDataModule(L.LightningDataModule):
         self.batch_size = batch_size
         self.num_workers = num_workers
 
-    def setup(
-        self, stage=None, input_frames=3, output_frames=1, predict_dataset_path=None
-    ):
-        if stage == "fit" or stage is None:
-            self.train_dataset = LSTMLightningDataset(
+    def setup(self, input_frames=1, output_frames=3, stage=None, predict_dataset_path=None):
+        if stage == "train" or stage is None:
+            self.train_dataset = TransformerLightningDataset(
                 self.train_dataset_path,
                 input_frames=input_frames,
                 output_frames=output_frames,
                 stage="train",
             )
-            self.val_dataset = LSTMLightningDataset(
+            self.val_dataset = TransformerLightningDataset(
                 self.val_dataset_path,
                 input_frames=input_frames,
                 output_frames=output_frames,
                 stage="val",
             )
         if stage == "test" or stage is None:
-            self.test_dataset = LSTMLightningDataset(
+            self.test_dataset = TransformerLightningDataset(
                 self.test_dataset_path,
                 input_frames=input_frames,
                 output_frames=output_frames,
                 stage="test",
             )
         if stage == "predict" and predict_dataset_path is not None:
-            self.predict_dataset = LSTMLightningDataset(
+            self.predict_dataset = TransformerLightningDataset(
                 predict_dataset_path,
                 input_frames=input_frames,
                 output_frames=output_frames,

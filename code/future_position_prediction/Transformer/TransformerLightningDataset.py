@@ -4,14 +4,11 @@ from torch.utils.data import Dataset
 
 
 class TransformerLightningDataset(Dataset):
-    def __init__(self, json_file, input_frames=3, output_frames=1, stage="train"):
+    def __init__(self, json_file, input_frames, output_frames, stage="train"):
         with open(json_file, "r") as f:
             self.data = json.load(f)
 
-        self.input_frames = input_frames
-        self.output_frames = output_frames
         self.samples = []
-
         for entry in self.data:
             video_id = entry["video_id"]
             frames = entry["frames"]
@@ -30,7 +27,5 @@ class TransformerLightningDataset(Dataset):
         input_bboxes = [frame["bbox"] for frame in input_seq]
         output_bboxes = [frame["bbox"] for frame in output_seq]
         input_bboxes = torch.tensor(input_bboxes, dtype=torch.float32)
-        output_bboxes = torch.tensor(output_bboxes, dtype=torch.float32).squeeze(
-            0
-        )  # Ensure correct dimensions
+        output_bboxes = torch.tensor(output_bboxes, dtype=torch.float32)
         return input_bboxes, output_bboxes

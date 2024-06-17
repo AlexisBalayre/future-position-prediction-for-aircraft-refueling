@@ -3,7 +3,7 @@ import torch.nn.functional as F
 import torch.nn as nn
 import lightning as L
 from torchmetrics.detection import IntersectionOverUnion
-import torchmetrics
+import torchvision.ops as ops
 
 
 class LSTMLightningModel(L.LightningModule):
@@ -22,21 +22,27 @@ class LSTMLightningModel(L.LightningModule):
     def __init__(
         self,
         lr=1e-4,
+        input_frames=10,
+        output_frames=10,
         batch_size=32,
         input_dim=4,
-        hidden_dim=64,
+        hidden_dim=128,
         output_dim=4,
-        hidden_depth=2,
+        hidden_depth=3,
+        dropout=0.2,
     ):
         super(LSTMLightningModel, self).__init__()
         self.save_hyperparameters()  # Automatically logs and saves hyperparameters for reproducibility
 
-        self.lstm = nn.LSTM(input_dim, hidden_dim, hidden_depth, batch_first=True)
+        self.lstm = nn.LSTM(
+            input_dim, hidden_dim, hidden_depth, batch_first=True, dropout=dropout
+        )
         self.fc = nn.Linear(hidden_dim, output_dim)
+        self.dropout = nn.Dropout(dropout)
 
-        self.train_iou = IntersectionOverUnion(box_format="xywh")
-        self.val_iou = IntersectionOverUnion(box_format="xywh")
-        self.test_iou = IntersectionOverUnion(box_format="xywh")
+        self.train_iou = IntersectionOverUnion(box_format="xyxy")
+        self.val_iou = IntersectionOverUnion(box_format="xyxy")
+        self.test_iou = IntersectionOverUnion(box_format="xyxy")
 
     def forward(self, x):
         """
@@ -49,7 +55,7 @@ class LSTMLightningModel(L.LightningModule):
             torch.Tensor: Output tensor.
         """
         lstm_out, _ = self.lstm(x)
-        lstm_out = lstm_out[:, -1, :]
+        lstm_out = self.dropout(lstm_out[:, -1, :])
         out = self.fc(lstm_out)
         return out
 
@@ -117,7 +123,7 @@ class LSTMLightningModel(L.LightningModule):
         Returns:
             dict: The dictionary containing the optimizer and learning rate scheduler.
         """
-        optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr, weight_decay=1e-5)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
             optimizer, mode="min", factor=0.9, patience=100
         )
@@ -143,15 +149,19 @@ class LSTMLightningModel(L.LightningModule):
         """
         x, y_target = batch
         y_pred = self(x)
-        loss = F.mse_loss(y_pred, y_target)
 
-        # Prepare predictions and targets for IoU computation
-        preds = y_pred.detach().cpu() 
+        loss = ops.generalized_box_iou_loss(y_pred, y_target, reduction='mean')
+
+        preds = y_pred.detach().cpu()
         targets = y_target.detach().cpu()
-        class_labels = torch.zeros(preds.size(0), dtype=torch.int) # Only one class here (fuel port)
-        preds = [{"boxes": preds, "labels": class_labels}] # Predicted bounding boxe
-        targets = [{"boxes": targets, "labels": class_labels}] # Ground truth bounding box 
-        getattr(self, f"{stage}_iou").update(preds, targets) # Update IoU metric
+
+        #print(f"preds: {preds}")
+        #print(f"targets: {targets}")
+
+        class_labels = torch.zeros(preds.size(0), dtype=torch.int)
+        preds = [{"boxes": preds, "labels": class_labels}]
+        targets = [{"boxes": targets, "labels": class_labels}]
+        getattr(self, f"{stage}_iou").update(preds, targets)
 
         self.log(
             f"{stage}_loss",
