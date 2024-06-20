@@ -229,7 +229,6 @@ effective solution to the challenges of automated refuelling systems.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% LITERATURE REVIEW %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Literature Review}
 \section{Automated Refulling Systems in the Aviation Industry}
-\subsection{Introduction to Automated Refuelling Systems}
 Automated refueling systems have gained substantial importance in the aviation
 industry due to their potential to enhance safety and efficiency. The concept
 of Autonomous Aircraft Ground Refueling (AAGR) emerged in the 1980s, with
@@ -250,7 +249,6 @@ and payload capacity without significantly altering their original design. This
 technology overcomes limitations in fuel capacity and endurance, enabling UAVs
 to undertake longer missions~\cite{AARBinocularVision}.
 
-\subsection{Challenges in Automated Refuelling}
 The implementation of AAGR presents a number of challenges, including varying
 lighting conditions, different refuelling port designs and potential
 obstructions. Confidentiality issues associated with aircraft refuelling data,
@@ -272,7 +270,6 @@ refuelling systems is another major challenge. Collecting and processing these
 datasets is often time-consuming and requires meticulous
 configuration~\cite{HybridDatasetAGRV2}.
 
-\subsection{Current Technologies and Methods}
 Visual measurement methods based on artificial features, such as spray marks or
 LEDs, are commonly used in today's automated refuelling systems. The VisNav
 system, developed by Valsek, uses light-emitting diodes emitting at different
@@ -310,138 +307,135 @@ drogue. For unmanned aerial refuelling, this process is carried out
 autonomously. Although DGPS offers high location accuracy, it faces challenges
 such as lock-in problems and low bandwidth in air-to-air refuelling
 applications~\cite{AAREKF}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Future Directions and Innovations}
-Future progress in AAGR will depend on systematic research and improvements in
-training processes and classifier design. One promising approach is to use
-image style transformation technologies based on generative models to simulate
-changes in real-world visual conditions such as weather, lighting and camera
-angles~\cite{DatasetAGR}. However, these technologies need to be refined to
-become specific to aircraft ground refuelling scenarios.
-
-Expanding the training datasets to encompass various aircraft models and
-exploring alternative filtering methods to reduce system delays are also key to
-future improvements. Ongoing technological developments are expected to
-minimise human intervention in refuelling tasks, paving the way for more
-efficient and accurate autonomous systems~\cite{AGRPoseEstimation}.
-
-Validation of the results using other measurement methods, such as laser
-trackers, and testing of the systems developed on passenger aircraft under real
-conditions are essential steps. This research aims to ensure the reliability
-and applicability of automated refuelling systems in operational
-environments~\cite{HybridDatasetAGRV1}.
-
-Advances in computer vision algorithms and hardware will be key to improving
-the accuracy and reliability of position measurements. Innovations in sensor
-fusion, combining data from various sources such as vision systems and
-Differential Global Positioning Systems (DGPS), could lead to more robust
-solutions. Improved real-time image processing capabilities and sophisticated
-filtering techniques, such as the Extended Kalman Filter (EKF), are likely to
-play a key role in the evolution of autonomous aerial refuelling
-technologies~\cite{AAREKF}.
-
-Further integration of advanced computer vision techniques and machine learning
-algorithms can significantly improve the accuracy and reliability of the
-refuelling process. The development of more sophisticated synthetic datasets
-that simulate a wider range of conditions and scenarios will improve the
-system's ability to handle real-world variations and
-anomalies~\cite{HybridDatasetAGRV2}.
-
-By continually refining these systems, the aviation industry is one step closer
-to achieving fully autonomous and highly efficient refuelling operations,
-marking an important milestone in intelligent airport operations and advances
-in aviation safety.
-
+\newpage
 \section{Object Detection and Tracking in Computer Vision}
+In Computer Vision, Object Detection refers to the identification and location
+of individual objects within an image, providing both spatial information
+(bounding boxes) and confidence scores, which represent the probability that
+each detected object belongs to the predicted
+class~\cite{huggingface2023objectdetection}. For example, in the following
+image, there are five detections, including one `ball' with a confidence level
+of 98\% and four `people' with confidence levels of 98\%, 95\%, 97\% and 97\%.
 
-\subsection{Fundamentals of Object Detection and Tracking}
-Object detection and tracking are fundamental tasks in computer vision,
-involving the identification and continuous observation of objects in a video
-sequence. Traditional tracking algorithms mainly use visual information to
-locate the target by building a model that estimates the similarity between the
-target and the search region. However, these models often fail in complex
-scenes populated with similar objects, leading to confusion and loss of the
-target. Innovations such as the KYS algorithm proposed by \citet{Bhat2020}
-incorporate scene information represented as dense localised state vectors,
-which are propagated throughout the sequence to provide additional context to
-the appearance model. The LaSOT dataset further enhances tracking by providing
-linguistic specifications that describe the target and its environment,
-conveying valuable semantic information that aids tracking in complex scenes
-\cite{SurveyVisualOT}. These advances are crucial for applications such as
-automated refuelling systems, intelligent transport and industrial automation,
-where accurate object detection and tracking are imperative for efficiency and
-safety \cite{OverviewCorrelationAlgoOT, SuveyAdvancesSingleOTMethods}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/intro_object_detection.png}
+    \caption{Example of outputs from an object detector~\cite{huggingface2023objectdetection}.}\label{fig:object-detection}
+\end{figure}
 
-\subsection{Algorithms and Techniques for Object Detection}
-In the field of object detection, a plethora of algorithms and techniques have
-been developed to improve accuracy and robustness. Performance metrics such as
-accuracy, robustness, precision, recall and mean accuracy (mAP) are essential
-\cite{SurveySmallObjectDetection}. The best-known models for single small
-object detection include the fast R-CNN, SSD: Single Shot Multibox Detector,
-and YOLO (You Only Look Once), each evaluated on datasets such as Microsoft
-COCO and PASCAL VOC \cite{SurveySmallObjectDetection,
-    SmallObjectDetectionPositonPrediction, SurveyModernODModels}. Generative
-trackers, capable of handling challenging scenarios such as occlusion and
-large-scale variation through particle sampling strategies, are often
-integrated with various appearance models, including sparse representation and
-energy of motion. Discriminative trackers, by contrast, build robust
-classifiers using hand-crafted or deep features \cite{SurveyVisualOT}. The
-combination of generative and discriminative approaches, as well as the
-integration of deep learning techniques such as fully revolutionary networks
-and Transformer models, has led to significant improvements in object detection
-performance \cite{OverviewCorrelationAlgoOT, SuveyAdvancesSingleOTMethods,
+Over the last few decades, Object Detection models based on Deep Learning have
+enjoyed remarkable success. These models fall into two main categories:
+two-stage detectors and single-stage detectors. 
+
+On the one hand, two-stage detectors, such as
+R-CNN~\cite{DBLP:journals/corr/GirshickDDM13}, Fast
+R-CNN~\cite{DBLP:journals/corr/Girshick15}, Faster R-CNN~\cite{Ren2017} and
+R-FCN~\cite{DBLP:journals/corr/DaiLHS16}, first generate region proposals and
+then refine these proposals into precise anchor boxes. While these models excel
+in detection accuracy, they typically suffer from large model sizes and slower
+detection speeds~\cite{SurveyDLOD, ODNetworkUAVCNNTransformer}.
+
+On the other hand, single-stage detectors, including the SSD (Single Shot
+Multibox Detector)~\cite{DBLP:journals/corr/LiuAESR15}, YOLO (You Only Look
+Once) series~\cite{DBLP:journals/corr/RedmonDGF15,
+    DBLP:journals/corr/RedmonF16, DBLP:journals/corr/abs-2004-10934,
+    chen2023yoloms, DBLP:journals/corr/abs-2107-08430, YOLOv5Release, li2023yolov6,
+    YOLOv8, wang2024yolov9, xu2022ppyoloe, wang2023goldyolo, xu2023damoyolo,
+    wang2024yolov10}, and RetinaNet~\cite{lin2018focal} directly predict object
+locations and categories in a single network pass. These models are known for
+their high detection speeds but sometimes compromise accuracy~\cite{SurveyDLOD,
+    ODNetworkUAVCNNTransformer}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/one-stage_two-stage_OD.png}
+    \caption{Basic deep learning-based one-stage vs two-stage object detection model architectures~\cite{SurveyDLOD}.}\label{fig:two-stage-vs-single-stage}
+\end{figure}
+
+Evaluating Object Detection models involves several key metrics to measure
+their performance. One common metric is Intersection over Union (IoU), which
+measures the overlap between a predicted bounding box and a ground-truth
+bounding box, as shown in Figure~\ref{fig:iou-metric}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/iou.png}
+    \caption{Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue).~\cite{huggingface2023objectdetection}}\label{fig:iou-metric}
+\end{figure}
+
+Based on the IoU metric, a detection can be classified as a \textbf{True
+    Positive (TP)} or a \textbf{False Positive (FP)} depending on whether the IoU
+value exceeds a certain threshold ($T_{IoU}$). If the IoU is above the
+threshold, the detection is considered correct (TP); otherwise, it is
+classified as a False Positive (FP). Additionally, \textbf{False Negatives
+    (FN)} refer to ground truth objects not detected by the model, while
+\textbf{True Negatives (TN)} are correctly classified background
+detections~\cite{huggingface2023objectdetection}. These classifications allow
+for the calculation of the following metrics:
+
+\begin{itemize}
+    \item \textbf{Precision}: The ratio of True Positives to the total number of
+          detections, measuring the model's ability to avoid false positives:
+          \begin{equation}
+              \text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
+          \end{equation}
+
+    \item \textbf{Recall}: The ratio of True Positives to the total number of ground-truth objects, measuring the model's ability to avoid false negatives:
+          \begin{equation}
+              \text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
+          \end{equation}
+\end{itemize}
+
+Common metrics used to evaluate Object Detection include:
+
+\begin{itemize}
+    \item \textbf{Average Precision (AP)}: This combines precision and recall, providing a single figure summarizing the model's performance across different confidence thresholds. Common versions are AP@.5 (with a threshold of 0.5 IoU) and AP@[.5:.05:.95], which calculates the average of AP values over several IoU thresholds~\cite{huggingface2023objectdetection}.
+    \item \textbf{Average Recall (AR)}: This measures the recall of the model averaged across multiple IoU thresholds. It can be computed for different numbers of detections per image, such as AR@1, AR@10, etc.~\cite{huggingface2023objectdetection}.
+    \item \textbf{Inference Time}: The time taken by the model to process an image, which is critical for applications requiring real-time detection~\cite{huggingface2023objectdetection}.
+    \item \textbf{Model Size}: The number of parameters or the size of the model, affecting deployment, especially on devices with limited resources~\cite{huggingface2023objectdetection}.
+    \item \textbf{Efficiency}: This considers the trade-off between accuracy and speed, often visualized using the AP vs. inference time curve~\cite{huggingface2023objectdetection}.
+\end{itemize}
+
+In addition to Object Detection, Object Tracking is another critical task in
+Computer Vision, involving the continuous monitoring of objects across video
+frames. Object Tracking methods can be broadly classified into two categories:
+\textbf{Generative Trackers} and \textbf{Discriminative
+    Trackers}~\cite{SurveyVisualOT}. Generative trackers are capable of handling
+challenging scenarios such as occlusion and large-scale variation through
+particle sampling strategies, often integrated with various appearance models,
+including sparse representation and energy of motion. Discriminative trackers,
+by contrast, build robust classifiers using hand-crafted or deep
+features~\cite{SurveyVisualOT}. The combination of generative and
+discriminative approaches, as well as the integration of deep learning
+techniques such as fully revolutionary networks and Transformer models, has led
+to significant improvements in object detection
+performance~\cite{OverviewCorrelationAlgoOT, SuveyAdvancesSingleOTMethods,
     SurveyModernODModels}. In addition, the speed and computational requirements of
-these algorithms are critical factors influencing their practical applicability
-\cite{SuveyAdvancesSingleOTMethods, SurveyModernODModels,
-    SurveyTransformersSingleOT}.
-
-\subsection{Advanced Techniques for Object Tracking}
-Advanced techniques in object tracking leverage both generative and
-discriminative models to amplify tracking efficacy. The utilisation of deep
-trackers has evidenced superior results on public tracking datasets, attributed
-to their potent feature extractors, accurate bounding box regressors, and
-discriminative classifiers \cite{SurveyTransformersSingleOT}. Techniques such
-as deformable convolution and Transformer models extend traditional convolution
-or correlation methodologies to execute global feature matching, thereby
-enhancing tracking accuracy. The incorporation of contextual or knowledge
-information can substantially elevate performance, with methodologies like
-Particle Filtering, also recognised as Sequential Monte Carlo (SMC) methods,
-framed as problems of Bayesian inference in state space
-\cite{SurveySmallObjectDetection, SmallObjectDetectionPositonPrediction}. The
-extended Kalman Filtering (EKF) is another advanced technique that has been
+these algorithms are critical factors influencing their practical
+applicability~\cite{SuveyAdvancesSingleOTMethods, SurveyModernODModels,
+    SurveyTransformersSingleOT}. Advanced techniques in object tracking leverage
+both generative and discriminative models to amplify tracking efficacy. The
+utilisation of deep trackers has evidenced superior results on public tracking
+datasets, attributed to their potent feature extractors, accurate bounding box
+regressors, and discriminative classifiers~\cite{SurveyTransformersSingleOT}.
+Techniques such as deformable convolution and Transformer models extend
+traditional convolution or correlation methodologies to execute global feature
+matching, thereby enhancing tracking accuracy. The incorporation of contextual
+or knowledge information can substantially elevate performance, with
+methodologies like Particle Filtering, also recognised as Sequential Monte
+Carlo (SMC) methods, framed as problems of Bayesian inference in state
+space~\cite{SurveySmallObjectDetection, SmallObjectDetectionPositonPrediction}.
+The extended Kalman Filtering (EKF) is another advanced technique that has been
 employed to improve tracking accuracy by predicting the current status through
 the previous status and modifying the prediction result based on observation
-information \cite{SuveyAdvancesSingleOTMethods, SurveyModernODModels}. Despite
+information~\cite{SuveyAdvancesSingleOTMethods, SurveyModernODModels}. Despite
 these advancements, the integration of these methods in a complementary manner
 remains an open research area with substantial potential for advancing the
-field \cite{OverviewCorrelationAlgoOT, SuveyAdvancesSingleOTMethods}.
-
-\subsection{Challenges and Future Research Directions}
-Despite considerable progress, several challenges persist in the domain of
-object detection and tracking. A primary challenge is the integration of
-language and visual information to enhance tracking in complex scenes. Semantic
-information derived from language specifications can furnish valuable context
-that aids trackers in more accurately locating targets \cite{SurveyVisualOT}.
-The Drifting Problem, where inaccuracies in foreground and background
-estimation degrade the appearance model over time, particularly during
-occlusions or imprecise object locations, remains a significant issue.
-Additionally, challenges such as motion blurring, limited camera equipment, and
-the necessity for real-time processing must be addressed
-\cite{OverviewCorrelationAlgoOT}. Future research should emphasise developing
-comprehensive large-scale datasets tailored for small object detection, like
-SODA-D and SODA-A, focusing on driving and aerial scenarios respectively
-\cite{SurveySmallObjectDetection, SmallObjectDetectionPositonPrediction}.
-Further, exploring the potential of multi-modal information, enhancing
-multi-frame processing techniques such as optical flow estimation for key
-frames, and creating adaptive tracking systems capable of adjusting to
-appearance variations due to rotations, geometric transformations, and texture
-changes, are critical areas for future exploration \cite{SurveyVisualOT,
-    OverviewCorrelationAlgoOT, SmallObjectDetectionPositonPrediction,
-    SuveyAdvancesSingleOTMethods, SurveyModernODModels,
-    SurveyTransformersSingleOT}.
+field~\cite{OverviewCorrelationAlgoOT, SuveyAdvancesSingleOTMethods}.
 
 \section{Deep Learning for Spacio-Temporal Prediction}
-\subsection{Fundamentals of Time Series Prediction}
 Time series prediction involves processing sequential data to predict future
 events or values. Various deep learning models have been applied to this task,
 requiring several preparatory steps such as collecting data, designating
@@ -450,99 +444,177 @@ datasets are usually classified into units of time such as seconds, minutes and
 hours, allowing the construction of metadata for machine
 learning~\cite{FFPSpaceSystemVehicles}.
 
-The problem of locating future objects has been widely studied, particularly
-for static surveillance cameras, from a bird's-eye view. Early work used
+\subsection*{Early Approaches and Models}
+The problem of predicting the future locations of objects has been extensively
+studied, particularly for static surveillance cameras. Initial efforts utilised
 recurrent neural networks (RNNs), including long-term memory networks (LSTMs)
-and managed recurrent units (GRUs), in an encoder-decoder format to encode past
-observations and decode future locations. Additional inputs, such as
-environmental information and semantic actions, were used to improve prediction
-accuracy.~\citet{Alahi2016} proposed a Social-LSTM to model pedestrian
-trajectories and interactions, further improving global context capture through
-a social pooling module~\cite{FusionGRU}. Recent advances have taken advantage
-of generative models and attention mechanisms to handle complex scenes
-involving various interacting agents~\cite{FusionGRU}.
+and gated recurrent units (GRUs), in an encoder-decoder format to encode past
+observations and decode future locations. Early models integrated additional
+inputs such as environmental data and semantic actions to enhance prediction
+accuracy. For instance,~\citet{Alahi2016} proposed a Social-LSTM to model
+pedestrian trajectories and interactions, further improving global context
+capture through a social pooling module~\cite{FusionGRU}. Recent advancements
+have leveraged generative models and attention mechanisms to manage complex
+scenes involving multiple interacting agents~\cite{FusionGRU}.
 
-The article of \citet{SpatioTemporalTransformerRecommender} discusses various
-deep learning models used to predict time series. In particular, the work
-by~\citet{Feng2018} uses attentional recurrent networks to predict human
-mobility~\cite{SpatioTemporalTransformerRecommender}. In addition, the paper
-highlights the use of BERT4Rec, which exploits bidirectional representations of
-transformer encoders for sequential recommendation
-tasks~\cite{SpatioTemporalTransformerRecommender}.
+\subsection*{Frame-Based Approaches in Spatio-Temporal Prediction}
 
-Several models for predicting ship trajectories have been proposed. Anderson
-considered ship trajectories as a one-dimensional Gaussian process and
-predicted smoothed trajectories by combining the dynamics with joint prior
-density and covariance matrices.~\citet{Jiang} used a polynomial Kalman filter
-for recursive trajectory prediction with minimal memory
-usage.~\citet{Zhang2018} adopted a spatial clustering method for prediction,
-using the DBSCAN model to cluster and denoise the original AIS trajectories.
-Rong introduced a probabilistic model describing the uncertainty of future ship
-positions through continuous probability distributions, which achieved high
-prediction accuracy~\cite{WaterShipTrajectoryPrediction}.
+Video prediction, a critical task in spatio-temporal data analysis, involves
+forecasting future frames based on past and current frames. This process
+requires understanding both spatial and temporal dynamics within the data.
 
-\subsection{Recurrent Neural Networks and Long Short-Term Memory Networks}
-Recurrent neural networks (RNNs), including long-term memory networks (LSTMs)
-and managed recurrent units (GRUs), have shown promise for predicting the
-future locations of traffic agents~\cite{FusionGRU}. However, many RNN-based
-models suffer from performance degradation over time due to their reliance on
-recurrent prediction of future bounding boxes from previous outputs. The
-Fusion-GRU model addresses these challenges by exploiting multiple sources of
-information, such as location scale data, monocular depth information and
-optical flow data. This approach improves representation learning by capturing
-the complex interactions between the various information cues, thereby
-improving the future localisation of traffic agents in congested and risky
-driving scenes~\cite{FusionGRU}.
+\subsubsection*{Convolutional LSTM (ConvLSTM)}
 
-RNNs are powerful for processing sequence information and making time-based
-predictions. Hochreiter et al. improved the structure of the RNN unit,
-introducing the LSTM model to solve the problems of gradient fading, gradient
-explosion and insufficient information memory through a
-gating~\cite{WaterShipTrajectoryPrediction} mechanism. LSTMs make efficient use
-of long-range temporal information, which is useful in a variety of prediction
-tasks. However, BP neural networks and SVMs also exist for trajectory
-prediction, but have limitations such as weaker handling of non-linear problems
-and susceptibility to local extrema~\cite{WaterShipTrajectoryPrediction}.
+ConvLSTM integrates convolutional operations into LSTM units to better capture
+spatial features in addition to temporal dependencies~\cite{ConvLSTM}. By
+processing video data as sequences of frames, ConvLSTM effectively models the
+spatio-temporal dependencies necessary for accurate video prediction. Each
+frame serves as a spatial unit, and the sequence of frames provides temporal
+context, allowing the model to predict future frames by learning from the
+patterns in previous ones.
 
-\subsection{Transformer models for sequence prediction}
-Recent research has used transform-based methods for estimating the future
-location of traffic~cite{FusionGRU} agents. Despite advances in deep learning
-for locating objects in typical driving scenarios, predicting locations in
-risky scenarios remains challenging due to abrupt changes in motion and
-interdependencies between successive images~\cite{FusionGRU}.
+\subsubsection*{Cubic LSTM for Video Prediction}
 
-The Transformer model, introduced by~\citet{Vaswani2017}, has revolutionised
-sequence modelling with its efficient and powerful network structure. For
-mobility prediction, Transformer models are increasingly recognised for
-addressing the challenges of predicting individual mobility patterns.
-The~\citet{HowDoUGoWhere} study shows how transformers can effectively learn
-mobility patterns from historical data, achieving state-of-the-art performance
-in next-location prediction tasks.
+The Cubic Long Short-Term Memory (CubicLSTM) unit, as proposed
+by~\citet{CubicLSTMsVideoPrediction}, extends the capabilities of ConvLSTM by
+separately processing spatial and temporal information through three branches:
+temporal, spatial, and output. This approach mitigates the computational burden
+and enhances prediction accuracy. Specifically:
+\begin{itemize}
+    \item The \textit{temporal branch} processes motion information by analysing the
+          sequence of frames over time.
+    \item The \textit{spatial branch} captures object information within individual
+          frames.
+    \item The \textit{output branch} combines temporal and spatial information to
+          generate predicted future frames.
+\end{itemize}
+This separation of concerns allows the model to handle the complexities of video data more effectively, resulting in more accurate predictions of future frames.
 
-Further validation and extensive experiments on real-world datasets affirm
-their efficacy in improving prediction accuracy. The work
+\subsubsection*{Dual-Branch Spatial-Temporal Learning Network}
+
+Huang and Guan~\cite{DualBranchSpatialTemporalLearningNetworkVideoPrediction}
+proposed a dual-branch video prediction network that aims to generate
+high-quality future frames by simultaneously capturing complex motion patterns
+and preserving appearance information. Their network includes two distinct
+units:
+\begin{itemize}
+    \item The \textit{motion prediction unit (MPU)} focuses on inter-frame motion and
+          intra-frame appearance by using depth and multiple-scale convolutions, along
+          with temporal attention mechanisms to enhance feature interactions over time.
+    \item The \textit{spatial prediction unit (SPU)} concentrates on spatial information,
+          ensuring appearance consistency across video frames by capturing various
+          appearance features.
+\end{itemize}
+This dual-branch approach addresses the limitations of relying on external information or complex state transition units, resulting in better visual quality and fewer blurry artifacts in predicted frames.
+
+\subsubsection*{Unsupervised Video Forecasting with Flow Parsing}
+\citet{UnsupervisedVideoForecastingFlowParsingMechanism} introduced an unsupervised video forecasting approach that incorporates a flow parsing mechanism. This model separates the motion and appearance learning processes:
+\begin{itemize}
+    \item The \textit{motion stream} predicts optical flow between frames to capture
+          dynamic changes.
+    \item The \textit{appearance stream} reconstructs frames to preserve spatial details.
+\end{itemize}
+By integrating these streams, the model can predict future frames with improved motion accuracy and appearance fidelity.
+
+\subsubsection*{Joint Optimization with Synthesis and Optical Flow Estimation}
+\citet{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}
+proposed a method that jointly optimizes frame synthesis and optical flow
+estimation. Their approach leverages:
+\begin{itemize}
+    \item A \textit{frame synthesis network} to generate predicted frames.
+    \item An \textit{optical flow estimation network} to capture motion dynamics between
+          frames.
+\end{itemize}
+This joint optimization enhances the model's ability to produce accurate and visually coherent future frames.
+
+\subsubsection*{Predicting Future Frames for Fast-Moving Objects with Motion Blur}
+
+\citet{Lee2020} addressed the challenge of predicting future frames
+for fast-moving objects, which often result in motion blur. Their model
+includes:
+\begin{itemize}
+    \item A \textit{motion deblurring module} to reduce blur effects in fast-moving
+          scenes.
+    \item A \textit{future frame prediction module} that leverages the deblurred frames
+          to enhance prediction accuracy.
+\end{itemize}
+This approach ensures that the predicted frames maintain high visual quality even in challenging conditions.
+
+\subsection*{Applications and Case Studies}
+
+In various applications, the frame-based approach to spatio-temporal prediction
+has proven highly effective:
+
+\subsubsection*{Moving-MNIST Dataset}
+
+The Moving-MNIST dataset consists of sequences of moving handwritten digits.
+Each sequence includes a series of frames, and the goal is to predict future
+frames based on the observed ones. The CubicLSTM-based CubicRNN demonstrated
+superior accuracy compared to traditional ConvLSTM models, showcasing its
+ability to capture both motion and spatial features
+effectively~\cite{DBLP:journals/corr/SrivastavaMS15,
+    CubicLSTMsVideoPrediction}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg}
+    \caption{2-digit Moving MNIST data~\cite{DBLP:journals/corr/SrivastavaMS15}}\label{fig:moving-mnist}
+\end{figure}
+
+\subsubsection*{Robotic Pushing Dataset}
+
+This dataset involves sequences of robotic arms pushing objects, with each
+frame representing a step in the sequence. The CubicLSTM model, combined with
+convolutional dynamic neural advection (CDNA) models, achieved higher accuracy
+and generated clearer frames compared to ConvLSTM and CNN-based models. This
+application highlights the importance of accurately predicting future frames to
+understand and anticipate the movements of robotic
+systems~\cite{DBLP:journals/corr/FinnGL16, CubicLSTMsVideoPrediction}.
+
+\subsubsection*{KTH Action Dataset}
+
+The KTH Action dataset features videos of people performing various actions,
+with each video divided into frames. The CubicLSTM model provided more accurate
+and visually consistent predictions of future frames compared to other
+state-of-the-art models like DrNet and MCnet. This demonstrates the model's
+effectiveness in understanding and predicting human actions over
+time~\cite{KTH, CubicLSTMsVideoPrediction}.
+
+\subsubsection*{UCF Sports Dataset}
+
+Huang and Guan's dual-branch network was tested on the UCF Sports dataset,
+which includes complex motion patterns and large movements. Their method
+outperformed other state-of-the-art methods in terms of visual quality and
+motion accuracy, as evidenced by superior metrics such as PSNR, SSIM, and
+LPIPS. The results validate the network's ability to handle intricate video
+prediction tasks without relying on additional information~\cite{UCFSport,
+    DualBranchSpatialTemporalLearningNetworkVideoPrediction}.
+
+\subsection*{Transformer Models for Frame-Based Prediction}
+
+Transformer model, introduced by~\citet{Vaswani2017}, has revolutionised
+sequence modeling with its efficient and powerful network structure. For video
+prediction, transformers leverage self-attention mechanisms to capture
+long-range dependencies across frames. The~\citet{HowDoUGoWhere} study shows
+how transformers can effectively learn mobility patterns from historical frame
+sequences, achieving state-of-the-art performance in next-location prediction
+tasks.
+
+\subsection*{Validation and Efficacy}
+
+Extensive experiments and validations on real-world datasets have affirmed the
+efficacy of frame-based models like ConvLSTM, CubicLSTM, and the dual-branch
+network in improving prediction accuracy. The work
 of~\citet{SpatioTemporalTransformerRecommender} discusses the application of
 transformers and self-attention mechanisms in sequence prediction, highlighting
-their effectiveness in various contexts.
+their effectiveness in various contexts. These models demonstrate the
+importance of frames as fundamental units of analysis in spatio-temporal
+prediction tasks.
 
-\subsection{Challenges and Future Research Directions}
-Despite significant advances, several challenges persist in deep learning
-models for time series prediction. One of the main challenges is the
-performance degradation of RNN-based models over time, addressed by models such
-as Fusion-GRU, which exploit multiple data sources for better
-representation~\cite{FusionGRU}. Accurate prediction in risky driving
-scenarios, involving sudden or abrupt changes in motion, is still unresolved.
-Future research could focus on improving model robustness in these scenarios
-and integrating additional data sources to improve prediction
-accuracy~\cite{FusionGRU}.
-
-The article of~\citet{MLTechniqueFPP} identifies several challenges in location
-prediction using machine learning, highlighting the need for trajectory data
-quality and extensive pre-processing. Future research could incorporate
-semantic information to improve prediction accuracy, taking advantage of
-ensemble techniques and overcoming data limitations. The ensemble architecture
-recommended in the paper shows a significant reduction in mean distance error
-compared to reference models~\cite{MLTechniqueFPP}.
+By leveraging deep learning techniques, especially advanced models like
+CubicLSTM, dual-branch networks, and transformers, the accuracy and efficiency
+of spatio-temporal predictions can be significantly enhanced, contributing to
+improved outcomes in various real-world applications.
 
 %% Back matter
 %

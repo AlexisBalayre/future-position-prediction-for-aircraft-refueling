@@ -7,54 +7,53 @@ Database file #2: CUCitations.bib
 Warning--empty booktitle in Alahi2016
 Warning--empty booktitle in iata2019guidance
 Warning--empty booktitle in Bennett1991
-Warning--empty booktitle in Bhat2020
 Warning--empty booktitle in Chen2011
-Warning--empty booktitle in Feng2018
+Warning--empty booktitle in CubicLSTMsVideoPrediction
 Warning--empty booktitle in HowDoUGoWhere
 Warning--empty booktitle in DatasetAGR
 Warning--empty booktitle in Vaswani2017
 Warning--empty booktitle in AGRPoseEstimation
 Warning--empty booktitle in HybridDatasetAGRV1
 Warning--empty booktitle in AAREKF
-You've used 33 entries,
+You've used 59 entries,
             2773 wiz_defined-function locations,
-            844 strings with 12950 characters,
-and the built_in function-call counts, 16601 in all, are:
-= -- 1399
-> -- 1292
-< -- 13
-+ -- 432
-- -- 399
-* -- 1443
-:= -- 2696
-add.period$ -- 144
-call.type$ -- 33
-change.case$ -- 232
-chr.to.int$ -- 33
-cite$ -- 78
-duplicate$ -- 690
-empty$ -- 1145
-format.name$ -- 440
-if$ -- 3382
-int.to.chr$ -- 1
+            988 strings with 18662 characters,
+and the built_in function-call counts, 29816 in all, are:
+= -- 2520
+> -- 2316
+< -- 22
++ -- 778
+- -- 717
+* -- 2564
+:= -- 4778
+add.period$ -- 237
+call.type$ -- 59
+change.case$ -- 416
+chr.to.int$ -- 57
+cite$ -- 129
+duplicate$ -- 1207
+empty$ -- 2053
+format.name$ -- 788
+if$ -- 6121
+int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 33
-newline$ -- 218
-num.names$ -- 132
-pop$ -- 443
+missing$ -- 48
+newline$ -- 363
+num.names$ -- 236
+pop$ -- 807
 preamble$ -- 1
-purify$ -- 199
+purify$ -- 357
 quote$ -- 0
-skip$ -- 558
+skip$ -- 1051
 stack$ -- 0
-substring$ -- 134
-swap$ -- 42
-text.length$ -- 7
+substring$ -- 352
+swap$ -- 113
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 358
-warning$ -- 12
-while$ -- 104
+type$ -- 644
+warning$ -- 11
+while$ -- 190
 width$ -- 0
-write$ -- 507
-(There were 12 warnings)
+write$ -- 867
+(There were 11 warnings)

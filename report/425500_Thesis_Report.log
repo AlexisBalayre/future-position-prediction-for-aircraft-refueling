@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.14)  23 MAY 2024 11:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.14)  20 JUN 2024 16:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -890,7 +890,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 
 ]
 Chapter 1.
-<figures/pressure-refuelling.jpeg, id=148, 2208.25pt x 1472.50125pt>
+<figures/pressure-refuelling.jpeg, id=141, 2208.25pt x 1472.50125pt>
 File: figures/pressure-refuelling.jpeg Graphic file (type jpg)
 <use figures/pressure-refuelling.jpeg>
 Package pdftex.def Info: figures/pressure-refuelling.jpeg  used on input line 189.
@@ -902,33 +902,86 @@ Package pdftex.def Info: figures/pressure-refuelling.jpeg  used on input line 18
 Chapter 2.
 [3
 
-] [4] [5] [6] [7] (./425500_Thesis_Report.bbl [8] [9
+] [4]
+<figures/intro_object_detection.png, id=192, 642.4pt x 642.4pt>
+File: figures/intro_object_detection.png Graphic file (type png)
+<use figures/intro_object_detection.png>
+Package pdftex.def Info: figures/intro_object_detection.png  used on input line 324.
+(pdftex.def)             Requested size: 135.89174pt x 135.8882pt.
+<figures/one-stage_two-stage_OD.png, id=218, 1127.21124pt x 543.02875pt>
+File: figures/one-stage_two-stage_OD.png Graphic file (type png)
+<use figures/one-stage_two-stage_OD.png>
+Package pdftex.def Info: figures/one-stage_two-stage_OD.png  used on input line 353.
+(pdftex.def)             Requested size: 362.37569pt x 174.56819pt.
+ [5 <./figures/intro_object_detection.png> <./figures/one-stage_two-stage_OD.png>]
+<figures/iou.png, id=248, 1610.015pt x 545.03625pt>
+File: figures/iou.png Graphic file (type png)
+<use figures/iou.png>
+Package pdftex.def Info: figures/iou.png  used on input line 364.
+(pdftex.def)             Requested size: 362.37569pt x 122.66945pt.
+ [6 <./figures/iou.png>] [7] [8]
+<figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg, id=315, 853.1875pt x 971.63pt>
+File: figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg Graphic file (type jpg)
+<use figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg>
+Package pdftex.def Info: figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg  used on input line 560.
+(pdftex.def)             Requested size: 135.89174pt x 154.75233pt.
+ [9] [10 <./figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg>] (./425500_Thesis_Report.bbl [11]
+Underfull \hbox (badness 1077) in paragraph at lines 74--79
+\OT1/ptm/m/n/12 8270, 2019.  URL [][]$\OT1/cmtt/m/n/12 https : / / www . scopus . com / inward / record . uri ? eid = 2 -[] s2 . 0 -[]
+ []
 
-] [10]) [11]
-Appendix A.
 [12
 
 ]
+Underfull \hbox (badness 2302) in paragraph at lines 118--124
+\OT1/ptm/m/n/12 pre-dic-tion.  \OT1/ptm/m/it/12 IEEE Ac-cess\OT1/ptm/m/n/12 , 12:73258 { 73267, 2024.  doi: $10 . 1109 / ACCESS .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 118--124
+\OT1/ptm/m/n/12 2024 . 3394209$.  URL [][]$\OT1/cmtt/m/n/12 https : / / www . scopus . com / inward / record . uri ? eid = 2 -[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 118--124
+\OT1/cmtt/m/n/12 s2 . 0 -[] 85191878045 & doi = 10 . 1109 % 2fACCESS . 2024 . 3394209 & partnerID = 40 & md5 =
+ []
+
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 210--216
+\OT1/cmtt/m/n/12 www . scopus . com / inward / record . uri ? eid = 2 -[] s2 . 0 -[] 85152478811 & doi = 10 . 32604 %
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--216
+\OT1/cmtt/m/n/12 2fcmc . 2023 . 026086 & partnerID = 40 & md5 = 3c3a7145b11a082102840f176198a13d$[][]\OT1/ptm/m/n/12 .
+ []
+
+[14] [15]) [16]
+Appendix A.
+[17
+
+]
 Appendix B.
-[13
+[18
 
 ] (./425500_Thesis_Report.aux)
 Package rerunfilecheck Info: File `425500_Thesis_Report.out' has not changed.
-(rerunfilecheck)             Checksum: 3DE68CF4B2FF5586B47D92A5F4E70791;1587.
+(rerunfilecheck)             Checksum: BB5695A4B4F80E3264FFB25A336B59A1;1588.
  ) 
 Here is how much of TeX's memory you used:
- 23540 strings out of 476025
- 447190 string characters out of 5790016
- 1865388 words of memory out of 5000000
- 43544 multiletter control sequences out of 15000+600000
- 540603 words of font info for 90 fonts, out of 8000000 for 9000
+ 23682 strings out of 476025
+ 451783 string characters out of 5790016
+ 1868388 words of memory out of 5000000
+ 43649 multiletter control sequences out of 15000+600000
+ 543994 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,12n,117p,469b,1072s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on 425500_Thesis_Report.pdf (22 pages, 1900782 bytes).
+ 90i,12n,117p,530b,1127s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on 425500_Thesis_Report.pdf (27 pages, 3360051 bytes).
 PDF statistics:
- 353 PDF objects out of 1000 (max. 8388607)
- 314 compressed objects within 4 object streams
- 81 named destinations out of 1000 (max. 500000)
- 112 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 463 PDF objects out of 1000 (max. 8388607)
+ 403 compressed objects within 5 object streams
+ 106 named destinations out of 1000 (max. 500000)
+ 132 words of extra memory for PDF output out of 10000 (max. 10000000)
 

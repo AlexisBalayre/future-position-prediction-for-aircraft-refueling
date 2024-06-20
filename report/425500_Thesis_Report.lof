@@ -4,5 +4,9 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Pressure Refuelling of a Commercial Aircraft. Source: Tom Boon/Simple Flying\relax }}{1}{figure.caption.7}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Example of outputs from an object detector\nobreakspace {}\cite {huggingface2023objectdetection}.\relax }}{5}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Basic deep learning-based one-stage vs two-stage object detection model architectures\nobreakspace {}\cite {SurveyDLOD}.\relax }}{5}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue).\nobreakspace {}\cite {huggingface2023objectdetection}\relax }}{6}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces 2-digit Moving MNIST data\nobreakspace {}\cite {DBLP:journals/corr/SrivastavaMS15}\relax }}{10}{figure.caption.11}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

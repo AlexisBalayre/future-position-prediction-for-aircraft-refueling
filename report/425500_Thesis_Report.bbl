@@ -1,4 +1,4 @@
-\begin{thebibliography}{33}
+\begin{thebibliography}{59}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -11,13 +11,6 @@ A.~Alahi, K.~Goel, V.~Ramanathan, A.~Robicquet, L.~Fei-Fei, and S.~Savarese.
 \newblock volume 2016-December, 2016.
 \newblock \doi{10.1109/CVPR.2016.110}.
 
-\bibitem[Arora et~al.(2023)Arora, Agrawal, and Patel]{MLTechniqueFPP}
-M.~Arora, S.~Agrawal, and R.~Patel.
-\newblock Machine learning technique for predicting location.
-\newblock \emph{International Journal of Electrical and Electronics Research}, 11, 2023.
-\newblock ISSN 2347470X.
-\newblock \doi{10.37391/ijeer.110254}.
-
 \bibitem[Association(2019)]{iata2019guidance}
 I.~A.~T. Association.
 \newblock Guidance material on microbiological contamination in aircraft fuel tanks.
@@ -29,17 +22,17 @@ R.~A. Bennett, Y.~C. Shiu, and M.~B. Leahy.
 \newblock volume~1, 1991.
 \newblock \doi{10.1109/robot.1991.131568}.
 
-\bibitem[Bhat et~al.(2020)Bhat, Danelljan, Gool, and Timofte]{Bhat2020}
-G.~Bhat, M.~Danelljan, L.~V. Gool, and R.~Timofte.
-\newblock Know your surroundings: Exploiting scene information for object tracking.
-\newblock volume 12368 LNCS, 2020.
-\newblock \doi{10.1007/978-3-030-58592-1_13}.
-
 \bibitem[Blakey et~al.(2011)Blakey, Rye, and Wilson]{blakey2011aviation}
 S.~Blakey, L.~Rye, and C.~W. Wilson.
 \newblock Aviation gas turbine alternative fuels: a review.
 \newblock \emph{Proceedings of the Combustion Institute}, 33\penalty0 (2):\penalty0 2863--2885, 2011.
 \newblock \doi{10.1016/j.proci.2010.09.011}.
+
+\bibitem[Bochkovskiy et~al.(2020)Bochkovskiy, Wang, and Liao]{DBLP:journals/corr/abs-2004-10934}
+A.~Bochkovskiy, C.~Wang, and H.~M. Liao.
+\newblock Yolov4: Optimal speed and accuracy of object detection.
+\newblock \emph{CoRR}, abs/2004.10934, 2020.
+\newblock URL \url{https://arxiv.org/abs/2004.10934}.
 
 \bibitem[Chen and Stettner(2011)]{Chen2011}
 C.-I. Chen and R.~Stettner.
@@ -54,6 +47,10 @@ F.~Chen, X.~Wang, Y.~Zhao, S.~Lv, and X.~Niu.
 \newblock ISSN 1090235X.
 \newblock \doi{10.1016/j.cviu.2022.103508}.
 
+\bibitem[Chen et~al.(2023)Chen, Yuan, Wu, Wang, Hou, and Cheng]{chen2023yoloms}
+Y.~Chen, X.~Yuan, R.~Wu, J.~Wang, Q.~Hou, and M.-M. Cheng.
+\newblock Yolo-ms: Rethinking multi-scale representation learning for real-time object detection, 2023.
+
 \bibitem[Cheng et~al.(2023)Cheng, Yuan, Yao, Yan, Zeng, Xie, and Han]{SurveySmallObjectDetection}
 G.~Cheng, X.~Yuan, X.~Yao, K.~Yan, Q.~Zeng, X.~Xie, and J.~Han.
 \newblock Towards large-scale small object detection: Survey and benchmarks.
@@ -61,11 +58,48 @@ G.~Cheng, X.~Yuan, X.~Yao, K.~Yan, Q.~Zeng, X.~Xie, and J.~Han.
 \newblock ISSN 19393539.
 \newblock \doi{10.1109/TPAMI.2023.3290594}.
 
-\bibitem[Feng et~al.(2018)Feng, Li, Zhang, Sun, Meng, Guo, and Jin]{Feng2018}
-J.~Feng, Y.~Li, C.~Zhang, F.~Sun, F.~Meng, A.~Guo, and D.~Jin.
-\newblock Deepmove: Predicting human mobility with attentional recurrent networks.
-\newblock 2018.
-\newblock \doi{10.1145/3178876.3186058}.
+\bibitem[Dai et~al.(2016)Dai, Li, He, and Sun]{DBLP:journals/corr/DaiLHS16}
+J.~Dai, Y.~Li, K.~He, and J.~Sun.
+\newblock {R-FCN:} object detection via region-based fully convolutional networks.
+\newblock \emph{CoRR}, abs/1605.06409, 2016.
+\newblock URL \url{http://arxiv.org/abs/1605.06409}.
+
+\bibitem[Face(2023)]{huggingface2023objectdetection}
+H.~Face.
+\newblock Object detection leaderboard, 2023.
+\newblock URL \url{https://huggingface.co/blog/object-detection-leaderboard}.
+\newblock Accessed: 2024-06-17.
+
+\bibitem[Fan et~al.(2019)Fan, Zhu, and Yang]{CubicLSTMsVideoPrediction}
+H.~Fan, L.~Zhu, and Y.~Yang.
+\newblock Cubic lstms for video prediction.
+\newblock page 8263 – 8270, 2019.
+\newblock URL \url{https://www.scopus.com/inward/record.uri?eid=2-s2.0-85085021761&partnerID=40&md5=5ef1e8834ec46834bbb53bbcf11720c9}.
+\newblock Cited by: 41.
+
+\bibitem[Finn et~al.(2016)Finn, Goodfellow, and Levine]{DBLP:journals/corr/FinnGL16}
+C.~Finn, I.~J. Goodfellow, and S.~Levine.
+\newblock Unsupervised learning for physical interaction through video prediction.
+\newblock \emph{CoRR}, abs/1605.07157, 2016.
+\newblock URL \url{http://arxiv.org/abs/1605.07157}.
+
+\bibitem[Ge et~al.(2021)Ge, Liu, Wang, Li, and Sun]{DBLP:journals/corr/abs-2107-08430}
+Z.~Ge, S.~Liu, F.~Wang, Z.~Li, and J.~Sun.
+\newblock {YOLOX:} exceeding {YOLO} series in 2021.
+\newblock \emph{CoRR}, abs/2107.08430, 2021.
+\newblock URL \url{https://arxiv.org/abs/2107.08430}.
+
+\bibitem[Girshick(2015)]{DBLP:journals/corr/Girshick15}
+R.~B. Girshick.
+\newblock Fast {R-CNN}.
+\newblock \emph{CoRR}, abs/1504.08083, 2015.
+\newblock URL \url{http://arxiv.org/abs/1504.08083}.
+
+\bibitem[Girshick et~al.(2013)Girshick, Donahue, Darrell, and Malik]{DBLP:journals/corr/GirshickDDM13}
+R.~B. Girshick, J.~Donahue, T.~Darrell, and J.~Malik.
+\newblock Rich feature hierarchies for accurate object detection and semantic segmentation.
+\newblock \emph{CoRR}, abs/1311.2524, 2013.
+\newblock URL \url{http://arxiv.org/abs/1311.2524}.
 
 \bibitem[Gong et~al.(2023)Gong, Liu, Xu, Xu, He, Zhang, and Rasol]{AARBinocularVision}
 K.~Gong, B.~Liu, X.~Xu, Y.~Xu, Y.~He, Z.~Zhang, and J.~Rasol.
@@ -80,18 +114,37 @@ Y.~Hong, H.~Martin, and M.~Raubal.
 \newblock 2022.
 \newblock \doi{10.1145/3557915.3560996}.
 
-\bibitem[Jiang et~al.(2019)Jiang, Guan, Zhou, and Chen]{Jiang}
-B.~Jiang, J.~Guan, W.~Zhou, and X.~Chen.
-\newblock Vessel trajectory prediction algorithm based on polynomial fitting kalman filtering.
-\newblock \emph{Journal of Signal Processing}, 5:\penalty0 741--746, 08 2019.
-\newblock \doi{10.16798/j.issn.1003-0530.2019.05.002}.
+\bibitem[Huang and Guan(2024)]{DualBranchSpatialTemporalLearningNetworkVideoPrediction}
+H.~Huang and Y.~Guan.
+\newblock A dual-branch spatial-temporal learning network for video prediction.
+\newblock \emph{IEEE Access}, 12:\penalty0 73258 – 73267, 2024.
+\newblock \doi{10.1109/ACCESS.2024.3394209}.
+\newblock URL \url{https://www.scopus.com/inward/record.uri?eid=2-s2.0-85191878045&doi=10.1109%2fACCESS.2024.3394209&partnerID=40&md5=a2491ede039a7189014acb3b7eb0256d}.
+\newblock Cited by: 0; All Open Access, Gold Open Access.
 
-\bibitem[kai Zhang et~al.(2018)kai Zhang, you Shi, jiang Liu, wei Zhao, and lin Wu]{Zhang2018}
-S.~kai Zhang, G.~you Shi, Z.~jiang Liu, Z.~wei Zhao, and Z.~lin Wu.
-\newblock Data-driven based automatic maritime routing from massive ais trajectories in the face of disparity.
-\newblock \emph{Ocean Engineering}, 155, 2018.
-\newblock ISSN 00298018.
-\newblock \doi{10.1016/j.oceaneng.2018.02.060}.
+\bibitem[Jin et~al.(2024)Jin, Song, Li, and Zhang]{UnsupervisedVideoForecastingFlowParsingMechanism}
+B.~Jin, X.~Song, J.~Li, and P.~Zhang.
+\newblock Unsupervised video forecasting with flow parsing mechanism of human visual system.
+\newblock \emph{Engineering Applications of Artificial Intelligence}, 134:\penalty0 108652, 2024.
+\newblock ISSN 0952-1976.
+\newblock \doi{https://doi.org/10.1016/j.engappai.2024.108652}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S0952197624008108}.
+
+\bibitem[Jocher(2022)]{YOLOv5Release}
+G.~Jocher.
+\newblock Yolov5 release v7.0, 2022.
+\newblock URL \url{https://github.com/ultralytics/yolov5/tree/v7.0}.
+
+\bibitem[Jocher(2023)]{YOLOv8}
+G.~Jocher.
+\newblock Yolov8, 2023.
+\newblock URL \url{https://github.com/ultralytics/ultralytics/tree/main}.
+
+\bibitem[Kang et~al.(2022)Kang, Tariq, Oh, and Woo]{SurveyDLOD}
+J.~Kang, S.~Tariq, H.~Oh, and S.~Woo.
+\newblock A survey of deep learning-based object detection methods and datasets for overhead imagery.
+\newblock \emph{IEEE Access}, 10:\penalty0 1--1, 01 2022.
+\newblock \doi{10.1109/ACCESS.2022.3149052}.
 
 \bibitem[Karim et~al.(2024)Karim, Qin, and Wang]{FusionGRU}
 M.~M. Karim, R.~Qin, and Y.~Wang.
@@ -118,12 +171,27 @@ J.~Kugarajeevan, T.~Kokul, A.~Ramanan, and S.~Fernando.
 \newblock ISSN 21693536.
 \newblock \doi{10.1109/ACCESS.2023.3298440}.
 
+\bibitem[Lee et~al.(2020)Lee, Oh, and Lee]{Lee2020}
+D.~Lee, Y.~J. Oh, and I.~K. Lee.
+\newblock Future-frame prediction for fast-moving objects with motion blur.
+\newblock \emph{Sensors (Switzerland)}, 20, 2020.
+\newblock ISSN 14248220.
+\newblock \doi{10.3390/s20164394}.
+
 \bibitem[Lee et~al.(2022)Lee, Jeon, Han, and Jeong]{FFPSpaceSystemVehicles}
 W.~C. Lee, Y.~B. Jeon, S.~S. Han, and C.~S. Jeong.
 \newblock Position prediction in space system for vehicles using artificial intelligence.
 \newblock \emph{Symmetry}, 14, 2022.
 \newblock ISSN 20738994.
 \newblock \doi{10.3390/sym14061151}.
+
+\bibitem[Li et~al.(2023)Li, Li, Geng, Jiang, Cheng, Zhang, Ke, Xu, and Chu]{li2023yolov6}
+C.~Li, L.~Li, Y.~Geng, H.~Jiang, M.~Cheng, B.~Zhang, Z.~Ke, X.~Xu, and X.~Chu.
+\newblock Yolov6 v3.0: A full-scale reloading, 2023.
+
+\bibitem[Lin et~al.(2018)Lin, Goyal, Girshick, He, and Dollár]{lin2018focal}
+T.-Y. Lin, P.~Goyal, R.~Girshick, K.~He, and P.~Dollár.
+\newblock Focal loss for dense object detection, 2018.
 
 \bibitem[Liu et~al.(2021)Liu, Liu, Srivastava, Połap, and Woźniak]{OverviewCorrelationAlgoOT}
 S.~Liu, D.~Liu, G.~Srivastava, D.~Połap, and M.~Woźniak.
@@ -132,18 +200,56 @@ S.~Liu, D.~Liu, G.~Srivastava, D.~Połap, and M.~Woźniak.
 \newblock ISSN 21986053.
 \newblock \doi{10.1007/s40747-020-00161-4}.
 
-\bibitem[Qian et~al.(2022)Qian, Zheng, Li, Ma, Zhou, and Zhang]{WaterShipTrajectoryPrediction}
-L.~Qian, Y.~Zheng, L.~Li, Y.~Ma, C.~Zhou, and D.~Zhang.
-\newblock A new method of inland water ship trajectory prediction based on long short-term memory network optimized by genetic algorithm.
-\newblock \emph{Applied Sciences (Switzerland)}, 12, 2022.
-\newblock ISSN 20763417.
-\newblock \doi{10.3390/app12084073}.
+\bibitem[Liu et~al.(2015)Liu, Anguelov, Erhan, Szegedy, Reed, Fu, and Berg]{DBLP:journals/corr/LiuAESR15}
+W.~Liu, D.~Anguelov, D.~Erhan, C.~Szegedy, S.~E. Reed, C.~Fu, and A.~C. Berg.
+\newblock {SSD:} single shot multibox detector.
+\newblock \emph{CoRR}, abs/1512.02325, 2015.
+\newblock URL \url{http://arxiv.org/abs/1512.02325}.
+
+\bibitem[Ranjan et~al.(2023)Ranjan, Bhandari, Kim, and Kim]{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}
+N.~Ranjan, S.~Bhandari, Y.-C. Kim, and H.~Kim.
+\newblock Video frame prediction by joint optimization of direct frame synthesis and optical-flow estimation.
+\newblock \emph{Computers, Materials and Continua}, 75\penalty0 (2):\penalty0 2615 – 2639, 2023.
+\newblock \doi{10.32604/cmc.2023.026086}.
+\newblock URL \url{https://www.scopus.com/inward/record.uri?eid=2-s2.0-85152478811&doi=10.32604%2fcmc.2023.026086&partnerID=40&md5=3c3a7145b11a082102840f176198a13d}.
+\newblock Cited by: 0; All Open Access, Gold Open Access.
+
+\bibitem[Redmon and Farhadi(2016)]{DBLP:journals/corr/RedmonF16}
+J.~Redmon and A.~Farhadi.
+\newblock {YOLO9000:} better, faster, stronger.
+\newblock \emph{CoRR}, abs/1612.08242, 2016.
+\newblock URL \url{http://arxiv.org/abs/1612.08242}.
+
+\bibitem[Redmon et~al.(2015)Redmon, Divvala, Girshick, and Farhadi]{DBLP:journals/corr/RedmonDGF15}
+J.~Redmon, S.~K. Divvala, R.~B. Girshick, and A.~Farhadi.
+\newblock You only look once: Unified, real-time object detection.
+\newblock \emph{CoRR}, abs/1506.02640, 2015.
+\newblock URL \url{http://arxiv.org/abs/1506.02640}.
+
+\bibitem[Ren et~al.(2017)Ren, He, Girshick, and Sun]{Ren2017}
+S.~Ren, K.~He, R.~Girshick, and J.~Sun.
+\newblock Faster r-cnn: Towards real-time object detection with region proposal networks.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 39, 2017.
+\newblock ISSN 01628828.
+\newblock \doi{10.1109/TPAMI.2016.2577031}.
+
+\bibitem[Rodriguez et~al.(2008)Rodriguez, Ahmed, and Shah]{UCFSport}
+M.~D. Rodriguez, J.~Ahmed, and M.~Shah.
+\newblock Action mach a spatio-temporal maximum average correlation height filter for action recognition.
+\newblock In \emph{2008 IEEE Conference on Computer Vision and Pattern Recognition}, pages 1--8, 2008.
+\newblock \doi{10.1109/CVPR.2008.4587727}.
 
 \bibitem[Sati et~al.(2019)Sati, Singh, and Yadav]{sati2019aircraft}
 R.~Sati, S.~Singh, and R.~Yadav.
 \newblock Aircraft fuel system: design, components, and safety.
 \newblock \emph{International Journal of Aerospace Engineering}, 2019:\penalty0 1--12, 2019.
 \newblock \doi{10.1155/2019/6943787}.
+
+\bibitem[Schuldt et~al.(2004)Schuldt, Laptev, and Caputo]{KTH}
+C.~Schuldt, I.~Laptev, and B.~Caputo.
+\newblock Recognizing human actions: a local svm approach.
+\newblock In \emph{Proceedings of the 17th International Conference on Pattern Recognition, 2004. ICPR 2004.}, volume~3, pages 32--36 Vol.3, 2004.
+\newblock \doi{10.1109/ICPR.2004.1334462}.
 
 \bibitem[Schultz(1986)]{Schultz1986}
 E.~R. Schultz.
@@ -152,10 +258,34 @@ E.~R. Schultz.
 \newblock ISSN 08858985.
 \newblock \doi{10.1109/MAES.1986.5005018}.
 
+\bibitem[Shi et~al.(2015)Shi, Chen, Wang, Yeung, Wong, and Woo]{ConvLSTM}
+X.~Shi, Z.~Chen, H.~Wang, D.~Yeung, W.~Wong, and W.~Woo.
+\newblock Convolutional {LSTM} network: {A} machine learning approach for precipitation nowcasting.
+\newblock \emph{CoRR}, abs/1506.04214, 2015.
+\newblock URL \url{http://arxiv.org/abs/1506.04214}.
+
+\bibitem[Srivastava et~al.(2015)Srivastava, Mansimov, and Salakhutdinov]{DBLP:journals/corr/SrivastavaMS15}
+N.~Srivastava, E.~Mansimov, and R.~Salakhutdinov.
+\newblock Unsupervised learning of video representations using lstms.
+\newblock \emph{CoRR}, abs/1502.04681, 2015.
+\newblock URL \url{http://arxiv.org/abs/1502.04681}.
+
 \bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Łukasz Kaiser, and Polosukhin]{Vaswani2017}
 A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez, Łukasz Kaiser, and I.~Polosukhin.
 \newblock Attention is all you need.
 \newblock volume 2017-December, 2017.
+
+\bibitem[Wang et~al.(2024{\natexlab{a}})Wang, Chen, Liu, Chen, Lin, Han, and Ding]{wang2024yolov10}
+A.~Wang, H.~Chen, L.~Liu, K.~Chen, Z.~Lin, J.~Han, and G.~Ding.
+\newblock Yolov10: Real-time end-to-end object detection, 2024{\natexlab{a}}.
+
+\bibitem[Wang et~al.(2023)Wang, He, Nie, Guo, Liu, Han, and Wang]{wang2023goldyolo}
+C.~Wang, W.~He, Y.~Nie, J.~Guo, C.~Liu, K.~Han, and Y.~Wang.
+\newblock Gold-yolo: Efficient object detector via gather-and-distribute mechanism, 2023.
+
+\bibitem[Wang et~al.(2024{\natexlab{b}})Wang, Yeh, and Liao]{wang2024yolov9}
+C.-Y. Wang, I.-H. Yeh, and H.-Y.~M. Liao.
+\newblock Yolov9: Learning what you want to learn using programmable gradient information, 2024{\natexlab{b}}.
 
 \bibitem[Wang et~al.(2017)Wang, Dong, Kong, Li, and Zhang]{AARCNN}
 X.~Wang, X.~Dong, X.~Kong, J.~Li, and B.~Zhang.
@@ -171,12 +301,27 @@ J.~Wu and S.~Xu.
 \newblock ISSN 20724292.
 \newblock \doi{10.3390/rs13132620}.
 
-\bibitem[Xu et~al.(2023)Xu, Huang, and Zou]{SpatioTemporalTransformerRecommender}
+\bibitem[Xu et~al.(2022)Xu, Wang, Lv, Chang, Cui, Deng, Wang, Dang, Wei, Du, and Lai]{xu2022ppyoloe}
+S.~Xu, X.~Wang, W.~Lv, Q.~Chang, C.~Cui, K.~Deng, G.~Wang, Q.~Dang, S.~Wei, Y.~Du, and B.~Lai.
+\newblock Pp-yoloe: An evolved version of yolo, 2022.
+
+\bibitem[Xu et~al.(2023{\natexlab{a}})Xu, Huang, and Zou]{SpatioTemporalTransformerRecommender}
 S.~Xu, Q.~Huang, and Z.~Zou.
 \newblock Spatio-temporal transformer recommender: Next location recommendation with attention mechanism by mining the spatio-temporal relationship between visited locations.
-\newblock \emph{ISPRS International Journal of Geo-Information}, 12, 2023.
+\newblock \emph{ISPRS International Journal of Geo-Information}, 12, 2023{\natexlab{a}}.
 \newblock ISSN 22209964.
 \newblock \doi{10.3390/ijgi12020079}.
+
+\bibitem[Xu et~al.(2023{\natexlab{b}})Xu, Jiang, Chen, Huang, Zhang, and Sun]{xu2023damoyolo}
+X.~Xu, Y.~Jiang, W.~Chen, Y.~Huang, Y.~Zhang, and X.~Sun.
+\newblock Damo-yolo : A report on real-time object detection design, 2023{\natexlab{b}}.
+
+\bibitem[Ye et~al.(2023)Ye, Qin, Zhao, Gao, Deng, and Ouyang]{ODNetworkUAVCNNTransformer}
+T.~Ye, W.~Qin, Z.~Zhao, X.~Gao, X.~Deng, and Y.~Ouyang.
+\newblock Real-time object detection network in uav-vision based on cnn and transformer.
+\newblock \emph{IEEE Transactions on Instrumentation and Measurement}, 72, 2023.
+\newblock ISSN 15579662.
+\newblock \doi{10.1109/TIM.2023.3241825}.
 
 \bibitem[Yildirim and Rana(2023)]{HybridDatasetAGRV2}
 S.~Yildirim and Z.~A. Rana.
