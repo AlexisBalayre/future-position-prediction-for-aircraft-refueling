@@ -1,6 +1,0 @@
-batch_size: 16
-hidden_depth: 8
-hidden_dim: 64
-input_dim: 4
-lr: 0.0005
-output_dim: 4
