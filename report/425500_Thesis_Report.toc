@@ -1,15 +1,11 @@
 \contentsline {chapter}{Academic Integrity Declaration}{i}{Doc-Start}%
-\contentsline {chapter}{Abstract}{ii}{chapter*.1}%
-\contentsline {chapter}{Acknowledgements}{iii}{chapter*.2}%
-\contentsline {chapter}{Table of Contents}{iv}{chapter*.3}%
-\contentsline {chapter}{List of Figures}{v}{chapter*.4}%
-\contentsline {chapter}{List of Tables}{vi}{chapter*.5}%
-\contentsline {chapter}{List of Abbreviations}{vii}{chapter*.6}%
+\contentsline {chapter}{Table of Contents}{ii}{chapter*.1}%
+\contentsline {chapter}{List of Figures}{iii}{chapter*.2}%
+\contentsline {chapter}{List of Tables}{iv}{chapter*.3}%
+\contentsline {chapter}{List of Abbreviations}{v}{chapter*.4}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Literature Review}{3}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Automated Refulling Systems in the Aviation Industry}{3}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Object Detection and Tracking in Computer Vision}{5}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Deep Learning for Spacio-Temporal Prediction}{7}{section.2.3}%
-\contentsline {chapter}{References}{12}{chapter*.12}%
-\contentsline {chapter}{\numberline {A}Ethical Approval Letter}{17}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Extra Data}{18}{appendix.B}%
+\contentsline {chapter}{References}{14}{chapter*.20}%

@@ -6,6 +6,17 @@ from torchmetrics.detection import IntersectionOverUnion
 import torchvision.ops as ops
 
 
+class AttentionLayer(nn.Module):
+    def __init__(self, hidden_dim):
+        super().__init__()
+        self.attention = nn.Linear(hidden_dim, 1)
+
+    def forward(self, lstm_output):
+        attention_weights = F.softmax(self.attention(lstm_output), dim=1)
+        context_vector = torch.sum(attention_weights * lstm_output, dim=1)
+        return context_vector
+
+
 class LSTMLightningModel(L.LightningModule):
     """
     A PyTorch Lightning module for an LSTM-based model.
@@ -30,19 +41,15 @@ class LSTMLightningModel(L.LightningModule):
         output_dim=8,
         hidden_depth=3,
         dropout=0.2,
+        fc_multiplier=2,
     ):
         super(LSTMLightningModel, self).__init__()
         self.save_hyperparameters()  # Automatically logs and saves hyperparameters for reproducibility
 
-        self.gru = nn.GRU(
-            input_dim,
-            hidden_dim,
-            hidden_depth,
-            batch_first=True,
-            dropout=dropout,
+        self.lstm = nn.LSTM(
+            input_dim, hidden_dim, hidden_depth, batch_first=True, dropout=dropout
         )
-        self.fc1 = nn.Linear(hidden_dim, 256)  # Fully connected layer to produce 256-dimensional vector
-        self.fc2 = nn.Linear(256, output_dim)  # Fully connected layer to produce final output
+        self.fc = nn.Linear(hidden_dim, output_dim)
         self.dropout = nn.Dropout(dropout)
 
         self.train_iou = IntersectionOverUnion(box_format="xywh")
@@ -59,12 +66,9 @@ class LSTMLightningModel(L.LightningModule):
         Returns:
             torch.Tensor: Output tensor.
         """
-        gru_out, hidden = self.gru(x)  # hidden state is of shape (num_layers, batch_size, hidden_dim)
-        hidden = hidden[-1]  # Use the hidden state of the last layer
-        hidden = self.dropout(hidden)
-        feature_vector = self.fc1(hidden)
-        out = self.fc2(feature_vector)
-        #out[:, :4] = torch.sigmoid(out[:, :4])  # Constrain bbox predictions to [0, 1]
+        lstm_out, _ = self.lstm(x)
+        lstm_out = self.dropout(lstm_out[:, -1, :])
+        out = self.fc(lstm_out)
         return out
 
     def training_step(self, batch, batch_idx):
@@ -132,7 +136,7 @@ class LSTMLightningModel(L.LightningModule):
             dict: The dictionary containing the optimizer and learning rate scheduler.
         """
         optimizer = torch.optim.Adam(
-            self.parameters(), lr=self.hparams.lr, weight_decay=1e-5
+            self.parameters(), lr=self.hparams.lr
         )
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
             optimizer, mode="min", factor=0.9, patience=20
@@ -160,33 +164,23 @@ class LSTMLightningModel(L.LightningModule):
         x, y_target = batch
         y_pred = self(x)
 
-        # print("y_pred", y_pred)
-        #print("y_target", y_target)
+        # Convert xywh to xyxy format for GIoU loss calculation
+        y_pred_xyxy = ops.box_convert(y_pred, in_fmt="xywh", out_fmt="xyxy")
+        y_target_xyxy = ops.box_convert(y_target, in_fmt="xywh", out_fmt="xyxy")
 
-        #print("y_pred", y_pred)
-        #print("y_target", y_target)
-
-        # Extract [x, y, w, h] from y_pred and y_target
-        y_pred_boxes = y_pred[:, :4]
-        y_target_boxes = y_target[:, :4]
-
-        # Extract [vx, vy, dw, dh] from y_pred and y_target
-        y_pred_values = y_pred[:, 4:]
-        y_target_values = y_target[:, 4:]
-
-        # Compute IoU loss
-        iou_loss = ops.generalized_box_iou_loss(
-            y_pred_boxes, y_target_boxes, reduction="mean"
+         # Compute GIoU loss
+        giou_loss = ops.generalized_box_iou_loss(
+            y_pred_xyxy, y_target_xyxy, reduction="none"
         )
 
-        # Compute MSE loss for other values
-        mse_loss = F.mse_loss(y_pred_values, y_target_values, reduction="mean")
+        # Transform the loss to be non-negative
+        positive_loss = 1 - torch.exp(-giou_loss)
 
-        # Combine losses
-        total_loss = iou_loss + mse_loss
+        # Take the mean of the transformed loss
+        final_loss = positive_loss.mean()
 
-        preds = y_pred_boxes.detach().cpu()
-        targets = y_target_boxes.detach().cpu()
+        preds = y_pred.detach().cpu()
+        targets = y_target.detach().cpu()
 
         class_labels = torch.zeros(preds.size(0), dtype=torch.int)
         preds = [{"boxes": preds, "labels": class_labels}]
@@ -195,13 +189,13 @@ class LSTMLightningModel(L.LightningModule):
 
         self.log(
             f"{stage}_loss",
-            total_loss,
+            final_loss,
             on_step=False,
             on_epoch=True,
             prog_bar=True,
             logger=True,
         )
-        return total_loss
+        return final_loss
 
     def _on_epoch_end(self, stage):
         """

@@ -1,4 +1,4 @@
-\begin{thebibliography}{59}
+\begin{thebibliography}{58}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -63,6 +63,12 @@ J.~Dai, Y.~Li, K.~He, and J.~Sun.
 \newblock {R-FCN:} object detection via region-based fully convolutional networks.
 \newblock \emph{CoRR}, abs/1605.06409, 2016.
 \newblock URL \url{http://arxiv.org/abs/1605.06409}.
+
+\bibitem[Eitel et~al.(2017)Eitel, Hauff, and Burgard]{DBLP:journals/corr/EitelHB17}
+A.~Eitel, N.~Hauff, and W.~Burgard.
+\newblock Learning to singulate objects using a push proposal network.
+\newblock \emph{CoRR}, abs/1707.08101, 2017.
+\newblock URL \url{http://arxiv.org/abs/1707.08101}.
 
 \bibitem[Face(2023)]{huggingface2023objectdetection}
 H.~Face.
@@ -170,13 +176,6 @@ J.~Kugarajeevan, T.~Kokul, A.~Ramanan, and S.~Fernando.
 \newblock \emph{IEEE Access}, 11, 2023.
 \newblock ISSN 21693536.
 \newblock \doi{10.1109/ACCESS.2023.3298440}.
-
-\bibitem[Lee et~al.(2020)Lee, Oh, and Lee]{Lee2020}
-D.~Lee, Y.~J. Oh, and I.~K. Lee.
-\newblock Future-frame prediction for fast-moving objects with motion blur.
-\newblock \emph{Sensors (Switzerland)}, 20, 2020.
-\newblock ISSN 14248220.
-\newblock \doi{10.3390/s20164394}.
 
 \bibitem[Lee et~al.(2022)Lee, Jeon, Han, and Jeong]{FFPSpaceSystemVehicles}
 W.~C. Lee, Y.~B. Jeon, S.~S. Han, and C.~S. Jeong.
@@ -305,16 +304,9 @@ J.~Wu and S.~Xu.
 S.~Xu, X.~Wang, W.~Lv, Q.~Chang, C.~Cui, K.~Deng, G.~Wang, Q.~Dang, S.~Wei, Y.~Du, and B.~Lai.
 \newblock Pp-yoloe: An evolved version of yolo, 2022.
 
-\bibitem[Xu et~al.(2023{\natexlab{a}})Xu, Huang, and Zou]{SpatioTemporalTransformerRecommender}
-S.~Xu, Q.~Huang, and Z.~Zou.
-\newblock Spatio-temporal transformer recommender: Next location recommendation with attention mechanism by mining the spatio-temporal relationship between visited locations.
-\newblock \emph{ISPRS International Journal of Geo-Information}, 12, 2023{\natexlab{a}}.
-\newblock ISSN 22209964.
-\newblock \doi{10.3390/ijgi12020079}.
-
-\bibitem[Xu et~al.(2023{\natexlab{b}})Xu, Jiang, Chen, Huang, Zhang, and Sun]{xu2023damoyolo}
+\bibitem[Xu et~al.(2023)Xu, Jiang, Chen, Huang, Zhang, and Sun]{xu2023damoyolo}
 X.~Xu, Y.~Jiang, W.~Chen, Y.~Huang, Y.~Zhang, and X.~Sun.
-\newblock Damo-yolo : A report on real-time object detection design, 2023{\natexlab{b}}.
+\newblock Damo-yolo : A report on real-time object detection design, 2023.
 
 \bibitem[Ye et~al.(2023)Ye, Qin, Zhao, Gao, Deng, and Ouyang]{ODNetworkUAVCNNTransformer}
 T.~Ye, W.~Qin, Z.~Zhao, X.~Gao, X.~Deng, and Y.~Ouyang.

@@ -39,7 +39,9 @@ class LSTMLightningDataset(Dataset):
     def extract_features(self, current_frame, previous_frame):
         x, y, w, h = current_frame["bbox"]
 
-        if previous_frame is not None:
+        return [x, y, w, h]
+
+        """ if previous_frame is not None:
             x_prev, y_prev, w_prev, h_prev = previous_frame["bbox"]
             vx = x - x_prev
             vy = y - y_prev
@@ -48,4 +50,4 @@ class LSTMLightningDataset(Dataset):
         else:
             vx, vy, dw, dh = 0, 0, 0, 0
 
-        return [x, y, w, h, vx, vy, dw, dh]
+        return [x, y, w, h, vx, vy, dw, dh] """

@@ -88,17 +88,17 @@
 \maketitle
 
 % Abstract and Keywords
-\begin{abstract}
-    Replace with your abstract text of not more than 300 words.
-\end{abstract}
+%\begin{abstract}
+%    Replace with your abstract text of not more than 300 words.
+%\end{abstract}
 
-\begin{keywords}
-    Replace with at least 6, semicolon seperated keywords (not contained within the thesis title) – this makes the thesis searchable.
-\end{keywords}
+%\begin{keywords}
+%    Replace with at least 6, semicolon seperated keywords (not contained within the thesis title) – this makes the thesis searchable.
+%\end{keywords}
 
 % Acknowledgements
-\chapter{Acknowledgements}
-The author would like to thank \dots
+%\chapter{Acknowledgements}
+%The author would like to thank \dots
 
 % Use single spacing for Table of Contents, List of Figures, etc
 {
@@ -449,13 +449,28 @@ The problem of predicting the future locations of objects has been extensively
 studied, particularly for static surveillance cameras. Initial efforts utilised
 recurrent neural networks (RNNs), including long-term memory networks (LSTMs)
 and gated recurrent units (GRUs), in an encoder-decoder format to encode past
-observations and decode future locations. Early models integrated additional
-inputs such as environmental data and semantic actions to enhance prediction
-accuracy. For instance,~\citet{Alahi2016} proposed a Social-LSTM to model
-pedestrian trajectories and interactions, further improving global context
-capture through a social pooling module~\cite{FusionGRU}. Recent advancements
-have leveraged generative models and attention mechanisms to manage complex
-scenes involving multiple interacting agents~\cite{FusionGRU}.
+observations and decode future locations. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/lstm-rnn-gru.png}
+    \caption{Comparing different Sequence models: RNN, LSTM, and GRU. Source: Colah's blog. Compiled by AIML.com}\label{fig:lstm-rnn-gru}
+\end{figure}
+
+Early models integrated additional inputs such as environmental data and
+semantic actions to enhance prediction accuracy. For
+instance,~\citet{Alahi2016} proposed a Social-LSTM to model pedestrian
+trajectories and interactions, further improving global context capture through
+a social pooling module.
+
+\subsection*{Transformer Models for Frame-Based Prediction}
+Transformer model, introduced by~\citet{Vaswani2017}, has revolutionised
+sequence modeling with its efficient and powerful network structure. For video
+prediction, transformers leverage self-attention mechanisms to capture
+long-range dependencies across frames. The~\citet{HowDoUGoWhere} study shows
+how transformers can effectively learn mobility patterns from historical frame
+sequences, achieving state-of-the-art performance in next-location prediction
+tasks.
 
 \subsection*{Frame-Based Approaches in Spatio-Temporal Prediction}
 
@@ -490,6 +505,61 @@ and enhances prediction accuracy. Specifically:
 \end{itemize}
 This separation of concerns allows the model to handle the complexities of video data more effectively, resulting in more accurate predictions of future frames.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/CubicLSTM.png}
+    \caption{Cubic LSTM Architecture. (a) 3D structure of the CubicLSTM unit. (b) Topological diagram of the CubicLSTM unit. (c) Two-spatial-layer RNN composed of CubicLSTM units. The unit consists of three branches, a spatial (z-) branch for extracting and recognizing moving objects, a temporal (y-) branch for capturing and predicting motions, and an output (x-) branch for combining the first two branches to generate the predicted frames. Source:~\citet{CubicLSTMsVideoPrediction}}\label{fig:cubic-lstm}
+\end{figure}
+
+\subsubsection*{Unsupervised Video Forecasting with Flow Parsing}
+\citet{UnsupervisedVideoForecastingFlowParsingMechanism} introduced an unsupervised video forecasting approach that incorporates a flow parsing mechanism. This model separates the motion and appearance learning processes:
+\begin{itemize}
+    \item The \textit{motion stream} predicts optical flow between frames to capture
+          dynamic changes.
+    \item The \textit{appearance stream} reconstructs frames to preserve spatial details.
+\end{itemize}
+By integrating these streams, the model can predict future frames with improved motion accuracy and appearance fidelity.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/Unsupervised-Video-Forecasting.png}
+    \caption{Model Architecture. Source:~\citet{UnsupervisedVideoForecastingFlowParsingMechanism}}\label{fig:unsupervised-video-forecasting-flow-parsing}
+\end{figure}
+
+\subsubsection*{Joint Optimization with Synthesis and Optical Flow Estimation}
+\citet{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}
+proposed a method that jointly optimizes frame synthesis and optical flow
+estimation. Their approach leverages:
+\begin{itemize}
+    \item A \textit{frame synthesis network} to generate predicted frames.
+    \item An \textit{optical flow estimation network} to capture motion dynamics between
+          frames.
+\end{itemize}
+This joint optimization enhances the model's ability to produce accurate and visually coherent future frames.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/FPNet-OF.png}
+    \caption{FPNet-OF model architecture. Source:~\citet{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}}\label{fig:joint-optimization-synthesis-optical-flow}
+\end{figure}
+
+\subsubsection*{Fusion-GRU}
+\citet{FusionGRU} developed the Fusion-Gated Recurrent
+Unit (Fusion-GRU) model to predict the future bounding boxes of traffic agents
+in risky driving scenarios. This model leverages multiple sources of
+information, including location-scale data, monocular depth information, and
+optical flow data, to capture complex interactions among information cues and
+transform them into hidden representations. The Fusion-GRU model uses an
+intermediary estimator and self-attention aggregation layer to enhance
+sequential dependencies for long-term predictions, demonstrating superior
+performance in challenging driving scenarios.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/FusionGRU.png}
+    \caption{Fusion-GRU model architecture. Source:~\citet{FusionGRU}}\label{fig:fusion-gru}
+\end{figure}
+
 \subsubsection*{Dual-Branch Spatial-Temporal Learning Network}
 
 Huang and Guan~\cite{DualBranchSpatialTemporalLearningNetworkVideoPrediction}
@@ -507,38 +577,17 @@ units:
 \end{itemize}
 This dual-branch approach addresses the limitations of relying on external information or complex state transition units, resulting in better visual quality and fewer blurry artifacts in predicted frames.
 
-\subsubsection*{Unsupervised Video Forecasting with Flow Parsing}
-\citet{UnsupervisedVideoForecastingFlowParsingMechanism} introduced an unsupervised video forecasting approach that incorporates a flow parsing mechanism. This model separates the motion and appearance learning processes:
-\begin{itemize}
-    \item The \textit{motion stream} predicts optical flow between frames to capture
-          dynamic changes.
-    \item The \textit{appearance stream} reconstructs frames to preserve spatial details.
-\end{itemize}
-By integrating these streams, the model can predict future frames with improved motion accuracy and appearance fidelity.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/dual-branch-architecture.png}
+    \caption{Dual-Branch Spatial-Temporal Learning Network. Source:~\citet{DualBranchSpatialTemporalLearningNetworkVideoPrediction}}\label{fig:dual-branch-spatial-temporal-learning-network}
+\end{figure}
 
-\subsubsection*{Joint Optimization with Synthesis and Optical Flow Estimation}
-\citet{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}
-proposed a method that jointly optimizes frame synthesis and optical flow
-estimation. Their approach leverages:
-\begin{itemize}
-    \item A \textit{frame synthesis network} to generate predicted frames.
-    \item An \textit{optical flow estimation network} to capture motion dynamics between
-          frames.
-\end{itemize}
-This joint optimization enhances the model's ability to produce accurate and visually coherent future frames.
-
-\subsubsection*{Predicting Future Frames for Fast-Moving Objects with Motion Blur}
-
-\citet{Lee2020} addressed the challenge of predicting future frames
-for fast-moving objects, which often result in motion blur. Their model
-includes:
-\begin{itemize}
-    \item A \textit{motion deblurring module} to reduce blur effects in fast-moving
-          scenes.
-    \item A \textit{future frame prediction module} that leverages the deblurred frames
-          to enhance prediction accuracy.
-\end{itemize}
-This approach ensures that the predicted frames maintain high visual quality even in challenging conditions.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/dual-branch-inter-intra-frames.png}
+    \caption{Dual-Branch Spatial-Temporal Learning Network. Source:~\citet{SurveyDLOD}}\label{fig:dual-branch-inter-intra-frames}
+\end{figure}
 
 \subsection*{Applications and Case Studies}
 
@@ -549,72 +598,70 @@ has proven highly effective:
 
 The Moving-MNIST dataset consists of sequences of moving handwritten digits.
 Each sequence includes a series of frames, and the goal is to predict future
-frames based on the observed ones. The CubicLSTM-based CubicRNN demonstrated
-superior accuracy compared to traditional ConvLSTM models, showcasing its
-ability to capture both motion and spatial features
-effectively~\cite{DBLP:journals/corr/SrivastavaMS15,
-    CubicLSTMsVideoPrediction}.
+frames based on the observed ones. This dataset contains 10000 videos, each
+consisting of 20 frames~\cite{DBLP:journals/corr/SrivastavaMS15}. The
+CubicLSTM-based CubicRNN demonstrated superior accuracy compared to traditional
+ConvLSTM models, showcasing its ability to capture both motion and spatial
+features effectively~\cite{ CubicLSTMsVideoPrediction}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.3\textwidth]{figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg}
-    \caption{2-digit Moving MNIST data~\cite{DBLP:journals/corr/SrivastavaMS15}}\label{fig:moving-mnist}
+    \caption{2-digit Moving MNIST data by~\citet{DBLP:journals/corr/SrivastavaMS15}}\label{fig:moving-mnist}
 \end{figure}
 
 \subsubsection*{Robotic Pushing Dataset}
 
 This dataset involves sequences of robotic arms pushing objects, with each
-frame representing a step in the sequence. The CubicLSTM model, combined with
+frame representing a step in the sequence. The dataset contains 3456 training
+images with labels and 1024 validation images with
+labels~\cite{DBLP:journals/corr/FinnGL16}. The CubicLSTM model, combined with
 convolutional dynamic neural advection (CDNA) models, achieved higher accuracy
 and generated clearer frames compared to ConvLSTM and CNN-based models. This
 application highlights the importance of accurately predicting future frames to
 understand and anticipate the movements of robotic
-systems~\cite{DBLP:journals/corr/FinnGL16, CubicLSTMsVideoPrediction}.
+systems~\cite{CubicLSTMsVideoPrediction}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/robotpush.png}
+    \caption{Robotic Pushing Dataset. Source:~\citet{DBLP:journals/corr/EitelHB17}}\label{fig:robotic-pushing-dataset}
+\end{figure}
 
 \subsubsection*{KTH Action Dataset}
 
 The KTH Action dataset features videos of people performing various actions,
-with each video divided into frames. The CubicLSTM model provided more accurate
-and visually consistent predictions of future frames compared to other
-state-of-the-art models like DrNet and MCnet. This demonstrates the model's
-effectiveness in understanding and predicting human actions over
-time~\cite{KTH, CubicLSTMsVideoPrediction}.
+with each video divided into frames. The dataset contains 2391
+sequences~\cite{KTH}. The CubicLSTM model provided more accurate and visually
+consistent predictions of future frames compared to other state-of-the-art
+models like DrNet and MCnet. This demonstrates the model's effectiveness in
+understanding and predicting human actions over
+time~\cite{CubicLSTMsVideoPrediction}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/KTH-dataset.png}
+    \caption{KTH Action Dataset. Source:~\citet{KTH}}\label{fig:kth-action-dataset}
+\end{figure}
 
 \subsubsection*{UCF Sports Dataset}
 
-Huang and Guan's dual-branch network was tested on the UCF Sports dataset,
-which includes complex motion patterns and large movements. Their method
-outperformed other state-of-the-art methods in terms of visual quality and
-motion accuracy, as evidenced by superior metrics such as PSNR, SSIM, and
-LPIPS. The results validate the network's ability to handle intricate video
-prediction tasks without relying on additional information~\cite{UCFSport,
+The UCF Sports dataset consists of a collection of footage collected from
+various sports that are typically shown on television channels such as the BBC
+and ESPN.\@ It comprises a total of 150 sequences~\cite{UCFSport}. Huang and
+Guan's dual-branch network was tested on the UCF Sports dataset, which includes
+complex motion patterns and large movements. Their method outperformed other
+state-of-the-art methods in terms of visual quality and motion accuracy, as
+evidenced by superior metrics such as PSNR, SSIM, and LPIPS. The results
+validate the network's ability to handle intricate video prediction tasks
+without relying on additional information~\cite{
     DualBranchSpatialTemporalLearningNetworkVideoPrediction}.
 
-\subsection*{Transformer Models for Frame-Based Prediction}
-
-Transformer model, introduced by~\citet{Vaswani2017}, has revolutionised
-sequence modeling with its efficient and powerful network structure. For video
-prediction, transformers leverage self-attention mechanisms to capture
-long-range dependencies across frames. The~\citet{HowDoUGoWhere} study shows
-how transformers can effectively learn mobility patterns from historical frame
-sequences, achieving state-of-the-art performance in next-location prediction
-tasks.
-
-\subsection*{Validation and Efficacy}
-
-Extensive experiments and validations on real-world datasets have affirmed the
-efficacy of frame-based models like ConvLSTM, CubicLSTM, and the dual-branch
-network in improving prediction accuracy. The work
-of~\citet{SpatioTemporalTransformerRecommender} discusses the application of
-transformers and self-attention mechanisms in sequence prediction, highlighting
-their effectiveness in various contexts. These models demonstrate the
-importance of frames as fundamental units of analysis in spatio-temporal
-prediction tasks.
-
-By leveraging deep learning techniques, especially advanced models like
-CubicLSTM, dual-branch networks, and transformers, the accuracy and efficiency
-of spatio-temporal predictions can be significantly enhanced, contributing to
-improved outcomes in various real-world applications.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/ucf-sport-dataset.png}
+    \caption{UCF Sports Dataset. Source:~\citet{UCFSport}}\label{fig:ucf-sports-dataset}
+\end{figure}
 
 %% Back matter
 %
@@ -622,19 +669,6 @@ improved outcomes in various real-world applications.
 
 \bibliographystyle{abbrvnat}
 \bibliography{LaTeX,CUCitations}
-
-\appendix
-\chapter{Ethical Approval Letter}
-Insert your Ethical Approval Letter as the first appendix.
-
-\chapter{Extra Data}
-This is a sample of thesis text. This is a sample of thesis text. This is a
-sample of thesis text. This is a sample of thesis text. This is a sample of
-thesis text.
-
-This is a sample of thesis text. This is a sample of thesis text. This is a
-sample of thesis text. This is a sample of thesis text. This is a sample of
-thesis text.
 
 \end{document}
 

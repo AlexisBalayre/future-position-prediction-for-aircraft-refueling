@@ -15,13 +15,13 @@ if __name__ == "__main__":
     test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test.json"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = 12  # Number of input frames
+    input_frames = 18  # Number of input frames
     output_frames = 1  # Number of output frames
-    input_dim = 8  # Dimensionalityx of input features
-    output_dim = 8  # Dimensionality of the model's output
-    hidden_dim = 50  # Size of the model's hidden layers
-    hidden_depth = 4  # Number of hidden layers
-    learning_rate = 5e-4  # Initial learning rate
+    input_dim = 4  # Dimensionalityx of input features
+    output_dim = 4  # Dimensionality of the model's output
+    hidden_dim = 80  # Size of the model's hidden layers
+    hidden_depth = 1  # Number of hidden layers
+    learning_rate = 9e-4  # Initial learning rate
     max_epochs = 100000  # Maximum number of training epochs
 
     # Fixed random seed for reproducibility of results

@@ -15,45 +15,45 @@ Warning--empty booktitle in Vaswani2017
 Warning--empty booktitle in AGRPoseEstimation
 Warning--empty booktitle in HybridDatasetAGRV1
 Warning--empty booktitle in AAREKF
-You've used 59 entries,
+You've used 58 entries,
             2773 wiz_defined-function locations,
-            988 strings with 18662 characters,
-and the built_in function-call counts, 29816 in all, are:
-= -- 2520
-> -- 2316
+            979 strings with 18347 characters,
+and the built_in function-call counts, 29355 in all, are:
+= -- 2476
+> -- 2286
 < -- 22
-+ -- 778
-- -- 717
-* -- 2564
-:= -- 4778
-add.period$ -- 237
-call.type$ -- 59
-change.case$ -- 416
++ -- 767
+- -- 708
+* -- 2521
+:= -- 4701
+add.period$ -- 231
+call.type$ -- 58
+change.case$ -- 410
 chr.to.int$ -- 57
-cite$ -- 129
-duplicate$ -- 1207
-empty$ -- 2053
-format.name$ -- 788
-if$ -- 6121
-int.to.chr$ -- 3
+cite$ -- 127
+duplicate$ -- 1187
+empty$ -- 2022
+format.name$ -- 778
+if$ -- 6027
+int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 48
-newline$ -- 363
-num.names$ -- 236
-pop$ -- 807
+missing$ -- 47
+newline$ -- 355
+num.names$ -- 232
+pop$ -- 800
 preamble$ -- 1
-purify$ -- 357
+purify$ -- 352
 quote$ -- 0
-skip$ -- 1051
+skip$ -- 1038
 stack$ -- 0
-substring$ -- 352
-swap$ -- 113
+substring$ -- 350
+swap$ -- 110
 text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 644
+type$ -- 633
 warning$ -- 11
-while$ -- 190
+while$ -- 187
 width$ -- 0
-write$ -- 867
+write$ -- 848
 (There were 11 warnings)
