@@ -10,6 +10,7 @@ class LSTMLightningDataModule(L.LightningDataModule):
         train_dataset_path,
         val_dataset_path,
         test_dataset_path,
+        images_folder,
         batch_size=32,
         num_workers=4,
     ):
@@ -17,6 +18,7 @@ class LSTMLightningDataModule(L.LightningDataModule):
         self.train_dataset_path = train_dataset_path
         self.val_dataset_path = val_dataset_path
         self.test_dataset_path = test_dataset_path
+        self.images_folder = images_folder
         self.batch_size = batch_size
         self.num_workers = num_workers
 
@@ -28,12 +30,14 @@ class LSTMLightningDataModule(L.LightningDataModule):
                 self.train_dataset_path,
                 input_frames=input_frames,
                 output_frames=output_frames,
+                images_folder=self.images_folder,
                 stage="train",
             )
             self.val_dataset = LSTMLightningDataset(
                 self.val_dataset_path,
                 input_frames=input_frames,
                 output_frames=output_frames,
+                images_folder=self.images_folder,
                 stage="val",
             )
         if stage == "test" or stage is None:
@@ -41,6 +45,7 @@ class LSTMLightningDataModule(L.LightningDataModule):
                 self.test_dataset_path,
                 input_frames=input_frames,
                 output_frames=output_frames,
+                images_folder=self.images_folder,
                 stage="test",
             )
         if stage == "predict" and predict_dataset_path is not None:
@@ -48,6 +53,7 @@ class LSTMLightningDataModule(L.LightningDataModule):
                 predict_dataset_path,
                 input_frames=input_frames,
                 output_frames=output_frames,
+                images_folder=self.images_folder,
                 stage="predict",
             )
 
