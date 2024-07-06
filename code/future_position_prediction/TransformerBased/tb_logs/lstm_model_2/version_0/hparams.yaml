@@ -1,0 +1,11 @@
+batch_size: 16
+bbox_dim: 4
+dropout: 0.1
+hidden_dim: 256
+input_frames: 5
+lr: 5.0e-05
+num_decoder_layers: 3
+num_encoder_layers: 3
+num_heads: 8
+output_dim: 4
+output_frames: 5

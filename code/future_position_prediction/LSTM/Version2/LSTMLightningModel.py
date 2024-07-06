@@ -1,242 +1,214 @@
 import torch
+
+torch.autograd.set_detect_anomaly(True)
+
 import torch.nn.functional as F
 import torch.nn as nn
 import lightning as L
-from torchmetrics.detection import IntersectionOverUnion
-import torchvision.ops as ops
+from typing import Tuple
+
+from utils import (
+    compute_ADE,
+    compute_FDE,
+    compute_AIOU,
+    compute_FIOU,
+    convert_velocity_to_positions,
+)
 
 
 class LSTMLightningModel(L.LightningModule):
-    """
-    A PyTorch Lightning module for an LSTM-based model.
-
-    Args:
-        lr (float, optional): Learning rate. Defaults to 1e-4.
-        batch_size (int, optional): Batch size. Defaults to 32.
-        input_dim (int, optional): Input dimensionality. Defaults to 4.
-        hidden_dim (int, optional): Hidden dimensionality. Defaults to 64.
-        output_dim (int, optional): Output dimensionality. Defaults to 4.
-        hidden_depth (int, optional): Number of LSTM layers. Defaults to 2.
-    """
-
     def __init__(
         self,
-        lr=1e-4,
-        input_frames=10,
-        output_frames=10,
-        batch_size=32,
-        feature_vector_shape=(3, 20, 20),
-        bbox_dim=4,
-        class_id_dim=1,
-        hidden_dim=128,
-        output_dim=4,
-        hidden_depth=3,
-        dropout=0.2,
-        fc_multiplier=2,
+        lr: float = 1e-4,
+        input_frames: int = 10,
+        output_frames: int = 10,
+        batch_size: int = 32,
+        bbox_dim: int = 4,
+        hidden_dim: int = 256,
+        hidden_depth: int = 3,
+        dropout: float = 0.1,
+        hardtanh_limit: float = 1.0,
+        image_size: Tuple[int, int] = (640, 480),  # Add image_size parameter
     ):
         super(LSTMLightningModel, self).__init__()
-        self.save_hyperparameters()  # Automatically logs and saves hyperparameters for reproducibility
+        self.save_hyperparameters()
 
-        # Calculate input size for LSTM
-        self.input_size = (feature_vector_shape[0] * feature_vector_shape[1] * feature_vector_shape[2]) + bbox_dim + class_id_dim
-
-        # LSTM to process sequence of features and bboxes
-        self.lstm = nn.LSTM(
-            input_size=self.input_size,
+        # Define LSTM Encoders
+        self.bboxes_position_encoder = nn.LSTM(
+            input_size=bbox_dim,
             hidden_size=hidden_dim,
             num_layers=hidden_depth,
             batch_first=True,
-            dropout=dropout,
         )
-        # Fully connected layers for final prediction
-        self.fc = nn.Sequential(
-            nn.Linear(hidden_dim, 128),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-            nn.Linear(128, 64),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-            nn.Linear(64, output_dim),  # Output 4 values for bbox (x, y, w, h)
+        self.bboxes_velocity_encoder = nn.LSTM(
+            input_size=bbox_dim,
+            hidden_size=hidden_dim,
+            num_layers=hidden_depth,
+            batch_first=True,
         )
 
-        self.train_iou = IntersectionOverUnion(box_format="xywh")
-        self.val_iou = IntersectionOverUnion(box_format="xywh")
-        self.test_iou = IntersectionOverUnion(box_format="xywh")
+        # Define Fully Connected Layers
+        self.fc_bboxesposition = nn.Sequential(
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_dim, bbox_dim),
+            nn.Sigmoid(),
+        )
+        self.fc_bboxes_velocity = nn.Sequential(
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_dim, bbox_dim),
+            nn.Hardtanh(min_val=-hardtanh_limit, max_val=hardtanh_limit),
+        )
 
-    def forward(self, feature_vectors, bboxes, input_class_ids):
-        batch_size, seq_len = feature_vectors.shape[:2]
-        
-        # Flatten the feature vectors
-        flattened_features = feature_vectors.view(batch_size, seq_len, -1)
+        # Define LSTM Decoders
+        self.bboxes_position_decoder = nn.LSTMCell(
+            input_size=bbox_dim, hidden_size=hidden_dim
+        )
+        self.bboxes_velocity_decoder = nn.LSTMCell(
+            input_size=bbox_dim, hidden_size=hidden_dim
+        )
 
-        # Ensure input_class_ids has the same dimensions
-        input_class_ids = input_class_ids.unsqueeze(-1).repeat(1, 1, 1)
-        
-        # Concatenate flattened features with bboxes and class IDs
-        lstm_input = torch.cat([flattened_features, bboxes, input_class_ids], dim=-1)
+    def forward(self, bboxes_position, bboxes_velocity):
+        # Encode the Position and Velocity Bounding Boxes
+        _, (h_vel, c_vel) = self.bboxes_velocity_encoder(bboxes_velocity)
+        _, (h_pos, c_pos) = self.bboxes_position_encoder(bboxes_position)
 
-        # Process through LSTM
-        lstm_out, _ = self.lstm(lstm_input)
-        
-        # Use only the last output from LSTM
-        last_output = lstm_out[:, -1, :]
-        
-        # Final bbox prediction
-        bbox_prediction = self.fc(last_output)
-        
-        return bbox_prediction
+        h_vel, c_vel = (
+            h_vel[-1],
+            c_vel[-1],
+        )  # Take the last layer's hidden and cell states
+        h_pos, c_pos = (
+            h_pos[-1],
+            c_pos[-1],
+        )  # Take the last layer's hidden and cell states
+
+        # Initialize hidden and cell states for the decoders
+        h_vel_dec = h_pos_dec = h_vel + h_pos
+        c_vel_dec = c_pos_dec = c_vel + c_pos
+
+        velocity_outputs = []
+        position_outputs = []
+
+        last_velocity = bboxes_velocity[:, -1, :].clone()
+        last_bbox = bboxes_position[:, -1, :].clone()
+
+        for _ in range(self.hparams.output_frames):
+            # Decode Velocity
+            h_vel_dec, c_vel_dec = self.bboxes_velocity_decoder(
+                last_velocity, (h_vel_dec, c_vel_dec)
+            )
+            velocity_output = self.fc_bboxes_velocity(h_vel_dec)
+            velocity_outputs.append(velocity_output)
+            last_velocity = velocity_output.detach()
+
+            # Decode Position
+            h_pos_dec, c_pos_dec = self.bboxes_position_decoder(
+                last_bbox, (h_pos_dec, c_pos_dec)
+            )
+            position_output = self.fc_bboxesposition(h_pos_dec)
+            position_outputs.append(position_output)
+            last_bbox = position_output.detach()
+
+        return (
+            torch.stack(position_outputs, dim=1),
+            torch.stack(velocity_outputs, dim=1),
+        )
+
+    def _shared_step(self, batch, batch_idx, stage):
+        (
+            input_bboxes_position,
+            input_bboxes_velocity,
+            output_bboxes_position,
+            output_bboxes_velocity,
+        ) = batch
+
+        predicted_bboxes, predicted_velocity = self(
+            input_bboxes_position, input_bboxes_velocity
+        )
+
+        bbox_loss = F.smooth_l1_loss(predicted_bboxes, output_bboxes_position)
+        velocity_loss = F.smooth_l1_loss(predicted_velocity, output_bboxes_velocity)
+        total_loss = bbox_loss + velocity_loss
+
+        self.log(
+            f"{stage}_loss", total_loss, on_step=False, on_epoch=True, prog_bar=True
+        )
+        self.log(
+            f"{stage}_bbox_loss",
+            bbox_loss,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_velocity_loss",
+            velocity_loss,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+
+        # Compute and log metrics
+        with torch.no_grad():
+            # Detach the predicted bboxes to avoid backpropagating through the metrics
+            output_bboxes_position = output_bboxes_position.detach()
+            predicted_velocity = predicted_velocity.detach()
+
+            positions_from_velocity = convert_velocity_to_positions(
+                predicted_velocity, input_bboxes_position, self.hparams.image_size
+            )
+
+            denorm_factor = torch.tensor(
+                [
+                    self.hparams.image_size[0],
+                    self.hparams.image_size[1],
+                    self.hparams.image_size[0],
+                    self.hparams.image_size[1],
+                ]
+            ).to(output_bboxes_position.device)
+
+            output_bboxes_denorm = output_bboxes_position * denorm_factor
+
+            ade = compute_ADE(positions_from_velocity, output_bboxes_denorm)
+            fde = compute_FDE(positions_from_velocity, output_bboxes_denorm)
+
+            positions_from_velocity_norm = positions_from_velocity / denorm_factor
+
+            aiou = compute_AIOU(positions_from_velocity_norm, output_bboxes_position)
+            fiou = compute_FIOU(positions_from_velocity_norm, output_bboxes_position)
+
+            self.log(f"{stage}_ADE", ade, on_step=False, on_epoch=True, prog_bar=True)
+            self.log(f"{stage}_FDE", fde, on_step=False, on_epoch=True, prog_bar=True)
+            self.log(f"{stage}_AIOU", aiou, on_step=False, on_epoch=True, prog_bar=True)
+            self.log(f"{stage}_FIOU", fiou, on_step=False, on_epoch=True, prog_bar=True)
+
+        return total_loss
 
     def training_step(self, batch, batch_idx):
-        """
-        Training step.
-
-        Args:
-            batch (tuple): Batch of data.
-            batch_idx (int): Batch index.
-
-        Returns:
-            torch.Tensor: Loss tensor.
-        """
         return self._shared_step(batch, batch_idx, "train")
 
     def validation_step(self, batch, batch_idx):
-        """
-        Validation step.
-
-        Args:
-            batch (tuple): Batch of data.
-            batch_idx (int): Batch index.
-
-        Returns:
-            torch.Tensor: Loss tensor.
-        """
         return self._shared_step(batch, batch_idx, "val")
 
     def test_step(self, batch, batch_idx):
-        """
-        Test step.
-
-        Args:
-            batch (tuple): Batch of data.
-            batch_idx (int): Batch index.
-
-        Returns:
-            torch.Tensor: Loss tensor.
-        """
         return self._shared_step(batch, batch_idx, "test")
 
-    def on_training_epoch_end(self):
-        """
-        Called at the end of a training epoch.
-        """
-        self._on_epoch_end("train")
-
-    def on_validation_epoch_end(self):
-        """
-        Called at the end of a validation epoch.
-        """
-        self._on_epoch_end("val")
-
-    def on_test_epoch_end(self):
-        """
-        Called at the end of a test epoch.
-        """
-        self._on_epoch_end("test")
-
     def configure_optimizers(self):
-        """
-        Configures the optimizer and learning rate scheduler for training the model.
-
-        Returns:
-            dict: The dictionary containing the optimizer and learning rate scheduler.
-        """
         optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, mode="min", factor=0.9, patience=20
+            optimizer, mode="min", patience=15, factor=0.9
         )
         return {
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
                 "monitor": "val_loss",
+                "interval": "epoch",
             },
         }
 
-    def _shared_step(self, batch, batch_idx, stage):
-        """
-        Shared step for training, validation, and test.
-
-        Args:
-            batch (tuple): Batch of data.
-            batch_idx (int): Batch index.
-            stage (str): Stage (train, val, or test).
-
-        Returns:
-            torch.Tensor: Loss tensor.
-        """
-        (
-            _,
-            input_bboxes,
-            input_class_ids,
-            input_feature_vectors,
-            output_bboxes,
-        ) = batch
-
-        # Predict bboxes for the last frame
-        predicted_bboxes = self(input_feature_vectors, input_bboxes, input_class_ids)
-
-        # Convert xywh to xyxy format for GIoU loss calculation
-        predicted_bboxes_xyxy = ops.box_convert(
-            predicted_bboxes, in_fmt="xywh", out_fmt="xyxy"
-        )
-        target_bboxes_xyxy = ops.box_convert(
-            output_bboxes, in_fmt="xywh", out_fmt="xyxy"
-        )
-
-        # Compute GIoU loss
-        giou_loss = ops.generalized_box_iou_loss(
-            predicted_bboxes_xyxy, target_bboxes_xyxy, reduction="none"
-        )
-
-        # Transform the loss to be non-negative
-        positive_loss = 1 - torch.exp(-giou_loss)
-
-        # Take the mean of the transformed loss
-        final_loss = positive_loss.mean()
-
-        # Update IoU metric
-        preds = predicted_bboxes.detach().cpu()
-        targets = output_bboxes.detach().cpu()
-        class_labels = torch.zeros(preds.size(0), dtype=torch.int)
-        preds = [{"boxes": preds, "labels": class_labels}]
-        targets = [{"boxes": targets, "labels": class_labels}]
-        getattr(self, f"{stage}_iou").update(preds, targets)
-
-        self.log(
-            f"{stage}_loss",
-            final_loss,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=True,
-            logger=True,
-        )
-        return final_loss
-
-    def _on_epoch_end(self, stage):
-        """
-        Called at the end of an epoch for a specific stage.
-
-        Args:
-            stage (str): Stage (train, val, or test).
-        """
-        iou = getattr(self, f"{stage}_iou").compute()
-        iou_value = iou["iou"]
-        self.log(
-            f"{stage}_iou",
-            iou_value,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=True,
-            logger=True,
-        )
-        getattr(self, f"{stage}_iou").reset()
+    def on_before_optimizer_step(self, optimizer):
+        nn.utils.clip_grad_norm_(self.parameters(), max_norm=1.0)

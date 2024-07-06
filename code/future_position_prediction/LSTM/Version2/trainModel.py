@@ -1,4 +1,5 @@
 import torch
+
 from torch.utils.data import DataLoader
 import lightning as L
 from lightning.pytorch.loggers import TensorBoardLogger
@@ -18,13 +19,13 @@ if __name__ == "__main__":
     batch_size = 16  # Number of samples per batch
     input_frames = 10  # Number of input frames
     output_frames = 10  # Number of output frames
-    hidden_dim = 128  # Size of the model's hidden layers
-    hidden_depth = 3  # Number of hidden layers
-    learning_rate = 1e-3  # Initial learning rate
-    max_epochs = 100  # Maximum number of training epochs
+    hidden_dim = 256  # Size of the model's hidden layers
+    hidden_depth = 1  # Number of hidden layers
+    learning_rate = 1e-4  # Initial learning rate
+    max_epochs = 1000  # Maximum number of training epochs
 
     # Fixed random seed for reproducibility of results
-    torch.manual_seed(123)
+    L.seed_everything(123)
 
     # Data Module
     data_module = LSTMLightningDataModule(
@@ -38,9 +39,7 @@ if __name__ == "__main__":
 
     # Setup the data module
     data_module.setup(
-        stage="train",
-        input_frames=input_frames,
-        output_frames=output_frames,
+        stage="train", input_frames=input_frames, output_frames=output_frames
     )
 
     # Initialize the model
@@ -51,30 +50,29 @@ if __name__ == "__main__":
         batch_size=batch_size,
         hidden_dim=hidden_dim,
         hidden_depth=hidden_depth,
-        dropout=0.2,
     )
 
     # Logger setup for TensorBoard
-    logger = TensorBoardLogger("tb_logs", name="lstm_model")
+    logger = TensorBoardLogger("tb_logs", name="lstm_model_2")
 
     # Early stopping and checkpointing callbacks
     callbacks = [
-        ModelCheckpoint(save_top_k=1, mode="max", monitor="val_iou"),
-        EarlyStopping(monitor="val_loss", patience=10, mode="min"),
+        ModelCheckpoint(save_top_k=1, mode="max", monitor="val_AIOU"),
     ]
 
     # Trainer initialization with configurations for training process
     trainer = L.Trainer(
-        max_epochs=max_epochs,  # Maximum number of epochs for training
-        accelerator="auto",  # Automatically select the best available accelerator
-        devices="auto",  # Automatically selects the available devices
-        logger=logger,  # Integrates the TensorBoard logger for tracking experiments
-        callbacks=callbacks,  # Adds the specified callbacks to the training process
+        max_epochs=max_epochs,
+        accelerator="auto",
+        devices="auto",
+        logger=logger,
+        callbacks=callbacks,
         deterministic=True,  # Ensures reproducibility of results
         precision=32,  # Use 32-bit floating point precision
     )
 
     # Training phase
+    torch.autograd.set_detect_anomaly(True)
     trainer.fit(model, datamodule=data_module)
 
     # Testing phase

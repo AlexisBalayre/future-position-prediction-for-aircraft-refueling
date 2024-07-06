@@ -4,8 +4,6 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 from PIL import Image
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
 
 
 class LSTMLightningDataset(Dataset):
@@ -15,13 +13,13 @@ class LSTMLightningDataset(Dataset):
         input_frames,
         output_frames,
         images_folder,
-        target_size=(640, 640),
+        target_size=(640, 480),
         stage="train",
-        yolo_feature_vector_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/features/23.cv3.2.2"
     ):
         self.target_size = target_size
         self.images_folder = images_folder
-        self.yolo_feature_vector_folder = yolo_feature_vector_folder
+        self.input_frames = input_frames
+        self.output_frames = output_frames
 
         with open(json_file, "r") as f:
             self.data = json.load(f)
@@ -30,23 +28,11 @@ class LSTMLightningDataset(Dataset):
         for entry in self.data:
             video_id = entry["video_id"]
             frames = entry["frames"]
-            for idx in range(len(frames) - input_frames - output_frames + 1):
+            total_frames = input_frames + output_frames
+            for idx in range(0, len(frames) - total_frames + 1):
                 input_seq = frames[idx : idx + input_frames]
-                output_seq = [frames[idx + input_frames + output_frames - 1]]
+                output_seq = frames[idx + input_frames : idx + total_frames]
                 self.samples.append((video_id, input_seq, output_seq))
-
-        self.transform = A.Compose(
-            [
-                A.Resize(width=self.target_size[0], height=self.target_size[1], p=1.0),
-                A.Normalize(
-                    mean=[0.485, 0.456, 0.406],
-                    std=[0.229, 0.224, 0.225],
-                    max_pixel_value=255.0,
-                    p=1.0,
-                ),
-                ToTensorV2(p=1.0),
-            ],
-        )
 
     def __len__(self):
         return len(self.samples)
@@ -55,40 +41,49 @@ class LSTMLightningDataset(Dataset):
         try:
             video_id, input_seq, output_seq = self.samples[idx]
 
-            input_images, input_bboxes, input_class_ids, input_feature_vectors = zip(
+            input_bboxes_position, input_bboxes_velocity = zip(
                 *[
                     self.load_and_transform_image_with_bbox(
                         frame["image_name"],
                         frame["bbox"],
                         frame["class_id"],
-                        feature_vector=True,
+                        idx=i,
+                        is_input=True,
                     )
-                    for frame in input_seq
+                    for i, frame in enumerate(input_seq)
                 ]
             )
-            _, output_bboxes, _, _ = zip(
+            output_bboxes_position, output_bboxes_velocity = zip(
                 *[
                     self.load_and_transform_image_with_bbox(
-                        frame["image_name"], frame["bbox"], frame["class_id"]
+                        frame["image_name"],
+                        frame["bbox"],
+                        frame["class_id"],
+                        idx=i,
+                        is_input=False,
                     )
-                    for frame in output_seq
+                    for i, frame in enumerate(output_seq)
                 ]
             )
 
-            input_images = torch.stack(input_images)
-            input_bboxes = torch.tensor(input_bboxes, dtype=torch.float32)
-            input_class_ids = torch.tensor(input_class_ids, dtype=torch.long)
-            input_feature_vectors = torch.tensor(
-                np.array(input_feature_vectors), dtype=torch.float32
+            input_bboxes_position = torch.tensor(
+                input_bboxes_position, dtype=torch.float32
             )
-            output_bboxes = torch.tensor(output_bboxes, dtype=torch.float32).squeeze(0)
+            input_bboxes_velocity = torch.tensor(
+                input_bboxes_velocity, dtype=torch.float32
+            )
+            output_bboxes_position = torch.tensor(
+                output_bboxes_position, dtype=torch.float32
+            )
+            output_bboxes_velocity = torch.tensor(
+                output_bboxes_velocity, dtype=torch.float32
+            )
 
             return (
-                input_images,
-                input_bboxes,
-                input_class_ids,
-                input_feature_vectors,
-                output_bboxes,
+                input_bboxes_position,
+                input_bboxes_velocity,
+                output_bboxes_position,
+                output_bboxes_velocity,
             )
 
         except Exception as e:
@@ -97,18 +92,16 @@ class LSTMLightningDataset(Dataset):
             print("Video ID: ", video_id)
 
     def load_and_transform_image_with_bbox(
-        self, image_name, bbox, class_id, feature_vector=False
+        self, image_name, bbox, class_id, idx=0, is_input=True
     ):
         image_path = os.path.join(self.images_folder, image_name)
         image = Image.open(image_path).convert("RGB")
         image = np.array(image)
 
         # Handle No Detection
-        if class_id == None or bbox == []:
+        if class_id is None or bbox == []:
             class_id = 3
             bbox = [0, 0, 0, 0]
-
-        transformed_image = self.transform(image=image)["image"]
 
         # Resize bbox
         original_height, original_width = image.shape[:2]
@@ -118,12 +111,26 @@ class LSTMLightningDataset(Dataset):
         y = y * target_height / original_height
         w = w * target_width / original_width
         h = h * target_height / original_height
-        transformed_bbox = [x, y, w, h]
+        bbox_position = [x, y, w, h]
 
-        if feature_vector:
-            image_name = os.path.splitext(image_name)[0]
-            feature_vector = torch.load(
-                os.path.join(self.yolo_feature_vector_folder, image_name + ".pt")
-            )
-            return (transformed_image, transformed_bbox, class_id, feature_vector)
-        return transformed_image, transformed_bbox, class_id, None
+        # Calculate delta bbox
+        if idx == 0 and is_input:
+            bbox_velocity = [0, 0, 0, 0]
+        else:
+            if is_input:
+                prev_bbox = self.samples[idx][1][idx - 1]["bbox"]
+            else:
+                prev_bbox = (
+                    self.samples[idx][1][-1]["bbox"]
+                    if idx == 0
+                    else self.samples[idx][2][idx - 1]["bbox"]
+                )
+
+            prev_x, prev_y, prev_w, prev_h = prev_bbox
+            prev_x = prev_x * target_width / original_width
+            prev_y = prev_y * target_height / original_height
+            prev_w = prev_w * target_width / original_width
+            prev_h = prev_h * target_height / original_height
+            bbox_velocity = [x - prev_x, y - prev_y, w - prev_w, h - prev_h]
+
+        return bbox_position, bbox_velocity

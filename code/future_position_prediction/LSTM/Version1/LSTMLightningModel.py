@@ -168,7 +168,7 @@ class LSTMLightningModel(L.LightningModule):
         y_pred_xyxy = ops.box_convert(y_pred, in_fmt="xywh", out_fmt="xyxy")
         y_target_xyxy = ops.box_convert(y_target, in_fmt="xywh", out_fmt="xyxy")
 
-         # Compute GIoU loss
+        # Compute GIoU loss
         giou_loss = ops.generalized_box_iou_loss(
             y_pred_xyxy, y_target_xyxy, reduction="none"
         )

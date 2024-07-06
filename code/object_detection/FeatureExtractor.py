@@ -63,9 +63,9 @@ class FeatureExtractor:
 
 if __name__ == "__main__":
     yolo_checkpoint_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/code/object_detection/YOLOv10/yolov10s.pth"
-    yolo_intermediate_layer = "23.cv3.2.2"
+    yolo_intermediate_layer = "22"
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
-    output_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/features/23.cv3.2.2"
+    output_folder = "/Volumes/ALEXIS/Thesis/Features/22"
 
     extractor = FeatureExtractor(
         yolo_checkpoint_path, yolo_intermediate_layer, images_folder, output_folder
