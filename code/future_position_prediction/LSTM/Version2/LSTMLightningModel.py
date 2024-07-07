@@ -48,13 +48,6 @@ class LSTMLightningModel(L.LightningModule):
         )
 
         # Define Fully Connected Layers
-        self.fc_bboxesposition = nn.Sequential(
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-            nn.Linear(hidden_dim, bbox_dim),
-            nn.Sigmoid(),
-        )
         self.fc_bboxes_velocity = nn.Sequential(
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
@@ -64,9 +57,6 @@ class LSTMLightningModel(L.LightningModule):
         )
 
         # Define LSTM Decoders
-        self.bboxes_position_decoder = nn.LSTMCell(
-            input_size=bbox_dim, hidden_size=hidden_dim
-        )
         self.bboxes_velocity_decoder = nn.LSTMCell(
             input_size=bbox_dim, hidden_size=hidden_dim
         )
@@ -76,46 +66,35 @@ class LSTMLightningModel(L.LightningModule):
         _, (h_vel, c_vel) = self.bboxes_velocity_encoder(bboxes_velocity)
         _, (h_pos, c_pos) = self.bboxes_position_encoder(bboxes_position)
 
-        h_vel, c_vel = (
-            h_vel[-1],
-            c_vel[-1],
-        )  # Take the last layer's hidden and cell states
-        h_pos, c_pos = (
-            h_pos[-1],
-            c_pos[-1],
-        )  # Take the last layer's hidden and cell states
+        h_vel = h_vel[-1]
+        c_vel = c_vel[-1]
+        h_pos = h_pos[-1]
+        c_pos = c_pos[-1]
 
         # Initialize hidden and cell states for the decoders
-        h_vel_dec = h_pos_dec = h_vel + h_pos
-        c_vel_dec = c_pos_dec = c_vel + c_pos
+        h_vel_dec = torch.add(h_vel, h_pos)  # Utilisation de torch.add au lieu de +
+        c_vel_dec = torch.add(c_vel, c_pos)  # Utilisation de torch.add au lieu de +
 
+        # Decode Velocities
         velocity_outputs = []
-        position_outputs = []
-
-        last_velocity = bboxes_velocity[:, -1, :].clone()
-        last_bbox = bboxes_position[:, -1, :].clone()
-
+        last_velocity = bboxes_velocity[:, -1, :].detach().clone()
         for _ in range(self.hparams.output_frames):
-            # Decode Velocity
             h_vel_dec, c_vel_dec = self.bboxes_velocity_decoder(
                 last_velocity, (h_vel_dec, c_vel_dec)
             )
             velocity_output = self.fc_bboxes_velocity(h_vel_dec)
             velocity_outputs.append(velocity_output)
-            last_velocity = velocity_output.detach()
+            last_velocity = velocity_output.clone()
+        predicted_velocity = torch.stack(velocity_outputs, dim=1)
 
-            # Decode Position
-            h_pos_dec, c_pos_dec = self.bboxes_position_decoder(
-                last_bbox, (h_pos_dec, c_pos_dec)
-            )
-            position_output = self.fc_bboxesposition(h_pos_dec)
-            position_outputs.append(position_output)
-            last_bbox = position_output.detach()
-
-        return (
-            torch.stack(position_outputs, dim=1),
-            torch.stack(velocity_outputs, dim=1),
+        # Convert Velocities to Positions
+        positions_from_velocity = convert_velocity_to_positions(
+            predicted_velocity.detach(),
+            bboxes_position.detach(),
+            self.hparams.image_size,
         )
+
+        return positions_from_velocity, predicted_velocity
 
     def _shared_step(self, batch, batch_idx, stage):
         (
@@ -155,12 +134,9 @@ class LSTMLightningModel(L.LightningModule):
         with torch.no_grad():
             # Detach the predicted bboxes to avoid backpropagating through the metrics
             output_bboxes_position = output_bboxes_position.detach()
-            predicted_velocity = predicted_velocity.detach()
+            predicted_bboxes = predicted_bboxes.detach()
 
-            positions_from_velocity = convert_velocity_to_positions(
-                predicted_velocity, input_bboxes_position, self.hparams.image_size
-            )
-
+            # Denormalize the Ground Truth Bounding Boxes
             denorm_factor = torch.tensor(
                 [
                     self.hparams.image_size[0],
@@ -169,21 +145,50 @@ class LSTMLightningModel(L.LightningModule):
                     self.hparams.image_size[1],
                 ]
             ).to(output_bboxes_position.device)
-
             output_bboxes_denorm = output_bboxes_position * denorm_factor
+            predicted_bboxes_norm = predicted_bboxes / denorm_factor
 
-            ade = compute_ADE(positions_from_velocity, output_bboxes_denorm)
-            fde = compute_FDE(positions_from_velocity, output_bboxes_denorm)
-
-            positions_from_velocity_norm = positions_from_velocity / denorm_factor
-
-            aiou = compute_AIOU(positions_from_velocity_norm, output_bboxes_position)
-            fiou = compute_FIOU(positions_from_velocity_norm, output_bboxes_position)
-
-            self.log(f"{stage}_ADE", ade, on_step=False, on_epoch=True, prog_bar=True)
-            self.log(f"{stage}_FDE", fde, on_step=False, on_epoch=True, prog_bar=True)
-            self.log(f"{stage}_AIOU", aiou, on_step=False, on_epoch=True, prog_bar=True)
-            self.log(f"{stage}_FIOU", fiou, on_step=False, on_epoch=True, prog_bar=True)
+            # Compute metrics
+            ade = compute_ADE(
+                predicted_bboxes, output_bboxes_denorm
+            )  # Average Displacement Error
+            fde = compute_FDE(
+                predicted_bboxes, output_bboxes_denorm
+            )  # Final Displacement Error
+            aiou = compute_AIOU(
+                predicted_bboxes_norm, output_bboxes_position
+            )  # Average Intersection Over Union
+            fiou = compute_FIOU(
+                predicted_bboxes_norm, output_bboxes_position
+            )  # Final Intersection Over Union
+            self.log(
+                f"{stage}_ADE",
+                ade,
+                on_step=False,
+                on_epoch=True,
+                prog_bar=False,
+            )
+            self.log(
+                f"{stage}_FDE",
+                fde,
+                on_step=False,
+                on_epoch=True,
+                prog_bar=False,
+            )
+            self.log(
+                f"{stage}_AIoU",
+                aiou,
+                on_step=False,
+                on_epoch=True,
+                prog_bar=True,
+            )
+            self.log(
+                f"{stage}_FIoU",
+                fiou,
+                on_step=False,
+                on_epoch=True,
+                prog_bar=True,
+            )
 
         return total_loss
 

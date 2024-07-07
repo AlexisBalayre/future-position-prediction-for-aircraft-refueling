@@ -17,8 +17,8 @@ if __name__ == "__main__":
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = 10  # Number of input frames
-    output_frames = 10  # Number of output frames
+    input_frames = 18  # Number of input frames
+    output_frames = 1  # Number of output frames
     hidden_dim = 256  # Size of the model's hidden layers
     hidden_depth = 1  # Number of hidden layers
     learning_rate = 1e-4  # Initial learning rate
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     # Early stopping and checkpointing callbacks
     callbacks = [
-        ModelCheckpoint(save_top_k=1, mode="max", monitor="val_AIOU"),
+        ModelCheckpoint(save_top_k=1, mode="max", monitor="val_AIoU"),
     ]
 
     # Trainer initialization with configurations for training process
