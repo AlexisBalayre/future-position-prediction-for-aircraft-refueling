@@ -103,16 +103,16 @@
 % Use single spacing for Table of Contents, List of Figures, etc
 {
     \clearpage
-
+    
     % Table of Contents
     \singlespacing{
         \tableofcontents
     }
     \clearpage
-
+    
     % List of Figures
     \listoffigures
-
+    
     \clearpage
     % List of Tables
     \listoftables
@@ -381,7 +381,7 @@ for the calculation of the following metrics:
           \begin{equation}
               \text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
           \end{equation}
-
+          
     \item \textbf{Recall}: The ratio of True Positives to the total number of ground-truth objects, measuring the model's ability to avoid false negatives:
           \begin{equation}
               \text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
@@ -662,6 +662,74 @@ without relying on additional information~\cite{
     \includegraphics[width=0.6\textwidth]{figures/ucf-sport-dataset.png}
     \caption{UCF Sports Dataset. Source:~\citet{UCFSport}}\label{fig:ucf-sports-dataset}
 \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% METHODOLOGY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Methodology}
+\section{Dataset Configuration}
+\subsection{Provided Dataset Description}
+The `Indoor Hangar Fueling Port Detection and Tracking Dataset' (HARD) is an
+integral part of Phase-1 of the ONEHeart project, funded by UKRI. The ONEHeart
+project aims to develop an automated aircraft refuelling system based on
+computer vision and robotics technology. This dataset can be utilised for
+various purposes, including but not limited to fueling port detection, fueling
+port tracking, camera pose estimation, and visual image processing. It is
+provided under the terms of the UKRI funding agreement. Unauthorised use,
+distribution, or reproduction is prohibited.
+
+The HARD dataset consists of 21 video sequences captured in an indoor hangar at
+the Aerospace Integration Research Centre (AIRC). The videos were recorded
+using an Intel RealSense D435 sensor, which provides depth information in
+addition to RGB data. The target area for detection and tracking is near the
+fueling port of an Airbus A320 wing. The videos were recorded under different
+lighting conditions, including indoor artificial lighting and natural daylight,
+to simulate real-world scenarios. 
+
+There is 3 states of the fueling port in the dataset:
+\begin{itemize}
+    \item \textbf{CLOSED}: The fueling port is closed.
+    \item \textbf{OPEN}: The fueling port is open.
+    \item \textbf{SEMI-OPEN}: The fueling port is partially open.
+\end{itemize}
+
+\subsection{Data Annotation}
+The HARD dataset that was provided for this project was not fully annotated.
+Therefore, the first step in the data preparation process was to annotate the
+dataset. The annotation process involved labelling the fueling port in each
+frame of the video sequences. The annotation was performed using the Label
+Studio tool, which allows for the creation of bounding boxes around objects of
+interest in images and videos.
+
+100 images of each videos were annotated to create a preliminary dataset for training a YOLOv10 model. 
+A Label Studio ML backend was then implemented to use the YOLOv10 model and deployed as a Docker container which was used by Label Studio to annotate the remaining images in the dataset.  
+This model was then used by a  Label Studio ML backend to annotate the remaining images in the dataset. 
+The final dataset consists of 21 video sequences with 1000 annotated images each. 
+
+\section{Framework Design}
+
+\section{Model Design}
+
+\section{Algorithm Design}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EXPERIMENT DESIGN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Experiment Design}
+\section{Experiment Environment}
+
+\section{Comparison Experiments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULTS & DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Results and Discussion}
+\section{Data Description}
+
+\section{Experiment Results}
+
+\section{Testing Visualisation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONCLUSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Results and Discussion}
 
 %% Back matter
 %
