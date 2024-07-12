@@ -10,8 +10,10 @@ class LSTMLightningDataModule(L.LightningDataModule):
         train_dataset_path,
         val_dataset_path,
         test_dataset_path,
+        input_frames,
+        output_frames,
         images_folder,
-        batch_size=32,
+        batch_size=16,
         num_workers=4,
     ):
         super().__init__()
@@ -21,38 +23,38 @@ class LSTMLightningDataModule(L.LightningDataModule):
         self.images_folder = images_folder
         self.batch_size = batch_size
         self.num_workers = num_workers
+        self.input_frames = input_frames
+        self.output_frames = output_frames
 
-    def setup(
-        self, stage=None, input_frames=3, output_frames=1, predict_dataset_path=None
-    ):
+    def setup(self, stage, predict_dataset_path=None):
         if stage == "train" or stage is None:
             self.train_dataset = LSTMLightningDataset(
                 self.train_dataset_path,
-                input_frames=input_frames,
-                output_frames=output_frames,
+                input_frames=self.input_frames,
+                output_frames=self.output_frames,
                 images_folder=self.images_folder,
                 stage="train",
             )
             self.val_dataset = LSTMLightningDataset(
                 self.val_dataset_path,
-                input_frames=input_frames,
-                output_frames=output_frames,
+                input_frames=self.input_frames,
+                output_frames=self.output_frames,
                 images_folder=self.images_folder,
                 stage="val",
             )
         if stage == "test" or stage is None:
             self.test_dataset = LSTMLightningDataset(
                 self.test_dataset_path,
-                input_frames=input_frames,
-                output_frames=output_frames,
+                input_frames=self.input_frames,
+                output_frames=self.output_frames,
                 images_folder=self.images_folder,
                 stage="test",
             )
         if stage == "predict" and predict_dataset_path is not None:
             self.predict_dataset = LSTMLightningDataset(
                 predict_dataset_path,
-                input_frames=input_frames,
-                output_frames=output_frames,
+                input_frames=self.input_frames,
+                output_frames=self.output_frames,
                 images_folder=self.images_folder,
                 stage="predict",
             )
@@ -61,7 +63,7 @@ class LSTMLightningDataModule(L.LightningDataModule):
         return DataLoader(
             self.train_dataset,
             batch_size=self.batch_size,
-            shuffle=False,
+            shuffle=True,
             num_workers=self.num_workers,
             persistent_workers=True,
         )

@@ -16,12 +16,13 @@ if __name__ == "__main__":
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = 5  # Number of input frames
-    output_frames = 5  # Number of output frames
+    input_frames = 30  # Number of input frames
+    output_frames = 15  # Number of output frames
     hidden_dim = 256  # Size of the model's hidden layers
     hidden_depth = 1  # Number of hidden layers
-    learning_rate = 5e-4  # Initial learning rate
-    max_epochs = 1000  # Maximum number of training epochs
+    learning_rate = 1e-3  # Initial learning rate
+    max_epochs = 100  # Maximum number of training epochs
+    dropout = 0.1  # Dropout rate
 
     # Fixed random seed for reproducibility of results
     L.seed_everything(123)
@@ -33,14 +34,14 @@ if __name__ == "__main__":
         test_dataset_path=test_dataset_path,
         images_folder=images_folder,
         batch_size=batch_size,
-        num_workers=num_workers
+        num_workers=num_workers,
+        input_frames=input_frames,
+        output_frames=output_frames,
     )
 
     # Setup the data module
     data_module.setup(
         stage="train",
-        input_frames=input_frames,
-        output_frames=output_frames
     )
 
     # Initialize the model
@@ -51,6 +52,7 @@ if __name__ == "__main__":
         batch_size=batch_size,
         hidden_dim=hidden_dim,
         hidden_depth=hidden_depth,
+        dropout=dropout,
     )
 
     # Logger setup for TensorBoard
@@ -58,14 +60,13 @@ if __name__ == "__main__":
 
     # Early stopping and checkpointing callbacks
     callbacks = [
-        ModelCheckpoint(save_top_k=1, mode="max", monitor="val_iou"),
-        #EarlyStopping(monitor="val_iou", patience=50, mode="max"),
+        ModelCheckpoint(save_top_k=1, mode="max", monitor="val_FIoU"),
     ]
 
     # Trainer initialization with configurations for training process
     trainer = L.Trainer(
         max_epochs=max_epochs,
-        accelerator="auto",
+        accelerator="cpu",
         devices="auto",
         logger=logger,
         callbacks=callbacks,
@@ -75,6 +76,11 @@ if __name__ == "__main__":
 
     # Training phase
     trainer.fit(model, datamodule=data_module)
+
+    # Setup the data module
+    data_module.setup(
+        stage="test",
+    )
 
     # Testing phase
     trainer.test(model, datamodule=data_module)
