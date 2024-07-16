@@ -17,14 +17,14 @@ if __name__ == "__main__":
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = 15 # Number of input frames
+    input_frames = 15  # Number of input frames
     output_frames = 18  # Number of output frames
     hidden_dim = 256  # Size of the model's hidden layers
     hidden_depth = 1  # Number of hidden layers
     learning_rate = 1e-3  # Initial learning rate
     max_epochs = 1000  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
-    num_heads = 2  # Number of attention heads
+    num_heads = 8  # Number of attention heads
 
     # Fixed random seed for reproducibility of results
     L.seed_everything(123)
@@ -37,13 +37,13 @@ if __name__ == "__main__":
         images_folder=images_folder,
         batch_size=batch_size,
         num_workers=num_workers,
-        input_frames=input_frames, 
-        output_frames=output_frames
+        input_frames=input_frames,
+        output_frames=output_frames,
     )
 
     # Setup the data module
     data_module.setup(
-        stage="train", 
+        stage="train",
     )
 
     # Initialize the model
@@ -55,11 +55,11 @@ if __name__ == "__main__":
         hidden_dim=hidden_dim,
         hidden_depth=hidden_depth,
         dropout=dropout,
-        num_heads=num_heads
+        num_heads=num_heads,
     )
 
     # Logger setup for TensorBoard
-    logger = TensorBoardLogger("tb_logs", name="lstm_fpp_version3")
+    logger = TensorBoardLogger("tb_logs", name="lstm_multihead_attention_fpp")
 
     # Early stopping and checkpointing callbacks
     callbacks = [
@@ -81,9 +81,7 @@ if __name__ == "__main__":
     trainer.fit(model, datamodule=data_module)
 
     # Setup the data module for testing
-    data_module.setup(
-        stage="test"
-    )
+    data_module.setup(stage="test")
 
     # Testing phase
     trainer.test(model, datamodule=data_module)

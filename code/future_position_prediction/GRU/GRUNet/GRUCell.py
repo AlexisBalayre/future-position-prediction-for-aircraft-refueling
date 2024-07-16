@@ -18,6 +18,7 @@ class GRUCell(nn.Module):
             self.hidden_size, 3 * self.hidden_size, bias=self.bias
         )
         self.vel_to_vel = nn.Linear(self.bbox_dim, 3 * self.hidden_size, bias=self.bias)
+        self.pos_to_pos = nn.Linear(self.bbox_dim, 3 * self.hidden_size, bias=self.bias)
 
         self.reset_parameters()
 
@@ -27,7 +28,7 @@ class GRUCell(nn.Module):
             nn.init.uniform_(w, -std, std)
 
     def forward(
-        self, x: torch.Tensor, hx: torch.Tensor, vel: torch.Tensor
+        self, x: torch.Tensor, hx: torch.Tensor, vel: torch.Tensor, pos: torch.Tensor
     ) -> torch.Tensor:
         if hx is None:
             hx = torch.zeros(x.size(0), self.hidden_size, device=x.device)
@@ -35,14 +36,16 @@ class GRUCell(nn.Module):
         gate_x = self.input_to_hidden(x)
         gate_h = self.hidden_to_hidden(hx)
         gate_vel = self.vel_to_vel(vel)
+        gate_pos = self.pos_to_pos(pos)
 
         x_reset, x_upd, x_new = gate_x.chunk(3, 1)
         h_reset, h_upd, h_new = gate_h.chunk(3, 1)
         vel_reset, vel_upd, vel_new = gate_vel.chunk(3, 1)
+        pos_reset, pos_upd, pos_new = gate_pos.chunk(3, 1)
 
-        reset_gate = torch.sigmoid(x_reset + h_reset + vel_reset)
-        update_gate = torch.sigmoid(x_upd + h_upd + vel_upd)
-        new_gate = torch.tanh(x_new + vel_new + reset_gate.mul(h_new))
+        reset_gate = torch.sigmoid(x_reset + h_reset + vel_reset + pos_reset)
+        update_gate = torch.sigmoid(x_upd + h_upd + vel_upd + pos_upd)
+        new_gate = torch.tanh(x_new + vel_new + pos_new + reset_gate.mul(h_new))
 
         hy = update_gate * hx + (1 - update_gate) * new_gate
 

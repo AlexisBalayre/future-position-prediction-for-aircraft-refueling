@@ -103,16 +103,16 @@
 % Use single spacing for Table of Contents, List of Figures, etc
 {
     \clearpage
-    
+
     % Table of Contents
     \singlespacing{
         \tableofcontents
     }
     \clearpage
-    
+
     % List of Figures
     \listoffigures
-    
+
     \clearpage
     % List of Tables
     \listoftables
@@ -381,7 +381,7 @@ for the calculation of the following metrics:
           \begin{equation}
               \text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
           \end{equation}
-          
+
     \item \textbf{Recall}: The ratio of True Positives to the total number of ground-truth objects, measuring the model's ability to avoid false negatives:
           \begin{equation}
               \text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
@@ -668,10 +668,10 @@ without relying on additional information~\cite{
 \chapter{Methodology}
 \section{Dataset Configuration}
 \subsection{Provided Dataset Description}
-The `Indoor Hangar Fueling Port Detection and Tracking Dataset' (HARD) is an
-integral part of Phase-1 of the ONEHeart project, funded by UKRI. The ONEHeart
-project aims to develop an automated aircraft refuelling system based on
-computer vision and robotics technology. This dataset can be utilised for
+The `Indoor Hangar Fueling Port Detection and Tracking Dataset' (HARD) (HARD)
+is an integral part of Phase-1 of the ONEHeart project, funded by UKRI. The
+ONEHeart project aims to develop an automated aircraft refuelling system based
+on computer vision and robotics technology. This dataset can be utilised for
 various purposes, including but not limited to fueling port detection, fueling
 port tracking, camera pose estimation, and visual image processing. It is
 provided under the terms of the UKRI funding agreement. Unauthorised use,
@@ -683,9 +683,9 @@ using an Intel RealSense D435 sensor, which provides depth information in
 addition to RGB data. The target area for detection and tracking is near the
 fueling port of an Airbus A320 wing. The videos were recorded under different
 lighting conditions, including indoor artificial lighting and natural daylight,
-to simulate real-world scenarios. 
+to simulate real-world scenarios.
 
-There is 3 states of the fueling port in the dataset:
+There are three states of the fueling port in the dataset:
 \begin{itemize}
     \item \textbf{CLOSED}: The fueling port is closed.
     \item \textbf{OPEN}: The fueling port is open.
@@ -693,17 +693,148 @@ There is 3 states of the fueling port in the dataset:
 \end{itemize}
 
 \subsection{Data Annotation}
-The HARD dataset that was provided for this project was not fully annotated.
-Therefore, the first step in the data preparation process was to annotate the
-dataset. The annotation process involved labelling the fueling port in each
-frame of the video sequences. The annotation was performed using the Label
-Studio tool, which allows for the creation of bounding boxes around objects of
-interest in images and videos.
+The HARD dataset provided for this project was not fully annotated. Therefore,
+the first step in the data preparation process was to annotate the dataset.
+This annotation process was crucial to enable the training of machine learning
+models for accurate fueling port detection and tracking.
 
-100 images of each videos were annotated to create a preliminary dataset for training a YOLOv10 model. 
-A Label Studio ML backend was then implemented to use the YOLOv10 model and deployed as a Docker container which was used by Label Studio to annotate the remaining images in the dataset.  
-This model was then used by a  Label Studio ML backend to annotate the remaining images in the dataset. 
-The final dataset consists of 21 video sequences with 1000 annotated images each. 
+The annotation process involved several steps:
+\begin{enumerate}
+    \item \textbf{Initial Manual Annotation}: Initially, 100 frames from each video sequence were manually annotated. This involved labeling the fueling port in each frame, which required identifying and marking the exact location of the fueling port using bounding boxes. This was done using the Label Studio tool, a powerful annotation platform that allows users to create and manage annotations in images and videos.
+    \item \textbf{Tool Used - Label Studio}: Label Studio was chosen for its flexibility and ease of use. It supports various annotation formats and integrates well with machine learning workflows. Users can draw bounding boxes around objects of interest, in this case, the fueling port, to create labeled datasets.
+    \item \textbf{Preliminary Dataset Creation}: The initial manual annotations created a preliminary dataset. This dataset was used to train a YOLOv10 (You Only Look Once, version 10) model for fueling port detection.
+    \item \textbf{Model Training}: The annotated dataset was used to train the YOLOv10 model. The model learned to detect the fueling port from the annotated images, improving its accuracy with each training iteration.
+    \item \textbf{Automated Annotation}: After training the YOLOv10 model, it was implemented as a backend service for Label Studio. This was deployed as a Docker container, allowing the model to be used for automated annotation of the remaining images in the dataset. The model predicted the location of the fueling port in new frames, and these predictions were used to annotate the rest of the dataset automatically.
+    \item \textbf{Review and Quality Control}: Each automatically generated annotation was reviewed manually to ensure accuracy. This review process involved verifying the location of the fueling port in each frame and making necessary corrections to the annotations. This thorough quality control ensured that the entire dataset was consistently and accurately labeled.
+\end{enumerate}
+
+This comprehensive annotation process ensured that the entire dataset was
+accurately labeled, providing a robust foundation for training machine learning
+models aimed at fueling port detection and tracking. The combination of manual
+and automated annotation techniques maximised efficiency while maintaining high
+annotation quality.
+
+\subsection{Summary of Available Videos}
+Each video was assigned to a specific dataset (train, val, and test), with an
+approximate split of 70\% for training, 15\% for validation, and 15\% for
+testing. The following table presents the available videos in the dataset along
+with the number of frames for each video and their assignment:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{@{}cccc@{}}
+        \toprule
+        \textbf{Type}      & \textbf{Video Name}                           & \textbf{Number of Frames} & \textbf{Assignment} \\ \midrule
+        \textbf{Closed}    & \textbf{video\_lab\_platform\_1}              & \textbf{624}              & \textbf{train}      \\
+        Closed             & video\_lab\_platform\_2                       & 639                       & train               \\
+        Closed             & video\_lab\_platform\_5                       & 398                       & train               \\
+        Closed             & video\_lab\_platform\_7                       & 412                       & train               \\
+        Closed             & video\_lab\_platform\_8                       & 470                       & train               \\
+        Closed             & video\_lab\_platform\_9                       & 373                       & train               \\
+        Closed             & video\_lab\_manual\_1                         & 746                       & train               \\
+        Closed             & video\_lab\_platform\_3                       & 569                       & val                 \\
+        Closed             & video\_lab\_platform\_4                       & 247                       & val                 \\
+        Closed             & video\_lab\_platform\_6                       & 303                       & test                \\
+        Closed             & test\_outdoor1                                & 499                       & test                \\
+        \textbf{Open}      & \textbf{video\_lab\_open\_1\_\_\_\_\_\_1}     & \textbf{497}              & \textbf{train}      \\
+        Open               & video\_lab\_open\_1\_\_\_\_\_\_2              & 602                       & train               \\
+        Open               & video\_lab\_open\_1\_\_\_\_\_\_3              & 313                       & train               \\
+        Open               & video\_lab\_open\_1\_\_\_\_\_\_4              & 310                       & train               \\
+        Open               & test\_indoor2                                 & 310                       & val                 \\
+        Open               & test\_indoor1                                 & 314                       & test                \\
+        \textbf{Semi-Open} & \textbf{video\_lab\_semiopen\_1\_\_\_\_\_\_1} & \textbf{739}              & \textbf{train}      \\
+        Semi-Open          & video\_lab\_semiopen\_1\_\_\_\_\_\_2          & 439                       & train               \\
+        Semi-Open          & video\_lab\_semiopen\_1\_\_\_\_\_\_4          & 372                       & val                 \\ 
+        Semi-Open          & video\_lab\_semiopen\_1\_\_\_\_\_\_3          & 383                       & test                \\ \bottomrule
+    \end{tabular}
+    \caption{\centering Summary of available videos in the HARD dataset with their assignment.}
+    \label{tab:video_summary}
+\end{table}
+
+\subsection{Initial Data Distribution}
+Before balancing the data, the distribution of video frames across the
+different datasets (train, validation, and test) for each state of the fueling
+port (CLOSED, OPEN, and SEMI-OPEN) was as follows:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{@{}ccccc@{}}
+        \toprule
+        \textbf{Type}      & \textbf{Total Frames} & \textbf{Train} & \textbf{Test} & \textbf{Validation} \\ \midrule
+        \textbf{CLOSED}    & 5280                  & 3662 (69.36\%) & 802 (15.19\%) & 816 (15.45\%)       \\ 
+        \textbf{OPEN}      & 2346                  & 1722 (73.40\%) & 314 (13.38\%) & 310 (13.21\%)       \\ 
+        \textbf{SEMI-OPEN} & 1933                  & 1178 (60.94\%) & 383 (19.81\%) & 372 (19.24\%)       \\ \bottomrule
+    \end{tabular}
+    \caption{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.}
+    \label{tab:frame_distribution}
+\end{table}
+
+As shown in~\ref{tab:frame_distribution}, the dataset initially had an
+imbalance in the number of frames for each state. For instance, the CLOSED
+state had significantly more frames compared to the OPEN and SEMI-OPEN states.
+This imbalance could lead to biased training and inaccurate model performance,
+as the model might become overly familiar with the more prevalent CLOSED state
+and underperform on the less represented states.
+
+\subsection{Balanced Data Distribution}
+To address this issue, a balancing strategy was employed to create a more
+uniform dataset. The steps taken were as follows:
+\begin{enumerate}
+    \item \textbf{Shuffling and Subsetting}: Each state (CLOSED, OPEN, and SEMI-OPEN) subset was shuffled, and only the minimum number of frames from each state was kept. This step ensured that the number of frames for each state was equal, avoiding bias toward any particular state.
+    \item \textbf{Merging Subsets}: The subsets were merged to create three balanced datasets: Training, Validation, and Test, each with an equal number of frames for each state.
+    \item \textbf{Final Shuffling and Resizing}: Each balanced dataset was shuffled again and resized to maintain the required split ratio of 70\% for training, 15\% for validation, and 15\% for testing.
+\end{enumerate}
+
+The balanced dataset will be used for training and evaluating the object
+detection model, while the full dataset will be utilised for sequence model
+training and framework evaluation.
+
+The resulting distribution of frames across the train, test, and validation
+sets for each state after balancing is as follows:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{@{}cc@{}}
+        \toprule
+        \textbf{Dataset} & \textbf{Total Frames} \\ \midrule
+        \textbf{Train}   & 3534 (69.57\%)        \\ 
+        \textbf{Test}    & 773  (15.22\%)        \\ 
+        \textbf{Val}     & 773  (15.22\%)        \\ \bottomrule
+    \end{tabular}
+    \caption{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.}
+    \label{tab:balanced_frame_distribution}
+\end{table}
+
+The primary reason for balancing the dataset is to ensure that the object
+detection model is equally trained on all states of the fueling port. An
+imbalanced dataset could cause the model to perform well on the more common
+states (like CLOSED) while underperforming on the less common states (like OPEN
+and SEMI-OPEN). By balancing the dataset:
+
+\begin{itemize}
+    \item \textbf{Improved Generalization}: The model will have an equal opportunity to learn from all states, improving its generalization and robustness.
+    \item \textbf{Avoiding Bias}: Equal representation of each state prevents the model from becoming biased towards any particular state.
+    \item \textbf{Consistent Performance}: This strategy ensures consistent performance across all states, which is critical for the reliable operation of the automated refueling system.
+\end{itemize}
+
+\subsection{Example Images from the Dataset}
+The following figures show annotated examples of the fueling port in different
+states:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/grid\_closed\_images.png}
+    \caption{Annotated images of the fueling port in the CLOSED state.}~\label{fig:grid-closed-images}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/grid\_open\_images.png}
+    \caption{Annotated images of the fueling port in the OPEN state.}~\label{fig:grid-open-images}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/grid\_semiopen\_images.png}
+    \caption{Annotated images of the fueling port in the SEMI-OPEN state.}~\label{fig:grid-semi-open-images}
+\end{figure}
 
 \section{Framework Design}
 

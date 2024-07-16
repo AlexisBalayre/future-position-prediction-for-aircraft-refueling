@@ -86,8 +86,8 @@ class LSTMLightningModel(L.LightningModule):
         vel_encoded, (h_vel, c_vel) = self.bboxes_velocity_encoder(bboxes_velocity)
 
         # Apply Multihead Attention
-        pos_attended = self.position_attention(pos_encoded, pos_encoded, pos_encoded)
-        vel_attended = self.velocity_attention(vel_encoded, vel_encoded, vel_encoded)
+        pos_attended, _ = self.position_attention(pos_encoded, pos_encoded, pos_encoded)
+        vel_attended, _ = self.velocity_attention(vel_encoded, vel_encoded, vel_encoded)
 
         # Combine the attended features
         combined_features = torch.cat([pos_attended, vel_attended], dim=-1)
@@ -232,7 +232,7 @@ class LSTMLightningModel(L.LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, mode="min", patience=15, factor=0.5
+            optimizer, mode="min", patience=15, factor=0.9
         )
         return {
             "optimizer": optimizer,
