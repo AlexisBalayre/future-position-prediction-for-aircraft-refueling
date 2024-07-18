@@ -12,7 +12,8 @@ from utils import (
     convert_velocity_to_positions,
 )
 
-from Attention.MultiHeadAttention import MultiHeadAttention
+from LSTMEncoder import LSTMEncoder
+from LSTMDecoder import LSTMDecoder
 
 
 class LSTMLightningModel(L.LightningModule):
@@ -26,103 +27,82 @@ class LSTMLightningModel(L.LightningModule):
         hidden_dim: int = 256,
         hidden_depth: int = 3,
         dropout: float = 0.1,
-        hardtanh_limit: float = 1.0,
         image_size: Tuple[int, int] = (640, 480),
         num_heads: int = 4,
+        scheduler_patience: int = 10,
+        scheduler_factor: float = 0.9
     ):
         super(LSTMLightningModel, self).__init__()
         self.save_hyperparameters()
 
         # Define LSTM Encoders
-        self.bboxes_position_encoder = nn.LSTM(
-            input_size=bbox_dim,
-            hidden_size=hidden_dim,
-            num_layers=hidden_depth,
-            batch_first=True,
+        self.bboxes_position_encoder = LSTMEncoder(
+            input_dim=bbox_dim, hidden_dim=hidden_dim, num_layers=hidden_depth
         )
-        self.bboxes_velocity_encoder = nn.LSTM(
-            input_size=bbox_dim,
-            hidden_size=hidden_dim,
-            num_layers=hidden_depth,
-            batch_first=True,
-        )
-
-        # Define Multihead Attention Layers
-        self.position_attention = MultiHeadAttention(
-            hidden_dim=hidden_dim, num_heads=num_heads
-        )
-        self.velocity_attention = MultiHeadAttention(
-            hidden_dim=hidden_dim, num_heads=num_heads
-        )
-
-        # Define Fully Connected Layers
-        self.fc_combined = nn.Linear(hidden_dim * 2, hidden_dim)
-        self.fc_bboxes_velocity = nn.Sequential(
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-            nn.Linear(hidden_dim, bbox_dim),
-            nn.Hardtanh(min_val=-hardtanh_limit, max_val=hardtanh_limit),
-        )
-        self.fc_bboxes_position = nn.Sequential(
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-            nn.Linear(hidden_dim, bbox_dim),
-            nn.Sigmoid()
+        self.bboxes_velocity_encoder = LSTMEncoder(
+            input_dim=bbox_dim, hidden_dim=hidden_dim, num_layers=hidden_depth
         )
 
         # Define LSTM Decoders
-        self.bboxes_velocity_decoder = nn.LSTMCell(
-            input_size=bbox_dim + hidden_dim, hidden_size=hidden_dim
+        self.decoder_bbox = LSTMDecoder(
+            input_dim=bbox_dim,
+            hidden_dim=hidden_dim,
+            output_dim=bbox_dim,
+            num_layers=hidden_depth,
+            output_activation=nn.Sigmoid(),
+            dropout=dropout,
+            num_heads=num_heads
         )
-        self.bboxes_position_decoder = nn.LSTMCell(
-            input_size=bbox_dim + hidden_dim * 2, hidden_size=hidden_dim
-        )
+        self.decoder_velocity = LSTMDecoder(
+            input_dim=bbox_dim,
+            hidden_dim=hidden_dim,
+            output_dim=bbox_dim,
+            num_layers=hidden_depth,
+            dropout=dropout,
+            num_heads=num_heads
+        ) 
 
-    def forward(self, bboxes_position, bboxes_velocity):
+    def forward(self, bbox_seq, velocity_seq):
+        # print(bboxes_position.shape)
+        # 16, 15, 4 -> batch_size, input_frames, bbox_dim
+
         # Encode the Position and Velocity Bounding Boxes
-        pos_encoded, (h_pos, c_pos) = self.bboxes_position_encoder(bboxes_position)
-        vel_encoded, (h_vel, c_vel) = self.bboxes_velocity_encoder(bboxes_velocity)
+        encoder_outputs_bbox, hidden_bbox, cell_bbox = self.bboxes_position_encoder(
+            bbox_seq
+        )
+        encoder_outputs_velocity, hidden_velocity, cell_velocity = (
+            self.bboxes_velocity_encoder(velocity_seq)
+        )
 
-        # Apply Multihead Attention
-        pos_attended, _ = self.position_attention(pos_encoded, pos_encoded, pos_encoded)
-        vel_attended, _ = self.velocity_attention(vel_encoded, vel_encoded, vel_encoded)
+        decoder_input_bbox = bbox_seq[:, -1, :]
+        decoder_input_velocity = velocity_seq[:, -1, :]
 
-        # Combine the attended features
-        combined_features = torch.cat([pos_attended, vel_attended], dim=-1)
+        predictions_bbox = []
+        predictions_velocity = []
 
-        # Process combined features
-        combined_features = combined_features[:, -1, :]  # Use the last timestep
-        combined_features = F.relu(self.fc_combined(combined_features))
-
-        # Use the last hidden state and combined features for decoding
-        h_vel_dec = h_pos_dec = torch.add(h_pos[-1], h_vel[-1]) + combined_features
-        c_vel_dec = c_pos_dec = torch.add(c_pos[-1], c_vel[-1])
-
-        # Decode Velocities
-        velocity_outputs = []
-        last_velocity = bboxes_velocity[:, -1, :].detach()
         for _ in range(self.hparams.output_frames):
-            decoder_input = torch.cat([last_velocity, combined_features], dim=1)
-            h_vel_dec, c_vel_dec = self.bboxes_velocity_decoder(decoder_input, (h_vel_dec, c_vel_dec))
-            velocity_output = self.fc_bboxes_velocity(h_vel_dec)
-            velocity_outputs.append(velocity_output)
-            last_velocity = velocity_output.detach()
-        predicted_velocity = torch.stack(velocity_outputs, dim=1)
+            decoder_output_bbox, hidden_bbox, cell_bbox = self.decoder_bbox(
+                decoder_input_bbox, hidden_bbox, cell_bbox, encoder_outputs_bbox
+            )
+            decoder_output_velocity, hidden_velocity, cell_velocity = (
+                self.decoder_velocity(
+                    decoder_input_velocity,
+                    hidden_velocity,
+                    cell_velocity,
+                    encoder_outputs_velocity,
+                )
+            )
 
-        # Decode Positions
-        position_outputs = []
-        last_position = bboxes_position[:, -1, :].detach()
-        for _ in range(self.hparams.output_frames):
-            decoder_input = torch.cat([last_position, h_vel_dec, combined_features], dim=1)
-            h_pos_dec, c_pos_dec = self.bboxes_position_decoder(decoder_input, (h_pos_dec, c_pos_dec))
-            position_output = self.fc_bboxes_position(h_pos_dec)
-            position_outputs.append(position_output)
-            last_position = position_output.detach()
-        predicted_position = torch.stack(position_outputs, dim=1)
+            predictions_bbox.append(decoder_output_bbox)
+            predictions_velocity.append(decoder_output_velocity)
 
-        return predicted_position, predicted_velocity
+            decoder_input_bbox = decoder_output_bbox
+            decoder_input_velocity = decoder_output_velocity
+
+        predictions_bbox = torch.stack(predictions_bbox, dim=1)
+        predictions_velocity = torch.stack(predictions_velocity, dim=1)
+
+        return predictions_bbox, predictions_velocity
 
     def _shared_step(self, batch, batch_idx, stage):
         (
@@ -131,7 +111,7 @@ class LSTMLightningModel(L.LightningModule):
             target_bboxes_position,
             target_bboxes_velocity,
         ) = batch
-        
+
         # Infer the future positions and velocities
         predicted_position, predicted_velocity = self(
             input_bboxes_position, input_bboxes_velocity
@@ -155,6 +135,7 @@ class LSTMLightningModel(L.LightningModule):
         ).to(target_bboxes_position.device)
         velocities_to_positions_norm = velocities_to_positions / norm_factor
         target_bboxes_position_denorm = target_bboxes_position * norm_factor
+        predicted_position_denorm = predicted_position * norm_factor
 
         # Compute losses
         bbox_loss = F.smooth_l1_loss(predicted_position, target_bboxes_position)
@@ -174,7 +155,7 @@ class LSTMLightningModel(L.LightningModule):
             on_step=False,
             on_epoch=True,
             prog_bar=False,
-        ) 
+        )
         self.log(
             f"{stage}_velocity_loss",
             velocity_loss,
@@ -184,11 +165,44 @@ class LSTMLightningModel(L.LightningModule):
         )
 
         # Compute metrics
-        ade = compute_ADE(velocities_to_positions, target_bboxes_position_denorm)
-        fde = compute_FDE(velocities_to_positions, target_bboxes_position_denorm)
-        aiou = compute_AIOU(velocities_to_positions_norm, target_bboxes_position)
+        ade_from_vel = compute_ADE(velocities_to_positions, target_bboxes_position_denorm)
+        fde_from_vel = compute_FDE(velocities_to_positions, target_bboxes_position_denorm)
+        aiou_from_vel = compute_AIOU(velocities_to_positions_norm, target_bboxes_position)
+        fiou_from_vel = compute_FIOU(velocities_to_positions_norm, target_bboxes_position)
+        ade = compute_ADE(predicted_position_denorm, target_bboxes_position_denorm)
+        fde = compute_FDE(predicted_position_denorm, target_bboxes_position_denorm)
+        aiou = compute_AIOU(predicted_position, target_bboxes_position)
         fiou = compute_FIOU(predicted_position, target_bboxes_position)
 
+        # Log metrics
+        self.log(
+            f"{stage}_ADE_from_vel",
+            ade_from_vel,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_FDE_from_vel",
+            fde_from_vel,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_AIoU_from_vel",
+            aiou_from_vel,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_FIoU_from_vel",
+            fiou_from_vel,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
         self.log(
             f"{stage}_ADE",
             ade,
@@ -218,10 +232,23 @@ class LSTMLightningModel(L.LightningModule):
             prog_bar=True,
         )
 
-        return total_loss
+        return {
+            "total_loss": total_loss,
+            "bbox_loss": bbox_loss,
+            "velocity_loss": velocity_loss,
+            "velocities_to_positions_loss": velocities_to_positions_loss,
+            "ADE_from_vel": ade_from_vel,
+            "FDE_from_vel": fde_from_vel,
+            "AIoU_from_vel": aiou_from_vel,
+            "FIoU_from_vel": fiou_from_vel,
+            "ADE": ade,
+            "FDE": fde,
+            "AIoU": aiou,
+            "FIoU": fiou,
+        }
 
     def training_step(self, batch, batch_idx):
-        return self._shared_step(batch, batch_idx, "train")
+        return self._shared_step(batch, batch_idx, "train")["total_loss"]
 
     def validation_step(self, batch, batch_idx):
         return self._shared_step(batch, batch_idx, "val")
@@ -232,7 +259,10 @@ class LSTMLightningModel(L.LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, mode="min", patience=15, factor=0.9
+            optimizer,
+            mode="min",
+            patience=self.hparams.scheduler_patience,
+            factor=self.hparams.scheduler_factor,
         )
         return {
             "optimizer": optimizer,

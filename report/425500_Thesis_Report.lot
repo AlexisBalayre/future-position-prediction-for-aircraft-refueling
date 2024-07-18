@@ -1,0 +1,7 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces \centering Summary of available videos in the HARD dataset with their assignment.\relax }}{17}{table.caption.20}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{17}{table.caption.21}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }}{18}{table.caption.22}%

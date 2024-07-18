@@ -840,6 +840,211 @@ states:
 
 \section{Model Design}
 
+\subsection{LSTM-based Sequence Model}
+The framework for predicting future positions and velocities of objects in a
+video stream leverages an encoder-attention-decoder architecture. This design
+captures temporal dependencies and spatial relationships effectively. The
+overall architecture consists of four main components: two encoders, the
+attention mechanism, and two decoders. Each component is designed to handle
+specific aspects of the sequence modeling task, from encoding input sequences
+to generating context-aware predictions
+
+\subsubsection{Input Representation}
+
+The model takes as input sequences of bounding boxes and their velocities
+extracted from video frames. Each bounding box is represented by its center
+coordinates $(x_{\text{center}}, y_{\text{center}})$, width $(w)$, and height
+$(h)$. Corresponding velocities are represented by changes in these values:
+$(\Delta x, \Delta y, \Delta w, \Delta h)$. 
+
+Thus, each input vector $\mathbf{p}_t$ and $\mathbf{v}_t$ at time $t$ can be
+represented as:
+
+\begin{equation}
+    \mathbf{p}_t = (x_{\text{center}, t}, y_{\text{center}}, w_t, h_t)
+\end{equation}
+
+\begin{equation}
+    \mathbf{v}_t = (\Delta x_t, \Delta y_t, \Delta w_t, \Delta h_t)
+\end{equation}
+
+These sequences are fed into the encoders to extract meaningful temporal
+features.
+
+\subsubsection{Encoders}
+The framework employs two separate LSTM encoders: one for processing the
+sequence of bounding boxes and another for processing the sequence of
+velocities. Each encoder is designed to capture the temporal dependencies
+within its respective input data.
+
+The bounding box encoder is defined as:
+
+\begin{equation}
+    H_p, (h_{p_n}, c_{p_n}) = \text{LSTM}_p(\mathbf{P})
+\end{equation}
+
+where $\mathbf{P} = (\mathbf{p}_1, \mathbf{p}_2, \ldots, \mathbf{p}_T)$ is the
+input sequence of bounding boxes, $H_p = (h_{p_1}, h_{p_2}, \ldots, h_{p_T})$
+represents the sequence of hidden states, and $(h_{p_n}, c_{p_n})$ are the
+final hidden and cell states of the bounding box encoder.
+
+The velocity encoder is defined as:
+
+\begin{equation}
+    H_v, (h_{v_n}, c_{v_n}) = \text{LSTM}_v(\mathbf{V})
+\end{equation}
+
+where $\mathbf{V} = (\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T)$ is the
+input sequence of velocities, $H_v = (h_{v_1}, h_{v_2}, \ldots, h_{v_T})$
+represents the sequence of hidden states, and $(h_{v_n}, c_{v_n})$ are the
+final hidden and cell states of the velocity encoder.
+
+\subsubsection{Attention Mechanism}
+
+The attention mechanism is crucial for allowing the model to focus on relevant
+parts of the input sequences when making predictions. It computes a set of
+attention weights that highlight important hidden states from both encoders.
+These weights are used to form context vectors, which provide the decoders with
+relevant information from the input sequences.
+
+The attention weights $\alpha_t$ are calculated as follows:
+
+\begin{equation}
+    \alpha_t = \text{softmax}(v^\top \tanh(W_{h_p} H_p + W_{h_v} H_v + W_s s_{t-1}))
+\end{equation}
+
+where $W_{h_p}$ and $W_{h_v}$ are learned weight matrices for the bounding box
+and velocity hidden states, respectively, $W_s$ is a learned weight matrix for
+the previous decoder state, and $v$ is a learned vector. The context vectors
+$c_{p_t}$ and $c_{v_t}$ are then computed as:
+
+\begin{equation}
+    c_{p_t} = \sum_{i=1}^{T} \alpha_{t,i} h_{p_i}
+\end{equation}
+
+\begin{equation}
+    c_{v_t} = \sum_{i=1}^{T} \alpha_{t,i} h_{v_i}
+\end{equation}
+
+These context vectors are passed to the decoders to generate the next time step
+predictions.
+
+\subsection{Decoders}
+The framework employs two separate LSTM decoders: one for generating
+predictions for future bounding boxes and another for generating predictions
+for future velocities. Each decoder takes as input the previous output and the
+context vectors from the attention mechanism.
+
+The bounding box decoder's input at each time step $t$ is the concatenated
+vector of the previous output and the context vector from the bounding box
+encoder:
+
+\begin{equation}
+    \mathbf{d}_{p_t} = [\mathbf{p}_{t-1}, c_{p_{t-1}}]
+\end{equation}
+
+The LSTM in the bounding box decoder processes this input to update its hidden
+and cell states:
+
+\begin{equation}
+    s_{p_t}, (h_{p_t}, c_{p_t}) = \text{LSTM}_p(\mathbf{d}_{p_t}, (h_{p_{t-1}}, c_{p_{t-1}}))
+\end{equation}
+
+The final output for the bounding box is obtained through a fully connected
+layer with a sigmoid activation function to ensure the output values are
+between 0 and 1:
+
+\begin{equation}
+    \mathbf{p}_t = \text{Sigmoid}(\text{Linear}_p(s_{p_t}))
+\end{equation}
+
+Similarly, the velocity decoder's input at each time step $t$ is the
+concatenated vector of the previous output and the context vector from the
+velocity encoder:
+
+\begin{equation}
+    \mathbf{d}_{v_t} = [\mathbf{v}_{t-1}, c_{v_{t-1}}]
+\end{equation}
+
+The LSTM in the velocity decoder processes this input to update its hidden and
+cell states:
+
+\begin{equation}
+    s_{v_t}, (h_{v_t}, c_{v_t}) = \text{LSTM}_v(\mathbf{d}_{v_t}, (h_{v_{t-1}}, c_{v_{t-1}}))
+\end{equation}
+
+The final output for the velocity is obtained through a fully connected layer
+without any activation function. This design choice allows the output values to
+range freely, including negative values, which is necessary because velocities
+can be positive or negative:
+
+\begin{equation}
+    \mathbf{v}_t = \text{Linear}_v(s_{v_t})
+\end{equation}
+
+The decoders continue this process for the entire prediction horizon, using
+their own previous outputs as inputs for future predictions.
+
+
+\subsection{Transformer-Based Architecture}
+
+The proposed model leverages a Transformer architecture to predict future positions and velocities of objects in a video stream. Transformers, introduced by Vaswani et al. (2017), have demonstrated superior performance in sequence-to-sequence tasks by effectively capturing long-range dependencies through self-attention mechanisms. Our architecture consists of three main components: an encoder, a decoder, and a multi-head self-attention mechanism. Each component is designed to handle specific aspects of the sequence modeling task, from encoding input sequences to generating context-aware predictions.
+
+\subsubsection{Input Representation}
+
+The model takes as input sequences of bounding boxes and their velocities extracted from video frames. Each bounding box is represented by its center coordinates $(x_{\text{center}}, y_{\text{center}})$, width $(w)$, and height $(h)$. Corresponding velocities are represented by changes in these values: $(\Delta x, \Delta y, \Delta w, \Delta h)$. Thus, each input vector $\mathbf{p}_t$ and $\mathbf{v}_t$ at time $t$ can be represented as:
+
+\begin{equation}
+    \mathbf{p}_t = (x_{\text{center}, t}, y_{\text{center}, t}, w_t, h_t)
+\end{equation}
+
+\begin{equation}
+    \mathbf{v}_t = (\Delta x_t, \Delta y_t, \Delta w_t, \Delta h_t)
+\end{equation}
+
+These sequences are fed into the encoder to extract meaningful temporal features.
+
+\subsubsection{Encoder}
+
+The encoder consists of multiple layers, each containing two main components: a multi-head self-attention mechanism and a position-wise fully connected feed-forward network. The input to the encoder is a sequence of bounding box and velocity vectors. The encoder processes these sequences independently using the following steps:
+
+\begin{itemize}
+    \item \textbf{Positional Encoding}: Since the Transformer model does not have a built-in notion of order, positional encodings are added to the input embeddings to incorporate sequence order information.
+    \item \textbf{Self-Attention}: The multi-head self-attention mechanism allows the model to focus on different parts of the input sequence simultaneously, capturing dependencies regardless of their distance in the sequence.
+    \item \textbf{Feed-Forward Network}: A position-wise fully connected feed-forward network is applied to the output of the self-attention mechanism to introduce non-linearity and further process the information.
+    \item \textbf{Residual Connection and Layer Normalization}: Residual connections around each sub-layer followed by layer normalization help in stabilizing the training and improving gradient flow.
+\end{itemize}
+
+\subsubsection{Decoder}
+
+The decoder is similarly composed of multiple layers, with each layer containing three main components: a multi-head self-attention mechanism, a multi-head encoder-decoder attention mechanism, and a position-wise fully connected feed-forward network. The decoder generates predictions for future bounding boxes and velocities using the following steps:
+
+\begin{itemize}
+    \item \textbf{Masked Self-Attention}: The decoder's self-attention mechanism is masked to prevent positions from attending to subsequent positions, ensuring that the prediction for a position depends only on known outputs.
+    \item \textbf{Encoder-Decoder Attention}: This mechanism allows the decoder to focus on relevant parts of the encoder's output, providing context from the input sequence.
+    \item \textbf{Feed-Forward Network}: Similar to the encoder, a fully connected feed-forward network is applied to the output of the attention mechanisms.
+    \item \textbf{Residual Connection and Layer Normalization}: As in the encoder, residual connections and layer normalization are applied to stabilize training and improve gradient flow.
+\end{itemize}
+
+\subsubsection{Multi-Head Self-Attention}
+
+The multi-head self-attention mechanism is a key component of the Transformer architecture, enabling the model to jointly attend to information from different representation subspaces. It works by projecting the input sequence into multiple sets of queries, keys, and values, performing scaled dot-product attention for each set, and concatenating the results. This process allows the model to capture various aspects of the input sequence, enhancing its ability to learn complex patterns.
+
+\subsubsection{Output Generation}
+
+The output of the decoder is passed through a linear layer to generate predictions for the bounding box coordinates and velocities. Separate linear layers are used for bounding box predictions (with a sigmoid activation to ensure values are between 0 and 1) and velocity predictions (without activation to allow for positive and negative values).
+
+\subsubsection{Loss Function and Training}
+
+The model is trained to minimize the mean squared error between the predicted and actual bounding boxes and velocities. The loss function is defined as:
+
+\begin{equation}
+\text{Loss} = \frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{T} \left[ (x_{i,t} - \hat{x}_{i,t})^2 + (y_{i,t} - \hat{y}_{i,t})^2 + (w_{i,t} - \hat{w}_{i,t})^2 + (h_{i,t} - \hat{h}_{i,t})^2 + (\Delta x_{i,t} - \hat{\Delta x}_{i,t})^2 + (\Delta y_{i,t} - \hat{\Delta y}_{i,t})^2 + (\Delta w_{i,t} - \hat{\Delta w}_{i,t})^2 + (\Delta h_{i,t} - \hat{\Delta h}_{i,t})^2 \right]
+\end{equation}
+
+The Adam optimizer is used to update the model parameters, and early stopping based on validation loss is employed to prevent overfitting and ensure generalization.
+
+\end{document}
 \section{Algorithm Design}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -18,9 +18,9 @@ if __name__ == "__main__":
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
     input_frames = 15  # Number of input frames
-    output_frames = 18  # Number of output frames
+    output_frames = 30  # Number of output frames
     hidden_dim = 256  # Size of the model's hidden layers
-    hidden_depth = 1  # Number of hidden layers
+    hidden_depth = 2  # Number of hidden layers
     learning_rate = 1e-3  # Initial learning rate
     max_epochs = 1000  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
