@@ -51,7 +51,6 @@ if __name__ == "__main__":
         output_frames=output_frames,
         batch_size=batch_size,
         hidden_dim=hidden_dim,
-        hidden_depth=hidden_depth,
         dropout=dropout,
     )
 

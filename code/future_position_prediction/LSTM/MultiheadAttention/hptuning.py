@@ -24,14 +24,14 @@ if __name__ == "__main__":
     batch_size = 16  # Number of samples per batch
     input_frames = 60 # Number of input frames
     output_frames = 30  # Number of output frames
-    hidden_dims = [32, 64, 128, 256, 512]  # Size of the model's hidden layers
-    hidden_depths = [1, 2, 4, 6]  # Number of hidden layers
+    hidden_dims = [64, 80]  # Size of the model's hidden layers
+    hidden_depths = [1, 3]  # Number of hidden layers
     learning_rate = 1e-3  # Initial learning rate
-    scheduler_patiences = [10, 20]
-    scheduler_factors = [0.9, 0.5, 0.1]
-    max_epochs = 100  # Maximum number of training epochs
+    scheduler_patiences = [5]
+    scheduler_factors = [0.5]
+    max_epochs = 30  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
-    nb_heads = [2, 4, 8]  # Number of attention heads
+    nb_heads = 4  # Number of attention heads
 
     # Create a dataframe to store the results
     results = pd.DataFrame(
@@ -48,17 +48,17 @@ if __name__ == "__main__":
             "output_frames",
             "nb_heads",
             "total_loss",
-            "bbox_loss",
-            "velocity_loss", 
-            "velocities_to_positions_loss",
-            "ADE_from_vel",
-            "FDE_from_vel",
-            "AIoU_from_vel",
-            "FIoU_from_vel",
-            "ADE",
-            "FDE",
-            "AIoU",
-            "FIoU"
+            "test_bbox_loss",
+            "test_velocity_loss", 
+            "test_velocities_to_positions_loss",
+            "test_ADE_from_vel",
+            "test_FDE_from_vel",
+            "test_AIoU_from_vel",
+            "test_FIoU_from_vel",
+            "test_ADE",
+            "test_FDE",
+            "test_AIoU",
+            "test_FIoU"
         ]
     )
 
@@ -77,81 +77,78 @@ if __name__ == "__main__":
     # Hyperparameters search space
     for hidden_dim in hidden_dims:
         for hidden_depth in hidden_depths:
-            for nb_head in nb_heads:
-                for scheduler_patience in scheduler_patiences:
-                    for scheduler_factor in scheduler_factors:
-                            # Setup the data module
-                            data_module.setup("train")
+            for scheduler_patience in scheduler_patiences:
+                for scheduler_factor in scheduler_factors:
+                        # Setup the data module
+                        data_module.setup("train")
 
-                            # Model initialization with specified architecture parameters
-                            model = LSTMLightningModel(
-                                lr=learning_rate,
-                                input_frames=input_frames,
-                                output_frames=output_frames,
-                                batch_size=batch_size,
-                                hidden_dim=hidden_dim,
-                                hidden_depth=hidden_depth,
-                                dropout=dropout,
-                                scheduler_factor=scheduler_factor,
-                                scheduler_patience=scheduler_patience,
-                                num_heads=nb_head
-                            )
+                        # Model initialization with specified architecture parameters
+                        model = LSTMLightningModel(
+                            lr=learning_rate,
+                            input_frames=input_frames,
+                            output_frames=output_frames,
+                            batch_size=batch_size,
+                            hidden_dim=hidden_dim,
+                            hidden_depth=hidden_depth,
+                            dropout=dropout,
+                            scheduler_factor=scheduler_factor,
+                            scheduler_patience=scheduler_patience
+                        )
 
-                            # Early stopping and checkpointing callbacks
-                            callbacks = [
-                                ModelCheckpoint(save_top_k=1, mode="max", monitor="val_FIoU"),
-                            ]
+                        # Early stopping and checkpointing callbacks
+                        callbacks = [
+                            ModelCheckpoint(save_top_k=1, mode="max", monitor="val_FIoU"),
+                        ]
 
-                            # Trainer initialization with configurations for training process
-                            trainer = L.Trainer(
-                                max_epochs=max_epochs,  # Maximum number of epochs for training
-                                accelerator="auto",  # Specifies the training will be on CPU
-                                devices="auto",  # Automatically selects the available devices
-                                deterministic=True,  # Ensures reproducibility of results
-                                precision=32,  # Use 32-bit floating point precision
-                                callbacks=callbacks,
-                            )
+                        # Trainer initialization with configurations for training process
+                        trainer = L.Trainer(
+                            max_epochs=max_epochs,  # Maximum number of epochs for training
+                            accelerator="cpu",  # Specifies the training will be on CPU
+                            devices="auto",  # Automatically selects the available devices
+                            deterministic=True,  # Ensures reproducibility of results
+                            precision=32,  # Use 32-bit floating point precision
+                            callbacks=callbacks,
+                        )
 
-                            # Training phase
-                            trainer.fit(model, datamodule=data_module)
+                        # Training phase
+                        trainer.fit(model, datamodule=data_module)
 
-                            # Compute the MSE over the test dataset
-                            metrics = trainer.test(
-                                model, datamodule=data_module
-                            )  # Test the model
+                        # Compute the metrics over the test dataset
+                        test_metrics = trainer.test(model, datamodule=data_module)[0]
 
-                            # Convert the metrics to a pandas DataFrame
-                            metrics = pd.DataFrame(metrics)
+                        # Create a dictionary with the hyperparameters and metrics
+                        results_row = {
+                            "batch_size": batch_size,
+                            "hidden_dim": hidden_dim,
+                            "hidden_depth": hidden_depth,
+                            "learning_rate": learning_rate,
+                            "scheduler_patience": scheduler_patience,
+                            "scheduler_factor": scheduler_factor,
+                            "max_epochs": max_epochs,
+                            "dropout": dropout,
+                            "input_frames": input_frames,
+                            "output_frames": output_frames,
+                            "nb_heads": nb_heads,
+                            "total_loss": "",  # These fields are empty in your example
+                            "test_bbox_loss": "",
+                            "test_velocity_loss": "",
+                            "test_velocities_to_positions_loss": "",
+                            "test_ADE_from_vel": "",
+                            "test_FDE_from_vel": "",
+                            "AIoU_from_vel": "",
+                            "FIoU_from_vel": "",
+                            "test_ADE": "",
+                            "test_FDE": "",
+                            "test_AIoU": "",
+                            "test_FIoU": "",
+                        }
 
-                            # Concatenate the version with the metrics
-                            results = pd.concat(
-                                [
-                                    results,
-                                    pd.concat(
-                                        [
-                                            pd.DataFrame(
-                                                {
-                                                    "batch_size": batch_size,
-                                                    "hidden_dim": hidden_dim,
-                                                    "hidden_depth": hidden_depth,
-                                                    "learning_rate": learning_rate,
-                                                    "scheduler_patience": scheduler_patience,
-                                                    "scheduler_factor": scheduler_factor,
-                                                    "max_epochs": max_epochs,
-                                                    "dropout": dropout,
-                                                    "input_frames": input_frames,
-                                                    "output_frames": output_frames,
-                                                    "nb_heads": nb_head
-                                                }
-                                            ),
-                                            metrics,
-                                        ],
-                                        axis=1,
-                                    ),
-                                ]
-                            )
+                        # Add test metrics to the results row
+                        for key, value in test_metrics.items():
+                            results_row[f"{key}"] = value
 
-                            # Save the results to a CSV file
-                            results.to_csv("lstm_multihead_attention_hp_tuning.csv", index=False)
+                        # Append the results to the dataframe
+                        results = pd.concat([results, pd.DataFrame([results_row])], ignore_index=True)
 
-
+                        # Save the results to a CSV file
+                        results.to_csv("lstm_multihead_attention_results_1.csv", index=False)

@@ -15,8 +15,11 @@
 \contentsline {figure}{\numberline {2.11}{\ignorespaces 2-digit Moving MNIST data by\nobreakspace {}\citet {DBLP:journals/corr/SrivastavaMS15}\relax }}{12}{figure.caption.16}%
 \contentsline {figure}{\numberline {2.12}{\ignorespaces Robotic Pushing Dataset. Source:\nobreakspace {}\citet {DBLP:journals/corr/EitelHB17}\relax }}{13}{figure.caption.17}%
 \contentsline {figure}{\numberline {2.13}{\ignorespaces KTH Action Dataset. Source:\nobreakspace {}\citet {KTH}\relax }}{13}{figure.caption.18}%
-\contentsline {figure}{\numberline {2.14}{\ignorespaces UCF Sports Dataset. Source:\nobreakspace {}\citet {UCFSport}\relax }}{14}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.14}{\ignorespaces UCF Sports Dataset. Source:\nobreakspace {}\citet {UCFSport}\relax }}{13}{figure.caption.19}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Annotated images of the fueling port in the CLOSED state.\relax }}{19}{figure.caption.23}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the fueling port in the OPEN state.\relax }}{19}{figure.caption.24}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the fueling port in the SEMI-OPEN state.\relax }}{19}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Annotated images of the fueling port in the CLOSED state.\relax }}{18}{figure.caption.23}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the fueling port in the OPEN state.\relax }}{18}{figure.caption.24}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the fueling port in the SEMI-OPEN state.\relax }}{18}{figure.caption.25}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

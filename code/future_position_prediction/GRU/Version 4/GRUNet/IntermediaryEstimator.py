@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from typing import List, Callable
 
-
 class IntermediaryEstimator(nn.Module):
     def __init__(
         self,
@@ -17,6 +16,7 @@ class IntermediaryEstimator(nn.Module):
         self.dropout = dropout
         self.dense1 = nn.Linear(input_dim, 256)
         self.dense2 = nn.Linear(256, output_dim)
+        self.sigmoid = nn.Sigmoid() # Sigmoid activation function
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
@@ -28,7 +28,8 @@ class IntermediaryEstimator(nn.Module):
         Returns:
             torch.Tensor: Intermediate prediction for bounding box coordinates
         """
-        x = F.dropout(x[:, -1], self.dropout[0])
+        x = F.dropout(x, self.dropout[0])
         x = self.activation(self.dense1(x))
         x = F.dropout(x, self.dropout[1])
-        return self.dense2(x)
+        x = self.dense2(x)
+        return self.sigmoid(x)

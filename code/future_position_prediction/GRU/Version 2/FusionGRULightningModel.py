@@ -13,9 +13,8 @@ from utils import (
 )
 
 from GRUNet.DecoderGRU import DecoderGRU
-from GRUNet.GRUCell import GRUCell
+from GRUNet.EncoderGRU import EncoderGRU
 from GRUNet.SelfAttentionAggregation import SelfAttentionAggregation
-from GRUNet.IntermediaryEstimator import IntermediaryEstimator
 
 
 class FusionGRULightningModel(L.LightningModule):
@@ -27,71 +26,62 @@ class FusionGRULightningModel(L.LightningModule):
         batch_size: int = 32,
         bbox_dim: int = 4,
         hidden_dim: int = 256,
-        hidden_depth: int = 3,
         dropout: float = 0.1,
-        hardtanh_limit: float = 1.0,
         image_size: Tuple[int, int] = (640, 480),
+        encoder_layer_nb: int = 1,
+        decoder_layer_nb: int = 1,
+        scheduler_patience: int = 5,
+        scheduler_factor: float = 0.5,
     ):
         super(FusionGRULightningModel, self).__init__()
         self.save_hyperparameters()
 
-        self.gru_cell = GRUCell(bbox_dim * 2, hidden_dim, bbox_dim)
-        self.fc = nn.Linear(hidden_dim, hidden_dim)
-
-        self.intermediary_estimator = IntermediaryEstimator(
-            input_dim=hidden_dim,
-            output_dim=bbox_dim * output_frames,
-            activation=F.relu,
-            dropout=[dropout, dropout],
+        self.encoder = EncoderGRU(
+            input_dim=bbox_dim * 2,
+            hidden_dim=hidden_dim,
+            n_layers=encoder_layer_nb,
+            output_frames_nb=output_frames,
+            dropout=dropout,
         )
 
         self.self_attention = SelfAttentionAggregation(bbox_dim, hidden_dim)
 
-        self.decoder = DecoderGRU(hidden_dim, hidden_dim, bbox_dim, n_layers=1)
-        self.fc_out = nn.Linear(hidden_dim, bbox_dim)
-
+        self.decoder = DecoderGRU(
+            hidden_dim, hidden_dim, bbox_dim, n_layers=decoder_layer_nb
+        )
 
     def forward(self, bboxes_position, bboxes_velocity):
         batch_size = bboxes_position.size(0)
         bboxes_position = bboxes_position.clone()
         bboxes_velocity = bboxes_velocity.clone()
 
+        # Initialize hidden state
         h = torch.zeros(
-            batch_size, self.hparams.hidden_dim, device=bboxes_position.device
+            self.encoder.n_layers,
+            batch_size,
+            self.hparams.hidden_dim,
+            device=bboxes_position.device,
         )
 
         # Fusion-GRU encoding
-        for t in range(self.hparams.input_frames):
-            x = torch.cat([bboxes_position[:, t], bboxes_velocity[:, t]], dim=-1)
-            h = self.gru_cell(x, h, bboxes_velocity[:, t])
+        x = torch.cat([bboxes_position, bboxes_velocity], dim=-1)
+        out, h, future_velocities = self.encoder(x, h)
 
-        out = self.fc(h)
-
-        # Intermediary estimation
-        f_vel = self.intermediary_estimator(out.unsqueeze(1))  # Add time dimension
-        f_vel_reshaped = f_vel.view(
+        future_velocities = future_velocities.view(
             batch_size, self.hparams.output_frames, self.hparams.bbox_dim
         )
 
         # Decoding with self-attention
         predicted_velocities = []
-        h_dec = h.unsqueeze(0)  # Add an extra dimension for n_layers
+        h_dec = h
         for t in range(self.hparams.output_frames):
-            x_agg = self.self_attention(f_vel_reshaped[:, t:])
+            x_agg = self.self_attention(future_velocities[:, t:])
             x_agg = x_agg.unsqueeze(1)  # Add time dimension for GRU input
             vel_t, h_dec = self.decoder(x_agg, h_dec)
             predicted_velocities.append(vel_t)
 
         predicted_velocities = torch.stack(predicted_velocities, dim=1)
-
-        # Convert velocities to positions
-        predicted_bboxes = convert_velocity_to_positions(
-            predicted_velocities.detach(),
-            bboxes_position.detach(),
-            self.hparams.image_size,
-        )
-
-        return predicted_bboxes, predicted_velocities
+        return predicted_velocities
 
     def _shared_step(self, batch, batch_idx, stage):
         (
@@ -101,8 +91,13 @@ class FusionGRULightningModel(L.LightningModule):
             target_bboxes_velocity,
         ) = batch
 
-        predicted_bboxes, predicted_velocity = self(
-            input_bboxes_position, input_bboxes_velocity
+        predicted_velocity = self(input_bboxes_position, input_bboxes_velocity)
+
+        # Convert predicted future velocities to future positions
+        velocities_to_positions = convert_velocity_to_positions(
+            predicted_velocity.detach(),
+            input_bboxes_position.detach(),
+            self.hparams.image_size,
         )
 
         # Normalize the output bounding boxes
@@ -114,72 +109,75 @@ class FusionGRULightningModel(L.LightningModule):
                 self.hparams.image_size[1],
             ]
         ).to(target_bboxes_position.device)
-        predicted_bboxes_norm = predicted_bboxes / norm_factor
+        velocities_to_positions_norm = velocities_to_positions / norm_factor
         target_bboxes_position_denorm = target_bboxes_position * norm_factor
 
         # Compute losses
-        bbox_loss = F.smooth_l1_loss(predicted_bboxes_norm, target_bboxes_position)
+        velocities_to_positions_loss = F.smooth_l1_loss(
+            velocities_to_positions_norm, target_bboxes_position
+        )
         velocity_loss = F.smooth_l1_loss(predicted_velocity, target_bboxes_velocity)
-        total_loss = bbox_loss + velocity_loss
+        total_loss = velocity_loss + velocities_to_positions_loss * 0.1
 
         # Log losses
         self.log(
-            f"{stage}_loss", total_loss, on_step=False, on_epoch=True, prog_bar=True
-        )
-        self.log(
-            f"{stage}_bbox_loss",
-            bbox_loss,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_velocity_loss",
-            velocity_loss,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
+            f"{stage}_loss", total_loss, on_step=False, on_epoch=True, prog_bar=False
         )
 
         # Compute metrics
-        ade = compute_ADE(predicted_bboxes, target_bboxes_position_denorm)
-        fde = compute_FDE(predicted_bboxes, target_bboxes_position_denorm)
-        aiou = compute_AIOU(predicted_bboxes_norm, target_bboxes_position)
-        fiou = compute_FIOU(predicted_bboxes_norm, target_bboxes_position)
+        ade_from_vel = compute_ADE(
+            velocities_to_positions, target_bboxes_position_denorm
+        )
+        fde_from_vel = compute_FDE(
+            velocities_to_positions, target_bboxes_position_denorm
+        )
+        aiou_from_vel = compute_AIOU(
+            velocities_to_positions_norm, target_bboxes_position
+        )
+        fiou_from_vel = compute_FIOU(
+            velocities_to_positions_norm, target_bboxes_position
+        )
 
+        # Log metrics
         self.log(
             f"{stage}_ADE",
-            ade,
+            ade_from_vel,
             on_step=False,
             on_epoch=True,
             prog_bar=False,
         )
         self.log(
             f"{stage}_FDE",
-            fde,
+            fde_from_vel,
             on_step=False,
             on_epoch=True,
             prog_bar=False,
         )
         self.log(
             f"{stage}_AIoU",
-            aiou,
+            aiou_from_vel,
             on_step=False,
             on_epoch=True,
             prog_bar=True,
         )
         self.log(
             f"{stage}_FIoU",
-            fiou,
+            fiou_from_vel,
             on_step=False,
             on_epoch=True,
             prog_bar=True,
         )
 
-        return total_loss
+        return {
+            "total_loss": total_loss,
+            "ADE": ade_from_vel,
+            "FDE": fde_from_vel,
+            "AIoU": aiou_from_vel,
+            "FIoU": fiou_from_vel,
+        }
 
     def training_step(self, batch, batch_idx):
-        return self._shared_step(batch, batch_idx, "train")
+        return self._shared_step(batch, batch_idx, "train")["total_loss"]
 
     def validation_step(self, batch, batch_idx):
         return self._shared_step(batch, batch_idx, "val")
@@ -190,7 +188,10 @@ class FusionGRULightningModel(L.LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, mode="min", patience=10
+            optimizer,
+            mode="min",
+            patience=self.hparams.scheduler_patience,
+            factor=self.hparams.scheduler_factor,
         )
         return {
             "optimizer": optimizer,

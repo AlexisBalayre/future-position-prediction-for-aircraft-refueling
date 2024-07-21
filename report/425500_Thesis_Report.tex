@@ -42,6 +42,8 @@
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{adjustbox} % To adjust the table size
 \geometry{a4paper, margin=1in}
 \hypersetup{
     colorlinks,
@@ -985,14 +987,25 @@ can be positive or negative:
 The decoders continue this process for the entire prediction horizon, using
 their own previous outputs as inputs for future predictions.
 
-
 \subsection{Transformer-Based Architecture}
 
-The proposed model leverages a Transformer architecture to predict future positions and velocities of objects in a video stream. Transformers, introduced by Vaswani et al. (2017), have demonstrated superior performance in sequence-to-sequence tasks by effectively capturing long-range dependencies through self-attention mechanisms. Our architecture consists of three main components: an encoder, a decoder, and a multi-head self-attention mechanism. Each component is designed to handle specific aspects of the sequence modeling task, from encoding input sequences to generating context-aware predictions.
+The proposed model leverages a Transformer architecture to predict future
+positions and velocities of objects in a video stream. Transformers, introduced
+by Vaswani et al. (2017), have demonstrated superior performance in
+sequence-to-sequence tasks by effectively capturing long-range dependencies
+through self-attention mechanisms. Our architecture consists of three main
+components: an encoder, a decoder, and a multi-head self-attention mechanism.
+Each component is designed to handle specific aspects of the sequence modeling
+task, from encoding input sequences to generating context-aware predictions.
 
 \subsubsection{Input Representation}
 
-The model takes as input sequences of bounding boxes and their velocities extracted from video frames. Each bounding box is represented by its center coordinates $(x_{\text{center}}, y_{\text{center}})$, width $(w)$, and height $(h)$. Corresponding velocities are represented by changes in these values: $(\Delta x, \Delta y, \Delta w, \Delta h)$. Thus, each input vector $\mathbf{p}_t$ and $\mathbf{v}_t$ at time $t$ can be represented as:
+The model takes as input sequences of bounding boxes and their velocities
+extracted from video frames. Each bounding box is represented by its center
+coordinates $(x_{\text{center}}, y_{\text{center}})$, width $(w)$, and height
+$(h)$. Corresponding velocities are represented by changes in these values:
+$(\Delta x, \Delta y, \Delta w, \Delta h)$. Thus, each input vector
+$\mathbf{p}_t$ and $\mathbf{v}_t$ at time $t$ can be represented as:
 
 \begin{equation}
     \mathbf{p}_t = (x_{\text{center}, t}, y_{\text{center}, t}, w_t, h_t)
@@ -1002,11 +1015,16 @@ The model takes as input sequences of bounding boxes and their velocities extrac
     \mathbf{v}_t = (\Delta x_t, \Delta y_t, \Delta w_t, \Delta h_t)
 \end{equation}
 
-These sequences are fed into the encoder to extract meaningful temporal features.
+These sequences are fed into the encoder to extract meaningful temporal
+features.
 
 \subsubsection{Encoder}
 
-The encoder consists of multiple layers, each containing two main components: a multi-head self-attention mechanism and a position-wise fully connected feed-forward network. The input to the encoder is a sequence of bounding box and velocity vectors. The encoder processes these sequences independently using the following steps:
+The encoder consists of multiple layers, each containing two main components: a
+multi-head self-attention mechanism and a position-wise fully connected
+feed-forward network. The input to the encoder is a sequence of bounding box
+and velocity vectors. The encoder processes these sequences independently using
+the following steps:
 
 \begin{itemize}
     \item \textbf{Positional Encoding}: Since the Transformer model does not have a built-in notion of order, positional encodings are added to the input embeddings to incorporate sequence order information.
@@ -1017,7 +1035,11 @@ The encoder consists of multiple layers, each containing two main components: a 
 
 \subsubsection{Decoder}
 
-The decoder is similarly composed of multiple layers, with each layer containing three main components: a multi-head self-attention mechanism, a multi-head encoder-decoder attention mechanism, and a position-wise fully connected feed-forward network. The decoder generates predictions for future bounding boxes and velocities using the following steps:
+The decoder is similarly composed of multiple layers, with each layer
+containing three main components: a multi-head self-attention mechanism, a
+multi-head encoder-decoder attention mechanism, and a position-wise fully
+connected feed-forward network. The decoder generates predictions for future
+bounding boxes and velocities using the following steps:
 
 \begin{itemize}
     \item \textbf{Masked Self-Attention}: The decoder's self-attention mechanism is masked to prevent positions from attending to subsequent positions, ensuring that the prediction for a position depends only on known outputs.
@@ -1028,23 +1050,35 @@ The decoder is similarly composed of multiple layers, with each layer containing
 
 \subsubsection{Multi-Head Self-Attention}
 
-The multi-head self-attention mechanism is a key component of the Transformer architecture, enabling the model to jointly attend to information from different representation subspaces. It works by projecting the input sequence into multiple sets of queries, keys, and values, performing scaled dot-product attention for each set, and concatenating the results. This process allows the model to capture various aspects of the input sequence, enhancing its ability to learn complex patterns.
+The multi-head self-attention mechanism is a key component of the Transformer
+architecture, enabling the model to jointly attend to information from
+different representation subspaces. It works by projecting the input sequence
+into multiple sets of queries, keys, and values, performing scaled dot-product
+attention for each set, and concatenating the results. This process allows the
+model to capture various aspects of the input sequence, enhancing its ability
+to learn complex patterns.
 
 \subsubsection{Output Generation}
 
-The output of the decoder is passed through a linear layer to generate predictions for the bounding box coordinates and velocities. Separate linear layers are used for bounding box predictions (with a sigmoid activation to ensure values are between 0 and 1) and velocity predictions (without activation to allow for positive and negative values).
+The output of the decoder is passed through a linear layer to generate
+predictions for the bounding box coordinates and velocities. Separate linear
+layers are used for bounding box predictions (with a sigmoid activation to
+ensure values are between 0 and 1) and velocity predictions (without activation
+to allow for positive and negative values).
 
 \subsubsection{Loss Function and Training}
 
-The model is trained to minimize the mean squared error between the predicted and actual bounding boxes and velocities. The loss function is defined as:
+The model is trained to minimize the mean squared error between the predicted
+and actual bounding boxes and velocities. The loss function is defined as:
 
 \begin{equation}
-\text{Loss} = \frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{T} \left[ (x_{i,t} - \hat{x}_{i,t})^2 + (y_{i,t} - \hat{y}_{i,t})^2 + (w_{i,t} - \hat{w}_{i,t})^2 + (h_{i,t} - \hat{h}_{i,t})^2 + (\Delta x_{i,t} - \hat{\Delta x}_{i,t})^2 + (\Delta y_{i,t} - \hat{\Delta y}_{i,t})^2 + (\Delta w_{i,t} - \hat{\Delta w}_{i,t})^2 + (\Delta h_{i,t} - \hat{\Delta h}_{i,t})^2 \right]
+    \text{Loss} = \frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{T} \left[ (x_{i,t} - \hat{x}_{i,t})^2 + (y_{i,t} - \hat{y}_{i,t})^2 + (w_{i,t} - \hat{w}_{i,t})^2 + (h_{i,t} - \hat{h}_{i,t})^2 + (\Delta x_{i,t} - \hat{\Delta x}_{i,t})^2 + (\Delta y_{i,t} - \hat{\Delta y}_{i,t})^2 + (\Delta w_{i,t} - \hat{\Delta w}_{i,t})^2 + (\Delta h_{i,t} - \hat{\Delta h}_{i,t})^2 \right]
 \end{equation}
 
-The Adam optimizer is used to update the model parameters, and early stopping based on validation loss is employed to prevent overfitting and ensure generalization.
+The Adam optimizer is used to update the model parameters, and early stopping
+based on validation loss is employed to prevent overfitting and ensure
+generalization.
 
-\end{document}
 \section{Algorithm Design}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1057,6 +1091,50 @@ The Adam optimizer is used to update the model parameters, and early stopping ba
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULTS & DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Results and Discussion}
+
+\section{Object Detection Training Results}
+
+This section presents the final testing results of three different YOLO models
+(yolov10n.pt, yolov10s.pt, yolov10m.pt) on a dataset involving the
+classification of fuel port states (CLOSED, SEMI-OPEN, OPEN).
+
+\begin{table}[h!]
+    \centering
+    \caption{Comparison of YOLO Models}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lcccccc}
+            \toprule
+            \textbf{Model}                        & \textbf{Metric} & \textbf{All} & \textbf{Fuel Port [CLOSED]} & \textbf{Fuel Port [SEMI-OPEN]} & \textbf{Fuel Port [OPEN]} \\
+            \midrule
+            \multirow{4}{*}{\textbf{YOLOv10n.pt}} & Precision (P)   & 0.989        & 0.994                       & 0.982                          & 0.992                     \\
+                                                  & Recall (R)      & 0.876        & 0.657                       & 0.996                          & 0.974                     \\
+                                                  & mAP50           & 0.893        & 0.696                       & 0.995                          & 0.987                     \\
+                                                  & mAP50-95        & 0.852        & 0.684                       & 0.962                          & 0.909                     \\
+            \midrule
+            \multirow{4}{*}{\textbf{YOLOv10s.pt}} & Precision (P)   & 0.997        & 0.998                       & 1.000                          & 0.992                     \\
+                                                  & Recall (R)      & 0.884        & 0.682                       & 0.997                          & 0.974                     \\
+                                                  & mAP50           & 0.893        & 0.694                       & 0.995                          & 0.989                     \\
+                                                  & mAP50-95        & 0.848        & 0.678                       & 0.961                          & 0.905                     \\
+            \midrule
+            \multirow{4}{*}{\textbf{YOLOv10m.pt}} & Precision (P)   & 0.994        & 0.996                       & 0.999                          & 0.988                     \\
+                                                  & Recall (R)      & 0.888        & 0.682                       & 1.000                          & 0.983                     \\
+                                                  & mAP50           & 0.892        & 0.701                       & 0.995                          & 0.981                     \\
+                                                  & mAP50-95        & 0.852        & 0.692                       & 0.968                          & 0.897                     \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:comparison}
+\end{table}
+
+\subsection{Summary}
+
+Each model demonstrates strengths in different aspects of performance metrics.
+The YOLOv10s.pt model exhibits the highest precision at 0.997, while the
+YOLOv10m.pt model shows the highest recall at 0.888. The YOLOv10n.pt and
+YOLOv10m.pt models have the highest mAP50-95 at 0.852. The selection of an
+optimal model should consider the specific requirements of precision, recall,
+and mAP for the intended application.
+
 \section{Data Description}
 
 \section{Experiment Results}
