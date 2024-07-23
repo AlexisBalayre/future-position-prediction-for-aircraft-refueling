@@ -2,7 +2,7 @@ import torch
 
 from torch.utils.data import DataLoader
 import lightning as L
-from lightning.pytorch.loggers import TensorBoardLogger
+from lightning.pytorch.loggers import CSVLogger
 from lightning.pytorch.callbacks import ModelCheckpoint, EarlyStopping
 
 from LSTMLightningDataModule import LSTMLightningDataModule
@@ -17,12 +17,14 @@ if __name__ == "__main__":
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = 60 # Number of input frames
-    output_frames = 15  # Number of output frames
+    input_frames = 15 # Number of input frames
+    output_frames = 30  # Number of output frames
     hidden_dim = 256  # Size of the model's hidden layers
     hidden_depth = 1  # Number of hidden layers
     learning_rate = 1e-3  # Initial learning rate
-    max_epochs = 1000  # Maximum number of training epochs
+    scheduler_patience = 10  # Patience for the learning rate scheduler
+    scheduler_factor = 0.5  # Factor for the learning rate scheduler
+    max_epochs = 15  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
 
     # Fixed random seed for reproducibility of results
@@ -54,25 +56,26 @@ if __name__ == "__main__":
         hidden_dim=hidden_dim,
         hidden_depth=hidden_depth,
         dropout=dropout,
+        scheduler_patience=scheduler_patience,
+        scheduler_factor=scheduler_factor,
     )
-
-    # Logger setup for TensorBoard
-    logger = TensorBoardLogger("tb_logs", name="lstm_fpp_version3")
 
     # Early stopping and checkpointing callbacks
     callbacks = [
         ModelCheckpoint(save_top_k=1, mode="max", monitor="val_FIoU"),
     ]
 
+    logger = CSVLogger("logs", name="lstm")
+
     # Trainer initialization with configurations for training process
     trainer = L.Trainer(
         max_epochs=max_epochs,
-        accelerator="auto",
+        accelerator="cpu",
         devices="auto",
-        logger=logger,
         callbacks=callbacks,
         deterministic=True,  # Ensures reproducibility of results
         precision=32,  # Use 32-bit floating point precision
+        logger=logger,
     )
 
     # Training phase
