@@ -1,4 +1,4 @@
-\begin{thebibliography}{58}
+\begin{thebibliography}{61}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -15,6 +15,13 @@ A.~Alahi, K.~Goel, V.~Ramanathan, A.~Robicquet, L.~Fei-Fei, and S.~Savarese.
 I.~A.~T. Association.
 \newblock Guidance material on microbiological contamination in aircraft fuel tanks.
 \newblock 2019.
+
+\bibitem[(AvMC)(2020)]{AR3P2020}
+A.~F. C. A. C. A. . M.~C. (AvMC).
+\newblock \emph{AR3P Program Background (2017-2019) and Robotic Hot Refueling Demonstrations (Sep-Oct 2020)}.
+\newblock Army Futures Command (AFC) CCDC Aviation \& Missile Center (AvMC), 2020.
+\newblock URL \url{hhttps://www.denix.osd.mil/ndcee/denix-files/sites/44/2023/09/EXSUM-AR3P-Robotic-Refueling-K-MAX-and-S-70-Sep_Oct-2020-v9.pdf}.
+\newblock Accessed: 2024-07-24.
 
 \bibitem[Bennett et~al.(1991)Bennett, Shiu, and Leahy]{Bennett1991}
 R.~A. Bennett, Y.~C. Shiu, and M.~B. Leahy.
@@ -34,11 +41,11 @@ A.~Bochkovskiy, C.~Wang, and H.~M. Liao.
 \newblock \emph{CoRR}, abs/2004.10934, 2020.
 \newblock URL \url{https://arxiv.org/abs/2004.10934}.
 
-\bibitem[Chen and Stettner(2011)]{Chen2011}
-C.-I. Chen and R.~Stettner.
-\newblock Drogue tracking using 3d flash lidar for autonomous aerial refueling.
-\newblock volume 8037, 2011.
-\newblock \doi{10.1117/12.886572}.
+\bibitem[Burnette(2010)]{Burnette2010}
+H.~Burnette.
+\newblock Lab demonstrates robotic ground refueling of aircraft.
+\newblock \url{https://www.wpafb.af.mil/News/Article-Display/Article/400022/lab-demonstrates-robotic-ground-refueling-of-aircraft/}, Oct. 2010.
+\newblock Accessed: 2024-07-24.
 
 \bibitem[Chen et~al.(2022)Chen, Wang, Zhao, Lv, and Niu]{SurveyVisualOT}
 F.~Chen, X.~Wang, Y.~Zhao, S.~Lv, and X.~Niu.
@@ -57,6 +64,12 @@ G.~Cheng, X.~Yuan, X.~Yao, K.~Yan, Q.~Zeng, X.~Xie, and J.~Han.
 \newblock \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 45, 2023.
 \newblock ISSN 19393539.
 \newblock \doi{10.1109/TPAMI.2023.3290594}.
+
+\bibitem[Cokorilo et~al.(2010)Cokorilo, Gvozdenovic, Vasov, and Mirosavljevic]{CostsOfUnsafetyAviation}
+O.~Cokorilo, S.~Gvozdenovic, L.~Vasov, and P.~Mirosavljevic.
+\newblock Costs of unsafety in aviation.
+\newblock \emph{Technological and Economic Development of Economy - TECHNOL ECON DEV ECON}, 16:\penalty0 188--201, 06 2010.
+\newblock \doi{10.3846/tede.2010.12}.
 
 \bibitem[Dai et~al.(2016)Dai, Li, He, and Sun]{DBLP:journals/corr/DaiLHS16}
 J.~Dai, Y.~Li, K.~He, and J.~Sun.
@@ -83,6 +96,12 @@ H.~Fan, L.~Zhu, and Y.~Yang.
 \newblock URL \url{https://www.scopus.com/inward/record.uri?eid=2-s2.0-85085021761&partnerID=40&md5=5ef1e8834ec46834bbb53bbcf11720c9}.
 \newblock Cited by: 41.
 
+\bibitem[Ficken(2017)]{Ficken2017}
+N.~Ficken.
+\newblock Concept demonstration explores robotic aviation refueling system, July 18 2017.
+\newblock URL \url{https://www.army.mil/article/190980/concept_demonstration_explores_robotic_aviation_refueling_system}.
+\newblock Accessed: date-of-access.
+
 \bibitem[Finn et~al.(2016)Finn, Goodfellow, and Levine]{DBLP:journals/corr/FinnGL16}
 C.~Finn, I.~J. Goodfellow, and S.~Levine.
 \newblock Unsupervised learning for physical interaction through video prediction.
@@ -106,13 +125,6 @@ R.~B. Girshick, J.~Donahue, T.~Darrell, and J.~Malik.
 \newblock Rich feature hierarchies for accurate object detection and semantic segmentation.
 \newblock \emph{CoRR}, abs/1311.2524, 2013.
 \newblock URL \url{http://arxiv.org/abs/1311.2524}.
-
-\bibitem[Gong et~al.(2023)Gong, Liu, Xu, Xu, He, Zhang, and Rasol]{AARBinocularVision}
-K.~Gong, B.~Liu, X.~Xu, Y.~Xu, Y.~He, Z.~Zhang, and J.~Rasol.
-\newblock Research of an unmanned aerial vehicle autonomous aerial refueling docking method based on binocular vision.
-\newblock \emph{Drones}, 7, 2023.
-\newblock ISSN 2504446X.
-\newblock \doi{10.3390/drones7070433}.
 
 \bibitem[Hong et~al.(2022)Hong, Martin, and Raubal]{HowDoUGoWhere}
 Y.~Hong, H.~Martin, and M.~Raubal.
@@ -192,10 +204,16 @@ C.~Li, L.~Li, Y.~Geng, H.~Jiang, M.~Cheng, B.~Zhang, Z.~Ke, X.~Xu, and X.~Chu.
 T.-Y. Lin, P.~Goyal, R.~Girshick, K.~He, and P.~Dollár.
 \newblock Focal loss for dense object detection, 2018.
 
-\bibitem[Liu et~al.(2021)Liu, Liu, Srivastava, Połap, and Woźniak]{OverviewCorrelationAlgoOT}
+\bibitem[Liu et~al.(2021{\natexlab{a}})Liu, Chen, and Liu]{10.1007/978-981-16-5943-0_26}
+K.~Liu, L.~Chen, and X.~Liu.
+\newblock Research on application of frontier technologies at smart airport.
+\newblock In J.~Zeng, P.~Qin, W.~Jing, X.~Song, and Z.~Lu, editors, \emph{Data Science}, pages 319--330, Singapore, 2021{\natexlab{a}}. Springer Singapore.
+\newblock ISBN 978-981-16-5943-0.
+
+\bibitem[Liu et~al.(2021{\natexlab{b}})Liu, Liu, Srivastava, Połap, and Woźniak]{OverviewCorrelationAlgoOT}
 S.~Liu, D.~Liu, G.~Srivastava, D.~Połap, and M.~Woźniak.
 \newblock Overview and methods of correlation filter algorithms in object tracking.
-\newblock \emph{Complex and Intelligent Systems}, 7, 2021.
+\newblock \emph{Complex and Intelligent Systems}, 7, 2021{\natexlab{b}}.
 \newblock ISSN 21986053.
 \newblock \doi{10.1007/s40747-020-00161-4}.
 
@@ -204,6 +222,20 @@ W.~Liu, D.~Anguelov, D.~Erhan, C.~Szegedy, S.~E. Reed, C.~Fu, and A.~C. Berg.
 \newblock {SSD:} single shot multibox detector.
 \newblock \emph{CoRR}, abs/1512.02325, 2015.
 \newblock URL \url{http://arxiv.org/abs/1512.02325}.
+
+\bibitem[Olja~Čokorilo and Dell’Acqua(2014)]{doi:10.1080/13669877.2013.879493}
+M.~D.~L. Olja~Čokorilo and G.~Dell’Acqua.
+\newblock Aircraft safety analysis using clustering algorithms.
+\newblock \emph{Journal of Risk Research}, 17\penalty0 (10):\penalty0 1325--1340, 2014.
+\newblock \doi{10.1080/13669877.2013.879493}.
+\newblock URL \url{https://doi.org/10.1080/13669877.2013.879493}.
+
+\bibitem[Plaza and Santos(2021)]{ExpertSystemsAGR}
+E.~Plaza and M.~Santos.
+\newblock Knowledge based approach to ground refuelling optimization of commercial airplanes.
+\newblock \emph{Expert Systems}, 38, 2021.
+\newblock ISSN 14680394.
+\newblock \doi{10.1111/exsy.12631}.
 
 \bibitem[Ranjan et~al.(2023)Ranjan, Bhandari, Kim, and Kim]{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}
 N.~Ranjan, S.~Bhandari, Y.-C. Kim, and H.~Kim.
@@ -286,13 +318,6 @@ C.~Wang, W.~He, Y.~Nie, J.~Guo, C.~Liu, K.~Han, and Y.~Wang.
 C.-Y. Wang, I.-H. Yeh, and H.-Y.~M. Liao.
 \newblock Yolov9: Learning what you want to learn using programmable gradient information, 2024{\natexlab{b}}.
 
-\bibitem[Wang et~al.(2017)Wang, Dong, Kong, Li, and Zhang]{AARCNN}
-X.~Wang, X.~Dong, X.~Kong, J.~Li, and B.~Zhang.
-\newblock Drogue detection for autonomous aerial refueling based on convolutional neural networks.
-\newblock \emph{Chinese Journal of Aeronautics}, 30, 2017.
-\newblock ISSN 10009361.
-\newblock \doi{10.1016/j.cja.2016.12.022}.
-
 \bibitem[Wu and Xu(2021)]{SmallObjectDetectionPositonPrediction}
 J.~Wu and S.~Xu.
 \newblock From point to region: Accurate and efficient hierarchical small object detection in low-resolution remote sensing images.
@@ -314,13 +339,6 @@ T.~Ye, W.~Qin, Z.~Zhao, X.~Gao, X.~Deng, and Y.~Ouyang.
 \newblock \emph{IEEE Transactions on Instrumentation and Measurement}, 72, 2023.
 \newblock ISSN 15579662.
 \newblock \doi{10.1109/TIM.2023.3241825}.
-
-\bibitem[Yildirim and Rana(2023)]{HybridDatasetAGRV2}
-S.~Yildirim and Z.~A. Rana.
-\newblock Reducing the reality gap using hybrid data for real-time autonomous operations.
-\newblock \emph{Mathematics}, 11, 2023.
-\newblock ISSN 22277390.
-\newblock \doi{10.3390/math11071696}.
 
 \bibitem[Yildirim et~al.(2021)Yildirim, Rana, and Tang]{AGRPoseEstimation}
 S.~Yildirim, Z.~Rana, and G.~Tang.

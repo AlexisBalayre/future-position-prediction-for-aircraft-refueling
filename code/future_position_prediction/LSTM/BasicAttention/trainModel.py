@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
     # Setup the data module for testing
     data_module.setup(
-        stage="test"
+        stage="test", 
     )
 
     # Testing phase

@@ -1,10 +1,12 @@
 import lightning as L
 from torch.utils.data import DataLoader
+from torch.utils.data.dataloader import default_collate
 
-from LSTMLightningDataset import LSTMLightningDataset
+from LSTMLightningDatasetWithAugment import LSTMLightningDatasetWithAugment
 
 
 class LSTMLightningDataModule(L.LightningDataModule):
+
     def __init__(
         self,
         train_dataset_path,
@@ -26,16 +28,23 @@ class LSTMLightningDataModule(L.LightningDataModule):
         self.input_frames = input_frames
         self.output_frames = output_frames
 
+    def custom_collate(batch):
+        max_length = max(len(item[0]) for item in batch)
+        for i, (data, target) in enumerate(batch):
+            pad_size = max_length - len(data)
+            batch[i] = (F.pad(data, (0, 0, 0, pad_size)), target)
+        return default_collate(batch)
+
     def setup(self, stage, predict_dataset_path=None):
         if stage == "train" or stage is None:
-            self.train_dataset = LSTMLightningDataset(
+            self.train_dataset = LSTMLightningDatasetWithAugment(
                 self.train_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
                 images_folder=self.images_folder,
                 stage="train",
             )
-            self.val_dataset = LSTMLightningDataset(
+            self.val_dataset = LSTMLightningDatasetWithAugment(
                 self.val_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
@@ -43,7 +52,7 @@ class LSTMLightningDataModule(L.LightningDataModule):
                 stage="val",
             )
         if stage == "test" or stage is None:
-            self.test_dataset = LSTMLightningDataset(
+            self.test_dataset = LSTMLightningDatasetWithAugment(
                 self.test_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
@@ -51,7 +60,7 @@ class LSTMLightningDataModule(L.LightningDataModule):
                 stage="test",
             )
         if stage == "predict" and predict_dataset_path is not None:
-            self.predict_dataset = LSTMLightningDataset(
+            self.predict_dataset = LSTMLightningDatasetWithAugment(
                 predict_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,

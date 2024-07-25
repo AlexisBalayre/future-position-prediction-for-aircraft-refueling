@@ -140,6 +140,17 @@
     \abbrev{SOTA}{State-of-the-Art}
     \abbrev{AIS}{Automatic Identification System}
     \abbrev{GPS}{Global Positioning System}
+    \abbrev{IoU}{Intersection over Union}
+    \abbrev{TP}{True Positive}
+    \abbrev{FP}{False Positive}
+    \abbrev{FN}{False Negative}
+    \abbrev{TN}{True Negative}
+    \abbrev{AP}{Average Precision}
+    \abbrev{AR}{Average Recall}
+    \abbrev{SSD}{Single Shot Multibox Detector}
+    \abbrev{YOLO}{You Only Look Once}
+    \abbrev{IoT}{Internet of Things}
+
 \end{listofabbreviations}
 
 %% Main Matter
@@ -153,38 +164,35 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}
+\section{Background and Motivation}
+
 Ground pressure refuelling is a standard method used to refuel commercial
 aircraft safely and efficiently. This process involves using a hydrant system,
 which consists of underground fuel pipelines connected to a network of fuel
 hydrants located at aircraft parking positions~\cite{blakey2011aviation}. The
 hydrant system is supplied with fuel from storage tanks, typically located near
-the airport~\cite{kazda2015airport}.
-
-When an aircraft is ready for refueling, a hydrant dispenser vehicle, also
-known as a hydrant truck or cart, is connected to the hydrant pit using a
-flexible hose~\cite{sati2019aircraft}. The hydrant dispenser vehicle is
-equipped with a pressure control valve, a flow meter, and a filtration system
-to ensure that the fuel meets the required quality
-standards~\cite{iata2019guidance}.
-
-The refueling process begins by connecting the hydrant dispenser vehicle to the
-aircraft's fuel panel using another flexible hose~\cite{sati2019aircraft}. The
-pressure control valve on the hydrant dispenser vehicle is then used to
-regulate the fuel pressure and flow rate, ensuring that the fuel is delivered
-to the aircraft at the appropriate pressure and volume~\cite{iata2019guidance}.
-
-One of the main advantages of pressure ground refueling is its efficiency. This
-method allows for high fuel flow rates, which can significantly reduce aircraft
-turnaround times~\cite{blakey2011aviation}. Additionally, the use of
-underground pipelines eliminates the need for fuel trucks, reducing traffic
-congestion and the risk of accidents on the apron~\cite{kazda2015airport}.
-
-Safety is another critical aspect of pressure ground refueling. The hydrant
-system is designed with multiple safety features, such as emergency shutdown
-valves and leak detection systems, to minimise the risk of fuel spills and
-fires~\cite{iata2019guidance}. Moreover, the hydrant dispenser vehicles are
-equipped with safety devices, such as dead man switches and bonding cables, to
-prevent incidents during the refueling process~\cite{sati2019aircraft}.
+the airport~\cite{kazda2015airport}. When an aircraft is ready for refueling, a
+hydrant dispenser vehicle, also known as a hydrant truck or cart, is connected
+to the hydrant pit using a flexible hose~\cite{sati2019aircraft}. The hydrant
+dispenser vehicle is equipped with a pressure control valve, a flow meter, and
+a filtration system to ensure that the fuel meets the required quality
+standards~\cite{iata2019guidance}. The refueling process begins by connecting
+the hydrant dispenser vehicle to the aircraft's fuel panel using another
+flexible hose~\cite{sati2019aircraft}. The pressure control valve on the
+hydrant dispenser vehicle is then used to regulate the fuel pressure and flow
+rate, ensuring that the fuel is delivered to the aircraft at the appropriate
+pressure and volume~\cite{iata2019guidance}. One of the main advantages of
+pressure ground refueling is its efficiency. This method allows for high fuel
+flow rates, which can significantly reduce aircraft turnaround
+times~\cite{blakey2011aviation}. Additionally, the use of underground pipelines
+eliminates the need for fuel trucks, reducing traffic congestion and the risk
+of accidents on the apron~\cite{kazda2015airport}. Safety is another critical
+aspect of pressure ground refueling. The hydrant system is designed with
+multiple safety features, such as emergency shutdown valves and leak detection
+systems, to minimise the risk of fuel spills and fires~\cite{iata2019guidance}.
+Moreover, the hydrant dispenser vehicles are equipped with safety devices, such
+as dead man switches and bonding cables, to prevent incidents during the
+refueling process~\cite{sati2019aircraft}.
 
 \begin{figure}[H]
     \centering
@@ -192,123 +200,241 @@ prevent incidents during the refueling process~\cite{sati2019aircraft}.
     \caption{Pressure Refuelling of a Commercial Aircraft. Source: Tom Boon/Simple Flying}\label{fig:pressure-refuelling}
 \end{figure}
 
+\newpage
 The aviation industry is undergoing a significant transformation with the
-advent of intelligent airports based on highly automated systems. Among these,
-automated refuelling systems play a crucial role in ensuring efficient and
-accurate refuelling of aircraft. However, one of the main challenges of this
-automation process is the accurate detection of the aircraft's refuelling port,
-which is relatively small and can easily be obscured by other visual elements
-on or near an aircraft. Scanning the entire area of each video frame is both
-time-consuming and inaccurate. It is therefore essential to develop a more
-efficient and accurate method of locating the refuelling port.
+development of the airport of the future, commonly referred to as the `Smart
+Airport’ or, more recently, `Airport 4.0’. The concept of a Smart Airport
+encompasses the use of cutting-edge information technologies, such as the
+Internet of Things (IoT), Artificial Intelligence (AI), and Blockchain, to
+monitor, analyze, and integrate real-time data on the airport's status. This
+integration aims to achieve optimal operational efficiency and enhance the
+quality of service. Taking the concept a step further, Airport 4.0 envisages an
+airport driven entirely by AI, capable of making autonomous decisions thanks to
+self-learning mechanisms. This advance aims to automatically predict and manage
+various airport scenarios, making it easier to automate numerous processes. The
+result is a substantial reduction in operating costs and error
+rates~\cite{10.1007/978-981-16-5943-0_26}.
 
-This thesis aims to address this challenge by developing a new AI model that
-uses the temporal relationships between successive frames of a video to predict
-the location of the refuelling port in subsequent frames. By focusing the
-analysis on the most relevant areas of the video sequence, this approach has
-the potential to optimise both the speed and accuracy of the refuelling system.
+However, each year there are a number of aircraft incidents related to weight
+and balance issues during the on-ground
+operations~\cite{doi:10.1080/13669877.2013.879493}. While the most common
+service operation on aircrafts is the filling of fuel tanks—improper fuelling
+procedures have caused many aircraft accidents and in-flight
+incidents~\cite{CostsOfUnsafetyAviation}.
 
-Specific objectives of this thesis include conducting a comprehensive review of
-state-of-the-art object detection and tracking methods, designing and
-developing a real-time computer vision system capable of accurately detecting
-and tracking the pressurised refuelling port of a commercial aircraft, the
-implementation and evaluation of deep learning time series models for future
-position prediction, the integration of Extended Kalman Filtering (EKF) into
-deep learning models to improve the accuracy and robustness of future position
-predictions, and the development of a real-time framework for predicting the
-future position of the pressurised refuelling port.
+Among these, automated refuelling systems play a crucial role in ensuring
+efficient and accurate refuelling of aircraft. However, one of the main
+challenges of this automation process is the accurate detection of the
+aircraft's refuelling port, which is relatively small and can easily be
+obscured by other visual elements on or near an aircraft. Scanning the entire
+area of each video frame is both time-consuming and inaccurate. It is therefore
+essential to develop a more efficient and accurate method of locating the
+refuelling port.
 
-By achieving these objectives, this thesis aims to make a significant
-contribution to the development of intelligent airport systems and to improve
-the efficiency and accuracy of automated refuelling systems at airports, while
-reducing computing power requirements. The proposed framework has the potential
-to be applied in various scenarios, such as different lighting conditions,
-angles and orientations of refuelling ports, making it a versatile and
-effective solution to the challenges of automated refuelling systems.
+% 4 Images
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/image_hard_2.jpg}
+        \caption{Motion Blur Example}\label{fig:motion-blur-example}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/image_hard_3.jpg}
+        \caption{Out-of-View Example}\label{fig:out-of-view-example}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/image_hard_4.jpg}
+        \caption{Occlusion Example}\label{fig:occlusion-example}
+    \end{subfigure}
+    \caption{Challenges in Detecting Aircraft Refuelling Port}\label{fig:challenges-detecting-ports}
+\end{figure}
+
+\section{Research Gap}
+
+\section{Aim and Objectives}
+This thesis aims to develop a framework for predicting the future position of
+commercial aircraft refuelling ports using advanced Object Detection models and
+Deep Learning to leverage the spatial-temporal relationship between frames in a
+video. The specific objectives of this thesis are as follows:
+\begin{enumerate}
+    \item Conduct a comprehensive review of state-of-the-art methods for Object
+          Detection, Object Tracking, and Deep Learning Sequence Models.
+    \item Annotate and preprocess video datasets of aircraft refuelling ports to ensure
+          high-quality training and testing data.
+    \item Design and develop a framework for accurately tracking and predicting the
+          future position of aircraft refuelling ports.
+\end{enumerate}
+
+\section{Technological Contributions}
+
+\section{Thesis Layout}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% LITERATURE REVIEW %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Literature Review}
 \section{Automated Refulling Systems in the Aviation Industry}
-Automated refueling systems have gained substantial importance in the aviation
-industry due to their potential to enhance safety and efficiency. The concept
-of Autonomous Aircraft Ground Refueling (AAGR) emerged in the 1980s, with
-initial implementations featuring numbered markers near refueling ports to aid
-in image processing and robotic automation~\cite{Schultz1986, Bennett1991,
-    DatasetAGR}.
+Ground refueling operations are essential to maintaining aircraft availability
+and operational efficiency. The transition from manual to automated systems is
+designed to improve the safety, efficiency and reliability of these
+operations~\cite{ExpertSystemsAGR}. The concept of Autonomous Aircraft Ground
+Refueling (AAGR) emerged in the 1980s in the United States to address the US
+Air Force’s need to protect ground personnel from potential threats during
+refueling operations~\cite{Schultz1986}. In the early 1990s,
+\citet{Bennett1991} introduced the Brightness Invariant Port Recognition System
+(BIPRS), marking a significant advancement in machine vision systems for
+identifying aircraft refuelling ports. In 2010, the Air Force Research
+Laboratory (AFRL) showcased the world’s first Automated Aircraft Ground
+Refuelling system prototype through a video demonstration. This system featured
+a robot equipped with a fuel nozzle and a single-point refuelling adapter,
+enabling autonomous engagement with the aircraft's refuelling panel, as
+illustrated in Figure~\ref{fig:test-2010} \cite{Burnette2010}. This project
+will give birth to the Autonomous \& Robotic Remote Refuelling Point (AR3P)
+project.
 
-These systems streamline the refuelling process by using state-of-the-art
-mechanisms and technologies to ensure accuracy and speed. A key element is the
-pressurised fuel adaptor, which connects seamlessly to the aircraft
-~\cite{HybridDatasetAGRV2}. Methods such as `PosEst' have been proposed to
-capture and track objects in 3D, enabling the pressurised refuelling port to be
-located precisely.~\cite{AGRPoseEstimation}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/test_2010.jpeg}
+    \caption{AFRL's Automated Aircraft Ground Refueling system prototype robot (Photo Credit: AFRL/RXQ Robotics Group)}\label{fig:test-2010}
+    \label{fig:test-2010}
+\end{figure}
 
-In addition, autonomous in-flight refuelling technologies for Unmanned Aerial
-Vehicles (UAV-AARs) have also been developed to extend their range, endurance
-and payload capacity without significantly altering their original design. This
-technology overcomes limitations in fuel capacity and endurance, enabling UAVs
-to undertake longer missions~\cite{AARBinocularVision}.
+The Autonomous \& Robotic Remote Refuelling Point (AR3P) project, developed by
+the U.S. Army, represents a pioneering initiative in unmanned refuelling
+operations for rotary-wing aircraft. This project leverages advanced robotics,
+including self-aligning mechanisms and articulated arms equipped with sensors,
+to facilitate rapid and safe refuelling processes on non-contiguous
+battlefields. The AR3P system minimises the time aircraft spend on the ground
+and enhances safety by reducing soldier exposure at fueling stations. Initially
+demonstrated in a Limited Initial Capabilities event, the AR3P aims to meet the
+evolving range and endurance requirements of Army Aviation. The project
+integrates existing technologies with novel systems designed in-house,
+supported by commercial off-the-shelf components and additive manufacturing.
+Currently, AR3P is progressing through its development phases, addressing
+technical risks, and preparing for further testing and eventual deployment, as
+shown in Figure~\ref{fig:test-2017} \cite{Ficken2017}.
 
-The implementation of AAGR presents a number of challenges, including varying
-lighting conditions, different refuelling port designs and potential
-obstructions. Confidentiality issues associated with aircraft refuelling data,
-as well as the lack of standardised workflows, also complicate the deployment
-of advanced AAGR solutions, based on~\cite{DatasetAGR} data.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/test_2017.jpg}
+    \caption{AR3P Concept Development Prototype Robot (Photo Credit: U.S. Army)}\label{fig:test-2017}
+\end{figure}
 
-Accurately detecting and estimating the position of the fuelling adaptor is a
-major hurdle. Current methods that rely on artificial features often encounter
-occlusions and suffer from reduced reliability due to a low signal-to-noise
-ratio, particularly over long distances~\cite{AGRPoseEstimation}. Variability
-in lighting, weather conditions and the physical state of the refuelling
-adapter further complicates detection and
-localisation~\cite{HybridDatasetAGRV1}. Vision-based systems must operate in
-real time and with minimal computational load, adding a new layer of
-complexity.
+The AR3P project exemplifies the intersection of advanced robotics and
+practical military applications, highlighting the potential of automated
+systems to transform operational paradigms.
+Figure~\ref{fig:automated-refuelling-systems} provides visual insights into the
+capabilities of the AR3P system, by performing autonomous hot refuelling.
+During this test, the robot is equipped with a LIDAR sensor and a camera to
+detect the aircraft's refuelling port. In Figure~\ref{test-2020-2}, the AR3P
+robot is seen approaching a detected aircraft, demonstrating its autonomous
+navigation and alignment capabilities. In Figure~\ref{test-2020-3}, the AR3P
+robot is shown engaging the aircraft refuelling port, emphasising its precision
+and functionality in connecting to the aircraft’s fuel port. These images
+illustrate the practical implementation of robotic technologies in enhancing
+the safety, efficiency, and speed of refuelling operations, particularly in
+challenging and hazardous environments \cite{AR3P2020}.
 
-The development of high-quality data sets for training and monitoring automated
-refuelling systems is another major challenge. Collecting and processing these
-datasets is often time-consuming and requires meticulous
-configuration~\cite{HybridDatasetAGRV2}.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/test_2020_2.png}
+        \caption{AR3P Robot Approaching Detected Aircraft (Photo Credit: Stratom)}\label{test-2020-2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/test_2020_3.jpg}
+        \caption{AR3P Robot Engaging Aircraft Refueling Port (Photo Credit: Stratom)}\label{test-2020-3}
+    \end{subfigure}
+    \caption{AR3P Robot Hot Refueling Demonstration for S-70 Helicopter}\label{fig:automated-refuelling-systems}
+\end{figure}
 
-Visual measurement methods based on artificial features, such as spray marks or
-LEDs, are commonly used in today's automated refuelling systems. The VisNav
-system, developed by Valsek, uses light-emitting diodes emitting at different
-frequencies to locate the centre of a beacon, employing a Gaussian least
-squares differential correction algorithm to calculate the position of
-the~\cite{AGRPoseEstimation} refuelling adaptor. Despite the advantages of
-these methods, they remain sensitive to occlusion and low signal-to-noise
-ratios at long distances.
+\newpage
+According to the ARP3 projet and the work of~\citet{AGRPoseEstimation}, the
+Automated Aircraft Ground Refuelling (AAGR) process can be broken down into the
+following steps:
+\begin{enumerate}
+    \item The aircraft needs to be in the park position.
+    \item The AAGR system identifies the aircraft and moves to the refuelling port.
+    \item The system identifies the refuelling port and aligns the fuel nozzle with the
+          port.
+    \item The system refuels the aircraft.
+    \item The system disconnects the fuel nozzle and moves away from the aircraft.
+\end{enumerate}
 
-Recent advances in Automatic Aircraft Ground Refuelling (AAGR) rely on computer
-vision, artificial intelligence and robotics to achieve high levels of
-automation. The integration of these technologies with Big Data has
-significantly improved the feasibility and accuracy of AAGR systems thanks to
-the creation of large datasets for training and validation. For example, an
-Aircraft Ground Refuelling (AGR) dataset comprising more than 3,000 images from
-13 databases was expanded to more than 26,000 images after augmentation,
-enabling AGR scene recognition through image mining, augmentation and
-classification~\cite{DatasetAGR}. In addition, recent innovations have
-introduced hybrid datasets combining real and synthetic data for training and
-validating~\cite{HybridDatasetAGRV1} systems. This approach offers a wide range
-of scenarios and conditions, improving the robustness and accuracy of automated
-refuelling systems.
+One of the primary challenges in automated refuelling is the accurate detection
+and positioning of the refuelling port under varying environmental conditions.
+Robust datasets for scene recognition and machine learning applications have
+been developed to address these challenges.~\citet{DatasetAGR} introduced a
+comprehensive dataset for AAGR, addressing significant challenges such as
+variant illumination conditions, different refuelling port types, and
+environmental obstructions. The dataset comprises over 26,000 labeled images
+collected through image crawling from 13 different databases, followed by
+augmentation to ensure diversity (see Figure~\ref{fig:agr-dataset}).
+Additionally, recent innovations have introduced hybrid datasets combining real
+and synthetic data for training and validating systems
+\cite{HybridDatasetAGRV1}. This approach offers a wide range of scenarios and
+conditions, improving the robustness and accuracy of automated refuelling
+systems. The development of high-quality datasets is pivotal in improving the
+robustness and reliability of AAGR systems, thereby supporting the deployment
+of advanced autonomous refuelling technologies in real-world settings.
 
-Furthermore, in the field of autonomous aerial refuelling, current technologies
-rely mainly on vision-based systems and sophisticated control algorithms. These
-methods use a variety of sensors, including monocular and binocular cameras, to
-detect and track drugs and refuelling probes.~\citet{AARCNN} demonstrated the
-feasibility of real-time drug recognition and 3D localisation for autonomous
-aerial drone refuelling using monocular computer vision. In
-addition,~\citet{Chen2011} explored the application of 3D flash lidar for drug
-tracking~\cite{AARCNN}. The probe and drogue refuelling system involves the
-refuelling aircraft towing a refuelling hose with a drogue at the end, while
-the pilot of the receiving aircraft manoeuvres to insert the probe into the
-drogue. For unmanned aerial refuelling, this process is carried out
-autonomously. Although DGPS offers high location accuracy, it faces challenges
-such as lock-in problems and low bandwidth in air-to-air refuelling
-applications~\cite{AAREKF}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/AGRDatasetGrid.png}
+    \caption{AAGR Dataset Overview. Source: \citet{DatasetAGR}}\label{fig:agr-dataset}
+\end{figure}
+
+\newpage
+Recent advancements in autonomous ground refuelling have been driven by
+improvements in computer vision and robotics.~\citet{AGRPoseEstimation}
+presented the PosEst system, which combines 2D RGB images with 3D point cloud
+data to enhance detection accuracy. This system uses a custom-trained
+EfficientNet-B0 CNN for object detection and leverages the Kalman filter for
+stable 3D pose estimation (see Figure~\ref{fig:agr-pose-kalman}). The PosEst
+method employs a dual approach of high-precision detection and robust tracking.
+By predicting and updating the object’s state in real-time, the Kalman filter
+facilitates continuous and precise alignment of the fuel nozzle with the
+refuelling adaptor, even in dynamic environments. This approach significantly
+reduces the risks associated with manual refuelling and improves operational
+efficiency and safety.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/AGRPoseKalman.png}
+    \caption{Kalman Filter Workflow for Pose Estimation in Autonomous Ground Refueling. Source: \citet{AGRPoseEstimation}}\label{fig:agr-pose-kalman}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/aerial_refuelling.jpg}
+    \caption{Autonomous Air Refueling using an Unmanned Aerial Vehicle. Source: Boeing}\label{fig:aerial-refuelling}
+\end{figure}
+
+In the context of unmanned aerial vehicle (UAV) autonomous air refueling (AAR),
+precise measurement and tracking of the relative position between the receiver
+aircraft and the tanker aircraft are critical, particularly during the docking
+phase (see figure~\ref{fig:aerial-refuelling}).~\citet{AAREKF} propose a robust
+solution that utilises monocular vision combined with an extended Kalman filter
+(EKF) to address this challenge. By implementing EKF, the system can provide
+reliable position estimations and track the drogue within a specified region of
+interest (ROI), even in the presence of disturbances such as air turbulence. As
+shown in figure~\ref{fig:detection-system-aarekf}, this system initialises the
+state and covariance matrices, predicts the drogue's position, updates the
+state based on new measurements, and continuously refines the ROI for
+subsequent image processing. This approach significantly reduces the processing
+time and improves the detection frequency from 10 Hz to up to 30 Hz by focusing
+computational resources on the predicted ROI. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/detection_system_AAREKF.png}
+    \caption{Autonomous Air Refueling Detection System with EKF. Source: \citet{AAREKF}}\label{fig:detection-system-aarekf}
+\end{figure}
+.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
@@ -1080,6 +1206,80 @@ based on validation loss is employed to prevent overfitting and ensure
 generalization.
 
 \section{Algorithm Design}
+
+\section{Data Augmentation Strategy}
+
+The data augmentation strategy is designed to enhance the robustness and
+generalization capability of the model. This strategy simulates various camera
+movements and imperfections that might occur in real-world scenarios. The
+augmentation approach consists of the following key components:
+
+\subsection{Sequence Reversal}
+
+For the training stage, the size of the dataset is doubled by including
+reversed sequences:
+
+\begin{itemize}
+    \item For each original sequence $(S_1, S_2, ..., S_n)$, a reversed sequence $(S_n,
+              S_{n-1}, ..., S_1)$ is added.
+    \item This augmentation helps the model learn to predict both forward and backward
+          movements of the camera relative to the aircraft refueling port.
+\end{itemize}
+
+\subsection{Camera Movement Simulation}
+
+Subtle camera movements are simulated to make the model more robust to varying
+camera positions:
+
+\begin{itemize}
+    \item \textbf{Panning}: A smooth, cumulative random offset is applied to the x and y coordinates of the bounding boxes. This simulates the effect of the camera panning horizontally or vertically.
+    \item The panning effect is modeled as:
+          \begin{equation}
+              \text{pan}_t = \sum_{i=1}^t \frac{N(0, \sigma^2)}{5}
+          \end{equation}
+          where $N(0, \sigma^2)$ is a normal distribution with mean 0 and variance $\sigma^2$.
+\end{itemize}
+
+\subsection{Zoom Simulation}
+
+To account for changes in the apparent size of the refueling port due to camera
+zoom or aircraft movement:
+
+\begin{itemize}
+    \item A smooth, cumulative scaling factor is applied to the width and height of the
+          bounding boxes.
+    \item The zoom effect is modeled as:
+          \begin{equation}
+              \text{zoom}_t = \prod_{i=1}^t U(0.98, 1.02)
+          \end{equation}
+          where $U(0.98, 1.02)$ is a uniform distribution between 0.98 and 1.02.
+\end{itemize}
+
+\subsection{Detection Inaccuracy Simulation}
+
+To make the model more robust to slight inaccuracies in object detection:
+
+\begin{itemize}
+    \item Small Gaussian noise is added to all bounding box coordinates.
+    \item The noise is sampled from $N(0, 0.002^2)$ for each coordinate.
+\end{itemize}
+
+\subsection{Implementation Details}
+
+The augmentation strategy is applied with the following considerations:
+
+\begin{itemize}
+    \item Augmentations are only applied during the training stage.
+    \item Each sequence has a 50\% chance of being augmented.
+    \item When applied, augmentations affect both input and output sequences consistently
+          to maintain temporal coherence.
+    \item All augmented values are clipped to the range [0, 1] to ensure they remain
+          valid normalized coordinates in the YOLO format.
+\end{itemize}
+
+This comprehensive augmentation strategy enhances the diversity of the training
+data, helping the model generalize better to various real-world scenarios
+involving camera movements and detection variations.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% EXPERIMENT DESIGN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
