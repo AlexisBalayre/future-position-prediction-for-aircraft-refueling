@@ -380,51 +380,51 @@ challenging and hazardous environments \cite{AR3P2020}.
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/test_2020_2.png}
+        \includegraphics[height=0.68\textwidth, width=\textwidth]{figures/test_2020_2.png}
         \caption{AR3P Robot Approaching Detected Aircraft (Photo Credit: Stratom)}\label{test-2020-2}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/test_2020_3.jpg}
+        \includegraphics[height=0.68\textwidth, width=\textwidth]{figures/test_2020_3.jpg}
         \caption{AR3P Robot Engaging Aircraft Refueling Port (Photo Credit: Stratom)}\label{test-2020-3}
     \end{subfigure}
     \caption{AR3P Robot Hot Refueling Demonstration for S-70 Helicopter}\label{fig:automated-refuelling-systems}
 \end{figure}
 
 \newpage
-According to the ARP3 projet and the work of~\citet{AGRPoseEstimation}, the
-Automated Aircraft Ground Refuelling (AAGR) process can be broken down into the
-following steps:
-\begin{enumerate}
-    \item The aircraft needs to be in the park position.
-    \item The AAGR system identifies the aircraft and moves to the refuelling port.
-    \item The system identifies the refuelling port and aligns the fuel nozzle with the
-          port.
-    \item The system refuels the aircraft.
-    \item The system disconnects the fuel nozzle and moves away from the aircraft.
-\end{enumerate}
 
-One of the primary challenges in automated refuelling is the accurate detection
-and positioning of the refuelling port under varying environmental conditions.
-Robust datasets for scene recognition and machine learning applications have
-been developed to address these challenges.~\citet{DatasetAGR} introduced a
-comprehensive dataset for AAGR, addressing significant challenges such as
-variant illumination conditions, different refuelling port types, and
-environmental obstructions. The dataset comprises over 26,000 labeled images
-collected through image crawling from 13 different databases, followed by
-augmentation to ensure diversity (see Figure~\ref{fig:agr-dataset}).
-Additionally, recent innovations have introduced hybrid datasets combining real
-and synthetic data for training and validating systems
-\cite{HybridDatasetAGRV1}. This approach offers a wide range of scenarios and
-conditions, improving the robustness and accuracy of automated refuelling
-systems. The development of high-quality datasets is pivotal in improving the
-robustness and reliability of AAGR systems, thereby supporting the deployment
-of advanced autonomous refuelling technologies in real-world settings.
+Unfortunately, there is very little literature on existing AAGR systems, as
+most research is carried out by the military and is classified. The most recent
+papers cover Autonomous Aerial Refueling (AAR) systems, which are used to
+refuel unmanned aerial vehicles (UAVs) in mid-air. These systems are designed
+to extend the flight time and range of UAVs by enabling them to refuel without
+landing. AAR systems are particularly challenging due to the high speeds and
+altitudes involved, as well as the need for precise measurement and tracking of
+the relative position between the receiver aircraft and the tanker aircraft are
+critical, particularly during the docking phase (see
+figure~\ref{fig:aerial-refuelling})~\cite{AARBinocularVision,
+    AARCNN}.~\citet{AAREKF} propose a robust solution that utilises monocular
+vision combined with an extended Kalman filter (EKF) to address this challenge.
+By implementing EKF, the system can provide reliable position estimations and
+track the drogue within a specified region of interest (ROI), even in the
+presence of disturbances such as air turbulence. As shown in
+figure~\ref{fig:detection-system-aarekf}, this system initialises the state and
+covariance matrices, predicts the drogue's position, updates the state based on
+new measurements, and continuously refines the ROI for subsequent image
+processing. This approach significantly reduces the processing time and
+improves the detection frequency from 10 Hz to up to 30 Hz by focusing
+computational resources on the predicted ROI. 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/AGRDatasetGrid.png}
-    \caption{AAGR Dataset Overview. Source: \citet{DatasetAGR}}\label{fig:agr-dataset}
+    \includegraphics[width=0.5\textwidth]{figures/x-47brefueling.jpg}
+    \caption{Autonomous Aerial Refueling (AAR) of X-47B Unmanned Combat Air System Demonstrator (Photo Credit: U.S. Navy)}\label{fig:aerial-refuelling}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/detection_system_AAREKF.png}
+    \caption{Autonomous Air Refueling Detection System with EKF. Source: \citet{AAREKF}}\label{fig:detection-system-aarekf}
 \end{figure}
 
 \newpage
@@ -443,37 +443,31 @@ efficiency and safety.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/AGRPoseKalman.png}
+    \includegraphics[width=0.45\textwidth]{figures/AGRPoseKalman.png}
     \caption{Kalman Filter Workflow for Pose Estimation in Autonomous Ground Refueling. Source: \citet{AGRPoseEstimation}}\label{fig:agr-pose-kalman}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{figures/aerial_refuelling.jpg}
-    \caption{Autonomous Air Refueling using an Unmanned Aerial Vehicle. Source: Boeing}\label{fig:aerial-refuelling}
-\end{figure}
-
-In the context of unmanned aerial vehicle (UAV) autonomous air refueling (AAR),
-precise measurement and tracking of the relative position between the receiver
-aircraft and the tanker aircraft are critical, particularly during the docking
-phase (see figure~\ref{fig:aerial-refuelling}).~\citet{AAREKF} propose a robust
-solution that utilises monocular vision combined with an extended Kalman filter
-(EKF) to address this challenge. By implementing EKF, the system can provide
-reliable position estimations and track the drogue within a specified region of
-interest (ROI), even in the presence of disturbances such as air turbulence. As
-shown in figure~\ref{fig:detection-system-aarekf}, this system initialises the
-state and covariance matrices, predicts the drogue's position, updates the
-state based on new measurements, and continuously refines the ROI for
-subsequent image processing. This approach significantly reduces the processing
-time and improves the detection frequency from 10 Hz to up to 30 Hz by focusing
-computational resources on the predicted ROI. 
+One of the primary challenges in AAGR is the accurate detection and positioning
+of the refuelling port under varying environmental conditions. Robust datasets
+for scene recognition and machine learning applications have been developed to
+address these challenges.~\citet{DatasetAGR} introduced a comprehensive dataset
+for AAGR, addressing significant challenges such as variant illumination
+conditions, different refuelling port types, and environmental obstructions.
+The dataset comprises over 26,000 labeled images collected through image
+crawling from 13 different databases, followed by augmentation to ensure
+diversity (see Figure~\ref{fig:agr-dataset}). Additionally, recent innovations
+have introduced hybrid datasets combining real and synthetic data for training
+and validating systems \cite{HybridDatasetAGRV1}. This approach offers a wide
+range of scenarios and conditions, improving the robustness and accuracy of
+automated refuelling systems. The development of high-quality datasets is
+pivotal in improving the robustness and reliability of AAGR systems.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/detection_system_AAREKF.png}
-    \caption{Autonomous Air Refueling Detection System with EKF. Source: \citet{AAREKF}}\label{fig:detection-system-aarekf}
+    \includegraphics[width=0.4\textwidth]{figures/AGRDatasetGrid.png}
+    \caption{AAGR Dataset Overview. Source: \citet{DatasetAGR}}\label{fig:agr-dataset}
 \end{figure}
-.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage

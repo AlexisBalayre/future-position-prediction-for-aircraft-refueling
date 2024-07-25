@@ -6,28 +6,28 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces AFRL's Automated Aircraft Ground Refueling system prototype robot (Photo Credit: AFRL/RXQ Robotics Group)\relax }}{4}{figure.caption.7}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces AR3P Concept Development Prototype Robot (Photo Credit: U.S. Army)\relax }}{5}{figure.caption.8}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces AR3P Robot Hot Refueling Demonstration for S-70 Helicopter\relax }}{5}{figure.caption.9}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces AAGR Dataset Overview. Source: \citet {DatasetAGR}\relax }}{6}{figure.caption.10}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Kalman Filter Workflow for Pose Estimation in Autonomous Ground Refueling. Source: \citet {AGRPoseEstimation}\relax }}{7}{figure.caption.11}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Autonomous Air Refueling using an Unmanned Aerial Vehicle. Source: Boeing\relax }}{7}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Autonomous Air Refueling Detection System with EKF. Source: \citet {AAREKF}\relax }}{8}{figure.caption.13}%
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Example of outputs from an object detector\nobreakspace {}\cite {huggingface2023objectdetection}.\relax }}{9}{figure.caption.14}%
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Basic deep learning-based one-stage vs two-stage object detection model architectures\nobreakspace {}\cite {SurveyDLOD}.\relax }}{9}{figure.caption.15}%
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue).\nobreakspace {}\cite {huggingface2023objectdetection}\relax }}{10}{figure.caption.16}%
-\contentsline {figure}{\numberline {2.11}{\ignorespaces Comparing different Sequence models: RNN, LSTM, and GRU. Source: Colah's blog. Compiled by AIML.com\relax }}{12}{figure.caption.17}%
-\contentsline {figure}{\numberline {2.12}{\ignorespaces Cubic LSTM Architecture. (a) 3D structure of the CubicLSTM unit. (b) Topological diagram of the CubicLSTM unit. (c) Two-spatial-layer RNN composed of CubicLSTM units. The unit consists of three branches, a spatial (z-) branch for extracting and recognizing moving objects, a temporal (y-) branch for capturing and predicting motions, and an output (x-) branch for combining the first two branches to generate the predicted frames. Source:\nobreakspace {}\citet {CubicLSTMsVideoPrediction}\relax }}{13}{figure.caption.18}%
-\contentsline {figure}{\numberline {2.13}{\ignorespaces Model Architecture. Source:\nobreakspace {}\citet {UnsupervisedVideoForecastingFlowParsingMechanism}\relax }}{14}{figure.caption.19}%
-\contentsline {figure}{\numberline {2.14}{\ignorespaces FPNet-OF model architecture. Source:\nobreakspace {}\citet {VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}\relax }}{15}{figure.caption.20}%
-\contentsline {figure}{\numberline {2.15}{\ignorespaces Fusion-GRU model architecture. Source:\nobreakspace {}\citet {FusionGRU}\relax }}{15}{figure.caption.21}%
-\contentsline {figure}{\numberline {2.16}{\ignorespaces Dual-Branch Spatial-Temporal Learning Network. Source:\nobreakspace {}\citet {DualBranchSpatialTemporalLearningNetworkVideoPrediction}\relax }}{16}{figure.caption.22}%
-\contentsline {figure}{\numberline {2.17}{\ignorespaces Dual-Branch Spatial-Temporal Learning Network. Source:\nobreakspace {}\citet {SurveyDLOD}\relax }}{16}{figure.caption.23}%
-\contentsline {figure}{\numberline {2.18}{\ignorespaces 2-digit Moving MNIST data by\nobreakspace {}\citet {DBLP:journals/corr/SrivastavaMS15}\relax }}{17}{figure.caption.24}%
-\contentsline {figure}{\numberline {2.19}{\ignorespaces Robotic Pushing Dataset. Source:\nobreakspace {}\citet {DBLP:journals/corr/EitelHB17}\relax }}{17}{figure.caption.25}%
-\contentsline {figure}{\numberline {2.20}{\ignorespaces KTH Action Dataset. Source:\nobreakspace {}\citet {KTH}\relax }}{18}{figure.caption.26}%
-\contentsline {figure}{\numberline {2.21}{\ignorespaces UCF Sports Dataset. Source:\nobreakspace {}\citet {UCFSport}\relax }}{18}{figure.caption.27}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Autonomous Aerial Refueling (AAR) of X-47B Unmanned Combat Air System Demonstrator (Photo Credit: U.S. Navy)\relax }}{6}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Autonomous Air Refueling Detection System with EKF. Source: \citet {AAREKF}\relax }}{6}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Kalman Filter Workflow for Pose Estimation in Autonomous Ground Refueling. Source: \citet {AGRPoseEstimation}\relax }}{7}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces AAGR Dataset Overview. Source: \citet {DatasetAGR}\relax }}{7}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Example of outputs from an object detector\nobreakspace {}\cite {huggingface2023objectdetection}.\relax }}{8}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Basic deep learning-based one-stage vs two-stage object detection model architectures\nobreakspace {}\cite {SurveyDLOD}.\relax }}{8}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue).\nobreakspace {}\cite {huggingface2023objectdetection}\relax }}{9}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Comparing different Sequence models: RNN, LSTM, and GRU. Source: Colah's blog. Compiled by AIML.com\relax }}{11}{figure.caption.17}%
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Cubic LSTM Architecture. (a) 3D structure of the CubicLSTM unit. (b) Topological diagram of the CubicLSTM unit. (c) Two-spatial-layer RNN composed of CubicLSTM units. The unit consists of three branches, a spatial (z-) branch for extracting and recognizing moving objects, a temporal (y-) branch for capturing and predicting motions, and an output (x-) branch for combining the first two branches to generate the predicted frames. Source:\nobreakspace {}\citet {CubicLSTMsVideoPrediction}\relax }}{12}{figure.caption.18}%
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Model Architecture. Source:\nobreakspace {}\citet {UnsupervisedVideoForecastingFlowParsingMechanism}\relax }}{13}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.14}{\ignorespaces FPNet-OF model architecture. Source:\nobreakspace {}\citet {VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}\relax }}{14}{figure.caption.20}%
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Fusion-GRU model architecture. Source:\nobreakspace {}\citet {FusionGRU}\relax }}{14}{figure.caption.21}%
+\contentsline {figure}{\numberline {2.16}{\ignorespaces Dual-Branch Spatial-Temporal Learning Network. Source:\nobreakspace {}\citet {DualBranchSpatialTemporalLearningNetworkVideoPrediction}\relax }}{15}{figure.caption.22}%
+\contentsline {figure}{\numberline {2.17}{\ignorespaces Dual-Branch Spatial-Temporal Learning Network. Source:\nobreakspace {}\citet {SurveyDLOD}\relax }}{15}{figure.caption.23}%
+\contentsline {figure}{\numberline {2.18}{\ignorespaces 2-digit Moving MNIST data by\nobreakspace {}\citet {DBLP:journals/corr/SrivastavaMS15}\relax }}{16}{figure.caption.24}%
+\contentsline {figure}{\numberline {2.19}{\ignorespaces Robotic Pushing Dataset. Source:\nobreakspace {}\citet {DBLP:journals/corr/EitelHB17}\relax }}{16}{figure.caption.25}%
+\contentsline {figure}{\numberline {2.20}{\ignorespaces KTH Action Dataset. Source:\nobreakspace {}\citet {KTH}\relax }}{17}{figure.caption.26}%
+\contentsline {figure}{\numberline {2.21}{\ignorespaces UCF Sports Dataset. Source:\nobreakspace {}\citet {UCFSport}\relax }}{17}{figure.caption.27}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Annotated images of the fueling port in the CLOSED state.\relax }}{23}{figure.caption.31}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the fueling port in the OPEN state.\relax }}{23}{figure.caption.32}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the fueling port in the SEMI-OPEN state.\relax }}{23}{figure.caption.33}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Annotated images of the fueling port in the CLOSED state.\relax }}{22}{figure.caption.31}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the fueling port in the OPEN state.\relax }}{22}{figure.caption.32}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the fueling port in the SEMI-OPEN state.\relax }}{22}{figure.caption.33}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

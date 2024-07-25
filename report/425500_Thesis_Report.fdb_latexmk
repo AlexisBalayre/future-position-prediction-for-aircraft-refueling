@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex 425500_Thesis_Report"] 1721917530 "425500_Thesis_Report.aux" "425500_Thesis_Report.bbl" "425500_Thesis_Report" 1721917533 0
+["bibtex 425500_Thesis_Report"] 1721920374 "425500_Thesis_Report.aux" "425500_Thesis_Report.bbl" "425500_Thesis_Report" 1721921355 0
   "./CUCitations.bib" 1721855441 133832 bac5f8e2a8bac631976d1cdc4db0d464 ""
   "./LaTeX.bib" 1715789394 8338 c2869cc70e0075329793cd286984c721 ""
   "/usr/local/texlive/2023/texmf-dist/bibtex/bst/natbib/abbrvnat.bst" 1233624470 26532 66bed5cc59495faaa3f9ae9af9fa5e42 ""
-  "425500_Thesis_Report.aux" 1721917533 31256 8011abf19cbec6665b0369405fc0b048 "pdflatex"
+  "425500_Thesis_Report.aux" 1721921355 31512 d895bba092ad11ced4b1b1d88add06ac "pdflatex"
   (generated)
   "425500_Thesis_Report.bbl"
   "425500_Thesis_Report.blg"
   (rewritten before read)
-["pdflatex"] 1721917530 "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/report/425500_Thesis_Report.tex" "425500_Thesis_Report.pdf" "425500_Thesis_Report" 1721917533 0
-  "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/report/425500_Thesis_Report.tex" 1721917529 76145 788327740c8ea1ae8ecfa2749efdb662 ""
+["pdflatex"] 1721921351 "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/report/425500_Thesis_Report.tex" "425500_Thesis_Report.pdf" "425500_Thesis_Report" 1721921355 0
+  "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/report/425500_Thesis_Report.tex" 1721921348 75984 89fc0b8271c8a90ae7bf5e4043db380e ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1136768653 1408 5937f58aa508ea2cea4901c07d10f5fe ""
@@ -176,13 +176,13 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1699977258 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1699977188 7883458 0fc50070f6972b3c0ed45389126cac27 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "425500_Thesis_Report.aux" 1721917533 31256 8011abf19cbec6665b0369405fc0b048 "pdflatex"
-  "425500_Thesis_Report.bbl" 1721917530 18652 6b7c3b0e87c18c784c59de3ba28edd9f "bibtex 425500_Thesis_Report"
-  "425500_Thesis_Report.lof" 1721917533 5046 a84de382b17a085d5fc60c7a57288bbe "pdflatex"
-  "425500_Thesis_Report.lot" 1721917533 845 5b09e6d0b2c19b56d1175196d308a6d3 "pdflatex"
-  "425500_Thesis_Report.out" 1721917533 1714 21aab43aa79f01115283f32132fa670a "pdflatex"
-  "425500_Thesis_Report.tex" 1721917529 76145 788327740c8ea1ae8ecfa2749efdb662 ""
-  "425500_Thesis_Report.toc" 1721917533 4698 1f1c68f0b5232c6c4d01f269bb194b43 "pdflatex"
+  "425500_Thesis_Report.aux" 1721921355 31512 d895bba092ad11ced4b1b1d88add06ac "pdflatex"
+  "425500_Thesis_Report.bbl" 1721920374 19361 5753fef7d1c98e0d25fe12aad0b6743c "bibtex 425500_Thesis_Report"
+  "425500_Thesis_Report.lof" 1721921355 5080 054580f0af9c6f4ff7f532482d3cd7c6 "pdflatex"
+  "425500_Thesis_Report.lot" 1721921355 845 a9e7eb6e591dbc5ff8919d10875a5290 "pdflatex"
+  "425500_Thesis_Report.out" 1721921355 1714 21aab43aa79f01115283f32132fa670a "pdflatex"
+  "425500_Thesis_Report.tex" 1721921348 75984 89fc0b8271c8a90ae7bf5e4043db380e ""
+  "425500_Thesis_Report.toc" 1721921355 4700 2e14e68db362a7890f36f6fa50bc1b63 "pdflatex"
   "CULogo.png" 1685539438 37421 80845472f4d1ac3cb2568c488d5d8081 ""
   "cranfieldthesis.sty" 1686821656 7504 4ae09985ec0a0209836d55310675eb3b ""
   "figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg" 1718893700 127877 a972c761e168d99276ff59cff1f240f9 ""
@@ -193,7 +193,6 @@
   "figures/FusionGRU.png" 1718900700 302307 6d21429b2955477a0d789d17a9135134 ""
   "figures/KTH-dataset.png" 1718895345 68529 0478943dc1521fbbc75b9a97d608d8d9 ""
   "figures/Unsupervised-Video-Forecasting.png" 1718900084 618248 42e47b4bc93499142afcf96cfe0b07ce ""
-  "figures/aerial_refuelling.jpg" 1721892712 95671 253737d1e8f8ab9eedbd46ee072ae3b0 ""
   "figures/detection_system_AAREKF.png" 1721893253 146548 7e87ad69cc5d5f682f561432f9e5977f ""
   "figures/dual-branch-architecture.png" 1718899562 336538 cf66ef90802bc87d370755ef350c9446 ""
   "figures/dual-branch-inter-intra-frames.png" 1718899564 184348 34ac51de435503089939ec4e646028c4 ""
@@ -214,6 +213,7 @@
   "figures/test_2020_2.png" 1721847316 3314772 8762b797cb6d9bd41468e926fca8e1ed ""
   "figures/test_2020_3.jpg" 1721839652 73507 45d8d8de9ac7a42307a772a7238d9de8 ""
   "figures/ucf-sport-dataset.png" 1718895477 121203 9b2945359d48be36d6bd4324f475ded1 ""
+  "figures/x-47brefueling.jpg" 1721918908 62911 144db855d1c5d25fba82b8d0cf75b000 ""
   "logo-airbus.png" 1715638121 36030 e82b5578e9560ff00a7a70205150118d ""
   (generated)
   "425500_Thesis_Report.aux"

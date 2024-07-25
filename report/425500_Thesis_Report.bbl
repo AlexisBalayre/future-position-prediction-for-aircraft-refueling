@@ -1,4 +1,4 @@
-\begin{thebibliography}{59}
+\begin{thebibliography}{61}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -120,6 +120,13 @@ R.~B. Girshick, J.~Donahue, T.~Darrell, and J.~Malik.
 \newblock Rich feature hierarchies for accurate object detection and semantic segmentation.
 \newblock \emph{CoRR}, abs/1311.2524, 2013.
 \newblock URL \url{http://arxiv.org/abs/1311.2524}.
+
+\bibitem[Gong et~al.(2023)Gong, Liu, Xu, Xu, He, Zhang, and Rasol]{AARBinocularVision}
+K.~Gong, B.~Liu, X.~Xu, Y.~Xu, Y.~He, Z.~Zhang, and J.~Rasol.
+\newblock Research of an unmanned aerial vehicle autonomous aerial refueling docking method based on binocular vision.
+\newblock \emph{Drones}, 7, 2023.
+\newblock ISSN 2504446X.
+\newblock \doi{10.3390/drones7070433}.
 
 \bibitem[Hong et~al.(2022)Hong, Martin, and Raubal]{HowDoUGoWhere}
 Y.~Hong, H.~Martin, and M.~Raubal.
@@ -307,6 +314,13 @@ C.~Wang, W.~He, Y.~Nie, J.~Guo, C.~Liu, K.~Han, and Y.~Wang.
 \bibitem[Wang et~al.(2024{\natexlab{b}})Wang, Yeh, and Liao]{wang2024yolov9}
 C.-Y. Wang, I.-H. Yeh, and H.-Y.~M. Liao.
 \newblock Yolov9: Learning what you want to learn using programmable gradient information, 2024{\natexlab{b}}.
+
+\bibitem[Wang et~al.(2017)Wang, Dong, Kong, Li, and Zhang]{AARCNN}
+X.~Wang, X.~Dong, X.~Kong, J.~Li, and B.~Zhang.
+\newblock Drogue detection for autonomous aerial refueling based on convolutional neural networks.
+\newblock \emph{Chinese Journal of Aeronautics}, 30, 2017.
+\newblock ISSN 10009361.
+\newblock \doi{10.1016/j.cja.2016.12.022}.
 
 \bibitem[Wu and Xu(2021)]{SmallObjectDetectionPositonPrediction}
 J.~Wu and S.~Xu.

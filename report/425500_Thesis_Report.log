@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.14)  25 JUL 2024 16:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.14)  25 JUL 2024 17:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -869,7 +869,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 pdfTeX warning (ext4): destination with the same identifier (name{page.ii}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.34 ....3.3.3}Decoder}{27}{subsubsection.3.3.3.3}
+l.34 ....3.3.3}Decoder}{26}{subsubsection.3.3.3.3}
                                                   % [2
 
 
@@ -885,18 +885,18 @@ l.34 ....3.3.3}Decoder}{27}{subsubsection.3.3.3.3}
  [4
 
 
-] (./425500_Thesis_Report.lot)
+] [5] (./425500_Thesis_Report.lot)
 \tf@lot=\write6
 \openout6 = `425500_Thesis_Report.lot'.
 
- [5
+ [6
 
 
-] [6
+] [7
 
 ]
 Chapter 1.
-<figures/pressure-refuelling.jpeg, id=298, 2208.25pt x 1472.50125pt>
+<figures/pressure-refuelling.jpeg, id=303, 2208.25pt x 1472.50125pt>
 File: figures/pressure-refuelling.jpeg Graphic file (type jpg)
 <use figures/pressure-refuelling.jpeg>
 Package pdftex.def Info: figures/pressure-refuelling.jpeg  used on input line 189.
@@ -905,24 +905,24 @@ Package pdftex.def Info: figures/pressure-refuelling.jpeg  used on input line 18
 
 
  <./figures/pressure-refuelling.jpeg>]
-<figures/image_hard_2.jpg, id=309, 642.4pt x 481.8pt>
+<figures/image_hard_2.jpg, id=314, 642.4pt x 481.8pt>
 File: figures/image_hard_2.jpg Graphic file (type jpg)
 <use figures/image_hard_2.jpg>
 Package pdftex.def Info: figures/image_hard_2.jpg  used on input line 225.
 (pdftex.def)             Requested size: 135.8882pt x 95.1232pt.
-<figures/image_hard_4.jpg, id=310, 504.88625pt x 322.20375pt>
+<figures/image_hard_4.jpg, id=315, 504.88625pt x 322.20375pt>
 File: figures/image_hard_4.jpg Graphic file (type jpg)
 <use figures/image_hard_4.jpg>
 Package pdftex.def Info: figures/image_hard_4.jpg  used on input line 230.
 (pdftex.def)             Requested size: 135.88968pt x 95.12302pt.
-<figures/image_hard_3.jpg, id=311, 642.4pt x 481.8pt>
+<figures/image_hard_3.jpg, id=316, 642.4pt x 481.8pt>
 File: figures/image_hard_3.jpg Graphic file (type jpg)
 <use figures/image_hard_3.jpg>
 Package pdftex.def Info: figures/image_hard_3.jpg  used on input line 235.
 (pdftex.def)             Requested size: 135.8882pt x 95.1232pt.
  [2 <./figures/image_hard_2.jpg> <./figures/image_hard_4.jpg> <./figures/image_hard_3.jpg>] [3]
 Chapter 2.
-<figures/test_2010.jpeg, id=334, 1027.84pt x 662.475pt>
+<figures/test_2010.jpeg, id=340, 1027.84pt x 662.475pt>
 File: figures/test_2010.jpeg Graphic file (type jpg)
 <use figures/test_2010.jpeg>
 Package pdftex.def Info: figures/test_2010.jpeg  used on input line 339.
@@ -930,169 +930,169 @@ Package pdftex.def Info: figures/test_2010.jpeg  used on input line 339.
 [4
 
  <./figures/test_2010.jpeg>]
-<figures/test_2017.jpg, id=346, 4119.39pt x 2746.26pt>
+<figures/test_2017.jpg, id=352, 4119.39pt x 2746.26pt>
 File: figures/test_2017.jpg Graphic file (type jpg)
 <use figures/test_2017.jpg>
 Package pdftex.def Info: figures/test_2017.jpg  used on input line 361.
 (pdftex.def)             Requested size: 226.48395pt x 150.9819pt.
-<figures/test_2020_2.png, id=351, 1333.98375pt x 804.00375pt>
+<figures/test_2020_2.png, id=357, 1333.98375pt x 804.00375pt>
 File: figures/test_2020_2.png Graphic file (type png)
 <use figures/test_2020_2.png>
 Package pdftex.def Info: figures/test_2020_2.png  used on input line 383.
-(pdftex.def)             Requested size: 203.83417pt x 122.85269pt.
-<figures/test_2020_3.jpg, id=352, 903.375pt x 474.27188pt>
+(pdftex.def)             Requested size: 203.83423pt x 138.60492pt.
+<figures/test_2020_3.jpg, id=358, 903.375pt x 474.27188pt>
 File: figures/test_2020_3.jpg Graphic file (type jpg)
 <use figures/test_2020_3.jpg>
 Package pdftex.def Info: figures/test_2020_3.jpg  used on input line 388.
-(pdftex.def)             Requested size: 203.83417pt x 107.01051pt.
+(pdftex.def)             Requested size: 203.82954pt x 138.60637pt.
  [5 <./figures/test_2017.jpg> <./figures/test_2020_2.png> <./figures/test_2020_3.jpg>]
-<figures/AGRDatasetGrid.png, id=365, 778.91pt x 778.91pt>
-File: figures/AGRDatasetGrid.png Graphic file (type png)
-<use figures/AGRDatasetGrid.png>
-Package pdftex.def Info: figures/AGRDatasetGrid.png  used on input line 426.
-(pdftex.def)             Requested size: 226.48395pt x 226.48425pt.
- [6 <./figures/AGRDatasetGrid.png (PNG copy)>]
-<figures/AGRPoseKalman.png, id=380, 467.7475pt x 257.96375pt>
+<figures/x-47brefueling.jpg, id=371, 903.375pt x 474.27188pt>
+File: figures/x-47brefueling.jpg Graphic file (type jpg)
+<use figures/x-47brefueling.jpg>
+Package pdftex.def Info: figures/x-47brefueling.jpg  used on input line 420.
+(pdftex.def)             Requested size: 226.48395pt x 118.90056pt.
+<figures/detection_system_AAREKF.png, id=372, 433.62pt x 332.24126pt>
+File: figures/detection_system_AAREKF.png Graphic file (type png)
+<use figures/detection_system_AAREKF.png>
+Package pdftex.def Info: figures/detection_system_AAREKF.png  used on input line 426.
+(pdftex.def)             Requested size: 271.7835pt x 208.25354pt.
+ [6 <./figures/x-47brefueling.jpg> <./figures/detection_system_AAREKF.png>]
+<figures/AGRPoseKalman.png, id=384, 467.7475pt x 257.96375pt>
 File: figures/AGRPoseKalman.png Graphic file (type png)
 <use figures/AGRPoseKalman.png>
 Package pdftex.def Info: figures/AGRPoseKalman.png  used on input line 446.
-(pdftex.def)             Requested size: 271.7835pt x 149.89459pt.
-<figures/aerial_refuelling.jpg, id=383, 781.73746pt x 373.05571pt>
-File: figures/aerial_refuelling.jpg Graphic file (type jpg)
-<use figures/aerial_refuelling.jpg>
-Package pdftex.def Info: figures/aerial_refuelling.jpg  used on input line 452.
-(pdftex.def)             Requested size: 271.7835pt x 129.70052pt.
-<figures/detection_system_AAREKF.png, id=387, 433.62pt x 332.24126pt>
-File: figures/detection_system_AAREKF.png Graphic file (type png)
-<use figures/detection_system_AAREKF.png>
-Package pdftex.def Info: figures/detection_system_AAREKF.png  used on input line 473.
-(pdftex.def)             Requested size: 362.37569pt x 277.66632pt.
- [7 <./figures/AGRPoseKalman.png> <./figures/aerial_refuelling.jpg>] [8 <./figures/detection_system_AAREKF.png>]
-<figures/intro_object_detection.png, id=401, 642.4pt x 642.4pt>
+(pdftex.def)             Requested size: 203.83417pt x 112.41406pt.
+<figures/AGRDatasetGrid.png, id=390, 778.91pt x 778.91pt>
+File: figures/AGRDatasetGrid.png Graphic file (type png)
+<use figures/AGRDatasetGrid.png>
+Package pdftex.def Info: figures/AGRDatasetGrid.png  used on input line 467.
+(pdftex.def)             Requested size: 181.18439pt x 181.1779pt.
+ [7 <./figures/AGRPoseKalman.png> <./figures/AGRDatasetGrid.png (PNG copy)>]
+<figures/intro_object_detection.png, id=400, 642.4pt x 642.4pt>
 File: figures/intro_object_detection.png Graphic file (type png)
 <use figures/intro_object_detection.png>
-Package pdftex.def Info: figures/intro_object_detection.png  used on input line 491.
+Package pdftex.def Info: figures/intro_object_detection.png  used on input line 485.
 (pdftex.def)             Requested size: 135.89174pt x 135.8882pt.
-<figures/one-stage_two-stage_OD.png, id=427, 1127.21124pt x 543.02875pt>
+<figures/one-stage_two-stage_OD.png, id=426, 1127.21124pt x 543.02875pt>
 File: figures/one-stage_two-stage_OD.png Graphic file (type png)
 <use figures/one-stage_two-stage_OD.png>
-Package pdftex.def Info: figures/one-stage_two-stage_OD.png  used on input line 517.
+Package pdftex.def Info: figures/one-stage_two-stage_OD.png  used on input line 511.
 (pdftex.def)             Requested size: 362.37569pt x 174.56819pt.
- [9 <./figures/intro_object_detection.png> <./figures/one-stage_two-stage_OD.png>]
-<figures/iou.png, id=457, 1610.015pt x 545.03625pt>
+ [8 <./figures/intro_object_detection.png> <./figures/one-stage_two-stage_OD.png>]
+<figures/iou.png, id=456, 1610.015pt x 545.03625pt>
 File: figures/iou.png Graphic file (type png)
 <use figures/iou.png>
-Package pdftex.def Info: figures/iou.png  used on input line 528.
+Package pdftex.def Info: figures/iou.png  used on input line 522.
 (pdftex.def)             Requested size: 362.37569pt x 122.66945pt.
- [10 <./figures/iou.png>] [11]
-<figures/lstm-rnn-gru.png, id=504, 615.29875pt x 247.92625pt>
+ [9 <./figures/iou.png>] [10]
+<figures/lstm-rnn-gru.png, id=503, 615.29875pt x 247.92625pt>
 File: figures/lstm-rnn-gru.png Graphic file (type png)
 <use figures/lstm-rnn-gru.png>
-Package pdftex.def Info: figures/lstm-rnn-gru.png  used on input line 621.
+Package pdftex.def Info: figures/lstm-rnn-gru.png  used on input line 615.
 (pdftex.def)             Requested size: 271.7835pt x 109.51158pt.
- [12 <./figures/lstm-rnn-gru.png>]
-<figures/CubicLSTM.png, id=520, 890.32625pt x 391.4625pt>
+ [11 <./figures/lstm-rnn-gru.png>]
+<figures/CubicLSTM.png, id=519, 890.32625pt x 391.4625pt>
 File: figures/CubicLSTM.png Graphic file (type png)
 <use figures/CubicLSTM.png>
-Package pdftex.def Info: figures/CubicLSTM.png  used on input line 675.
+Package pdftex.def Info: figures/CubicLSTM.png  used on input line 669.
 (pdftex.def)             Requested size: 452.9679pt x 199.16536pt.
- [13 <./figures/CubicLSTM.png>]
-<figures/Unsupervised-Video-Forecasting.png, id=529, 653.44125pt x 375.4025pt>
+ [12 <./figures/CubicLSTM.png>]
+<figures/Unsupervised-Video-Forecasting.png, id=528, 653.44125pt x 375.4025pt>
 File: figures/Unsupervised-Video-Forecasting.png Graphic file (type png)
 <use figures/Unsupervised-Video-Forecasting.png>
-Package pdftex.def Info: figures/Unsupervised-Video-Forecasting.png  used on input line 690.
+Package pdftex.def Info: figures/Unsupervised-Video-Forecasting.png  used on input line 684.
 (pdftex.def)             Requested size: 452.9679pt x 260.23091pt.
-<figures/FPNet-OF.png, id=533, 961.5925pt x 631.35875pt>
+<figures/FPNet-OF.png, id=532, 961.5925pt x 631.35875pt>
 File: figures/FPNet-OF.png Graphic file (type png)
 <use figures/FPNet-OF.png>
-Package pdftex.def Info: figures/FPNet-OF.png  used on input line 707.
+Package pdftex.def Info: figures/FPNet-OF.png  used on input line 701.
 (pdftex.def)             Requested size: 362.37569pt x 237.92462pt.
- [14 <./figures/Unsupervised-Video-Forecasting.png>]
-<figures/FusionGRU.png, id=542, 833.1125pt x 269.005pt>
+ [13 <./figures/Unsupervised-Video-Forecasting.png>]
+<figures/FusionGRU.png, id=541, 833.1125pt x 269.005pt>
 File: figures/FusionGRU.png Graphic file (type png)
 <use figures/FusionGRU.png>
-Package pdftex.def Info: figures/FusionGRU.png  used on input line 724.
+Package pdftex.def Info: figures/FusionGRU.png  used on input line 718.
 (pdftex.def)             Requested size: 452.9679pt x 146.26207pt.
- [15 <./figures/FPNet-OF.png> <./figures/FusionGRU.png>]
-<figures/dual-branch-architecture.png, id=552, 893.3375pt x 388.45125pt>
+ [14 <./figures/FPNet-OF.png> <./figures/FusionGRU.png>]
+<figures/dual-branch-architecture.png, id=551, 893.3375pt x 388.45125pt>
 File: figures/dual-branch-architecture.png Graphic file (type png)
 <use figures/dual-branch-architecture.png>
-Package pdftex.def Info: figures/dual-branch-architecture.png  used on input line 747.
+Package pdftex.def Info: figures/dual-branch-architecture.png  used on input line 741.
 (pdftex.def)             Requested size: 317.07614pt x 137.87448pt.
-<figures/dual-branch-inter-intra-frames.png, id=555, 436.63126pt x 366.36874pt>
+<figures/dual-branch-inter-intra-frames.png, id=554, 436.63126pt x 366.36874pt>
 File: figures/dual-branch-inter-intra-frames.png Graphic file (type png)
 <use figures/dual-branch-inter-intra-frames.png>
-Package pdftex.def Info: figures/dual-branch-inter-intra-frames.png  used on input line 753.
+Package pdftex.def Info: figures/dual-branch-inter-intra-frames.png  used on input line 747.
 (pdftex.def)             Requested size: 226.48395pt x 190.03766pt.
- [16 <./figures/dual-branch-architecture.png> <./figures/dual-branch-inter-intra-frames.png>]
-<figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg, id=566, 853.1875pt x 971.63pt>
+ [15 <./figures/dual-branch-architecture.png> <./figures/dual-branch-inter-intra-frames.png>]
+<figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg, id=565, 853.1875pt x 971.63pt>
 File: figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg Graphic file (type jpg)
 <use figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg>
-Package pdftex.def Info: figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg  used on input line 774.
+Package pdftex.def Info: figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg  used on input line 768.
 (pdftex.def)             Requested size: 135.89174pt x 154.75233pt.
-<figures/robotpush.png, id=571, 1117.17375pt x 240.9pt>
+<figures/robotpush.png, id=570, 1117.17375pt x 240.9pt>
 File: figures/robotpush.png Graphic file (type png)
 <use figures/robotpush.png>
-Package pdftex.def Info: figures/robotpush.png  used on input line 792.
+Package pdftex.def Info: figures/robotpush.png  used on input line 786.
 (pdftex.def)             Requested size: 226.48395pt x 48.83711pt.
-<figures/KTH-dataset.png, id=576, 853.1875pt x 460.72125pt>
+<figures/KTH-dataset.png, id=575, 853.1875pt x 460.72125pt>
 File: figures/KTH-dataset.png Graphic file (type png)
 <use figures/KTH-dataset.png>
-Package pdftex.def Info: figures/KTH-dataset.png  used on input line 808.
+Package pdftex.def Info: figures/KTH-dataset.png  used on input line 802.
 (pdftex.def)             Requested size: 226.48395pt x 122.30144pt.
- [17 <./figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg> <./figures/robotpush.png>]
-<figures/ucf-sport-dataset.png, id=587, 853.1875pt x 341.275pt>
+ [16 <./figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg> <./figures/robotpush.png>]
+<figures/ucf-sport-dataset.png, id=586, 853.1875pt x 341.275pt>
 File: figures/ucf-sport-dataset.png Graphic file (type png)
 <use figures/ucf-sport-dataset.png>
-Package pdftex.def Info: figures/ucf-sport-dataset.png  used on input line 827.
+Package pdftex.def Info: figures/ucf-sport-dataset.png  used on input line 821.
 (pdftex.def)             Requested size: 271.7835pt x 108.71552pt.
- [18 <./figures/KTH-dataset.png> <./figures/ucf-sport-dataset.png>]
+ [17 <./figures/KTH-dataset.png> <./figures/ucf-sport-dataset.png>]
 Chapter 3.
-[19
+[18
 
-] [20] [21]
-<figures/grid_closed_images.png, id=615, 1935.23pt x 1453.43pt>
+] [19] [20]
+<figures/grid_closed_images.png, id=613, 1935.23pt x 1453.43pt>
 File: figures/grid_closed_images.png Graphic file (type png)
 <use figures/grid_closed_images.png>
-Package pdftex.def Info: figures/grid_closed_images.png  used on input line 988.
+Package pdftex.def Info: figures/grid_closed_images.png  used on input line 982.
 (pdftex.def)             Requested size: 226.48395pt x 170.07945pt.
- [22]
-<figures/grid_open_images.png, id=623, 1935.23pt x 1453.43pt>
+ [21]
+<figures/grid_open_images.png, id=622, 1935.23pt x 1453.43pt>
 File: figures/grid_open_images.png Graphic file (type png)
 <use figures/grid_open_images.png>
-Package pdftex.def Info: figures/grid_open_images.png  used on input line 994.
+Package pdftex.def Info: figures/grid_open_images.png  used on input line 988.
 (pdftex.def)             Requested size: 226.48395pt x 170.07945pt.
-<figures/grid_semiopen_images.png, id=624, 1935.23pt x 1453.43pt>
+<figures/grid_semiopen_images.png, id=623, 1935.23pt x 1453.43pt>
 File: figures/grid_semiopen_images.png Graphic file (type png)
 <use figures/grid_semiopen_images.png>
-Package pdftex.def Info: figures/grid_semiopen_images.png  used on input line 1000.
+Package pdftex.def Info: figures/grid_semiopen_images.png  used on input line 994.
 (pdftex.def)             Requested size: 226.48395pt x 170.07945pt.
- [23 <./figures/grid_closed_images.png (PNG copy)> <./figures/grid_open_images.png (PNG copy)> <./figures/grid_semiopen_images.png (PNG copy)>] [24] [25] [26]
-Overfull \hbox (232.42397pt too wide) detected at line 1239
+ [22 <./figures/grid_closed_images.png (PNG copy)> <./figures/grid_open_images.png (PNG copy)> <./figures/grid_semiopen_images.png (PNG copy)>] [23] [24] [25]
+Overfull \hbox (232.42397pt too wide) detected at line 1233
 [][][][] \OT1/ztmcm/m/n/12 = [] [] [] []
  []
 
-[27] [28] [29]
+[26] [27] [28]
 Chapter 4.
-[30
+[29
 
 ]
 Chapter 5.
 
-Overfull \hbox (0.1003pt too wide) in paragraph at lines 1334--1337
+Overfull \hbox (0.1003pt too wide) in paragraph at lines 1328--1331
 \OT1/ptm/m/n/12 yolov10s.pt, yolov10m.pt) on a dataset in-volv-ing the clas-si-fi-ca-tion of fuel port states (CLOSED,
  []
 
 
-Overfull \hbox (32.17229pt too wide) in paragraph at lines 1368--1374
+Overfull \hbox (32.17229pt too wide) in paragraph at lines 1362--1368
 []\OT1/ptm/m/n/12 Each model demon-strates strengths in dif-fer-ent as-pects of per-for-mance met-rics. The YOLOv10s.pt
  []
 
-[31
+[30
 
-] [32]
+] [31]
 Chapter 6.
-(./425500_Thesis_Report.bbl [33
+(./425500_Thesis_Report.bbl [32
 
 ]
 Underfull \hbox (badness 4120) in paragraph at lines 15--20
@@ -1124,7 +1124,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 40--44
 \OT1/cmtt/m/n/12 wpafb . af . mil / News / Article -[] Display / Article / 400022 / lab -[] demonstrates -[]
  []
 
-[34
+[33
 
 ]
 Underfull \hbox (badness 1077) in paragraph at lines 88--93
@@ -1132,31 +1132,31 @@ Underfull \hbox (badness 1077) in paragraph at lines 88--93
  []
 
 
-Underfull \hbox (badness 2302) in paragraph at lines 131--137
+Underfull \hbox (badness 2302) in paragraph at lines 138--144
 \OT1/ptm/m/n/12 pre-dic-tion.  \OT1/ptm/m/it/12 IEEE Ac-cess\OT1/ptm/m/n/12 , 12:73258 { 73267, 2024.  doi: $10 . 1109 / ACCESS .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--137
+Underfull \hbox (badness 10000) in paragraph at lines 138--144
 \OT1/ptm/m/n/12 2024 . 3394209$.  URL [][]$\OT1/cmtt/m/n/12 https : / / www . scopus . com / inward / record . uri ? eid = 2 -[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--137
+Underfull \hbox (badness 10000) in paragraph at lines 138--144
 \OT1/cmtt/m/n/12 s2 . 0 -[] 85191878045 & doi = 10 . 1109 % 2fACCESS . 2024 . 3394209 & partnerID = 40 & md5 =
  []
 
-[35]
-Underfull \hbox (badness 10000) in paragraph at lines 231--237
+[34]
+Underfull \hbox (badness 10000) in paragraph at lines 238--244
 \OT1/cmtt/m/n/12 www . scopus . com / inward / record . uri ? eid = 2 -[] s2 . 0 -[] 85152478811 & doi = 10 . 32604 %
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 231--237
+Underfull \hbox (badness 10000) in paragraph at lines 238--244
 \OT1/cmtt/m/n/12 2fcmc . 2023 . 026086 & partnerID = 40 & md5 = 3c3a7145b11a082102840f176198a13d$[][]\OT1/ptm/m/n/12 .
  []
 
-[36] [37]) [38] (./425500_Thesis_Report.aux)
+[35] [36]) [37] (./425500_Thesis_Report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -1164,18 +1164,18 @@ Package rerunfilecheck Info: File `425500_Thesis_Report.out' has not changed.
 (rerunfilecheck)             Checksum: 21AAB43AA79F01115283F32132FA670A;1714.
  ) 
 Here is how much of TeX's memory you used:
- 24117 strings out of 476025
- 461273 string characters out of 5790016
+ 24120 strings out of 476025
+ 461372 string characters out of 5790016
  1871388 words of memory out of 5000000
- 43917 multiletter control sequences out of 15000+600000
+ 43923 multiletter control sequences out of 15000+600000
  552903 words of font info for 118 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,117p,773b,1125s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on 425500_Thesis_Report.pdf (46 pages, 22500474 bytes).
+Output written on 425500_Thesis_Report.pdf (46 pages, 22468502 bytes).
 PDF statistics:
- 858 PDF objects out of 1000 (max. 8388607)
- 719 compressed objects within 8 object streams
- 225 named destinations out of 1000 (max. 500000)
+ 860 PDF objects out of 1000 (max. 8388607)
+ 721 compressed objects within 8 object streams
+ 222 named destinations out of 1000 (max. 500000)
  252 words of extra memory for PDF output out of 10000 (max. 10000000)
 
