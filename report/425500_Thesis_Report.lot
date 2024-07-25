@@ -2,10 +2,10 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces \centering Summary of available videos in the HARD dataset with their assignment.\relax }}{20}{table.caption.28}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{20}{table.caption.29}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }}{21}{table.caption.30}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces \centering Summary of available videos in the HARD dataset with their assignment.\relax }}{21}{table.caption.28}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{21}{table.caption.29}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }}{22}{table.caption.30}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Comparison of YOLO Models\relax }}{30}{table.caption.34}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Comparison of YOLO Models\relax }}{31}{table.caption.34}%
 \addvspace {10\p@ }

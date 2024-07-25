@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex 425500_Thesis_Report"] 1721902383 "425500_Thesis_Report.aux" "425500_Thesis_Report.bbl" "425500_Thesis_Report" 1721902387 0
+["bibtex 425500_Thesis_Report"] 1721917530 "425500_Thesis_Report.aux" "425500_Thesis_Report.bbl" "425500_Thesis_Report" 1721917533 0
   "./CUCitations.bib" 1721855441 133832 bac5f8e2a8bac631976d1cdc4db0d464 ""
   "./LaTeX.bib" 1715789394 8338 c2869cc70e0075329793cd286984c721 ""
   "/usr/local/texlive/2023/texmf-dist/bibtex/bst/natbib/abbrvnat.bst" 1233624470 26532 66bed5cc59495faaa3f9ae9af9fa5e42 ""
-  "425500_Thesis_Report.aux" 1721902387 31220 a9bb603234100250b304c871b7835e75 "pdflatex"
+  "425500_Thesis_Report.aux" 1721917533 31256 8011abf19cbec6665b0369405fc0b048 "pdflatex"
   (generated)
   "425500_Thesis_Report.bbl"
   "425500_Thesis_Report.blg"
   (rewritten before read)
-["pdflatex"] 1721902383 "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/report/425500_Thesis_Report.tex" "425500_Thesis_Report.pdf" "425500_Thesis_Report" 1721902387 0
-  "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/report/425500_Thesis_Report.tex" 1721902379 73021 42569f72c997e9336560a1050682d74e ""
+["pdflatex"] 1721917530 "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/report/425500_Thesis_Report.tex" "425500_Thesis_Report.pdf" "425500_Thesis_Report" 1721917533 0
+  "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/report/425500_Thesis_Report.tex" 1721917529 76145 788327740c8ea1ae8ecfa2749efdb662 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1136768653 1408 5937f58aa508ea2cea4901c07d10f5fe ""
@@ -176,13 +176,13 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1699977258 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1699977188 7883458 0fc50070f6972b3c0ed45389126cac27 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "425500_Thesis_Report.aux" 1721902387 31220 a9bb603234100250b304c871b7835e75 "pdflatex"
-  "425500_Thesis_Report.bbl" 1721902383 19013 4ae4acf80a500feb2247b187e0eaf9df "bibtex 425500_Thesis_Report"
-  "425500_Thesis_Report.lof" 1721902387 5046 40c6c60bc90926df1ba2ed751375a3a0 "pdflatex"
-  "425500_Thesis_Report.lot" 1721902387 845 a9e7eb6e591dbc5ff8919d10875a5290 "pdflatex"
-  "425500_Thesis_Report.out" 1721902387 1691 9185a5b30decc3cd5fcc071697054690 "pdflatex"
-  "425500_Thesis_Report.tex" 1721902379 73021 42569f72c997e9336560a1050682d74e ""
-  "425500_Thesis_Report.toc" 1721902387 4694 14561629cccecb20b1105a65d211fe76 "pdflatex"
+  "425500_Thesis_Report.aux" 1721917533 31256 8011abf19cbec6665b0369405fc0b048 "pdflatex"
+  "425500_Thesis_Report.bbl" 1721917530 18652 6b7c3b0e87c18c784c59de3ba28edd9f "bibtex 425500_Thesis_Report"
+  "425500_Thesis_Report.lof" 1721917533 5046 a84de382b17a085d5fc60c7a57288bbe "pdflatex"
+  "425500_Thesis_Report.lot" 1721917533 845 5b09e6d0b2c19b56d1175196d308a6d3 "pdflatex"
+  "425500_Thesis_Report.out" 1721917533 1714 21aab43aa79f01115283f32132fa670a "pdflatex"
+  "425500_Thesis_Report.tex" 1721917529 76145 788327740c8ea1ae8ecfa2749efdb662 ""
+  "425500_Thesis_Report.toc" 1721917533 4698 1f1c68f0b5232c6c4d01f269bb194b43 "pdflatex"
   "CULogo.png" 1685539438 37421 80845472f4d1ac3cb2568c488d5d8081 ""
   "cranfieldthesis.sty" 1686821656 7504 4ae09985ec0a0209836d55310675eb3b ""
   "figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg" 1718893700 127877 a972c761e168d99276ff59cff1f240f9 ""

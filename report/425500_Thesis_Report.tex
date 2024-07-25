@@ -150,7 +150,9 @@
     \abbrev{SSD}{Single Shot Multibox Detector}
     \abbrev{YOLO}{You Only Look Once}
     \abbrev{IoT}{Internet of Things}
-
+    \abbrev{AFRL}{Air Force Research Laboratory}
+    \abbrev{AR3P}{Autonomous \& Robotic Remote Refueling Point}
+    \abbrev{BIPRS}{Brightness Invariant Port Recognition System}
 \end{listofabbreviations}
 
 %% Main Matter
@@ -167,32 +169,20 @@
 \section{Background and Motivation}
 
 Ground pressure refuelling is a standard method used to refuel commercial
-aircraft safely and efficiently. This process involves using a hydrant system,
-which consists of underground fuel pipelines connected to a network of fuel
-hydrants located at aircraft parking positions~\cite{blakey2011aviation}. The
-hydrant system is supplied with fuel from storage tanks, typically located near
-the airport~\cite{kazda2015airport}. When an aircraft is ready for refueling, a
-hydrant dispenser vehicle, also known as a hydrant truck or cart, is connected
-to the hydrant pit using a flexible hose~\cite{sati2019aircraft}. The hydrant
-dispenser vehicle is equipped with a pressure control valve, a flow meter, and
-a filtration system to ensure that the fuel meets the required quality
-standards~\cite{iata2019guidance}. The refueling process begins by connecting
-the hydrant dispenser vehicle to the aircraft's fuel panel using another
-flexible hose~\cite{sati2019aircraft}. The pressure control valve on the
-hydrant dispenser vehicle is then used to regulate the fuel pressure and flow
-rate, ensuring that the fuel is delivered to the aircraft at the appropriate
-pressure and volume~\cite{iata2019guidance}. One of the main advantages of
-pressure ground refueling is its efficiency. This method allows for high fuel
-flow rates, which can significantly reduce aircraft turnaround
-times~\cite{blakey2011aviation}. Additionally, the use of underground pipelines
-eliminates the need for fuel trucks, reducing traffic congestion and the risk
-of accidents on the apron~\cite{kazda2015airport}. Safety is another critical
-aspect of pressure ground refueling. The hydrant system is designed with
-multiple safety features, such as emergency shutdown valves and leak detection
-systems, to minimise the risk of fuel spills and fires~\cite{iata2019guidance}.
-Moreover, the hydrant dispenser vehicles are equipped with safety devices, such
-as dead man switches and bonding cables, to prevent incidents during the
-refueling process~\cite{sati2019aircraft}.
+aircraft safely and efficiently. This process involves using a system of
+underground fuel pipelines and hydrants at aircraft parking
+spots~\cite{blakey2011aviation}. When an aircraft is ready for refueling, a
+hydrant dispenser vehicle connects to the hydrant pit and delivers fuel to the
+aircraft through a flexible hose~\cite{sati2019aircraft} (see
+Figure~\ref{fig:pressure-refuelling}). This method allows for high fuel flow
+rates and significantly reduces aircraft turnaround
+times~\cite{blakey2011aviation}. However, this process also presents several
+challenges, particularly in terms of safety and accuracy. In the past, there
+have been several incidents involving ground pressure refueling, including fuel
+spills, overfills, and equipment
+failures~\cite{doi:10.1080/13669877.2013.879493, CostsOfUnsafetyAviation}.
+Fortunately, with the advancement of technology, many of these challenges will
+be addressed, and the refueling process will become safer and more efficient. 
 
 \begin{figure}[H]
     \centering
@@ -200,64 +190,78 @@ refueling process~\cite{sati2019aircraft}.
     \caption{Pressure Refuelling of a Commercial Aircraft. Source: Tom Boon/Simple Flying}\label{fig:pressure-refuelling}
 \end{figure}
 
-\newpage
 The aviation industry is undergoing a significant transformation with the
-development of the airport of the future, commonly referred to as the `Smart
-Airport’ or, more recently, `Airport 4.0’. The concept of a Smart Airport
-encompasses the use of cutting-edge information technologies, such as the
-Internet of Things (IoT), Artificial Intelligence (AI), and Blockchain, to
-monitor, analyze, and integrate real-time data on the airport's status. This
-integration aims to achieve optimal operational efficiency and enhance the
-quality of service. Taking the concept a step further, Airport 4.0 envisages an
-airport driven entirely by AI, capable of making autonomous decisions thanks to
-self-learning mechanisms. This advance aims to automatically predict and manage
-various airport scenarios, making it easier to automate numerous processes. The
-result is a substantial reduction in operating costs and error
+development of the airport of the future, commonly known as `Smart Airport’ or,
+more recently, `Airport 4.0’. The concept of Smart Airport encompasses the use
+of cutting-edge information technologies, such as the Internet of Things (IoT),
+Artificial Intelligence (AI), and Blockchain, to monitor, analyse, and
+integrate real-time data on the airport's status. This integration aims to
+achieve optimal operational efficiency and enhance the quality of service.
+Taking the concept a step further, Airport 4.0 envisages an airport driven
+entirely by AI, capable of making autonomous decisions thanks to self-learning
+mechanisms. This advance aims to automatically predict and manage various
+airport scenarios, making it easier to automate numerous processes. The result
+is a substantial reduction in operating costs and error
 rates~\cite{10.1007/978-981-16-5943-0_26}.
-
-However, each year there are a number of aircraft incidents related to weight
-and balance issues during the on-ground
-operations~\cite{doi:10.1080/13669877.2013.879493}. While the most common
-service operation on aircrafts is the filling of fuel tanks—improper fuelling
-procedures have caused many aircraft accidents and in-flight
-incidents~\cite{CostsOfUnsafetyAviation}.
 
 Among these, automated refuelling systems play a crucial role in ensuring
 efficient and accurate refuelling of aircraft. However, one of the main
 challenges of this automation process is the accurate detection of the
 aircraft's refuelling port, which is relatively small and can easily be
-obscured by other visual elements on or near an aircraft. Scanning the entire
-area of each video frame is both time-consuming and inaccurate. It is therefore
+obscured by other visual elements on or near an aircraft. For example in the
+Figure~\ref{fig:challenges-detecting-ports}, the refuelling port is located on
+the wing of the aircraft and can be difficult to detect due to motion blur,
+occlusion, or being out of view. This challenge is further compounded by the
+fact that aircraft refuelling ports can vary in size, shape, and location
+depending on the aircraft type and manufacturer. Scanning the entire area of
+each video frame is both time-consuming and inaccurate. It is therefore
 essential to develop a more efficient and accurate method of locating the
-refuelling port.
+refuelling port. 
 
 % 4 Images
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/image_hard_2.jpg}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=0.7\textwidth, width=\textwidth]{figures/image_hard_2.jpg}
         \caption{Motion Blur Example}\label{fig:motion-blur-example}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/image_hard_3.jpg}
-        \caption{Out-of-View Example}\label{fig:out-of-view-example}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=0.7\textwidth, width=\textwidth]{figures/image_hard_4.jpg}
+        \caption{Occlusion Example}\label{fig:occlusion-example}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/image_hard_4.jpg}
-        \caption{Occlusion Example}\label{fig:occlusion-example}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[height=0.7\textwidth, width=\textwidth]{figures/image_hard_3.jpg}
+        \caption{Out-of-View Example}\label{fig:out-of-view-example}
     \end{subfigure}
     \caption{Challenges in Detecting Aircraft Refuelling Port}\label{fig:challenges-detecting-ports}
 \end{figure}
 
 \section{Research Gap}
+Despite significant advancements in autonomous aircraft ground refuelling
+technologies, critical challenges remain, particularly in the accurate
+detection and positioning of the refuelling port. The small size and varied
+locations of refuelling ports, often obscured by visual elements like motion
+blur and occlusions, complicate this task. Existing systems have made progress
+using machine vision, but they are limited by inefficiencies in scanning entire
+video frames and inaccuracies under different environmental conditions.
+Furthermore, while current methodologies leveraging convolutional neural
+networks (CNNs) and Kalman filters have improved detection accuracy, they still
+struggle with real-time performance and adaptability in dynamic environments.
+The robustness of these systems in varied lighting conditions and their
+capability to handle different refuelling port types and obstructions need
+enhancement. Additionally, the application of advanced deep learning models
+like Long Short-Term Memory (LSTM) networks, Recurrent Neural Networks (RNNs),
+and Transformers in this context is underexplored. 
+
+\newpage
 
 \section{Aim and Objectives}
-This thesis aims to develop a framework for predicting the future position of
-commercial aircraft refuelling ports using advanced Object Detection models and
-Deep Learning to leverage the spatial-temporal relationship between frames in a
-video. The specific objectives of this thesis are as follows:
+This thesis aims to address the previous research gaps by developing a
+framework for predicting the future position of commercial aircraft refuelling
+ports using advanced Object Detection models and Deep Learning to leverage the
+spatial-temporal relationship between frames in a video.
 \begin{enumerate}
     \item Conduct a comprehensive review of state-of-the-art methods for Object
           Detection, Object Tracking, and Deep Learning Sequence Models.
@@ -268,14 +272,49 @@ video. The specific objectives of this thesis are as follows:
 \end{enumerate}
 
 \section{Technological Contributions}
+This thesis makes several technological contributions aimed at advancing the
+field of automated aircraft refuelling systems. The primary contribution is the
+integration of advanced deep learning models, including Long Short-Term Memory
+(LSTM) networks and Gated Recurrent Unit (GRU) networks, to predict the future
+positions of refuelling ports by leveraging their superior spatio-temporal data
+processing capabilities. Another significant contribution is the development of
+an innovative framework that combines object detection, target tracking, and
+future position prediction to enhance the accuracy and efficiency of automated
+refuelling systems. This framework is designed to handle the small pixel ratio
+of refuelling ports efficiently, thus optimising the detection and tracking
+process. The use of Extended Kalman Filtering (EKF) further refines
+predictions, ensuring real-time adaptability and accuracy, which is crucial for
+practical applications in busy airport environments. In addition, this thesis
+contributes to the creation and use of a comprehensive dataset that includes
+various scenarios and conditions. The dataset is meticulously annotated to
+provide high quality training and test data. Data augmentation strategies are
+also employed to improve model robustness and generalisation.
 
 \section{Thesis Layout}
+The following sections of this thesis provide a detailed exploration and
+analysis of the methodologies, experiments, and findings related to the
+development of an advanced framework for predicting the future positions of
+aircraft refuelling ports. The Chapter~\ref{chap:literature-review} (Literature
+Review) presents an overview of the current state-of-the-art methods in
+automated aircraft refuelling systems, object detection, and deep learning for
+spatio-temporal prediction. The Chapter~\ref{chap:methodology} (Methodology)
+describes the step-by-step approach taken in dataset preparation, framework
+design, and model training. The Chapter~\ref{chap:experiment_design}
+(Experiment Design) outlines the experimental setups and comparison studies
+conducted to evaluate the performance of the proposed models. In the
+Chapter~\ref{chap:results} (Results and Discussion), the outcomes of these
+experiments are presented and analysed, offering insights into the
+effectiveness and implications of the research findings. Finally, the
+Chapter~\ref{chap:conclusion} (Conclusion and Future Work) summarises the key
+contributions of the thesis, reflects on the significance of the results, and
+proposes directions for future research to further advance the field of
+automated aircraft refuelling systems.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% LITERATURE REVIEW %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Literature Review}
+\chapter{Literature Review}\label{chap:literature-review}
 \section{Automated Refulling Systems in the Aviation Industry}
 Ground refueling operations are essential to maintaining aircraft availability
 and operational efficiency. The transition from manual to automated systems is
@@ -455,22 +494,19 @@ of 98\% and four `people' with confidence levels of 98\%, 95\%, 97\% and 97\%.
 
 Over the last few decades, Object Detection models based on Deep Learning have
 enjoyed remarkable success. These models fall into two main categories:
-two-stage detectors and single-stage detectors. 
-
-On the one hand, two-stage detectors, such as
-R-CNN~\cite{DBLP:journals/corr/GirshickDDM13}, Fast
+two-stage detectors and single-stage detectors. On the one hand, two-stage
+detectors, such as R-CNN~\cite{DBLP:journals/corr/GirshickDDM13}, Fast
 R-CNN~\cite{DBLP:journals/corr/Girshick15}, Faster R-CNN~\cite{Ren2017} and
 R-FCN~\cite{DBLP:journals/corr/DaiLHS16}, first generate region proposals and
 then refine these proposals into precise anchor boxes. While these models excel
 in detection accuracy, they typically suffer from large model sizes and slower
-detection speeds~\cite{SurveyDLOD, ODNetworkUAVCNNTransformer}.
-
-On the other hand, single-stage detectors, including the SSD (Single Shot
-Multibox Detector)~\cite{DBLP:journals/corr/LiuAESR15}, YOLO (You Only Look
-Once) series~\cite{DBLP:journals/corr/RedmonDGF15,
-    DBLP:journals/corr/RedmonF16, DBLP:journals/corr/abs-2004-10934,
-    chen2023yoloms, DBLP:journals/corr/abs-2107-08430, YOLOv5Release, li2023yolov6,
-    YOLOv8, wang2024yolov9, xu2022ppyoloe, wang2023goldyolo, xu2023damoyolo,
+detection speeds~\cite{SurveyDLOD, ODNetworkUAVCNNTransformer}. On the other
+hand, single-stage detectors, including the SSD (Single Shot Multibox
+Detector)~\cite{DBLP:journals/corr/LiuAESR15}, YOLO (You Only Look Once)
+series~\cite{DBLP:journals/corr/RedmonDGF15, DBLP:journals/corr/RedmonF16,
+    DBLP:journals/corr/abs-2004-10934, chen2023yoloms,
+    DBLP:journals/corr/abs-2107-08430, YOLOv5Release, li2023yolov6, YOLOv8,
+    wang2024yolov9, xu2022ppyoloe, wang2023goldyolo, xu2023damoyolo,
     wang2024yolov10}, and RetinaNet~\cite{lin2018focal} directly predict object
 locations and categories in a single network pass. These models are known for
 their high detection speeds but sometimes compromise accuracy~\cite{SurveyDLOD,
@@ -563,6 +599,7 @@ these advancements, the integration of these methods in a complementary manner
 remains an open research area with substantial potential for advancing the
 field~\cite{OverviewCorrelationAlgoOT, SuveyAdvancesSingleOTMethods}.
 
+\newpage
 \section{Deep Learning for Spacio-Temporal Prediction}
 Time series prediction involves processing sequential data to predict future
 events or values. Various deep learning models have been applied to this task,
@@ -793,7 +830,7 @@ without relying on additional information~\cite{
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% METHODOLOGY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Methodology}
+\chapter{Methodology}\label{chap:methodology}
 \section{Dataset Configuration}
 \subsection{Provided Dataset Description}
 The `Indoor Hangar Fueling Port Detection and Tracking Dataset' (HARD) (HARD)
@@ -1283,14 +1320,14 @@ involving camera movements and detection variations.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% EXPERIMENT DESIGN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Experiment Design}
+\chapter{Experiment Design}\label{chap:experiment_design}
 \section{Experiment Environment}
 
 \section{Comparison Experiments}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULTS & DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Results and Discussion}
+\chapter{Results and Discussion}\label{chap:results}
 
 \section{Object Detection Training Results}
 
@@ -1343,7 +1380,7 @@ and mAP for the intended application.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONCLUSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Results and Discussion}
+\chapter{Conclusion and Future Work}\label{chap:conclusion}
 
 %% Back matter
 %

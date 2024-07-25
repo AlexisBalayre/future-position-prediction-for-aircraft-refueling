@@ -1,4 +1,4 @@
-\begin{thebibliography}{61}
+\begin{thebibliography}{59}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -10,11 +10,6 @@ A.~Alahi, K.~Goel, V.~Ramanathan, A.~Robicquet, L.~Fei-Fei, and S.~Savarese.
 \newblock Social lstm: Human trajectory prediction in crowded spaces.
 \newblock volume 2016-December, 2016.
 \newblock \doi{10.1109/CVPR.2016.110}.
-
-\bibitem[Association(2019)]{iata2019guidance}
-I.~A.~T. Association.
-\newblock Guidance material on microbiological contamination in aircraft fuel tanks.
-\newblock 2019.
 
 \bibitem[(AvMC)(2020)]{AR3P2020}
 A.~F. C. A. C. A. . M.~C. (AvMC).
@@ -170,11 +165,6 @@ M.~M. Karim, R.~Qin, and Y.~Wang.
 \newblock \emph{Transportation Research Record}, 2024.
 \newblock ISSN 21694052.
 \newblock \doi{10.1177/03611981241230540}.
-
-\bibitem[Kazda and Caves(2015)]{kazda2015airport}
-A.~Kazda and R.~E. Caves.
-\newblock \emph{Airport design and operation}.
-\newblock Emerald Group Publishing Limited, 3rd ed. edition, 2015.
 
 \bibitem[Kuang et~al.(2023)Kuang, Barnes, Tang, and Jenkins]{DatasetAGR}
 B.~Kuang, S.~Barnes, G.~Tang, and K.~Jenkins.
