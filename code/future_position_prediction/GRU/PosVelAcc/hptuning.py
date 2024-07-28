@@ -32,7 +32,7 @@ if __name__ == "__main__":
     learning_rate = 1e-4  # Initial learning rate
     scheduler_patiences = [5]
     scheduler_factors = [0.1]
-    max_epochs = 60  # Maximum number of training epochs
+    max_epochs = 10  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
 
     # Create a dataframe to store the results
@@ -85,7 +85,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="classic"),
@@ -100,7 +100,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="sum"),
@@ -115,7 +115,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="average"),
@@ -130,7 +130,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="concat"),

@@ -2,7 +2,7 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 import lightning as L
-from typing import Tuple
+from typing import Tuple, Dict
 
 from utils import (
     compute_ADE,
@@ -12,6 +12,7 @@ from utils import (
     convert_velocity_to_positions,
 )
 
+from MetricsMonitoring import MetricsMonitoring
 from GRUNet.DecoderGRU import DecoderGRU
 from GRUNet.EncoderGRU import EncoderGRU
 
@@ -32,7 +33,7 @@ class GRULightningModelConcat(L.LightningModule):
         scheduler_patience: int = 5,
         scheduler_factor: float = 0.5,
     ):
-        super(GRULightningModelConcat, self).__init__()
+        super().__init__()
         self.save_hyperparameters()
 
         self.bbox_encoder = EncoderGRU(
@@ -74,7 +75,17 @@ class GRULightningModelConcat(L.LightningModule):
 
         self.combine_hidden = nn.Linear(hidden_dim * 3, hidden_dim)
 
-    def combine_hidden_states(self, hidden_bbox, hidden_velocity, hidden_acceleration):
+        # Initialize metrics monitoring
+        self.train_metrics = MetricsMonitoring(image_size)
+        self.val_metrics = MetricsMonitoring(image_size)
+        self.test_metrics = MetricsMonitoring(image_size)
+
+    def combine_hidden_states(
+        self,
+        hidden_bbox: torch.Tensor,
+        hidden_velocity: torch.Tensor,
+        hidden_acceleration: torch.Tensor,
+    ) -> torch.Tensor:
         combined = torch.cat(
             (hidden_bbox, hidden_velocity, hidden_acceleration), dim=-1
         )
@@ -82,30 +93,31 @@ class GRULightningModelConcat(L.LightningModule):
 
     def forward(
         self,
-        bbox_seq,
-        velocity_seq,
-        acceleration_seq,
-    ):
+        bbox_seq: torch.Tensor,
+        velocity_seq: torch.Tensor,
+        acceleration_seq: torch.Tensor,
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
         batch_size = bbox_seq.size(0)
+        device = bbox_seq.device
 
         # Initialize hidden state
         h_pos = torch.zeros(
             self.bbox_encoder.n_layers,
             batch_size,
             self.hparams.hidden_dim,
-            device=bbox_seq.device,
+            device=device,
         )
         h_vel = torch.zeros(
             self.vel_encoder.n_layers,
             batch_size,
             self.hparams.hidden_dim,
-            device=velocity_seq.device,
+            device=device,
         )
         h_acc = torch.zeros(
             self.acc_encoder.n_layers,
             batch_size,
             self.hparams.hidden_dim,
-            device=acceleration_seq.device,
+            device=device,
         )
 
         # Encode the Position, Velocity, and Acceleration
@@ -124,28 +136,27 @@ class GRULightningModelConcat(L.LightningModule):
         decoder_input_pos = bbox_seq[:, -1, :]
         decoder_input_vel = velocity_seq[:, -1, :]
 
-        predictions_position = torch.tensor([], device=bbox_seq.device)
-        predictions_velocity = torch.tensor([], device=velocity_seq.device)
+        predictions_position = []
+        predictions_velocity = []
 
-        for t in range(self.hparams.output_frames):
+        for _ in range(self.hparams.output_frames):
             out_pos, h_pos = self.pos_decoder(decoder_input_pos, h_pos)
             out_vel, h_vel = self.vel_decoder(decoder_input_vel, h_vel)
 
-            predictions_position = torch.cat(
-                (predictions_position, out_pos.unsqueeze(1)), dim=1
-            )
-            predictions_velocity = torch.cat(
-                (predictions_velocity, out_vel.unsqueeze(1)), dim=1
-            )
+            predictions_position.append(out_pos.unsqueeze(1))
+            predictions_velocity.append(out_vel.unsqueeze(1))
 
             decoder_input_pos = out_pos.detach()
             decoder_input_vel = out_vel.detach()
 
+        predictions_position = torch.cat(predictions_position, dim=1)
+        predictions_velocity = torch.cat(predictions_velocity, dim=1)
+
         return predictions_position, predictions_velocity
 
-    def _shared_step(self, batch, batch_idx, stage):
+    def _shared_step(self, batch, batch_idx: int, stage: str) -> torch.Tensor:
         (
-            video_id,
+            _,
             input_bboxes,
             input_velocities,
             input_accelerations,
@@ -174,130 +185,55 @@ class GRULightningModelConcat(L.LightningModule):
         )
         total_loss = velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
 
-        self.log(
-            f"{stage}_vel_loss",
-            velocity_loss,
+        # Log losses
+        self.log_dict(
+            {
+                f"{stage}_vel_loss": velocity_loss,
+                f"{stage}_pos_loss": pos_loss,
+                f"{stage}_vel_to_pos_loss": velocities_to_positions_loss,
+                f"{stage}_loss": total_loss,
+            },
             on_step=False,
             on_epoch=True,
             prog_bar=False,
-        )
-        self.log(
-            f"{stage}_pos_loss",
-            pos_loss,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_vel_to_pos_loss",
-            velocities_to_positions_loss,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        # Log metrics
-        self.log(
-            f"{stage}_loss", total_loss, on_step=False, on_epoch=True, prog_bar=False
         )
 
-        # Compute metrics
-        ade_from_vel = compute_ADE(
-            velocities_to_positions, output_bboxes, self.hparams.image_size
-        )
-        fde_from_vel = compute_FDE(
-            velocities_to_positions, output_bboxes, self.hparams.image_size
-        )
-        aiou_from_vel = compute_AIOU(velocities_to_positions, output_bboxes)
-        fiou_from_vel = compute_FIOU(velocities_to_positions, output_bboxes)
-        ade = compute_ADE(predicted_positions, output_bboxes, self.hparams.image_size)
-        fde = compute_FDE(predicted_positions, output_bboxes, self.hparams.image_size)
-        aiou = compute_AIOU(predicted_positions, output_bboxes)
-        fiou = compute_FIOU(predicted_positions, output_bboxes)
-
-        # Log Best Value between fiou and fiou_from_vel
-        if fiou < fiou_from_vel:
-            self.log(
-                f"{stage}_best_fiou",
-                fiou,
-                on_step=False,
-                on_epoch=True,
-                prog_bar=False,
-            )
-        else:
-            self.log(
-                f"{stage}_best_fiou",
-                fiou_from_vel,
-                on_step=False,
-                on_epoch=True,
-                prog_bar=False,
-            )
-        
-        self.log(
-            f"{stage}_ade_from_vel",
-            ade_from_vel,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_fde_from_vel",
-            fde_from_vel,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_aiou_from_vel",
-            aiou_from_vel,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_fiou_from_vel",
-            fiou_from_vel,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_ade",
-            ade,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_fde",
-            fde,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_aiou",
-            aiou,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_fiou",
-            fiou,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
+        # Update metrics
+        metrics_monitor = getattr(self, f"{stage}_metrics")
+        metrics_monitor.update(
+            predicted_bbox=predicted_positions,
+            predicted_bbox_from_vel=velocities_to_positions,
+            ground_truth_bbox=output_bboxes,
         )
 
         return total_loss
 
-    def training_step(self, batch, batch_idx):
+    def on_train_epoch_end(self):
+        self._log_metrics("train")
+
+    def on_validation_epoch_end(self):
+        self._log_metrics("val")
+
+    def on_test_epoch_end(self):
+        self._log_metrics("test")
+
+    def _log_metrics(self, stage: str):
+        metrics_monitor = getattr(self, f"{stage}_metrics")
+        metrics = metrics_monitor.compute()
+        self.log_dict(
+            {f"{stage}_{k}": v for k, v in metrics.items()},
+            on_epoch=True,
+            prog_bar=True,
+        )
+        metrics_monitor.reset()
+
+    def training_step(self, batch, batch_idx: int) -> torch.Tensor:
         return self._shared_step(batch, batch_idx, "train")
 
-    def validation_step(self, batch, batch_idx):
+    def validation_step(self, batch, batch_idx: int) -> torch.Tensor:
         return self._shared_step(batch, batch_idx, "val")
 
-    def test_step(self, batch, batch_idx):
+    def test_step(self, batch, batch_idx: int) -> torch.Tensor:
         return self._shared_step(batch, batch_idx, "test")
 
     def configure_optimizers(self):

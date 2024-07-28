@@ -62,6 +62,11 @@ class LSTMLightningModelSum(L.LightningModule):
             dropout=dropout,
         )
 
+        # Initialize metrics monitoring
+        self.train_metrics = MetricsMonitoring(image_size)
+        self.val_metrics = MetricsMonitoring(image_size)
+        self.test_metrics = MetricsMonitoring(image_size)
+
     def forward(
         self,
         position_seq,
@@ -276,157 +281,62 @@ class LSTMLightningModelSum(L.LightningModule):
         )
 
         # Compute losses
-        x_loss = F.mse_loss(
-            predicted_positions[:, :, 0], output_positions[:, :, 0], reduction="mean"
+        velocity_loss = F.smooth_l1_loss(predicted_velocities, ground_truth_velocities)
+        pos_loss = F.smooth_l1_loss(predicted_positions, output_bboxes)
+        velocities_to_positions_loss = F.smooth_l1_loss(
+            velocities_to_positions, output_bboxes
         )
-        y_loss = F.mse_loss(
-            predicted_positions[:, :, 1], output_positions[:, :, 1], reduction="mean"
-        )
-        velx_loss = F.mse_loss(
-            predicted_positions[:, :, 2], output_positions[:, :, 2], reduction="mean"
-        )
-        vely_loss = F.mse_loss(
-            predicted_positions[:, :, 3], output_positions[:, :, 3], reduction="mean"
-        )
-        accx_loss = F.mse_loss(
-            predicted_positions[:, :, 4], output_positions[:, :, 4], reduction="mean"
-        )
-        accy_loss = F.mse_loss(
-            predicted_positions[:, :, 5], output_positions[:, :, 5], reduction="mean"
-        )
-        w_loss = F.mse_loss(
-            predicted_sizes[:, :, 0], output_sizes[:, :, 0], reduction="mean"
-        )
-        h_loss = F.mse_loss(
-            predicted_sizes[:, :, 1], output_sizes[:, :, 1], reduction="mean"
-        )
-        deltaw_loss = F.mse_loss(
-            predicted_sizes[:, :, 2], output_sizes[:, :, 2], reduction="mean"
-        )
-        deltah_loss = F.mse_loss(
-            predicted_sizes[:, :, 3], output_sizes[:, :, 3], reduction="mean"
+        total_loss = velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
+
+        # Log losses
+        self.log_dict(
+            {
+                f"{stage}_vel_loss": velocity_loss,
+                f"{stage}_pos_loss": pos_loss,
+                f"{stage}_vel_to_pos_loss": velocities_to_positions_loss,
+                f"{stage}_loss": total_loss,
+            },
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
         )
 
-        position_loss = x_loss + y_loss + velx_loss + vely_loss + accx_loss + accy_loss
-        size_loss = w_loss + h_loss + deltaw_loss + deltah_loss
-        total_loss = position_loss + size_loss
-
-        self.log(f"{stage}_loss", total_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_position_loss", position_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_size_loss", size_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_x_loss", x_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_y_loss", y_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_velx_loss", velx_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_vely_loss", vely_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_accx_loss", accx_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_accy_loss", accy_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_w_loss", w_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_h_loss", h_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_deltaw_loss", deltaw_loss, on_step=False, on_epoch=True)
-        self.log(f"{stage}_deltah_loss", deltah_loss, on_step=False, on_epoch=True)
-
-        # Compute metrics
-        ade = compute_ADE(
-            velocities_to_positions, output_bboxes, self.hparams.image_size
-        )
-        fde = compute_FDE(
-            velocities_to_positions, output_bboxes, self.hparams.image_size
-        )
-        ade_from_vel = compute_ADE(
-            velocities_to_positions, output_bboxes, self.hparams.image_size
-        )
-        fde_from_vel = compute_FDE(
-            velocities_to_positions, output_bboxes, self.hparams.image_size
-        )
-        aiou_from_vel = compute_AIOU(velocities_to_positions, output_bboxes)
-        fiou_from_vel = compute_FIOU(velocities_to_positions, output_bboxes)
-        aiou = compute_AIOU(predicted_bboxes, output_bboxes)
-        fiou = compute_FIOU(predicted_bboxes, output_bboxes)
-
-        # Log Best Value between fiou and fiou_from_vel
-        if fiou < fiou_from_vel:
-            self.log(
-                f"{stage}_best_fiou",
-                fiou,
-                on_step=False,
-                on_epoch=True,
-                prog_bar=False,
-            )
-        else:
-            self.log(
-                f"{stage}_best_fiou",
-                fiou_from_vel,
-                on_step=False,
-                on_epoch=True,
-                prog_bar=False,
-            )
-
-        self.log(
-            f"{stage}_ade_from_vel",
-            ade_from_vel,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_fde_from_vel",
-            fde_from_vel,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_aiou_from_vel",
-            aiou_from_vel,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_fiou_from_vel",
-            fiou_from_vel,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_ade",
-            ade,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_fde",
-            fde,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_aiou",
-            aiou,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
-        )
-        self.log(
-            f"{stage}_fiou",
-            fiou,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False,
+        # Update metrics
+        metrics_monitor = getattr(self, f"{stage}_metrics")
+        metrics_monitor.update(
+            predicted_bbox=predicted_positions,
+            predicted_bbox_from_vel=velocities_to_positions,
+            ground_truth_bbox=output_bboxes,
         )
 
         return total_loss
 
-    def training_step(self, batch, batch_idx):
+    def on_train_epoch_end(self):
+        self._log_metrics("train")
+
+    def on_validation_epoch_end(self):
+        self._log_metrics("val")
+
+    def on_test_epoch_end(self):
+        self._log_metrics("test")
+
+    def _log_metrics(self, stage: str):
+        metrics_monitor = getattr(self, f"{stage}_metrics")
+        metrics = metrics_monitor.compute()
+        self.log_dict(
+            {f"{stage}_{k}": v for k, v in metrics.items()},
+            on_epoch=True,
+            prog_bar=True,
+        )
+        metrics_monitor.reset()
+
+    def training_step(self, batch, batch_idx: int) -> torch.Tensor:
         return self._shared_step(batch, batch_idx, "train")
 
-    def validation_step(self, batch, batch_idx):
+    def validation_step(self, batch, batch_idx: int) -> torch.Tensor:
         return self._shared_step(batch, batch_idx, "val")
 
-    def test_step(self, batch, batch_idx):
+    def test_step(self, batch, batch_idx: int) -> torch.Tensor:
         return self._shared_step(batch, batch_idx, "test")
 
     def configure_optimizers(self):

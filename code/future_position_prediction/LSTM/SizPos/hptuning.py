@@ -84,7 +84,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="classic"),
@@ -99,7 +99,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="sum"),
@@ -114,7 +114,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="average"),
@@ -129,7 +129,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="concat"),
