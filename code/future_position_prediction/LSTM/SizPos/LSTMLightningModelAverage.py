@@ -24,7 +24,8 @@ class LSTMLightningModelAverage(L.LightningModule):
         input_frames: int = 10,
         output_frames: int = 10,
         batch_size: int = 32,
-        bbox_size: int = 4,
+        position_size: int = 6,  # [xcenter, ycenter, velxcenter, velycenter, accxcenter, accycenter]
+        size_size: int = 4,  # [w, h, deltaw, deltah]
         hidden_size: int = 256,
         hidden_depth: int = 3,
         dropout: float = 0.1,
@@ -271,8 +272,7 @@ class LSTMLightningModelAverage(L.LightningModule):
 
         # Convert predicted future velocities to future positions
         velocities_to_positions = convert_velocity_to_positions(
-            predicted_velocity=predicted_velocities,
-            past_positions=input_bboxes
+            predicted_velocity=predicted_velocities, past_positions=input_bboxes
         )
 
         # Compute losses
@@ -311,7 +311,7 @@ class LSTMLightningModelAverage(L.LightningModule):
         size_loss = w_loss + h_loss + deltaw_loss + deltah_loss
         total_loss = position_loss + size_loss
 
-        self.log(f"{stage}_total_loss", total_loss, on_step=False, on_epoch=True)
+        self.log(f"{stage}_loss", total_loss, on_step=False, on_epoch=True)
         self.log(f"{stage}_position_loss", position_loss, on_step=False, on_epoch=True)
         self.log(f"{stage}_size_loss", size_loss, on_step=False, on_epoch=True)
         self.log(f"{stage}_x_loss", x_loss, on_step=False, on_epoch=True)
@@ -332,43 +332,96 @@ class LSTMLightningModelAverage(L.LightningModule):
         fde = compute_FDE(
             velocities_to_positions, output_bboxes, self.hparams.image_size
         )
+        ade_from_vel = compute_ADE(
+            velocities_to_positions, output_bboxes, self.hparams.image_size
+        )
+        fde_from_vel = compute_FDE(
+            velocities_to_positions, output_bboxes, self.hparams.image_size
+        )
         aiou_from_vel = compute_AIOU(velocities_to_positions, output_bboxes)
         fiou_from_vel = compute_FIOU(velocities_to_positions, output_bboxes)
         aiou = compute_AIOU(predicted_bboxes, output_bboxes)
         fiou = compute_FIOU(predicted_bboxes, output_bboxes)
 
-        # Log metrics
-        self.log(f"{stage}_ADE", ade, on_step=False, on_epoch=True, prog_bar=False)
-        self.log(f"{stage}_FDE", fde, on_step=False, on_epoch=True, prog_bar=False)
-        self.log(f"{stage}_AIoU", aiou, on_step=False, on_epoch=True, prog_bar=False)
-        self.log(f"{stage}_FIoU", fiou, on_step=False, on_epoch=True, prog_bar=True)
+        # Log Best Value between fiou and fiou_from_vel
+        if fiou < fiou_from_vel:
+            self.log(
+                f"{stage}_best_fiou",
+                fiou,
+                on_step=False,
+                on_epoch=True,
+                prog_bar=False,
+            )
+        else:
+            self.log(
+                f"{stage}_best_fiou",
+                fiou_from_vel,
+                on_step=False,
+                on_epoch=True,
+                prog_bar=False,
+            )
+
         self.log(
-            f"{stage}_AIoU_from_vel",
+            f"{stage}_ade_from_vel",
+            ade_from_vel,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_fde_from_vel",
+            fde_from_vel,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_aiou_from_vel",
             aiou_from_vel,
             on_step=False,
             on_epoch=True,
             prog_bar=False,
         )
         self.log(
-            f"{stage}_FIoU_from_vel",
+            f"{stage}_fiou_from_vel",
             fiou_from_vel,
             on_step=False,
             on_epoch=True,
-            prog_bar=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_ade",
+            ade,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_fde",
+            fde,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_aiou",
+            aiou,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_fiou",
+            fiou,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
         )
 
-        return {
-            "total_loss": total_loss,
-            "position_loss": position_loss,
-            "size_loss": size_loss,
-            "ADE": ade,
-            "FDE": fde,
-            "AIoU": aiou,
-            "FIoU": fiou,
-        }
+        return total_loss
 
     def training_step(self, batch, batch_idx):
-        return self._shared_step(batch, batch_idx, "train")["total_loss"]
+        return self._shared_step(batch, batch_idx, "train")
 
     def validation_step(self, batch, batch_idx):
         return self._shared_step(batch, batch_idx, "val")
@@ -389,7 +442,7 @@ class LSTMLightningModelAverage(L.LightningModule):
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": "val_total_loss",
+                "monitor": "val_loss",
                 "interval": "epoch",
             },
         }

@@ -263,6 +263,35 @@ class LSTMLightningModelSum(L.LightningModule):
         )
         total_loss = velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
 
+        self.log(
+            f"{stage}_vel_loss",
+            velocity_loss,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_pos_loss",
+            pos_loss,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_vel_to_pos_loss",
+            velocities_to_positions_loss,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_loss",
+            total_loss,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+
         # Compute metrics
         ade_from_vel = compute_ADE(
             velocities_to_positions, output_bboxes, self.hparams.image_size
@@ -272,67 +301,90 @@ class LSTMLightningModelSum(L.LightningModule):
         )
         aiou_from_vel = compute_AIOU(velocities_to_positions, output_bboxes)
         fiou_from_vel = compute_FIOU(velocities_to_positions, output_bboxes)
-
         ade = compute_ADE(predicted_positions, output_bboxes, self.hparams.image_size)
         fde = compute_FDE(predicted_positions, output_bboxes, self.hparams.image_size)
         aiou = compute_AIOU(predicted_positions, output_bboxes)
         fiou = compute_FIOU(predicted_positions, output_bboxes)
 
-        # Log metrics
+        # Log Best Value between fiou and fiou_from_vel
+        if fiou < fiou_from_vel:
+            self.log(
+                f"{stage}_best_fiou",
+                fiou,
+                on_step=False,
+                on_epoch=True,
+                prog_bar=False,
+            )
+        else:
+            self.log(
+                f"{stage}_best_fiou",
+                fiou_from_vel,
+                on_step=False,
+                on_epoch=True,
+                prog_bar=False,
+            )
+
         self.log(
-            f"{stage}_loss", total_loss, on_step=False, on_epoch=True, prog_bar=False
-        )
-        self.log(f"{stage}_ADE", ade, on_step=False, on_epoch=True, prog_bar=False)
-        self.log(f"{stage}_FDE", fde, on_step=False, on_epoch=True, prog_bar=False)
-        self.log(
-            f"{stage}_AIoU",
-            aiou,
-            on_step=False,
-            on_epoch=True,
-            prog_bar=False if stage == "train" else True,
-        )
-        self.log(f"{stage}_FIoU", fiou, on_step=False, on_epoch=True, prog_bar=True)
-        self.log(
-            f"{stage}_ADE_from_vel",
+            f"{stage}_ade_from_vel",
             ade_from_vel,
             on_step=False,
             on_epoch=True,
             prog_bar=False,
         )
         self.log(
-            f"{stage}_FDE_from_vel",
+            f"{stage}_fde_from_vel",
             fde_from_vel,
             on_step=False,
             on_epoch=True,
             prog_bar=False,
         )
         self.log(
-            f"{stage}_AIoU_from_vel",
+            f"{stage}_aiou_from_vel",
             aiou_from_vel,
             on_step=False,
             on_epoch=True,
-            prog_bar=False if stage == "train" else True,
+            prog_bar=False,
         )
         self.log(
-            f"{stage}_FIoU_from_vel",
+            f"{stage}_fiou_from_vel",
             fiou_from_vel,
             on_step=False,
             on_epoch=True,
-            prog_bar=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_ade",
+            ade,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_fde",
+            fde,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_aiou",
+            aiou,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+        )
+        self.log(
+            f"{stage}_fiou",
+            fiou,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
         )
 
-        return {
-            "total_loss": total_loss,
-            "velocity_loss": velocity_loss,
-            "velocities_to_positions_loss": velocities_to_positions_loss,
-            "ADE": ade,
-            "FDE": fde,
-            "AIoU": aiou,
-            "FIoU": fiou,
-        }
+        return total_loss
 
     def training_step(self, batch, batch_idx):
-        return self._shared_step(batch, batch_idx, "train")["total_loss"]
+        return self._shared_step(batch, batch_idx, "train")
 
     def validation_step(self, batch, batch_idx):
         return self._shared_step(batch, batch_idx, "val")

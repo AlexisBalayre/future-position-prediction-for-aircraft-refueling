@@ -1,10 +1,12 @@
 import lightning as L
 from torch.utils.data import DataLoader
+from torch.utils.data.dataloader import default_collate
 
 from LSTMLightningDataset import LSTMLightningDataset
 
 
 class LSTMLightningDataModule(L.LightningDataModule):
+
     def __init__(
         self,
         train_dataset_path,
@@ -15,7 +17,6 @@ class LSTMLightningDataModule(L.LightningDataModule):
         images_folder,
         batch_size=16,
         num_workers=4,
-        pin_memory=True,
     ):
         super().__init__()
         self.train_dataset_path = train_dataset_path
@@ -26,7 +27,6 @@ class LSTMLightningDataModule(L.LightningDataModule):
         self.num_workers = num_workers
         self.input_frames = input_frames
         self.output_frames = output_frames
-        self.pin_memory = pin_memory
 
     def setup(self, stage, predict_dataset_path=None):
         if stage == "train" or stage is None:
@@ -68,7 +68,6 @@ class LSTMLightningDataModule(L.LightningDataModule):
             shuffle=True,
             num_workers=self.num_workers,
             persistent_workers=True,
-            pin_memory=self.pin_memory,
         )
 
     def val_dataloader(self):
@@ -78,7 +77,6 @@ class LSTMLightningDataModule(L.LightningDataModule):
             shuffle=False,
             num_workers=self.num_workers,
             persistent_workers=True,
-            pin_memory=self.pin_memory,
         )
 
     def test_dataloader(self):
@@ -88,7 +86,6 @@ class LSTMLightningDataModule(L.LightningDataModule):
             shuffle=False,
             num_workers=self.num_workers,
             persistent_workers=True,
-            pin_memory=self.pin_memory,
         )
 
     def predict_dataloader(self):
@@ -98,5 +95,4 @@ class LSTMLightningDataModule(L.LightningDataModule):
             shuffle=False,
             num_workers=self.num_workers,
             persistent_workers=True,
-            pin_memory=self.pin_memory,
         )

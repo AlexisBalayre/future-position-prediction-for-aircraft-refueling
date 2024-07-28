@@ -39,9 +39,15 @@ class TransformerLightningModel(L.LightningModule):
         self.encoder_input_layer = nn.Linear(
             in_features=bbox_dim, out_features=hidden_dim
         )
-        self.pos_encoder = PositionalEncoder(
+        self.pos_encoder_input = PositionalEncoder(
             dropout=dropout,
             max_seq_len=input_frames,
+            d_model=hidden_dim,
+            batch_first=True,
+        )
+        self.pos_encoder_output = PositionalEncoder(
+            dropout=dropout,
+            max_seq_len=output_frames,
             d_model=hidden_dim,
             batch_first=True,
         )
@@ -73,6 +79,9 @@ class TransformerLightningModel(L.LightningModule):
         self.linear_mapping = nn.Linear(in_features=hidden_dim, out_features=bbox_dim)
         self.Sigmoid = nn.Sigmoid()
 
+        # Layer Normalization for output
+        self.output_norm = nn.LayerNorm(bbox_dim)
+
     def forward(
         self,
         src: Tensor,
@@ -80,7 +89,7 @@ class TransformerLightningModel(L.LightningModule):
         src_mask: Tensor = None,
         tgt_mask: Tensor = None,
     ) -> Tensor:
-        return self._net(src, tgt, src_mask, tgt_mask)
+        return self._forward_inference(src)
 
     def _net(
         self,
@@ -90,69 +99,83 @@ class TransformerLightningModel(L.LightningModule):
         tgt_mask: Tensor = None,
     ) -> Tensor:
         src = self.encoder_input_layer(src)
-        src = self.pos_encoder(src)
-        src = self.transformer_encoder(src)
+        src = self.pos_encoder_input(src)
+        memory = self.transformer_encoder(src)
 
         decoder_output = self.decoder_input_layer(tgt)
-        decoder_output = self.pos_encoder(decoder_output)
         decoder_output = self.transformer_decoder(
-            tgt=decoder_output, memory=src, tgt_mask=tgt_mask, memory_mask=src_mask
+            tgt=decoder_output, memory=memory, tgt_mask=tgt_mask, memory_mask=src_mask
         )
-        decoder_output = self.Sigmoid(self.linear_mapping(decoder_output))
+        decoder_output = self.linear_mapping(decoder_output)
+        decoder_output = self.Sigmoid(decoder_output)
         return decoder_output
 
     def _forward_inference(self, src: Tensor) -> Tensor:
         device = src.device
+
+        # Encode the source sequence
         src_encoded = self.encoder_input_layer(src)
-        src_encoded = self.pos_encoder(src_encoded)
+        src_encoded = self.pos_encoder_input(src_encoded)
         memory = self.transformer_encoder(src_encoded)
+
+        # Initialize the target sequence with the last input frame
         tgt = src[:, -1:, :]
-        for _ in range(self.hparams.output_frames-1):
-            tgt_encoded = self.decoder_input_layer(tgt)
-            tgt_encoded = self.pos_encoder(tgt_encoded)
-            tgt_mask = generate_square_subsequent_mask(
-                dim1=tgt.size(1), dim2=tgt.size(1)
-            ).to(device)
-            memory_mask = generate_square_subsequent_mask(
-                dim1=tgt.size(1), dim2=src.size(1)
-            ).to(device)
+
+        # Generate output frames one by one
+        for _ in range(self.hparams.output_frames - 1):
+            dim_a = tgt.shape[1]
+            dim_b = src.shape[1]
+
+            # Generate masks
+            tgt_mask = generate_square_subsequent_mask(dim_a, dim_a).to(device)
+            src_mask = generate_square_subsequent_mask(dim_a, dim_b).to(device)
+
+            # Generate the next frame prediction
+            decoder_output = self.decoder_input_layer(tgt)
             decoder_output = self.transformer_decoder(
-                tgt=tgt_encoded,
+                tgt=decoder_output,
                 memory=memory,
                 tgt_mask=tgt_mask,
-                memory_mask=memory_mask,
+                memory_mask=src_mask,
             )
-            output = self.Sigmoid(self.linear_mapping(decoder_output[:, -1:, :]))
-            tgt = torch.cat([tgt, output], dim=1)
-        tgt_encoded = self.decoder_input_layer(tgt)
-        tgt_encoded = self.pos_encoder(tgt_encoded)
-        tgt_mask = generate_square_subsequent_mask(
-            dim1=tgt.size(1), dim2=tgt.size(1)
-        ).to(device)
-        memory_mask = generate_square_subsequent_mask(
-            dim1=tgt.size(1), dim2=src.size(1)
-        ).to(device)
+            decoder_output = self.linear_mapping(decoder_output)
+            decoder_output = self.Sigmoid(decoder_output)
+
+            # Concatenate the prediction to the target sequence
+            tgt = torch.cat([tgt, decoder_output[:, -1:, :]], dim=1)
+
+        dim_a = tgt.shape[1]
+        dim_b = src.shape[1]
+
+        tgt_mask = generate_square_subsequent_mask(dim_a, dim_a).to(device)
+        src_mask = generate_square_subsequent_mask(dim_a, dim_b).to(device)
+
+        # Generate the last frame prediction
+        decoder_output = self.decoder_input_layer(tgt)
         decoder_output = self.transformer_decoder(
-            tgt=tgt_encoded,
+            tgt=decoder_output,
             memory=memory,
             tgt_mask=tgt_mask,
-            memory_mask=memory_mask,
+            memory_mask=src_mask,
         )
-        output = self.Sigmoid(self.linear_mapping(decoder_output))
-        return output
+        decoder_output = self.linear_mapping(decoder_output)
+        decoder_output = self.Sigmoid(decoder_output)
+        return decoder_output
 
     def _shared_step(self, batch, batch_idx, stage):
         (
+            _,
             input_bboxes_position,
+            input_bboxes_vel,
             _,
             target_bboxes_position,
-            _,
+            target_bboxes_vel,
         ) = batch
 
         device = input_bboxes_position.device
 
         # Prepare the source and target sequences for bounding boxes and velocities
-        src_bboxes, trg_bboxes, _ = get_src_trg(
+        src_bboxes, trg_bboxes = get_src_trg(
             sequence=torch.cat(
                 (input_bboxes_position, target_bboxes_position), dim=1
             ).to(device),
@@ -164,15 +187,15 @@ class TransformerLightningModel(L.LightningModule):
         tgt = trg_bboxes.to(device)
 
         tgt_mask = generate_square_subsequent_mask(
-            dim1=tgt.shape[1], dim2=tgt.shape[1]
+            dim1=self.hparams.output_frames, dim2=self.hparams.output_frames
         ).to(device)
 
         src_mask = generate_square_subsequent_mask(
-            dim1=tgt.shape[1], dim2=src.shape[1]
+            dim1=self.hparams.output_frames, dim2=self.hparams.input_frames
         ).to(device)
 
         if stage == "train":
-            output = self(src, tgt, src_mask, tgt_mask)
+            output = self(src=src, tgt=tgt, src_mask=src_mask, tgt_mask=tgt_mask)
         else:
             output = self._forward_inference(src)
 
@@ -181,7 +204,11 @@ class TransformerLightningModel(L.LightningModule):
 
         # Log losses
         self.log(
-            f"{stage}_loss", prediction_loss, on_step=False, on_epoch=True, prog_bar=False
+            f"{stage}_loss",
+            prediction_loss,
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
         )
 
         # Compute metrics
@@ -218,7 +245,7 @@ class TransformerLightningModel(L.LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, mode="min", patience=10, factor=0.5
+            optimizer, mode="min", patience=15, factor=0.5
         )
         return {
             "optimizer": optimizer,

@@ -30,11 +30,6 @@ class LSTMLightningDataset(Dataset):
                 output_seq = frames[idx + input_frames : idx + total_frames]
                 self.samples.append((video_id, input_seq, output_seq))
 
-        self.original_height, self.original_width = 480, 640
-        self.target_height, self.target_width = self.target_size
-        self.width_ratio = self.target_width / self.original_width
-        self.height_ratio = self.target_height / self.original_height
-
     def __len__(self):
         return len(self.samples)
 

@@ -17,7 +17,7 @@ from LSTMEncoder import LSTMEncoder
 from LSTMDecoder import LSTMDecoder
 
 
-class LSTMLightningModelSum(L.LightningModule):
+class LSTMLightningModelClassic(L.LightningModule):
     def __init__(
         self,
         lr: float = 1e-4,
@@ -33,7 +33,7 @@ class LSTMLightningModelSum(L.LightningModule):
         scheduler_patience: int = 10,
         scheduler_factor: float = 0.9,
     ):
-        super(LSTMLightningModelSum, self).__init__()
+        super(LSTMLightningModelClassic, self).__init__()
         self.save_hyperparameters()
 
         # Define LSTM Encoders
@@ -72,20 +72,8 @@ class LSTMLightningModelSum(L.LightningModule):
         size_seq_target=None,
     ):
         # Encode the Position and Size
-        _, (encoder_hidden_states_position, encoder_cell_states_position) = (
-            self.position_encoder(position_seq)
-        )
-        _, (encoder_hidden_states_size, encoder_cell_states_size) = self.size_encoder(
-            size_seq
-        )
-
-        # Combine the outputs and states (Average)
-        hidden_states_size = hidden_states_pos = (
-            encoder_hidden_states_position + encoder_hidden_states_size
-        ) / 2
-        cell_states_size = cell_states_pos = (
-            encoder_cell_states_position + encoder_cell_states_size
-        ) / 2
+        _, (hidden_states_pos, cell_states_pos) = self.position_encoder(position_seq)
+        _, (hidden_states_size, cell_states_size) = self.size_encoder(size_seq)
 
         # decoder with teacher forcing
         decoder_input_position = position_seq[:, -1, :]

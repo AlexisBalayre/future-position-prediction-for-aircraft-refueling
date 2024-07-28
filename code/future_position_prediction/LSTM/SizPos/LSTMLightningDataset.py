@@ -12,13 +12,9 @@ class LSTMLightningDataset(Dataset):
         json_file,
         input_frames,
         output_frames,
-        images_folder,
-        target_size=(480, 640),
         stage="train",
         double_train=False,
     ):
-        self.target_size = target_size
-        self.images_folder = images_folder
         self.input_frames = input_frames
         self.output_frames = output_frames
         self.stage = stage
@@ -48,11 +44,6 @@ class LSTMLightningDataset(Dataset):
                     self.samples.append(
                         (video_id, reversed_input_seq, reversed_output_seq)
                     )
-
-        self.original_height, self.original_width = 480, 640
-        self.target_height, self.target_width = self.target_size
-        self.width_ratio = self.target_width / self.original_width
-        self.height_ratio = self.target_height / self.original_height
 
     def __len__(self):
         return len(self.samples)

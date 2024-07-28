@@ -17,15 +17,15 @@ if __name__ == "__main__":
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 32  # Number of samples per batch
-    input_frames = 15  # Number of input frames
-    output_frames = 15  # Number of output frames
-    hidden_dim = 512  # Size of the model's hidden layers
+    input_frames = 60  # Number of input frames
+    output_frames = 60  # Number of output frames
+    hidden_dim = 256  # Size of the model's hidden layers
     nhead = 8  # Number of attention heads
     num_encoder_layers = 2
     num_decoder_layers = 2
-    learning_rate = 1e-4  # Initial learning rate
-    max_epochs = 50  # Maximum number of training epochs4
-    dropout = 0.4  # Dropout rate
+    learning_rate = 1e-4   # Initial learning rate
+    max_epochs = 100  # Maximum number of training epochs4
+    dropout = 0.5  # Dropout rate
 
     # Fixed random seed for reproducibility of results
     L.seed_everything(123)
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     # Trainer initialization with configurations for training process
     trainer = L.Trainer(
         max_epochs=max_epochs,
-        accelerator="auto",
+        accelerator="cpu",
         devices="auto",
         logger=logger,
         callbacks=callbacks,

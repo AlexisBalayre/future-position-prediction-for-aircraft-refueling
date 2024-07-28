@@ -14,9 +14,10 @@ from utils import (
 
 from GRUNet.DecoderGRU import DecoderGRU
 from GRUNet.EncoderGRU import EncoderGRU
+from GRUNet.OpticalFlowEncoder import OpticalFlowEncoder
 
 
-class GRULightningModelClassic(L.LightningModule):
+class GRULightningModelSum(L.LightningModule):
     def __init__(
         self,
         lr: float = 1e-4,
@@ -32,7 +33,7 @@ class GRULightningModelClassic(L.LightningModule):
         scheduler_patience: int = 5,
         scheduler_factor: float = 0.5,
     ):
-        super(GRULightningModelClassic, self).__init__()
+        super(GRULightningModelSum, self).__init__()
         self.save_hyperparameters()
 
         self.bbox_encoder = EncoderGRU(
@@ -44,6 +45,17 @@ class GRULightningModelClassic(L.LightningModule):
         )
         self.vel_encoder = EncoderGRU(
             input_dim=bbox_dim,
+            hidden_dim=hidden_dim,
+            n_layers=encoder_layer_nb,
+            output_frames_nb=output_frames,
+            dropout=dropout,
+        )
+        self.flow_encoder = OpticalFlowEncoder(
+            input_channels=2,  # Assuming optical flow has 2 channels (dx, dy)
+            hidden_dim=hidden_dim,
+        )
+        self.flow_gru = EncoderGRU(
+            input_dim=hidden_dim,
             hidden_dim=hidden_dim,
             n_layers=encoder_layer_nb,
             output_frames_nb=output_frames,
@@ -69,6 +81,7 @@ class GRULightningModelClassic(L.LightningModule):
         self,
         bbox_seq,
         velocity_seq,
+        optical_flow_seq,
     ):
         batch_size = bbox_seq.size(0)
 
@@ -85,10 +98,31 @@ class GRULightningModelClassic(L.LightningModule):
             self.hparams.hidden_dim,
             device=velocity_seq.device,
         )
+        h_flow = torch.zeros(
+            self.flow_gru.n_layers,
+            batch_size,
+            self.hparams.hidden_dim,
+            device=optical_flow_seq.device,
+        )
 
-        # Encode the Position, Velocity, and Acceleration
-        _, h_pos = self.bbox_encoder(bbox_seq, h_pos)
-        _, h_vel = self.vel_encoder(velocity_seq, h_vel)
+        # Encode the Position and Velocity
+        _, encoder_hidden_states_bbox = self.bbox_encoder(bbox_seq, h_pos)
+        _, encoder_hidden_states_vel = self.vel_encoder(velocity_seq, h_vel)
+
+        # Encode the Optical Flow
+        flow_features = []
+        for t in range(optical_flow_seq.size(1)):  # Iterate over time steps
+            flow_t = optical_flow_seq[:, t, :, :, :]
+            flow_features.append(self.flow_encoder(flow_t))
+        flow_features = torch.stack(flow_features, dim=1)
+        _, encoder_hidden_states_flow = self.flow_gru(flow_features, h_flow)
+
+        # Combine the hidden states (sum)
+        h_pos = h_vel = (
+            encoder_hidden_states_bbox
+            + encoder_hidden_states_vel
+            + encoder_hidden_states_flow
+        )
 
         # decoder with teacher forcing
         decoder_input_pos = bbox_seq[:, -1, :]
@@ -115,31 +149,32 @@ class GRULightningModelClassic(L.LightningModule):
 
     def _shared_step(self, batch, batch_idx, stage):
         (
-            _,
-            input_bboxes,
-            input_velocities,
-            _,
-            output_bboxes,
-            output_velocities,
+            video_id,
+            input_bboxes_position,
+            input_bboxes_velocity,
+            input_optical_flow,
+            output_bboxes_position,
+            output_bboxes_velocity,
         ) = batch
 
-        # Predict future velocities
+        # Predict future positions and velocities
         predicted_positions, predicted_velocity = self(
-            input_bboxes,
-            input_velocities,
+            input_bboxes_position,
+            input_bboxes_velocity,
+            input_optical_flow,
         )
 
         # Convert predicted future velocities to future positions
         velocities_to_positions = convert_velocity_to_positions(
             predicted_velocity=predicted_velocity,
-            past_positions=input_bboxes,
+            past_positions=input_bboxes_position,
         )
 
         # Compute losses
-        velocity_loss = F.smooth_l1_loss(predicted_velocity, output_velocities)
-        pos_loss = F.smooth_l1_loss(predicted_positions, output_bboxes)
+        velocity_loss = F.smooth_l1_loss(predicted_velocity, output_bboxes_velocity)
+        pos_loss = F.smooth_l1_loss(predicted_positions, output_bboxes_position)
         velocities_to_positions_loss = F.smooth_l1_loss(
-            velocities_to_positions, output_bboxes
+            velocities_to_positions, output_bboxes_position
         )
         total_loss = velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
 
@@ -171,17 +206,21 @@ class GRULightningModelClassic(L.LightningModule):
 
         # Compute metrics
         ade_from_vel = compute_ADE(
-            velocities_to_positions, output_bboxes, self.hparams.image_size
+            velocities_to_positions, output_bboxes_position, self.hparams.image_size
         )
         fde_from_vel = compute_FDE(
-            velocities_to_positions, output_bboxes, self.hparams.image_size
+            velocities_to_positions, output_bboxes_position, self.hparams.image_size
         )
-        aiou_from_vel = compute_AIOU(velocities_to_positions, output_bboxes)
-        fiou_from_vel = compute_FIOU(velocities_to_positions, output_bboxes)
-        ade = compute_ADE(predicted_positions, output_bboxes, self.hparams.image_size)
-        fde = compute_FDE(predicted_positions, output_bboxes, self.hparams.image_size)
-        aiou = compute_AIOU(predicted_positions, output_bboxes)
-        fiou = compute_FIOU(predicted_positions, output_bboxes)
+        aiou_from_vel = compute_AIOU(velocities_to_positions, output_bboxes_position)
+        fiou_from_vel = compute_FIOU(velocities_to_positions, output_bboxes_position)
+        ade = compute_ADE(
+            predicted_positions, output_bboxes_position, self.hparams.image_size
+        )
+        fde = compute_FDE(
+            predicted_positions, output_bboxes_position, self.hparams.image_size
+        )
+        aiou = compute_AIOU(predicted_positions, output_bboxes_position)
+        fiou = compute_FIOU(predicted_positions, output_bboxes_position)
 
         # Log Best Value between fiou and fiou_from_vel
         if fiou < fiou_from_vel:
@@ -200,7 +239,7 @@ class GRULightningModelClassic(L.LightningModule):
                 on_epoch=True,
                 prog_bar=False,
             )
-        
+
         self.log(
             f"{stage}_ade_from_vel",
             ade_from_vel,

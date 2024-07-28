@@ -15,11 +15,13 @@ class LSTMLightningDataset(Dataset):
         images_folder,
         target_size=(480, 640),
         stage="train",
+        double_train=False,
     ):
         self.target_size = target_size
         self.images_folder = images_folder
         self.input_frames = input_frames
         self.output_frames = output_frames
+        self.stage = stage
 
         with open(json_file, "r") as f:
             self.data = json.load(f)
@@ -30,119 +32,105 @@ class LSTMLightningDataset(Dataset):
             frames = entry["frames"]
             total_frames = input_frames + output_frames
             for idx in range(0, len(frames) - total_frames + 1):
-                input_seq = frames[idx: idx + input_frames]
-                output_seq = frames[idx + input_frames: idx + total_frames]
+                input_seq = frames[idx : idx + input_frames]
+                output_seq = frames[idx + input_frames : idx + total_frames]
                 self.samples.append((video_id, input_seq, output_seq))
 
-        self.original_height, self.original_width = 480, 640
-        self.target_height, self.target_width = self.target_size
-        self.width_ratio = self.target_width / self.original_width
-        self.height_ratio = self.target_height / self.original_height
+                if stage == "train" and double_train:
+                    reversed_input_seq = output_seq[::-1]
+                    reversed_output_seq = input_seq[::-1]
+                    all_seq = np.concatenate(
+                        [reversed_input_seq, reversed_output_seq], axis=0
+                    )
+                    reversed_input_seq, reversed_output_seq = np.split(
+                        all_seq, [input_frames]
+                    )
+                    self.samples.append(
+                        (video_id, reversed_input_seq, reversed_output_seq)
+                    )
 
     def __len__(self):
         return len(self.samples)
+
+    def augment_bbox_sequence(self, bboxes):
+        augmented_bboxes = bboxes.astype(np.float64)
+        seq_length = len(augmented_bboxes)
+
+        # Simulate camera movement (panning)
+        pan_x = np.random.normal(0, 0.01, seq_length)
+        pan_y = np.random.normal(0, 0.01, seq_length)
+        pan_x = np.cumsum(pan_x) / 5
+        pan_y = np.cumsum(pan_y) / 5
+
+        # Simulate camera zoom
+        zoom_factor = np.random.uniform(0.98, 1.02, seq_length)
+        zoom_factor = np.cumprod(zoom_factor)
+
+        # Apply augmentations
+        augmented_bboxes[:, 0] += pan_x  # x center
+        augmented_bboxes[:, 1] += pan_y  # y center
+        augmented_bboxes[:, 2] *= zoom_factor  # width
+        augmented_bboxes[:, 3] *= zoom_factor  # height
+
+        # Add small noise
+        noise = np.random.normal(0, 0.002, augmented_bboxes.shape)
+        augmented_bboxes += noise
+
+        # Clip values to ensure they remain in [0, 1] range
+        return np.clip(augmented_bboxes, 0, 1)
 
     def __getitem__(self, idx):
         try:
             video_id, input_seq, output_seq = self.samples[idx]
 
-            input_bboxes_position, input_bboxes_velocity = zip(
-                *[
-                    self.load_and_transform_image_with_bbox(
-                        frame["image_name"],
-                        frame["bbox"],
-                        frame["class_id"],
-                        seq_idx=i,
-                        sample_idx=idx,
-                        is_input=True,
-                    )
-                    for i, frame in enumerate(input_seq)
-                ]
-            )
-            output_bboxes_position, output_bboxes_velocity = zip(
-                *[
-                    self.load_and_transform_image_with_bbox(
-                        frame["image_name"],
-                        frame["bbox"],
-                        frame["class_id"],
-                        seq_idx=i,
-                        sample_idx=idx,
-                        is_input=False,
-                    )
-                    for i, frame in enumerate(output_seq)
-                ]
+            input_bboxes = np.array(
+                [
+                    [float(0 if coord is None else coord) for coord in frame["bbox"]]
+                    for frame in input_seq
+                ],
+                dtype=np.float64,
             )
 
-            input_bboxes_position = torch.tensor(
-                input_bboxes_position, dtype=torch.float32
+            output_bboxes = np.array(
+                [
+                    [float(0 if coord is None else coord) for coord in frame["bbox"]]
+                    for frame in output_seq
+                ],
+                dtype=np.float64,
             )
-            input_bboxes_velocity = torch.tensor(
-                input_bboxes_velocity, dtype=torch.float32
+
+            if self.stage == "train":
+                all_bboxes = np.concatenate([input_bboxes, output_bboxes], axis=0)
+                if np.random.random() < 0.5:
+                    all_bboxes = self.augment_bbox_sequence(all_bboxes)
+                input_bboxes, output_bboxes = np.split(all_bboxes, [len(input_bboxes)])
+
+            # Calculate velocities and accelerations
+            input_velocities = np.diff(input_bboxes, axis=0, prepend=input_bboxes[:1])
+            input_accelerations = np.diff(
+                input_velocities, axis=0, prepend=input_velocities[:1]
             )
-            output_bboxes_position = torch.tensor(
-                output_bboxes_position, dtype=torch.float32
+            output_velocities = np.diff(
+                output_bboxes, axis=0, prepend=output_bboxes[:1]
             )
-            output_bboxes_velocity = torch.tensor(
-                output_bboxes_velocity, dtype=torch.float32
-            )
+
+            # Convert to torch tensors
+            input_bboxes = torch.tensor(input_bboxes, dtype=torch.float32)
+            input_velocities = torch.tensor(input_velocities, dtype=torch.float32)
+            input_accelerations = torch.tensor(input_accelerations, dtype=torch.float32)
+            output_bboxes = torch.tensor(output_bboxes, dtype=torch.float32)
+            output_velocities = torch.tensor(output_velocities, dtype=torch.float32)
 
             return (
-                input_bboxes_position,
-                input_bboxes_velocity,
-                output_bboxes_position,
-                output_bboxes_velocity,
+                video_id,
+                input_bboxes,
+                input_velocities,
+                input_accelerations,
+                output_bboxes,
+                output_velocities,
             )
 
         except Exception as e:
-            print(e)
-            print("Error in sample: ", idx)
-            print("Video ID: ", video_id)
+            print(f"Error in sample {idx}: {e}")
+            print(f"Video ID: {video_id}")
             return None
-
-    def load_and_transform_image_with_bbox(
-        self, image_name, bbox, class_id, seq_idx=0, sample_idx=0, is_input=True
-    ):
-        # If image processing is needed, uncomment and use these lines
-        # image_path = os.path.join(self.images_folder, image_name)
-        # image = Image.open(image_path).convert("RGB")
-        # image = np.array(image)
-
-        # Handle No Detection
-        if class_id is None or bbox == []:
-            class_id = 3
-            bbox = [0, 0, 0, 0]
-
-        # Ensure bbox coordinates are numeric and not None
-        bbox = [0 if coord is None else coord for coord in bbox]
-
-        # Resize bbox using precomputed ratios
-        x, y, w, h = bbox
-        x = x * self.width_ratio
-        y = y * self.height_ratio
-        w = w * self.width_ratio
-        h = h * self.height_ratio
-        bbox_position = [x, y, w, h]
-
-        # Calculate delta bbox
-        if seq_idx == 0 and is_input:
-            bbox_velocity = [0, 0, 0, 0]
-        else:
-            if is_input:
-                prev_bbox = self.samples[sample_idx][1][seq_idx - 1]["bbox"]
-            else:
-                prev_bbox = (
-                    self.samples[sample_idx][1][-1]["bbox"]
-                    if seq_idx == 0
-                    else self.samples[sample_idx][2][seq_idx - 1]["bbox"]
-                )
-
-            # Ensure prev_bbox coordinates are numeric and replace None or nan with 0
-            prev_bbox = [0 if coord is None or np.isnan(float(coord)) else coord for coord in prev_bbox]
-            prev_x, prev_y, prev_w, prev_h = prev_bbox
-            prev_x = prev_x * self.width_ratio
-            prev_y = prev_y * self.height_ratio
-            prev_w = prev_w * self.width_ratio
-            prev_h = prev_h * self.height_ratio
-            bbox_velocity = [x - prev_x, y - prev_y, w - prev_w, h - prev_h]
-
-        return bbox_position, bbox_velocity

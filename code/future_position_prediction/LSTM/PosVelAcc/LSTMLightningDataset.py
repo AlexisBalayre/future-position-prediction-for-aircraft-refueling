@@ -12,13 +12,9 @@ class LSTMLightningDataset(Dataset):
         json_file,
         input_frames,
         output_frames,
-        images_folder,
-        target_size=(480, 640),
         stage="train",
         double_train=False,
     ):
-        self.target_size = target_size
-        self.images_folder = images_folder
         self.input_frames = input_frames
         self.output_frames = output_frames
         self.stage = stage

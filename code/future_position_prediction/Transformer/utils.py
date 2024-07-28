@@ -6,18 +6,16 @@ from typing import Tuple
 def convert_velocity_to_positions(
     predicted_velocity: torch.Tensor,
     past_positions: torch.Tensor,
-    image_size: Tuple[int, int],
 ) -> torch.Tensor:
     """
-    Convert predicted normalized velocity to denormalized positions.
+    Convert predicted normalized velocity to normalized positions.
 
     Args:
         predicted_velocity (torch.Tensor): Predicted normalized velocity of shape (batch_size, seq_len, 4).
         past_positions (torch.Tensor): Past normalized positions of shape (batch_size, past_seq_len, 4).
-        image_size (Tuple[int, int]): Tuple of (width, height) representing the image dimensions.
 
     Returns:
-        torch.Tensor: Predicted denormalized positions of shape (batch_size, seq_len, 4).
+        torch.Tensor: Predicted normalized positions of shape (batch_size, seq_len, 4).
     """
     batch_size, seq_len, _ = predicted_velocity.shape
     predicted_positions = torch.zeros(
@@ -31,9 +29,7 @@ def convert_velocity_to_positions(
         next_position[:, :2] += predicted_velocity[
             :, i, :2
         ]  # Update center coordinates
-        next_position[:, 2:] *= torch.exp(
-            predicted_velocity[:, i, 2:]
-        )  # Update width and height
+        next_position[:, 2:] += predicted_velocity[:, i, 2:]  # Update width and height
 
         # Clamp the normalized positions to [0, 1]
         next_position = torch.clamp(next_position, 0, 1)
@@ -41,16 +37,7 @@ def convert_velocity_to_positions(
         predicted_positions[:, i, :] = next_position
         current = next_position.clone()
 
-    # Denormalize the predicted positions
-    denorm_factor = torch.tensor(
-        [image_size[0], image_size[1], image_size[0], image_size[1]],
-        device=predicted_positions.device,
-    )
-    denormalized_positions = predicted_positions * denorm_factor.unsqueeze(0).unsqueeze(
-        0
-    )
-
-    return denormalized_positions
+    return predicted_positions
 
 
 @torch.no_grad()
@@ -196,9 +183,9 @@ def compute_FIOU(
 
 def get_src_trg(
     sequence: torch.Tensor, enc_seq_len: int, target_seq_len: int
-) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+) -> Tuple[torch.Tensor, torch.Tensor]:
     """
-    Generate the src (encoder input), trg (decoder input) and trg_y (the target)
+    Generate the src (encoder input) and trg (decoder input)
     sequences from a sequence.
     Args:
         sequence: tensor, a 3D tensor of shape [batch_size, seq_len, feature_size] where
@@ -209,8 +196,6 @@ def get_src_trg(
     Return:
         src: tensor, 3D, used as input to the transformer encoder
         trg: tensor, 3D, used as input to the transformer decoder
-        trg_y: tensor, 3D, the target sequence against which the model output
-               is compared when computing loss.
     """
     assert (
         sequence.shape[1] == enc_seq_len + target_seq_len
@@ -220,21 +205,14 @@ def get_src_trg(
     src = sequence[:, :enc_seq_len, :]
 
     # Decoder input. It should contain the last value of src and all
-    # values of trg_y except the last (i.e. it must be shifted right by 1)
-    trg = sequence[:, enc_seq_len - 1 : -1, :]
+    # values of trg except the last one
+    trg = sequence[:, enc_seq_len - 1 : enc_seq_len + target_seq_len - 1, :]
 
     assert (
         trg.shape[1] == target_seq_len
     ), "Length of trg does not match target sequence length"
 
-    # The target sequence against which the model output will be compared to compute loss
-    trg_y = sequence[:, -target_seq_len:, :]
-
-    assert (
-        trg_y.shape[1] == target_seq_len
-    ), "Length of trg_y does not match target sequence length"
-
-    return src, trg, trg_y
+    return src, trg
 
 
 def generate_square_subsequent_mask(dim1: int, dim2: int) -> Tensor:

@@ -28,27 +28,18 @@ class LSTMLightningDataModule(L.LightningDataModule):
         self.input_frames = input_frames
         self.output_frames = output_frames
 
-    def custom_collate(batch):
-        max_length = max(len(item[0]) for item in batch)
-        for i, (data, target) in enumerate(batch):
-            pad_size = max_length - len(data)
-            batch[i] = (F.pad(data, (0, 0, 0, pad_size)), target)
-        return default_collate(batch)
-
     def setup(self, stage, predict_dataset_path=None):
         if stage == "train" or stage is None:
             self.train_dataset = LSTMLightningDataset(
                 self.train_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
-                images_folder=self.images_folder,
                 stage="train",
             )
             self.val_dataset = LSTMLightningDataset(
                 self.val_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
-                images_folder=self.images_folder,
                 stage="val",
             )
         if stage == "test" or stage is None:
@@ -56,7 +47,6 @@ class LSTMLightningDataModule(L.LightningDataModule):
                 self.test_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
-                images_folder=self.images_folder,
                 stage="test",
             )
         if stage == "predict" and predict_dataset_path is not None:
@@ -64,7 +54,6 @@ class LSTMLightningDataModule(L.LightningDataModule):
                 predict_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
-                images_folder=self.images_folder,
                 stage="predict",
             )
 
