@@ -25,9 +25,9 @@ if __name__ == "__main__":
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = [30]  # Number of input frames
-    output_frames = [60]  # Number of output frames
-    hidden_sizes = [60, 86, 128, 256]  # Size of the model's hidden layers
+    input_frames = [15]  # Number of input frames
+    output_frames = [30]  # Number of output frames
+    hidden_sizes = [80]  # Size of the model's hidden layers
     hidden_depths = [1]  # Number of hidden layers
     learning_rate = 1e-4  # Initial learning rate
     scheduler_patiences = [10]
@@ -259,5 +259,5 @@ if __name__ == "__main__":
 
                                 # Save the results to a CSV file
                                 results.to_csv(
-                                    "results_2.csv", index=False
+                                    "results_3.csv", index=False
                                 )

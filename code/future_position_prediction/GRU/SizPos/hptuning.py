@@ -33,6 +33,8 @@ if __name__ == "__main__":
     scheduler_factors = [0.5]
     max_epochs = 60  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
+    
+    torch.autograd.set_detect_anomaly(True)
 
     # Create a dataframe to store the results
     results = pd.DataFrame(

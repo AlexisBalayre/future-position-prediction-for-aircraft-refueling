@@ -27,13 +27,14 @@ if __name__ == "__main__":
     batch_size = 16  # Number of samples per batch
     input_frames = [30]  # Number of input frames
     output_frames = [60]  # Number of output frames
-    hidden_sizes = [64, 80, 128, 256]  # Size of the model's hidden layers
+    hidden_sizes = [60, 86, 128, 256]  # Size of the model's hidden layers
     hidden_depths = [1]  # Number of hidden layers
     learning_rate = 1e-4  # Initial learning rate
-    scheduler_patiences = [5]
-    scheduler_factors = [0.1]
+    scheduler_patiences = [10]
+    scheduler_factors = [0.5]
     max_epochs = 60  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
+    
     # Create a dataframe to store the results
     results = pd.DataFrame(
         columns=[

@@ -94,8 +94,8 @@ class GRULightningModelClassic(L.LightningModule):
         )
 
         # Encode the Position, Velocity, and Acceleration
-        encoder_out_pos, h_pos = self.position_encoder(position_seq, h_pos)
-        encoder_out_size, h_size = self.size_encoder(size_seq, h_size)
+        _, h_pos = self.position_encoder(position_seq, h_pos)
+        _, h_size = self.size_encoder(size_seq, h_size)
 
         # decoder with teacher forcing
         decoder_input_pos = position_seq[:, -1, :]
@@ -134,16 +134,18 @@ class GRULightningModelClassic(L.LightningModule):
 
         # Convert predictions to positions and velocities
         predicted_bboxes, predicted_velocities = convert_PosSize_to_PosVel(
-            predicted_positions, predicted_sizes
+            positions=predicted_positions, sizes=predicted_sizes
         )
 
         # Convert ground truth to positions and velocities
         ground_truth_bboxes, ground_truth_velocities = convert_PosSize_to_PosVel(
-            ground_truth_positions, ground_truth_sizes
+            positions=ground_truth_positions, sizes=ground_truth_sizes
         )
 
         # Convert inputs to positions and velocities
-        input_bboxes, _ = convert_PosSize_to_PosVel(input_positions, input_sizes)
+        input_bboxes, _ = convert_PosSize_to_PosVel(
+            positions=input_positions, sizes=input_sizes
+        )
 
         # Convert predicted future velocities to future positions
         velocities_to_positions = convert_velocity_to_positions(

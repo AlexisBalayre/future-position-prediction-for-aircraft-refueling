@@ -2,6 +2,38 @@ import torch
 from typing import Tuple
 
 
+def convert_PosSize_to_PosVel(
+    positions: torch.Tensor, sizes: torch.Tensor
+) -> Tuple[torch.Tensor, torch.Tensor]:
+    """
+    Convert positions and sizes to bounding boxes and velocities
+
+    Args:
+        positions (torch.Tensor): Positions of shape (batch_size, seq_len, 6).
+        sizes (torch.Tensor): Sizes of shape (batch_size, seq_len, 4).
+
+    Returns:
+        Tuple[torch.Tensor, torch.Tensor]: Bounding boxes and velocities of shape (batch_size, seq_len, 4).
+    """
+    # Convert positions and sizes to YOLO format (xcenter, ycenter, width, height)
+    bboxes = torch.zeros_like(positions[:, :, :4])  # (batch_size, seq_len, 4)
+    velocities = torch.zeros_like(positions[:, :, :4])  # (batch_size, seq_len, 4)
+
+    # Bounding boxes: xcenter, ycenter, width, height
+    bboxes[:, :, 0] = positions[:, :, 0]  # xcenter
+    bboxes[:, :, 1] = positions[:, :, 1]  # ycenter
+    bboxes[:, :, 2] = sizes[:, :, 0]  # width
+    bboxes[:, :, 3] = sizes[:, :, 1]  # height
+
+    # Velocities: velx, vely, deltaw, deltah
+    velocities[:, :, 0] = positions[:, :, 2]  # velx
+    velocities[:, :, 1] = positions[:, :, 3]  # vely
+    velocities[:, :, 2] = sizes[:, :, 2]  # deltaw
+    velocities[:, :, 3] = sizes[:, :, 3]  # deltah
+
+    return bboxes, velocities
+
+
 def convert_velocity_to_positions(
     predicted_velocity: torch.Tensor,
     past_positions: torch.Tensor,
@@ -130,6 +162,7 @@ def compute_IoU(
     Returns:
         torch.Tensor: IoU between predicted and ground truth boxes.
     """
+
     # Extract coordinates
     pred_x1 = predicted_boxes[:, 0] - predicted_boxes[:, 2] / 2
     pred_y1 = predicted_boxes[:, 1] - predicted_boxes[:, 3] / 2
@@ -213,36 +246,3 @@ def compute_FIOU(
         )
         fiou = torch.tensor(0.0, device=predicted_positions.device)
     return fiou
-
-
-@torch.no_grad()
-def convert_PosSize_to_PosVel(
-    positions: torch.Tensor, sizes: torch.Tensor
-) -> Tuple[torch.Tensor, torch.Tensor]:
-    """
-    Convert positions and sizes to bounding boxes and velocities
-
-    Args:
-        positions (torch.Tensor): Positions of shape (batch_size, seq_len, 6).
-        sizes (torch.Tensor): Sizes of shape (batch_size, seq_len, 4).
-
-    Returns:
-        Tuple[torch.Tensor, torch.Tensor]: Bounding boxes and velocities of shape (batch_size, seq_len, 4).
-    """
-    # Convert positions and sizes to YOLO format (xcenter, ycenter, width, height)
-    bboxes = torch.zeros_like(positions[:, :, :4])  # (batch_size, seq_len, 4)
-    velocities = torch.zeros_like(positions[:, :, :4])  # (batch_size, seq_len, 4)
-
-    # Bounding boxes: xcenter, ycenter, width, height
-    bboxes[:, :, 0] = positions[:, :, 0]  # xcenter
-    bboxes[:, :, 1] = positions[:, :, 1]  # ycenter
-    bboxes[:, :, 2] = sizes[:, :, 0]  # width
-    bboxes[:, :, 3] = sizes[:, :, 1]  # height
-
-    # Velocities: velx, vely, deltaw, deltah
-    velocities[:, :, 0] = positions[:, :, 2]  # velx
-    velocities[:, :, 1] = positions[:, :, 3]  # vely
-    velocities[:, :, 2] = sizes[:, :, 2]  # deltaw
-    velocities[:, :, 3] = sizes[:, :, 3]  # deltah
-
-    return bboxes, velocities
