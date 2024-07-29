@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.14)  25 JUL 2024 17:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.14)  29 JUL 2024 11:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -925,7 +925,7 @@ Chapter 2.
 <figures/test_2010.jpeg, id=340, 1027.84pt x 662.475pt>
 File: figures/test_2010.jpeg Graphic file (type jpg)
 <use figures/test_2010.jpeg>
-Package pdftex.def Info: figures/test_2010.jpeg  used on input line 339.
+Package pdftex.def Info: figures/test_2010.jpeg  used on input line 335.
 (pdftex.def)             Requested size: 271.7835pt x 175.17091pt.
 [4
 
@@ -933,118 +933,118 @@ Package pdftex.def Info: figures/test_2010.jpeg  used on input line 339.
 <figures/test_2017.jpg, id=352, 4119.39pt x 2746.26pt>
 File: figures/test_2017.jpg Graphic file (type jpg)
 <use figures/test_2017.jpg>
-Package pdftex.def Info: figures/test_2017.jpg  used on input line 361.
+Package pdftex.def Info: figures/test_2017.jpg  used on input line 357.
 (pdftex.def)             Requested size: 226.48395pt x 150.9819pt.
 <figures/test_2020_2.png, id=357, 1333.98375pt x 804.00375pt>
 File: figures/test_2020_2.png Graphic file (type png)
 <use figures/test_2020_2.png>
-Package pdftex.def Info: figures/test_2020_2.png  used on input line 383.
+Package pdftex.def Info: figures/test_2020_2.png  used on input line 379.
 (pdftex.def)             Requested size: 203.83423pt x 138.60492pt.
 <figures/test_2020_3.jpg, id=358, 903.375pt x 474.27188pt>
 File: figures/test_2020_3.jpg Graphic file (type jpg)
 <use figures/test_2020_3.jpg>
-Package pdftex.def Info: figures/test_2020_3.jpg  used on input line 388.
+Package pdftex.def Info: figures/test_2020_3.jpg  used on input line 384.
 (pdftex.def)             Requested size: 203.82954pt x 138.60637pt.
  [5 <./figures/test_2017.jpg> <./figures/test_2020_2.png> <./figures/test_2020_3.jpg>]
 <figures/x-47brefueling.jpg, id=371, 903.375pt x 474.27188pt>
 File: figures/x-47brefueling.jpg Graphic file (type jpg)
 <use figures/x-47brefueling.jpg>
-Package pdftex.def Info: figures/x-47brefueling.jpg  used on input line 420.
+Package pdftex.def Info: figures/x-47brefueling.jpg  used on input line 416.
 (pdftex.def)             Requested size: 226.48395pt x 118.90056pt.
 <figures/detection_system_AAREKF.png, id=372, 433.62pt x 332.24126pt>
 File: figures/detection_system_AAREKF.png Graphic file (type png)
 <use figures/detection_system_AAREKF.png>
-Package pdftex.def Info: figures/detection_system_AAREKF.png  used on input line 426.
+Package pdftex.def Info: figures/detection_system_AAREKF.png  used on input line 422.
 (pdftex.def)             Requested size: 271.7835pt x 208.25354pt.
  [6 <./figures/x-47brefueling.jpg> <./figures/detection_system_AAREKF.png>]
 <figures/AGRPoseKalman.png, id=384, 467.7475pt x 257.96375pt>
 File: figures/AGRPoseKalman.png Graphic file (type png)
 <use figures/AGRPoseKalman.png>
-Package pdftex.def Info: figures/AGRPoseKalman.png  used on input line 446.
+Package pdftex.def Info: figures/AGRPoseKalman.png  used on input line 442.
 (pdftex.def)             Requested size: 203.83417pt x 112.41406pt.
 <figures/AGRDatasetGrid.png, id=390, 778.91pt x 778.91pt>
 File: figures/AGRDatasetGrid.png Graphic file (type png)
 <use figures/AGRDatasetGrid.png>
-Package pdftex.def Info: figures/AGRDatasetGrid.png  used on input line 467.
+Package pdftex.def Info: figures/AGRDatasetGrid.png  used on input line 463.
 (pdftex.def)             Requested size: 181.18439pt x 181.1779pt.
  [7 <./figures/AGRPoseKalman.png> <./figures/AGRDatasetGrid.png (PNG copy)>]
 <figures/intro_object_detection.png, id=400, 642.4pt x 642.4pt>
 File: figures/intro_object_detection.png Graphic file (type png)
 <use figures/intro_object_detection.png>
-Package pdftex.def Info: figures/intro_object_detection.png  used on input line 485.
+Package pdftex.def Info: figures/intro_object_detection.png  used on input line 481.
 (pdftex.def)             Requested size: 135.89174pt x 135.8882pt.
 <figures/one-stage_two-stage_OD.png, id=426, 1127.21124pt x 543.02875pt>
 File: figures/one-stage_two-stage_OD.png Graphic file (type png)
 <use figures/one-stage_two-stage_OD.png>
-Package pdftex.def Info: figures/one-stage_two-stage_OD.png  used on input line 511.
+Package pdftex.def Info: figures/one-stage_two-stage_OD.png  used on input line 507.
 (pdftex.def)             Requested size: 362.37569pt x 174.56819pt.
  [8 <./figures/intro_object_detection.png> <./figures/one-stage_two-stage_OD.png>]
 <figures/iou.png, id=456, 1610.015pt x 545.03625pt>
 File: figures/iou.png Graphic file (type png)
 <use figures/iou.png>
-Package pdftex.def Info: figures/iou.png  used on input line 522.
+Package pdftex.def Info: figures/iou.png  used on input line 518.
 (pdftex.def)             Requested size: 362.37569pt x 122.66945pt.
  [9 <./figures/iou.png>] [10]
 <figures/lstm-rnn-gru.png, id=503, 615.29875pt x 247.92625pt>
 File: figures/lstm-rnn-gru.png Graphic file (type png)
 <use figures/lstm-rnn-gru.png>
-Package pdftex.def Info: figures/lstm-rnn-gru.png  used on input line 615.
+Package pdftex.def Info: figures/lstm-rnn-gru.png  used on input line 611.
 (pdftex.def)             Requested size: 271.7835pt x 109.51158pt.
  [11 <./figures/lstm-rnn-gru.png>]
 <figures/CubicLSTM.png, id=519, 890.32625pt x 391.4625pt>
 File: figures/CubicLSTM.png Graphic file (type png)
 <use figures/CubicLSTM.png>
-Package pdftex.def Info: figures/CubicLSTM.png  used on input line 669.
+Package pdftex.def Info: figures/CubicLSTM.png  used on input line 665.
 (pdftex.def)             Requested size: 452.9679pt x 199.16536pt.
  [12 <./figures/CubicLSTM.png>]
 <figures/Unsupervised-Video-Forecasting.png, id=528, 653.44125pt x 375.4025pt>
 File: figures/Unsupervised-Video-Forecasting.png Graphic file (type png)
 <use figures/Unsupervised-Video-Forecasting.png>
-Package pdftex.def Info: figures/Unsupervised-Video-Forecasting.png  used on input line 684.
+Package pdftex.def Info: figures/Unsupervised-Video-Forecasting.png  used on input line 680.
 (pdftex.def)             Requested size: 452.9679pt x 260.23091pt.
 <figures/FPNet-OF.png, id=532, 961.5925pt x 631.35875pt>
 File: figures/FPNet-OF.png Graphic file (type png)
 <use figures/FPNet-OF.png>
-Package pdftex.def Info: figures/FPNet-OF.png  used on input line 701.
+Package pdftex.def Info: figures/FPNet-OF.png  used on input line 697.
 (pdftex.def)             Requested size: 362.37569pt x 237.92462pt.
  [13 <./figures/Unsupervised-Video-Forecasting.png>]
 <figures/FusionGRU.png, id=541, 833.1125pt x 269.005pt>
 File: figures/FusionGRU.png Graphic file (type png)
 <use figures/FusionGRU.png>
-Package pdftex.def Info: figures/FusionGRU.png  used on input line 718.
+Package pdftex.def Info: figures/FusionGRU.png  used on input line 714.
 (pdftex.def)             Requested size: 452.9679pt x 146.26207pt.
  [14 <./figures/FPNet-OF.png> <./figures/FusionGRU.png>]
 <figures/dual-branch-architecture.png, id=551, 893.3375pt x 388.45125pt>
 File: figures/dual-branch-architecture.png Graphic file (type png)
 <use figures/dual-branch-architecture.png>
-Package pdftex.def Info: figures/dual-branch-architecture.png  used on input line 741.
+Package pdftex.def Info: figures/dual-branch-architecture.png  used on input line 737.
 (pdftex.def)             Requested size: 317.07614pt x 137.87448pt.
 <figures/dual-branch-inter-intra-frames.png, id=554, 436.63126pt x 366.36874pt>
 File: figures/dual-branch-inter-intra-frames.png Graphic file (type png)
 <use figures/dual-branch-inter-intra-frames.png>
-Package pdftex.def Info: figures/dual-branch-inter-intra-frames.png  used on input line 747.
+Package pdftex.def Info: figures/dual-branch-inter-intra-frames.png  used on input line 743.
 (pdftex.def)             Requested size: 226.48395pt x 190.03766pt.
  [15 <./figures/dual-branch-architecture.png> <./figures/dual-branch-inter-intra-frames.png>]
 <figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg, id=565, 853.1875pt x 971.63pt>
 File: figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg Graphic file (type jpg)
 <use figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg>
-Package pdftex.def Info: figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg  used on input line 768.
+Package pdftex.def Info: figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg  used on input line 764.
 (pdftex.def)             Requested size: 135.89174pt x 154.75233pt.
 <figures/robotpush.png, id=570, 1117.17375pt x 240.9pt>
 File: figures/robotpush.png Graphic file (type png)
 <use figures/robotpush.png>
-Package pdftex.def Info: figures/robotpush.png  used on input line 786.
+Package pdftex.def Info: figures/robotpush.png  used on input line 782.
 (pdftex.def)             Requested size: 226.48395pt x 48.83711pt.
 <figures/KTH-dataset.png, id=575, 853.1875pt x 460.72125pt>
 File: figures/KTH-dataset.png Graphic file (type png)
 <use figures/KTH-dataset.png>
-Package pdftex.def Info: figures/KTH-dataset.png  used on input line 802.
+Package pdftex.def Info: figures/KTH-dataset.png  used on input line 798.
 (pdftex.def)             Requested size: 226.48395pt x 122.30144pt.
  [16 <./figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg> <./figures/robotpush.png>]
 <figures/ucf-sport-dataset.png, id=586, 853.1875pt x 341.275pt>
 File: figures/ucf-sport-dataset.png Graphic file (type png)
 <use figures/ucf-sport-dataset.png>
-Package pdftex.def Info: figures/ucf-sport-dataset.png  used on input line 821.
+Package pdftex.def Info: figures/ucf-sport-dataset.png  used on input line 817.
 (pdftex.def)             Requested size: 271.7835pt x 108.71552pt.
  [17 <./figures/KTH-dataset.png> <./figures/ucf-sport-dataset.png>]
 Chapter 3.
@@ -1054,21 +1054,21 @@ Chapter 3.
 <figures/grid_closed_images.png, id=613, 1935.23pt x 1453.43pt>
 File: figures/grid_closed_images.png Graphic file (type png)
 <use figures/grid_closed_images.png>
-Package pdftex.def Info: figures/grid_closed_images.png  used on input line 982.
+Package pdftex.def Info: figures/grid_closed_images.png  used on input line 978.
 (pdftex.def)             Requested size: 226.48395pt x 170.07945pt.
  [21]
 <figures/grid_open_images.png, id=622, 1935.23pt x 1453.43pt>
 File: figures/grid_open_images.png Graphic file (type png)
 <use figures/grid_open_images.png>
-Package pdftex.def Info: figures/grid_open_images.png  used on input line 988.
+Package pdftex.def Info: figures/grid_open_images.png  used on input line 984.
 (pdftex.def)             Requested size: 226.48395pt x 170.07945pt.
 <figures/grid_semiopen_images.png, id=623, 1935.23pt x 1453.43pt>
 File: figures/grid_semiopen_images.png Graphic file (type png)
 <use figures/grid_semiopen_images.png>
-Package pdftex.def Info: figures/grid_semiopen_images.png  used on input line 994.
+Package pdftex.def Info: figures/grid_semiopen_images.png  used on input line 990.
 (pdftex.def)             Requested size: 226.48395pt x 170.07945pt.
  [22 <./figures/grid_closed_images.png (PNG copy)> <./figures/grid_open_images.png (PNG copy)> <./figures/grid_semiopen_images.png (PNG copy)>] [23] [24] [25]
-Overfull \hbox (232.42397pt too wide) detected at line 1233
+Overfull \hbox (232.42397pt too wide) detected at line 1229
 [][][][] \OT1/ztmcm/m/n/12 = [] [] [] []
  []
 
@@ -1079,12 +1079,12 @@ Chapter 4.
 ]
 Chapter 5.
 
-Overfull \hbox (0.1003pt too wide) in paragraph at lines 1328--1331
+Overfull \hbox (0.1003pt too wide) in paragraph at lines 1324--1327
 \OT1/ptm/m/n/12 yolov10s.pt, yolov10m.pt) on a dataset in-volv-ing the clas-si-fi-ca-tion of fuel port states (CLOSED,
  []
 
 
-Overfull \hbox (32.17229pt too wide) in paragraph at lines 1362--1368
+Overfull \hbox (32.17229pt too wide) in paragraph at lines 1358--1364
 []\OT1/ptm/m/n/12 Each model demon-strates strengths in dif-fer-ent as-pects of per-for-mance met-rics. The YOLOv10s.pt
  []
 
@@ -1172,7 +1172,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  90i,12n,117p,773b,1125s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on 425500_Thesis_Report.pdf (46 pages, 22468502 bytes).
+Output written on 425500_Thesis_Report.pdf (46 pages, 22468262 bytes).
 PDF statistics:
  860 PDF objects out of 1000 (max. 8388607)
  721 compressed objects within 8 object streams

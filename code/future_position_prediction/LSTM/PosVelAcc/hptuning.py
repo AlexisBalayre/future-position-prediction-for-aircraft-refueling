@@ -30,8 +30,8 @@ if __name__ == "__main__":
     hidden_sizes = [64, 80, 128, 256]  # Size of the model's hidden layers
     hidden_depths = [1]  # Number of hidden layers
     learning_rate = 1e-4  # Initial learning rate
-    scheduler_patiences = [5]
-    scheduler_factors = [0.1]
+    scheduler_patiences = [10]
+    scheduler_factors = [0.5]
     max_epochs = 60  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
                             # Trainer initialization with configurations for training process
                             trainer_classic_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
-                                accelerator="auto",  # Specifies the training will be on CPU
+                                accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
                                 deterministic=True,  # Ensures reproducibility of results
                                 precision=32,  # Use 32-bit floating point precision
@@ -92,7 +92,7 @@ if __name__ == "__main__":
                             )
                             trainer_sum_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
-                                accelerator="auto",  # Specifies the training will be on CPU
+                                accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
                                 deterministic=True,  # Ensures reproducibility of results
                                 precision=32,  # Use 32-bit floating point precision
@@ -107,7 +107,7 @@ if __name__ == "__main__":
                             )
                             trainer_average_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
-                                accelerator="auto",  # Specifies the training will be on CPU
+                                accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
                                 deterministic=True,  # Ensures reproducibility of results
                                 precision=32,  # Use 32-bit floating point precision
@@ -122,7 +122,7 @@ if __name__ == "__main__":
                             )
                             trainer_concat_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
-                                accelerator="auto",  # Specifies the training will be on CPU
+                                accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
                                 deterministic=True,  # Ensures reproducibility of results
                                 precision=32,  # Use 32-bit floating point precision

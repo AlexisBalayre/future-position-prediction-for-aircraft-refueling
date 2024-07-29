@@ -13,6 +13,7 @@ from utils import (
     convert_velocity_to_positions,
 )
 
+from MetricsMonitoring import MetricsMonitoring
 from LSTMEncoder import LSTMEncoder
 from LSTMDecoder import LSTMDecoder
 

@@ -13,6 +13,7 @@ from utils import (
     convert_velocity_to_positions,
 )
 
+from MetricsMonitoring import MetricsMonitoring
 from LSTMEncoder import LSTMEncoder
 from LSTMDecoder import LSTMDecoder
 
@@ -282,7 +283,7 @@ class LSTMLightningModelSum(L.LightningModule):
 
         # Compute losses
         velocity_loss = F.smooth_l1_loss(predicted_velocities, ground_truth_velocities)
-        pos_loss = F.smooth_l1_loss(predicted_positions, output_bboxes)
+        pos_loss = F.smooth_l1_loss(predicted_bboxes, output_bboxes)
         velocities_to_positions_loss = F.smooth_l1_loss(
             velocities_to_positions, output_bboxes
         )
@@ -304,7 +305,7 @@ class LSTMLightningModelSum(L.LightningModule):
         # Update metrics
         metrics_monitor = getattr(self, f"{stage}_metrics")
         metrics_monitor.update(
-            predicted_bbox=predicted_positions,
+            predicted_bbox=predicted_bboxes,
             predicted_bbox_from_vel=velocities_to_positions,
             ground_truth_bbox=output_bboxes,
         )

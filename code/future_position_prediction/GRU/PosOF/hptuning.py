@@ -30,8 +30,8 @@ if __name__ == "__main__":
     hidden_sizes = [86, 128, 256]  # Size of the model's hidden layers
     hidden_depths = [1]  # Number of hidden layers
     learning_rate = 1e-4  # Initial learning rate
-    scheduler_patiences = [5]
-    scheduler_factors = [0.1]
+    scheduler_patiences = [10]
+    scheduler_factors = [0.5]
     max_epochs = 60  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="classic"),
@@ -100,7 +100,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="sum"),
@@ -115,7 +115,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="average"),
@@ -130,7 +130,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_best_fiou",
+                                        monitor="val_Best_FIOU",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="concat"),
