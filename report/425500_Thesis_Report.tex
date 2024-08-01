@@ -823,51 +823,58 @@ without relying on additional information~\cite{
 \chapter{Methodology}\label{chap:methodology}
 \section{Dataset Configuration}
 \subsection{Provided Dataset Description}
-The `Indoor Hangar Fueling Port Detection and Tracking Dataset' (HARD) (HARD)
-is an integral part of Phase-1 of the ONEHeart project, funded by UKRI. The
-ONEHeart project aims to develop an automated aircraft refuelling system based
-on computer vision and robotics technology. This dataset can be utilised for
-various purposes, including but not limited to fueling port detection, fueling
-port tracking, camera pose estimation, and visual image processing. It is
-provided under the terms of the UKRI funding agreement. Unauthorised use,
+The `Indoor Hangar Fueling Port Detection and Tracking Dataset' (HARD) is an
+integral part of Phase-1 of the ONEHeart project, funded by UKRI. The ONEHeart
+project aims to develop an automated aircraft refuelling system based on
+computer vision and robotics technology. This dataset can be utilised for
+various purposes, including but not limited to refueling port detection,
+fueling port tracking, camera pose estimation, and visual image processing. It
+is provided under the terms of the UKRI funding agreement. Unauthorised use,
 distribution, or reproduction is prohibited.
 
 The HARD dataset consists of 21 video sequences captured in an indoor hangar at
 the Aerospace Integration Research Centre (AIRC). The videos were recorded
-using an Intel RealSense D435 sensor, which provides depth information in
-addition to RGB data. The target area for detection and tracking is near the
-fueling port of an Airbus A320 wing. The videos were recorded under different
-lighting conditions, including indoor artificial lighting and natural daylight,
-to simulate real-world scenarios.
+using an Intel® ${\text{RealSense}}^{\text{TM}}$ D435~\cite{IntelRealSense}
+(Shown in Figure~\ref{fig:intel-realsense-d435}), which provides depth
+information in addition to RGB data. The target area for detection and tracking
+is near the refueling port of an Airbus A320 wing. The videos were recorded
+under different lighting conditions, including indoor artificial lighting and
+natural daylight, to simulate real-world scenarios.
 
-There are three states of the fueling port in the dataset:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/depth-camera-d435_details.jpg}
+    \caption{Intel® ${\text{RealSense}}^{\text{TM}}$ D435 Depth Camera. Source: Intel}\label{fig:intel-realsense-d435}
+\end{figure}
+
+There are three states of the refueling port in the dataset:
 \begin{itemize}
-    \item \textbf{CLOSED}: The fueling port is closed.
-    \item \textbf{OPEN}: The fueling port is open.
-    \item \textbf{SEMI-OPEN}: The fueling port is partially open.
+    \item \textbf{CLOSED}: The refueling port is closed.
+    \item \textbf{OPEN}: The refueling port is open.
+    \item \textbf{SEMI-OPEN}: The refueling port is partially open.
 \end{itemize}
 
 \subsection{Data Annotation}
 The HARD dataset provided for this project was not fully annotated. Therefore,
 the first step in the data preparation process was to annotate the dataset.
 This annotation process was crucial to enable the training of machine learning
-models for accurate fueling port detection and tracking.
+models for accurate refueling port detection and tracking.
 
 The annotation process involved several steps:
 \begin{enumerate}
-    \item \textbf{Initial Manual Annotation}: Initially, 100 frames from each video sequence were manually annotated. This involved labeling the fueling port in each frame, which required identifying and marking the exact location of the fueling port using bounding boxes. This was done using the Label Studio tool, a powerful annotation platform that allows users to create and manage annotations in images and videos.
-    \item \textbf{Tool Used - Label Studio}: Label Studio was chosen for its flexibility and ease of use. It supports various annotation formats and integrates well with machine learning workflows. Users can draw bounding boxes around objects of interest, in this case, the fueling port, to create labeled datasets.
-    \item \textbf{Preliminary Dataset Creation}: The initial manual annotations created a preliminary dataset. This dataset was used to train a YOLOv10 (You Only Look Once, version 10) model for fueling port detection.
-    \item \textbf{Model Training}: The annotated dataset was used to train the YOLOv10 model. The model learned to detect the fueling port from the annotated images, improving its accuracy with each training iteration.
-    \item \textbf{Automated Annotation}: After training the YOLOv10 model, it was implemented as a backend service for Label Studio. This was deployed as a Docker container, allowing the model to be used for automated annotation of the remaining images in the dataset. The model predicted the location of the fueling port in new frames, and these predictions were used to annotate the rest of the dataset automatically.
-    \item \textbf{Review and Quality Control}: Each automatically generated annotation was reviewed manually to ensure accuracy. This review process involved verifying the location of the fueling port in each frame and making necessary corrections to the annotations. This thorough quality control ensured that the entire dataset was consistently and accurately labeled.
+    \item \textbf{Initial Manual Annotation}: Initially, 100 frames from each video sequence were manually annotated. This involved labeling the refueling port in each frame, which required identifying and marking the exact location of the refueling port using bounding boxes. This was done using the Label Studio tool, a powerful annotation platform that allows users to create and manage annotations in images and videos.
+    \item \textbf{Tool Used - Label Studio}: Label Studio was chosen for its flexibility and ease of use. It supports various annotation formats and integrates well with machine learning workflows. Users can draw bounding boxes around objects of interest, in this case, the refueling port, to create labeled datasets.
+    \item \textbf{Preliminary Dataset Creation}: The initial manual annotations created a preliminary dataset. This dataset was used to train a YOLOv10 (You Only Look Once, version 10) model for refueling port detection.
+    \item \textbf{Model Training}: The annotated dataset was used to train the YOLOv10 model. The model learned to detect the refueling port from the annotated images, improving its accuracy with each training iteration.
+    \item \textbf{Automated Annotation}: After training the YOLOv10 model, it was implemented as a backend service for Label Studio. This was deployed as a Docker container, allowing the model to be used for automated annotation of the remaining images in the dataset. The model predicted the location of the refueling port in new frames, and these predictions were used to annotate the rest of the dataset automatically.
+    \item \textbf{Review and Quality Control}: Each automatically generated annotation was reviewed manually to ensure accuracy. This review process involved verifying the location of the refueling port in each frame and making necessary corrections to the annotations. This thorough quality control ensured that the entire dataset was consistently and accurately labeled.
 \end{enumerate}
 
 This comprehensive annotation process ensured that the entire dataset was
 accurately labeled, providing a robust foundation for training machine learning
-models aimed at fueling port detection and tracking. The combination of manual
-and automated annotation techniques maximised efficiency while maintaining high
-annotation quality.
+models aimed at refueling port detection and tracking. The combination of
+manual and automated annotation techniques maximised efficiency while
+maintaining high annotation quality.
 
 \subsection{Summary of Available Videos}
 Each video was assigned to a specific dataset (train, val, and test), with an
@@ -959,7 +966,7 @@ sets for each state after balancing is as follows:
 \end{table}
 
 The primary reason for balancing the dataset is to ensure that the object
-detection model is equally trained on all states of the fueling port. An
+detection model is equally trained on all states of the refueling port. An
 imbalanced dataset could cause the model to perform well on the more common
 states (like CLOSED) while underperforming on the less common states (like OPEN
 and SEMI-OPEN). By balancing the dataset:
@@ -971,57 +978,315 @@ and SEMI-OPEN). By balancing the dataset:
 \end{itemize}
 
 \subsection{Example Images from the Dataset}
-The following figures show annotated examples of the fueling port in different
-states:
+The following figures show annotated examples of the refueling port in
+different states:
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/grid\_closed\_images.png}
-    \caption{Annotated images of the fueling port in the CLOSED state.}~\label{fig:grid-closed-images}
+    \includegraphics[width=0.45\textwidth]{figures/grid\_closed\_images.png}
+    \caption{Annotated images of the refueling port in the CLOSED state.}~\label{fig:grid-closed-images}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/grid\_open\_images.png}
-    \caption{Annotated images of the fueling port in the OPEN state.}~\label{fig:grid-open-images}
+    \includegraphics[width=0.45\textwidth]{figures/grid\_open\_images.png}
+    \caption{Annotated images of the refueling port in the OPEN state.}~\label{fig:grid-open-images}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/grid\_semiopen\_images.png}
-    \caption{Annotated images of the fueling port in the SEMI-OPEN state.}~\label{fig:grid-semi-open-images}
+    \includegraphics[width=0.45\textwidth]{figures/grid\_semiopen\_images.png}
+    \caption{Annotated images of the refueling port in the SEMI-OPEN state.}~\label{fig:grid-semi-open-images}
 \end{figure}
 
-\section{Framework Design}
+\subsection{Sequence Model Data Preparation}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-indoor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-indoor1}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-indoor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-indoor1}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-indoor1}
+\end{figure}
 
-\section{Model Design}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-indoor1-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-indoor1-savgol}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-indoor1-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-indoor1-savgol}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-indoor1-savgol}
+\end{figure}
 
-\subsection{LSTM-based Sequence Model}
-The framework for predicting future positions and velocities of objects in a
-video stream leverages an encoder-attention-decoder architecture. This design
-captures temporal dependencies and spatial relationships effectively. The
-overall architecture consists of four main components: two encoders, the
-attention mechanism, and two decoders. Each component is designed to handle
-specific aspects of the sequence modeling task, from encoding input sequences
-to generating context-aware predictions
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-outdoor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-outdoor1}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-outdoor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-outdoor1}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-outdoor1}
+\end{figure}
 
-\subsubsection{Input Representation}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-outdoor1-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-outdoor1-savgol}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-outdoor1-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-outdoor1-savgol}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-outdoor1-savgol}
+\end{figure}
 
-The model takes as input sequences of bounding boxes and their velocities
-extracted from video frames. Each bounding box is represented by its center
-coordinates $(x_{\text{center}}, y_{\text{center}})$, width $(w)$, and height
-$(h)$. Corresponding velocities are represented by changes in these values:
-$(\Delta x, \Delta y, \Delta w, \Delta h)$. 
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-video_lab_platform_6}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-video_lab_platform_6}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-video_lab_platform_6}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-video_lab_platform_6}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-video_lab_platform_6}
+\end{figure}
 
-Thus, each input vector $\mathbf{p}_t$ and $\mathbf{v}_t$ at time $t$ can be
-represented as:
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-video_lab_platform_6-savgol}
+\end{figure}
 
-\begin{equation}
-    \mathbf{p}_t = (x_{\text{center}, t}, y_{\text{center}}, w_t, h_t)
-\end{equation}
+\subsection{Framework Design Overview}
+The proposed framework (see figure~\ref{fig:framework-workflow}) aims to
+predict the future bounding boxes of the refueling port over the next \(m\)
+frames of a video stream, using the observed bounding boxes from the current
+and previous frames. The observed bounding box at time step \(t\) is
+represented as \(\mathbf{b}_t = [x_t, y_t, w_t, h_t]\), where \((x_t, y_t)\)
+denotes the coordinates of the bounding box center, and \(w_t\) and \(h_t\)
+represent the width and height of the bounding box, respectively. The objective
+is to predict a sequence of future bounding boxes \(\mathbf{S}_{t+1:t+m} =
+\{\mathbf{b}_{t+1}, \dots, \mathbf{b}_{t+m}\}\) on the following \(m\) frames,
+based on the past \(n\) observed bounding boxes \(\mathbf{S}_{t-1+n:t} =
+\{\mathbf{b}_{t-1+n}, \dots, \mathbf{b}_{t}\}\). 
 
-\begin{equation}
-    \mathbf{v}_t = (\Delta x_t, \Delta y_t, \Delta w_t, \Delta h_t)
-\end{equation}
+The frame process begins with the input video sequence, which is analysed frame
+by frame. An object detection model identifies and locates the bounding boxes
+of the supply port. These bounding boxes are then used in subsequent stages of
+data processing.
+
+Two key input vectors are extracted from the bounding box information: the
+\textit{spatial dynamics vector} and the \textit{dimensional attributes
+    vector}. The spatial dynamics vector includes information about the position,
+velocity, and acceleration of the bounding box center, represented as
+\(\mathbf{p}_t = [x_t, y_t, v_{x,t}, v_{y,t}, a_{x,t}, a_{y,t}]\). The
+dimensional attributes vector captures the size of the bounding box and the
+changes in its dimensions over time, expressed as \(\mathbf{d}_t = [w_t, h_t,
+\Delta w_t, \Delta h_t]\).
+
+These input vectors are fed into a sequence model, where they are processed
+through separate encoders to extract meaningful temporal features. The encoded
+features are then concatenated and passed to a decoder, which predicts the
+future bounding boxes for the refueling port across the next \(N\) frames. The
+resulting output, \(\mathbf{B}_{t} = \{\mathbf{b}_{t+1}, \dots,
+\mathbf{b}_{t+N}\}\), provides an estimate of the bounding box positions and
+sizes in the subsequent frames.
+
+This method effectively leverages both the spatial and dimensional information
+of the bounding boxes to generate accurate predictions of future positions and
+sizes, which are essential for tasks such as object tracking and navigation.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/FrameworkWorkflow.drawio.pdf}
+    \caption{Framework Workflow}\label{fig:framework-workflow}
+\end{figure}
+
+The proposed framework consists of two main components: an object detection
+model and a sequence model. The object detection model is responsible for
+detecting the refueling port in each frame of the video, while the sequence
+model predicts the future positions and sizes of the detected refueling port.
+The framework workflow is illustrated in Figure~\ref{fig:framework-workflow}. 
+
+\subsection{Object Detection Model}
+The object detection model provides a sequence of bounding boxes in each video
+frame, represented in the following format:
+\[
+    (x_{\text{center}}, y_{\text{center}}, w, h),
+\]
+where $(x_{\text{center}}, y_{\text{center}})$ denotes the coordinates of the
+bounding box center, and $(w, h)$ represent the width and height of the
+bounding box, respectively.
+
+\section{Sequence Model Design}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/GRUSizPos.drawio.pdf}
+    \caption{SizPos-GRU Model Architecture}\label{fig:sizpos-gru}
+\end{figure}
+
+This thesis introduces the SizPos-GRU model, a deep learning sequence model for
+predicting future positions and sizes of a unique object in a video stream. The
+model leverages an encoder-attention-decoder architecture to capture temporal
+dependencies and spatial relationships effectively. The framework consists of
+four main components: two encoders, an attention mechanism, and two decoders.
+Each component is designed to handle specific aspects of the sequence modeling
+task, from encoding input sequences to generating context-aware predictions.
+
+\subsection{Input Representation}
+The \textit{SizPos-GRU} model expects two types of input sequences to predict
+the future positions and sizes of an object. The first input captures the
+spatial dynamics of the object, including its position, velocity and
+acceleration. The second input focuses on the object's dimensional attributes,
+such as its width and height, and changes in these dimensions over time.
+
+\subsubsection{Spatial Dynamics Vector}
+The spatial dynamics vector at time $t$, denoted as $\mathbf{p}_t$, is obtained
+by computing the position, velocity, and acceleration of the bounding box
+center:
+\begin{align}
+    \mathbf{p}_t & = \left(x_t, y_t, v_{x,t}, v_{y,t}, a_{x,t}, a_{y,t}\right), \\
+    v_{x,t}      & = x_t - x_{t-1}, \quad v_{y,t} = y_t - y_{t-1},              \\
+    a_{x,t}      & = v_{x,t} - v_{x,t-1}, \quad a_{y,t} = v_{y,t} - v_{y,t-1}.
+\end{align}
+Here, $(x_t, y_t)$ represents the center coordinates at time $t$, $(v_{x,t}, v_{y,t})$ are the velocities, and $(a_{x,t}, a_{y,t})$ are the accelerations along the $x$ and $y$ axes.
+
+\subsubsection{Dimensional Attributes Vector}
+The dimensional attributes vector at time $t$, denoted as $\mathbf{d}_t$,
+captures the size of the bounding box and the changes in its dimensions:
+\begin{align}
+    \mathbf{d}_t & = \left(w_t, h_t, \Delta w_t, \Delta h_t\right),    \\
+    \Delta w_t   & = w_t - w_{t-1}, \quad \Delta h_t = h_t - h_{t-1}.
+\end{align}
+Here, $(w_t, h_t)$ represents the width and height at time $t$, and $(\Delta w_t, \Delta h_t)$ are the changes in these dimensions from the previous time step.
+
+\subsubsection{Input Sequences for Model}
+The sequences of these vectors over a time window $T$ are fed into the model
+as:
+\[
+    \mathbf{P} = \{\mathbf{p}_1, \mathbf{p}_2, \dots, \mathbf{p}_T\}, \quad \mathbf{D} = \{\mathbf{d}_1, \mathbf{d}_2, \dots, \mathbf{d}_T\},
+\]
+where $\mathbf{P}$ is the sequence of spatial dynamics vectors and $\mathbf{D}$
+is the sequence of dimensional attributes vectors. These sequences are then
+processed by the model's encoders to extract temporal features for predicting
+future bounding box positions and sizes.
 
 These sequences are fed into the encoders to extract meaningful temporal
 features.
@@ -1314,6 +1579,54 @@ involving camera movements and detection variations.
 \section{Experiment Environment}
 
 \section{Comparison Experiments}
+
+\section{Evaluation Metrics}
+
+To evaluate the performance of the proposed framework, four key metrics are
+used: Average Displacement Error (ADE), Final Displacement Error (FDE), Average
+Intersection over Union (AIOU), and Final Intersection over Union (FIOU). These
+metrics provide a comprehensive assessment of the accuracy and robustness of
+the predicted bounding boxes over time.
+
+\subsection*{Average Displacement Error (ADE)}
+The Average Displacement Error (ADE) measures the average Euclidean distance
+between the predicted bounding box centers and the ground truth bounding box
+centers over all predicted frames. It is defined as:
+\begin{equation}
+    \text{ADE} = \frac{1}{m} \sum_{t=1}^{m} \sqrt{(x_t^{\text{pred}} - x_t^{\text{gt}})^2 + (y_t^{\text{pred}} - y_t^{\text{gt}})^2},
+\end{equation}
+where \(m\) is the number of predicted frames, \((x_t^{\text{pred}}, y_t^{\text{pred}})\) represents the center of the predicted bounding box at the \(t\)-th frame, and \((x_t^{\text{gt}}, y_t^{\text{gt}})\) represents the center of the ground truth bounding box at the same frame.
+
+\subsection*{Final Displacement Error (FDE)}
+The Final Displacement Error (FDE) focuses on the accuracy of the predicted
+bounding box center in the final frame of the prediction horizon. It is defined
+as the Euclidean distance between the predicted and ground truth bounding box
+centers at the final frame \(m\):
+\begin{equation}
+    \text{FDE} = \sqrt{(x_T^{\text{pred}} - x_T^{\text{gt}})^2 + (y_T^{\text{pred}} - y_T^{\text{gt}})^2}.
+\end{equation}
+
+\subsection*{Average Intersection over Union (AIOU)}
+The Average Intersection over Union (AIOU) evaluates the overlap between the
+predicted bounding boxes and the ground truth bounding boxes, averaged over all
+predicted frames. It is computed as:
+\begin{equation}
+    \text{AIOU} = \frac{1}{m} \sum_{t=1}^{m} \frac{A(\mathbf{b}_t^{\text{pred}} \cap \mathbf{b}_t^{\text{gt}})}{A(\mathbf{b}_t^{\text{pred}} \cup \mathbf{b}_t^{\text{gt}})},
+\end{equation}
+where \(A(\mathbf{b}_t^{\text{pred}} \cap \mathbf{b}_t^{\text{gt}})\) denotes the area of the intersection between the predicted bounding box \(\mathbf{b}_t^{\text{pred}}\) and the ground truth bounding box \(\mathbf{b}_t^{\text{gt}}\) at the \(t\)-th frame, and \(A(\mathbf{b}_t^{\text{pred}} \cup \mathbf{b}_t^{\text{gt}})\) denotes the area of their union.
+
+\subsection*{Final Intersection over Union (FIOU)}
+The Final Intersection over Union (FIOU) assesses the overlap between the
+predicted bounding box and the ground truth bounding box at the final frame of
+the prediction horizon. It is defined as:
+\begin{equation}
+    \text{FIOU} = \frac{A(\mathbf{b}_T^{\text{pred}} \cap \mathbf{b}_T^{\text{gt}})}{A(\mathbf{b}_T^{\text{pred}} \cup \mathbf{b}_T^{\text{gt}})},
+\end{equation}
+where \(A(\mathbf{b}_T^{\text{pred}} \cap \mathbf{b}_T^{\text{gt}})\) and \(A(\mathbf{b}_T^{\text{pred}} \cup \mathbf{b}_T^{\text{gt}})\) denote the intersection and union areas at the final frame \(m\), respectively.
+
+These metrics provide a balanced evaluation of the prediction performance,
+capturing both the spatial accuracy and the temporal consistency of the
+predicted bounding boxes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULTS & DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%

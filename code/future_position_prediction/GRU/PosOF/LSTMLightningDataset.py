@@ -3,7 +3,6 @@ import os
 import numpy as np
 import torch
 from torch.utils.data import Dataset
-import cv2
 
 
 class LSTMLightningDataset(Dataset):
@@ -20,15 +19,19 @@ class LSTMLightningDataset(Dataset):
         with open(json_file, "r") as f:
             self.data = json.load(f)
 
-        self.samples = []
+        self.samples = self.preprocess_samples()
+
+    def preprocess_samples(self):
+        samples = []
         for entry in self.data:
             video_id = entry["video_id"]
             frames = entry["frames"]
-            total_frames = input_frames + output_frames
+            total_frames = self.input_frames + self.output_frames
             for idx in range(len(frames) - total_frames + 1):
-                input_seq = frames[idx : idx + input_frames]
-                output_seq = frames[idx + input_frames : idx + total_frames]
-                self.samples.append((video_id, input_seq, output_seq))
+                input_seq = frames[idx : idx + self.input_frames]
+                output_seq = frames[idx + self.input_frames : idx + total_frames]
+                samples.append((video_id, input_seq, output_seq))
+        return samples
 
     def __len__(self):
         return len(self.samples)
@@ -37,123 +40,100 @@ class LSTMLightningDataset(Dataset):
         video_id, input_seq, output_seq = self.samples[idx]
 
         try:
-            input_bboxes_position, input_bboxes_velocity, input_optical_flow = zip(
-                *[
-                    self.load_and_transform_image_with_bbox(
-                        frame["image_name"],
-                        frame.get("bbox_position", [0, 0, 0, 0]),
-                        frame.get("bbox_velocity", [0, 0, 0, 0]),
-                        frame.get("optical_flow_file"),
-                        seq_idx=i,
-                        sample_idx=idx,
-                        is_input=True,
-                    )
-                    for i, frame in enumerate(input_seq)
-                ]
-            )
-            output_bboxes_position, output_bboxes_velocity, _ = zip(
-                *[
-                    self.load_and_transform_image_with_bbox(
-                        frame["image_name"],
-                        frame.get("bbox_position", [0, 0, 0, 0]),
-                        frame.get("bbox_velocity", [0, 0, 0, 0]),
-                        frame.get("optical_flow_file"),
-                        seq_idx=i,
-                        sample_idx=idx,
-                        is_input=False,
-                    )
-                    for i, frame in enumerate(output_seq)
-                ]
-            )
+            input_data = self.process_sequence(input_seq, is_input=True)
+            output_data = self.process_sequence(output_seq, is_input=False)
 
-            input_bboxes_position = torch.tensor(
-                input_bboxes_position, dtype=torch.float32
-            )
-            input_bboxes_velocity = torch.tensor(
-                input_bboxes_velocity, dtype=torch.float32
-            )
-
-            input_optical_flow = np.array(input_optical_flow)
-            input_optical_flow = torch.tensor(input_optical_flow, dtype=torch.float32)
-
-            output_bboxes_position = torch.tensor(
-                output_bboxes_position, dtype=torch.float32
-            )
-            output_bboxes_velocity = torch.tensor(
-                output_bboxes_velocity, dtype=torch.float32
-            )
-
-            return (
-                video_id,
-                input_bboxes_position,
-                input_bboxes_velocity,
-                input_optical_flow,
-                output_bboxes_position,
-                output_bboxes_velocity,
-            )
+            return (video_id, *input_data, *output_data)
 
         except Exception as e:
             print(f"Error in sample: {idx}")
             print(f"Video ID: {video_id}")
             print(e)
-            # Create a dummy fallback tensor to avoid returning None
-            dummy_tensor = torch.zeros((self.input_frames, 4), dtype=torch.float32)
-            dummy_optical_flow = torch.zeros(
-                (self.input_frames, *self.target_size, 2), dtype=torch.float32
+            return self.get_dummy_data()
+
+    def process_sequence(self, sequence, is_input):
+        bboxes_position = []
+        bboxes_size = []
+        optical_flows = []
+
+        for frame in sequence:
+            bbox_position, bbox_size, optical_flow = (
+                self.load_and_transform_image_with_bbox(
+                    frame["image_name"],
+                    frame.get("bbox_position", [0, 0, 0, 0, 0, 0]),
+                    frame.get("bbox_size", [0, 0, 0, 0]),
+                    frame.get("optical_flow_file"),
+                    is_input=is_input,
+                )
             )
-            return (
-                video_id,
-                dummy_tensor,
-                dummy_tensor,
-                dummy_optical_flow,
-                dummy_tensor,
-                dummy_tensor,
-            )
+            bboxes_position.append(bbox_position)
+            bboxes_size.append(bbox_size)
+            if is_input:
+                optical_flows.append(optical_flow)
+
+        bboxes_position = torch.tensor(bboxes_position, dtype=torch.float32)
+        bboxes_size = torch.tensor(bboxes_size, dtype=torch.float32)
+
+        if is_input:
+            optical_flows = torch.tensor(np.array(optical_flows), dtype=torch.float32)
+            return bboxes_position, bboxes_size, optical_flows
+        else:
+            return bboxes_position, bboxes_size
 
     def load_and_transform_image_with_bbox(
-        self,
-        image_name,
-        bbox_position,
-        bbox_velocity,
-        optical_flow_file,
-        seq_idx=0,
-        sample_idx=0,
-        is_input=True,
+        self, image_name, bbox_position, bbox_size, optical_flow_file, is_input=True
     ):
         try:
-            if optical_flow_file:
+            if is_input and optical_flow_file:
                 optical_flow_path = os.path.join(
                     self.data_folder, self.split, "optical_flows", optical_flow_file
                 )
-                optical_flow = np.load(optical_flow_path)
+                if os.path.exists(optical_flow_path):
+                    optical_flow = np.load(optical_flow_path)
+                else:
+                    optical_flow = np.zeros((*self.target_size, 2), dtype=np.float32)
             else:
-                optical_flow = np.zeros(
-                    (self.target_size[0], self.target_size[1], 2), dtype=np.float32
-                )
+                optical_flow = np.zeros((*self.target_size, 2), dtype=np.float32)
 
-            # Validate bbox_position and bbox_velocity
-            if (
-                not bbox_position
-                or not isinstance(bbox_position, (list, tuple))
-                or len(bbox_position) != 4
-            ):
-                bbox_position = [0, 0, 0, 0]
-            if (
-                not bbox_velocity
-                or not isinstance(bbox_velocity, (list, tuple))
-                or len(bbox_velocity) != 4
-            ):
-                bbox_velocity = [0, 0, 0, 0]
+            bbox_position = (
+                bbox_position
+                if isinstance(bbox_position, (list, tuple)) and len(bbox_position) == 6
+                else [0, 0, 0, 0, 0, 0]
+            )
+            bbox_size = (
+                bbox_size
+                if isinstance(bbox_size, (list, tuple)) and len(bbox_size) == 4
+                else [0, 0, 0, 0]
+            )
 
-            return bbox_position, bbox_velocity, optical_flow
+            return bbox_position, bbox_size, optical_flow
 
         except Exception as e:
             print(f"Error loading and transforming image: {image_name}")
             print(e)
             return (
+                [0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                np.zeros(
-                    (self.target_size[1], self.target_size[0], 2), dtype=np.float32
-                ),
+                np.zeros((*self.target_size, 2), dtype=np.float32),
             )
+
+    def get_dummy_data(self):
+        dummy_bbox_position = torch.zeros((self.input_frames, 6), dtype=torch.float32)
+        dummy_bbox_size = torch.zeros((self.input_frames, 4), dtype=torch.float32)
+        dummy_optical_flow = torch.zeros(
+            (self.input_frames, *self.target_size, 2), dtype=torch.float32
+        )
+        dummy_output_bbox_position = torch.zeros(
+            (self.output_frames, 6), dtype=torch.float32
+        )
+        dummy_output_bbox_size = torch.zeros(
+            (self.output_frames, 4), dtype=torch.float32
+        )
+        return (
+            "dummy_video_id",
+            dummy_bbox_position,
+            dummy_bbox_size,
+            dummy_optical_flow,
+            dummy_output_bbox_position,
+            dummy_output_bbox_size,
+        )

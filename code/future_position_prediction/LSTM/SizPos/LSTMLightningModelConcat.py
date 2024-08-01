@@ -298,14 +298,15 @@ class LSTMLightningModelConcat(L.LightningModule):
         velocities_to_positions_loss = F.smooth_l1_loss(
             velocities_to_positions, output_bboxes
         )
-        total_loss = velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
+        sizes_loss = F.smooth_l1_loss(predicted_sizes, output_sizes)
+        positions_loss = F.smooth_l1_loss(predicted_positions, output_positions)
+        total_loss = sizes_loss + positions_loss + velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
 
         # Log losses
         self.log_dict(
             {
-                f"{stage}_vel_loss": velocity_loss,
-                f"{stage}_pos_loss": pos_loss,
-                f"{stage}_vel_to_pos_loss": velocities_to_positions_loss,
+                f"{stage}_sizes_loss": sizes_loss,
+                f"{stage}_positions_loss": positions_loss,
                 f"{stage}_loss": total_loss,
             },
             on_step=False,

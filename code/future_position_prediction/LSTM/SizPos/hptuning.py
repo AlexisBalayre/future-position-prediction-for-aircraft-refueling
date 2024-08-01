@@ -25,13 +25,13 @@ if __name__ == "__main__":
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = [30]  # Number of input frames
-    output_frames = [60]  # Number of output frames
-    hidden_sizes = [60, 86, 128, 256]  # Size of the model's hidden layers
-    hidden_depths = [1]  # Number of hidden layers
+    input_frames = [15]  # Number of input frames
+    output_frames = [30]  # Number of output frames
+    hidden_sizes = [128, 256]  # Size of the model's hidden layers
+    hidden_depths = [1, 2, 3, 4]  # Number of hidden layers
     learning_rate = 1e-4  # Initial learning rate
-    scheduler_patiences = [10]
-    scheduler_factors = [0.5]
+    scheduler_patiences = [5]
+    scheduler_factors = [0.1]
     max_epochs = 60  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
     
@@ -77,7 +77,7 @@ if __name__ == "__main__":
                             # Trainer initialization with configurations for training process
                             trainer_classic_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
-                                accelerator="auto",  # Specifies the training will be on CPU
+                                accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
                                 deterministic=True,  # Ensures reproducibility of results
                                 precision=32,  # Use 32-bit floating point precision
@@ -90,9 +90,9 @@ if __name__ == "__main__":
                                 ],
                                 logger=CSVLogger("logs", name="classic"),
                             )
-                            trainer_sum_model = L.Trainer(
+                            """ trainer_sum_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
-                                accelerator="auto",  # Specifies the training will be on CPU
+                                accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
                                 deterministic=True,  # Ensures reproducibility of results
                                 precision=32,  # Use 32-bit floating point precision
@@ -107,7 +107,7 @@ if __name__ == "__main__":
                             )
                             trainer_average_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
-                                accelerator="auto",  # Specifies the training will be on CPU
+                                accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
                                 deterministic=True,  # Ensures reproducibility of results
                                 precision=32,  # Use 32-bit floating point precision
@@ -119,10 +119,10 @@ if __name__ == "__main__":
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="average"),
-                            )
+                            ) """
                             trainer_concat_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
-                                accelerator="auto",  # Specifies the training will be on CPU
+                                accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
                                 deterministic=True,  # Ensures reproducibility of results
                                 precision=32,  # Use 32-bit floating point precision
@@ -149,7 +149,7 @@ if __name__ == "__main__":
                                 scheduler_patience=scheduler_patience,
                             )
 
-                            # Model (Hidden State Sum)
+                            """ # Model (Hidden State Sum)
                             model_sum = LSTMLightningModelSum(
                                 lr=learning_rate,
                                 input_frames=in_frames,
@@ -173,7 +173,7 @@ if __name__ == "__main__":
                                 dropout=dropout,
                                 scheduler_factor=scheduler_factor,
                                 scheduler_patience=scheduler_patience,
-                            )
+                            ) """
 
                             # Model (Hidden State Concatenation)
                             model_concat = LSTMLightningModelConcat(
@@ -192,10 +192,10 @@ if __name__ == "__main__":
                             trainer_classic_model.fit(
                                 model_classic, datamodule=data_module
                             )
-                            trainer_sum_model.fit(model_sum, datamodule=data_module)
+                            """ trainer_sum_model.fit(model_sum, datamodule=data_module)
                             trainer_average_model.fit(
                                 model_average, datamodule=data_module
-                            )
+                            ) """
                             trainer_concat_model.fit(
                                 model_concat, datamodule=data_module
                             )
@@ -203,24 +203,25 @@ if __name__ == "__main__":
                             # Setup data module for testing
                             data_module.setup("test")
 
-                            for i in range(4):
+                            for i in range(2):
                                 # Select the model to evaluate
                                 if i == 0:
                                     model = model_classic
                                     model_name = "classic"
                                     trainer = trainer_classic_model
                                 elif i == 1:
+                                    model = model_concat
+                                    model_name = "concat"
+                                    trainer = trainer_concat_model
+                                """ elif i == 1:
                                     model = model_sum
                                     model_name = "sum"
                                     trainer = trainer_sum_model
                                 elif i == 2:
                                     model = model_average
                                     model_name = "average"
-                                    trainer = trainer_average_model
-                                elif i == 3:
-                                    model = model_concat
-                                    model_name = "concat"
-                                    trainer = trainer_concat_model
+                                    trainer = trainer_average_model """
+                                
 
                                 # Compute the metrics over the test dataset
                                 test_metrics = trainer.test(
@@ -254,5 +255,5 @@ if __name__ == "__main__":
 
                                 # Save the results to a CSV file
                                 results.to_csv(
-                                    "results.csv", index=False
+                                    "results_4.csv", index=False
                                 )

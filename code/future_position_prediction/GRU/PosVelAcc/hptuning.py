@@ -90,7 +90,7 @@ if __name__ == "__main__":
                                 ],
                                 logger=CSVLogger("logs", name="classic"),
                             )
-                            trainer_sum_model = L.Trainer(
+                            """ trainer_sum_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
@@ -119,7 +119,7 @@ if __name__ == "__main__":
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="average"),
-                            )
+                            ) """
                             trainer_concat_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
@@ -151,7 +151,7 @@ if __name__ == "__main__":
                                 scheduler_patience=scheduler_patience,
                             )
 
-                            # Model (Hidden State Sum)
+                            """ # Model (Hidden State Sum)
                             model_sum = GRULightningModelSum(
                                 lr=learning_rate,
                                 input_frames=in_frames,
@@ -177,7 +177,7 @@ if __name__ == "__main__":
                                 dropout=dropout,
                                 scheduler_factor=scheduler_factor,
                                 scheduler_patience=scheduler_patience,
-                            )
+                            ) """
 
                             # Model (Hidden State Concatenation)
                             model_concat = GRULightningModelConcat(
@@ -197,10 +197,10 @@ if __name__ == "__main__":
                             trainer_classic_model.fit(
                                 model_classic, datamodule=data_module
                             )
-                            trainer_sum_model.fit(model_sum, datamodule=data_module)
+                            """ trainer_sum_model.fit(model_sum, datamodule=data_module)
                             trainer_average_model.fit(
                                 model_average, datamodule=data_module
-                            )
+                            ) """
                             trainer_concat_model.fit(
                                 model_concat, datamodule=data_module
                             )
@@ -208,9 +208,17 @@ if __name__ == "__main__":
                             # Setup data module for testing
                             data_module.setup("test")
 
-                            for i in range(4):
+                            for i in range(2):
                                 # Select the model to evaluate
                                 if i == 0:
+                                    model = model_classic
+                                    model_name = "classic"
+                                    trainer = trainer_classic_model
+                                elif i == 1:
+                                    model = model_concat
+                                    model_name = "concat"
+                                    trainer = trainer_concat_model
+                                """ if i == 0:
                                     model = model_classic
                                     model_name = "classic"
                                     trainer = trainer_classic_model
@@ -225,7 +233,7 @@ if __name__ == "__main__":
                                 elif i == 3:
                                     model = model_concat
                                     model_name = "concat"
-                                    trainer = trainer_concat_model
+                                    trainer = trainer_concat_model """
 
                                 # Compute the metrics over the test dataset
                                 test_metrics = trainer.test(
@@ -259,5 +267,5 @@ if __name__ == "__main__":
 
                                 # Save the results to a CSV file
                                 results.to_csv(
-                                    "results_3.csv", index=False
+                                    "results_without_acc.csv", index=False
                                 )

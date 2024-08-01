@@ -1,4 +1,4 @@
-\begin{thebibliography}{61}
+\begin{thebibliography}{62}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -13,8 +13,7 @@ A.~Alahi, K.~Goel, V.~Ramanathan, A.~Robicquet, L.~Fei-Fei, and S.~Savarese.
 
 \bibitem[(AvMC)(2020)]{AR3P2020}
 A.~F. C. A. C. A. . M.~C. (AvMC).
-\newblock \emph{AR3P Program Background (2017-2019) and Robotic Hot Refueling Demonstrations (Sep-Oct 2020)}.
-\newblock Army Futures Command (AFC) CCDC Aviation \& Missile Center (AvMC), 2020.
+\newblock Ar3p program background (2017-2019) and robotic hot refueling demonstrations (sep-oct 2020), 2020.
 \newblock URL \url{hhttps://www.denix.osd.mil/ndcee/denix-files/sites/44/2023/09/EXSUM-AR3P-Robotic-Refueling-K-MAX-and-S-70-Sep_Oct-2020-v9.pdf}.
 \newblock Accessed: 2024-07-24.
 
@@ -38,8 +37,8 @@ A.~Bochkovskiy, C.~Wang, and H.~M. Liao.
 
 \bibitem[Burnette(2010)]{Burnette2010}
 H.~Burnette.
-\newblock Lab demonstrates robotic ground refueling of aircraft.
-\newblock \url{https://www.wpafb.af.mil/News/Article-Display/Article/400022/lab-demonstrates-robotic-ground-refueling-of-aircraft/}, Oct. 2010.
+\newblock Lab demonstrates robotic ground refueling of aircraft, Oct. 2010.
+\newblock URL \url{https://www.wpafb.af.mil/News/Article-Display/Article/400022/lab-demonstrates-robotic-ground-refueling-of-aircraft/}.
 \newblock Accessed: 2024-07-24.
 
 \bibitem[Chen et~al.(2022)Chen, Wang, Zhao, Lv, and Niu]{SurveyVisualOT}
@@ -95,7 +94,7 @@ H.~Fan, L.~Zhu, and Y.~Yang.
 N.~Ficken.
 \newblock Concept demonstration explores robotic aviation refueling system, July 18 2017.
 \newblock URL \url{https://www.army.mil/article/190980/concept_demonstration_explores_robotic_aviation_refueling_system}.
-\newblock Accessed: date-of-access.
+\newblock Accessed: 2024-07-24.
 
 \bibitem[Finn et~al.(2016)Finn, Goodfellow, and Levine]{DBLP:journals/corr/FinnGL16}
 C.~Finn, I.~J. Goodfellow, and S.~Levine.
@@ -141,6 +140,12 @@ H.~Huang and Y.~Guan.
 \newblock \doi{10.1109/ACCESS.2024.3394209}.
 \newblock URL \url{https://www.scopus.com/inward/record.uri?eid=2-s2.0-85191878045&doi=10.1109%2fACCESS.2024.3394209&partnerID=40&md5=a2491ede039a7189014acb3b7eb0256d}.
 \newblock Cited by: 0; All Open Access, Gold Open Access.
+
+\bibitem[Intel(2024)]{IntelRealSense}
+Intel.
+\newblock Intel realsense depth camera d435, 2024.
+\newblock URL \url{https://www.intelrealsense.com/depth-camera-d435/}.
+\newblock Accessed: 2024-06-24.
 
 \bibitem[Jin et~al.(2024)Jin, Song, Li, and Zhang]{UnsupervisedVideoForecastingFlowParsingMechanism}
 B.~Jin, X.~Song, J.~Li, and P.~Zhang.

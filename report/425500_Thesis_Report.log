@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.14)  29 JUL 2024 11:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.14)  1 AUG 2024 23:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -869,7 +869,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 pdfTeX warning (ext4): destination with the same identifier (name{page.ii}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.34 ....3.3.3}Decoder}{26}{subsubsection.3.3.3.3}
+l.34 ...ine {3.2.2}Decoders}{33}{subsection.3.2.2}
                                                   % [2
 
 
@@ -878,14 +878,24 @@ l.34 ....3.3.3}Decoder}{26}{subsubsection.3.3.3.3}
 \tf@toc=\write4
 \openout4 = `425500_Thesis_Report.toc'.
 
- [3] (./425500_Thesis_Report.lof)
+ [3] (./425500_Thesis_Report.lof [4
+
+
+]
+Overfull \hbox (57.05159pt too wide) in paragraph at lines 36--36
+ [][] [][][]\OT1/ptm/m/n/12 Temporal anal-y-sis of dif-fer-ent met-rics for the re-fu-el-ing port in the \OT1/ptm/m/it/12 test[]video[]lab[]platform[]6 
+ []
+
+
+Overfull \hbox (57.05159pt too wide) in paragraph at lines 37--37
+ [][] [][][]\OT1/ptm/m/n/12 Temporal anal-y-sis of dif-fer-ent met-rics for the re-fu-el-ing port in the \OT1/ptm/m/it/12 test[]video[]lab[]platform[]6 
+ []
+
+)
 \tf@lof=\write5
 \openout5 = `425500_Thesis_Report.lof'.
 
- [4
-
-
-] [5] (./425500_Thesis_Report.lot)
+ [5] (./425500_Thesis_Report.lot)
 \tf@lot=\write6
 \openout6 = `425500_Thesis_Report.lot'.
 
@@ -896,7 +906,7 @@ l.34 ....3.3.3}Decoder}{26}{subsubsection.3.3.3.3}
 
 ]
 Chapter 1.
-<figures/pressure-refuelling.jpeg, id=303, 2208.25pt x 1472.50125pt>
+<figures/pressure-refuelling.jpeg, id=351, 2208.25pt x 1472.50125pt>
 File: figures/pressure-refuelling.jpeg Graphic file (type jpg)
 <use figures/pressure-refuelling.jpeg>
 Package pdftex.def Info: figures/pressure-refuelling.jpeg  used on input line 189.
@@ -905,24 +915,24 @@ Package pdftex.def Info: figures/pressure-refuelling.jpeg  used on input line 18
 
 
  <./figures/pressure-refuelling.jpeg>]
-<figures/image_hard_2.jpg, id=314, 642.4pt x 481.8pt>
+<figures/image_hard_2.jpg, id=362, 642.4pt x 481.8pt>
 File: figures/image_hard_2.jpg Graphic file (type jpg)
 <use figures/image_hard_2.jpg>
 Package pdftex.def Info: figures/image_hard_2.jpg  used on input line 225.
 (pdftex.def)             Requested size: 135.8882pt x 95.1232pt.
-<figures/image_hard_4.jpg, id=315, 504.88625pt x 322.20375pt>
+<figures/image_hard_4.jpg, id=363, 504.88625pt x 322.20375pt>
 File: figures/image_hard_4.jpg Graphic file (type jpg)
 <use figures/image_hard_4.jpg>
 Package pdftex.def Info: figures/image_hard_4.jpg  used on input line 230.
 (pdftex.def)             Requested size: 135.88968pt x 95.12302pt.
-<figures/image_hard_3.jpg, id=316, 642.4pt x 481.8pt>
+<figures/image_hard_3.jpg, id=364, 642.4pt x 481.8pt>
 File: figures/image_hard_3.jpg Graphic file (type jpg)
 <use figures/image_hard_3.jpg>
 Package pdftex.def Info: figures/image_hard_3.jpg  used on input line 235.
 (pdftex.def)             Requested size: 135.8882pt x 95.1232pt.
  [2 <./figures/image_hard_2.jpg> <./figures/image_hard_4.jpg> <./figures/image_hard_3.jpg>] [3]
 Chapter 2.
-<figures/test_2010.jpeg, id=340, 1027.84pt x 662.475pt>
+<figures/test_2010.jpeg, id=387, 1027.84pt x 662.475pt>
 File: figures/test_2010.jpeg Graphic file (type jpg)
 <use figures/test_2010.jpeg>
 Package pdftex.def Info: figures/test_2010.jpeg  used on input line 335.
@@ -930,252 +940,415 @@ Package pdftex.def Info: figures/test_2010.jpeg  used on input line 335.
 [4
 
  <./figures/test_2010.jpeg>]
-<figures/test_2017.jpg, id=352, 4119.39pt x 2746.26pt>
+<figures/test_2017.jpg, id=399, 4119.39pt x 2746.26pt>
 File: figures/test_2017.jpg Graphic file (type jpg)
 <use figures/test_2017.jpg>
 Package pdftex.def Info: figures/test_2017.jpg  used on input line 357.
 (pdftex.def)             Requested size: 226.48395pt x 150.9819pt.
-<figures/test_2020_2.png, id=357, 1333.98375pt x 804.00375pt>
+<figures/test_2020_2.png, id=404, 1333.98375pt x 804.00375pt>
 File: figures/test_2020_2.png Graphic file (type png)
 <use figures/test_2020_2.png>
 Package pdftex.def Info: figures/test_2020_2.png  used on input line 379.
 (pdftex.def)             Requested size: 203.83423pt x 138.60492pt.
-<figures/test_2020_3.jpg, id=358, 903.375pt x 474.27188pt>
+<figures/test_2020_3.jpg, id=405, 903.375pt x 474.27188pt>
 File: figures/test_2020_3.jpg Graphic file (type jpg)
 <use figures/test_2020_3.jpg>
 Package pdftex.def Info: figures/test_2020_3.jpg  used on input line 384.
 (pdftex.def)             Requested size: 203.82954pt x 138.60637pt.
  [5 <./figures/test_2017.jpg> <./figures/test_2020_2.png> <./figures/test_2020_3.jpg>]
-<figures/x-47brefueling.jpg, id=371, 903.375pt x 474.27188pt>
+<figures/x-47brefueling.jpg, id=418, 903.375pt x 474.27188pt>
 File: figures/x-47brefueling.jpg Graphic file (type jpg)
 <use figures/x-47brefueling.jpg>
 Package pdftex.def Info: figures/x-47brefueling.jpg  used on input line 416.
 (pdftex.def)             Requested size: 226.48395pt x 118.90056pt.
-<figures/detection_system_AAREKF.png, id=372, 433.62pt x 332.24126pt>
+<figures/detection_system_AAREKF.png, id=419, 433.62pt x 332.24126pt>
 File: figures/detection_system_AAREKF.png Graphic file (type png)
 <use figures/detection_system_AAREKF.png>
 Package pdftex.def Info: figures/detection_system_AAREKF.png  used on input line 422.
 (pdftex.def)             Requested size: 271.7835pt x 208.25354pt.
  [6 <./figures/x-47brefueling.jpg> <./figures/detection_system_AAREKF.png>]
-<figures/AGRPoseKalman.png, id=384, 467.7475pt x 257.96375pt>
+<figures/AGRPoseKalman.png, id=431, 467.7475pt x 257.96375pt>
 File: figures/AGRPoseKalman.png Graphic file (type png)
 <use figures/AGRPoseKalman.png>
 Package pdftex.def Info: figures/AGRPoseKalman.png  used on input line 442.
 (pdftex.def)             Requested size: 203.83417pt x 112.41406pt.
-<figures/AGRDatasetGrid.png, id=390, 778.91pt x 778.91pt>
+<figures/AGRDatasetGrid.png, id=437, 778.91pt x 778.91pt>
 File: figures/AGRDatasetGrid.png Graphic file (type png)
 <use figures/AGRDatasetGrid.png>
 Package pdftex.def Info: figures/AGRDatasetGrid.png  used on input line 463.
 (pdftex.def)             Requested size: 181.18439pt x 181.1779pt.
  [7 <./figures/AGRPoseKalman.png> <./figures/AGRDatasetGrid.png (PNG copy)>]
-<figures/intro_object_detection.png, id=400, 642.4pt x 642.4pt>
+<figures/intro_object_detection.png, id=447, 642.4pt x 642.4pt>
 File: figures/intro_object_detection.png Graphic file (type png)
 <use figures/intro_object_detection.png>
 Package pdftex.def Info: figures/intro_object_detection.png  used on input line 481.
 (pdftex.def)             Requested size: 135.89174pt x 135.8882pt.
-<figures/one-stage_two-stage_OD.png, id=426, 1127.21124pt x 543.02875pt>
+<figures/one-stage_two-stage_OD.png, id=473, 1127.21124pt x 543.02875pt>
 File: figures/one-stage_two-stage_OD.png Graphic file (type png)
 <use figures/one-stage_two-stage_OD.png>
 Package pdftex.def Info: figures/one-stage_two-stage_OD.png  used on input line 507.
 (pdftex.def)             Requested size: 362.37569pt x 174.56819pt.
  [8 <./figures/intro_object_detection.png> <./figures/one-stage_two-stage_OD.png>]
-<figures/iou.png, id=456, 1610.015pt x 545.03625pt>
+<figures/iou.png, id=504, 1610.015pt x 545.03625pt>
 File: figures/iou.png Graphic file (type png)
 <use figures/iou.png>
 Package pdftex.def Info: figures/iou.png  used on input line 518.
 (pdftex.def)             Requested size: 362.37569pt x 122.66945pt.
  [9 <./figures/iou.png>] [10]
-<figures/lstm-rnn-gru.png, id=503, 615.29875pt x 247.92625pt>
+<figures/lstm-rnn-gru.png, id=549, 615.29875pt x 247.92625pt>
 File: figures/lstm-rnn-gru.png Graphic file (type png)
 <use figures/lstm-rnn-gru.png>
 Package pdftex.def Info: figures/lstm-rnn-gru.png  used on input line 611.
 (pdftex.def)             Requested size: 271.7835pt x 109.51158pt.
  [11 <./figures/lstm-rnn-gru.png>]
-<figures/CubicLSTM.png, id=519, 890.32625pt x 391.4625pt>
+<figures/CubicLSTM.png, id=565, 890.32625pt x 391.4625pt>
 File: figures/CubicLSTM.png Graphic file (type png)
 <use figures/CubicLSTM.png>
 Package pdftex.def Info: figures/CubicLSTM.png  used on input line 665.
 (pdftex.def)             Requested size: 452.9679pt x 199.16536pt.
  [12 <./figures/CubicLSTM.png>]
-<figures/Unsupervised-Video-Forecasting.png, id=528, 653.44125pt x 375.4025pt>
+<figures/Unsupervised-Video-Forecasting.png, id=574, 653.44125pt x 375.4025pt>
 File: figures/Unsupervised-Video-Forecasting.png Graphic file (type png)
 <use figures/Unsupervised-Video-Forecasting.png>
 Package pdftex.def Info: figures/Unsupervised-Video-Forecasting.png  used on input line 680.
 (pdftex.def)             Requested size: 452.9679pt x 260.23091pt.
-<figures/FPNet-OF.png, id=532, 961.5925pt x 631.35875pt>
+<figures/FPNet-OF.png, id=578, 961.5925pt x 631.35875pt>
 File: figures/FPNet-OF.png Graphic file (type png)
 <use figures/FPNet-OF.png>
 Package pdftex.def Info: figures/FPNet-OF.png  used on input line 697.
 (pdftex.def)             Requested size: 362.37569pt x 237.92462pt.
  [13 <./figures/Unsupervised-Video-Forecasting.png>]
-<figures/FusionGRU.png, id=541, 833.1125pt x 269.005pt>
+<figures/FusionGRU.png, id=587, 833.1125pt x 269.005pt>
 File: figures/FusionGRU.png Graphic file (type png)
 <use figures/FusionGRU.png>
 Package pdftex.def Info: figures/FusionGRU.png  used on input line 714.
 (pdftex.def)             Requested size: 452.9679pt x 146.26207pt.
  [14 <./figures/FPNet-OF.png> <./figures/FusionGRU.png>]
-<figures/dual-branch-architecture.png, id=551, 893.3375pt x 388.45125pt>
+<figures/dual-branch-architecture.png, id=597, 893.3375pt x 388.45125pt>
 File: figures/dual-branch-architecture.png Graphic file (type png)
 <use figures/dual-branch-architecture.png>
 Package pdftex.def Info: figures/dual-branch-architecture.png  used on input line 737.
 (pdftex.def)             Requested size: 317.07614pt x 137.87448pt.
-<figures/dual-branch-inter-intra-frames.png, id=554, 436.63126pt x 366.36874pt>
+<figures/dual-branch-inter-intra-frames.png, id=600, 436.63126pt x 366.36874pt>
 File: figures/dual-branch-inter-intra-frames.png Graphic file (type png)
 <use figures/dual-branch-inter-intra-frames.png>
 Package pdftex.def Info: figures/dual-branch-inter-intra-frames.png  used on input line 743.
 (pdftex.def)             Requested size: 226.48395pt x 190.03766pt.
  [15 <./figures/dual-branch-architecture.png> <./figures/dual-branch-inter-intra-frames.png>]
-<figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg, id=565, 853.1875pt x 971.63pt>
+<figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg, id=611, 853.1875pt x 971.63pt>
 File: figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg Graphic file (type jpg)
 <use figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg>
 Package pdftex.def Info: figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg  used on input line 764.
 (pdftex.def)             Requested size: 135.89174pt x 154.75233pt.
-<figures/robotpush.png, id=570, 1117.17375pt x 240.9pt>
+<figures/robotpush.png, id=616, 1117.17375pt x 240.9pt>
 File: figures/robotpush.png Graphic file (type png)
 <use figures/robotpush.png>
 Package pdftex.def Info: figures/robotpush.png  used on input line 782.
 (pdftex.def)             Requested size: 226.48395pt x 48.83711pt.
-<figures/KTH-dataset.png, id=575, 853.1875pt x 460.72125pt>
+<figures/KTH-dataset.png, id=621, 853.1875pt x 460.72125pt>
 File: figures/KTH-dataset.png Graphic file (type png)
 <use figures/KTH-dataset.png>
 Package pdftex.def Info: figures/KTH-dataset.png  used on input line 798.
 (pdftex.def)             Requested size: 226.48395pt x 122.30144pt.
  [16 <./figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg> <./figures/robotpush.png>]
-<figures/ucf-sport-dataset.png, id=586, 853.1875pt x 341.275pt>
+<figures/ucf-sport-dataset.png, id=632, 853.1875pt x 341.275pt>
 File: figures/ucf-sport-dataset.png Graphic file (type png)
 <use figures/ucf-sport-dataset.png>
 Package pdftex.def Info: figures/ucf-sport-dataset.png  used on input line 817.
 (pdftex.def)             Requested size: 271.7835pt x 108.71552pt.
  [17 <./figures/KTH-dataset.png> <./figures/ucf-sport-dataset.png>]
 Chapter 3.
+<figures/depth-camera-d435_details.jpg, id=643, 1405.25pt x 726.715pt>
+File: figures/depth-camera-d435_details.jpg Graphic file (type jpg)
+<use figures/depth-camera-d435_details.jpg>
+Package pdftex.def Info: figures/depth-camera-d435_details.jpg  used on input line 846.
+(pdftex.def)             Requested size: 317.07614pt x 163.96954pt.
 [18
 
-] [19] [20]
-<figures/grid_closed_images.png, id=613, 1935.23pt x 1453.43pt>
+ <./figures/depth-camera-d435_details.jpg>] [19] [20]
+<figures/grid_closed_images.png, id=664, 1935.23pt x 1453.43pt>
 File: figures/grid_closed_images.png Graphic file (type png)
 <use figures/grid_closed_images.png>
-Package pdftex.def Info: figures/grid_closed_images.png  used on input line 978.
-(pdftex.def)             Requested size: 226.48395pt x 170.07945pt.
+Package pdftex.def Info: figures/grid_closed_images.png  used on input line 985.
+(pdftex.def)             Requested size: 203.83417pt x 153.06929pt.
  [21]
-<figures/grid_open_images.png, id=622, 1935.23pt x 1453.43pt>
+<figures/grid_open_images.png, id=672, 1935.23pt x 1453.43pt>
 File: figures/grid_open_images.png Graphic file (type png)
 <use figures/grid_open_images.png>
-Package pdftex.def Info: figures/grid_open_images.png  used on input line 984.
-(pdftex.def)             Requested size: 226.48395pt x 170.07945pt.
-<figures/grid_semiopen_images.png, id=623, 1935.23pt x 1453.43pt>
+Package pdftex.def Info: figures/grid_open_images.png  used on input line 991.
+(pdftex.def)             Requested size: 203.83417pt x 153.06929pt.
+<figures/grid_semiopen_images.png, id=673, 1935.23pt x 1453.43pt>
 File: figures/grid_semiopen_images.png Graphic file (type png)
 <use figures/grid_semiopen_images.png>
-Package pdftex.def Info: figures/grid_semiopen_images.png  used on input line 990.
-(pdftex.def)             Requested size: 226.48395pt x 170.07945pt.
- [22 <./figures/grid_closed_images.png (PNG copy)> <./figures/grid_open_images.png (PNG copy)> <./figures/grid_semiopen_images.png (PNG copy)>] [23] [24] [25]
-Overfull \hbox (232.42397pt too wide) detected at line 1229
+Package pdftex.def Info: figures/grid_semiopen_images.png  used on input line 997.
+(pdftex.def)             Requested size: 203.83417pt x 153.06929pt.
+<figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png, id=674, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png Graphic file (type png)
+<use figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png>
+Package pdftex.def Info: figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png  used on input line 1005.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_indoor1 (Raw Data)_velocity.png, id=675, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_indoor1 (Raw Data)_velocity.png Graphic file (type png)
+<use figures/bbox_metrics/test_indoor1 (Raw Data)_velocity.png>
+Package pdftex.def Info: figures/bbox_metrics/test_indoor1 (Raw Data)_velocity.png  used on input line 1011.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_indoor1 (Raw Data)_acceleration.png, id=676, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_indoor1 (Raw Data)_acceleration.png Graphic file (type png)
+<use figures/bbox_metrics/test_indoor1 (Raw Data)_acceleration.png>
+Package pdftex.def Info: figures/bbox_metrics/test_indoor1 (Raw Data)_acceleration.png  used on input line 1017.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_indoor1 (Raw Data)_area.png, id=677, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_indoor1 (Raw Data)_area.png Graphic file (type png)
+<use figures/bbox_metrics/test_indoor1 (Raw Data)_area.png>
+Package pdftex.def Info: figures/bbox_metrics/test_indoor1 (Raw Data)_area.png  used on input line 1023.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+ [22 <./figures/grid_closed_images.png (PNG copy)> <./figures/grid_open_images.png (PNG copy)> <./figures/grid_semiopen_images.png (PNG copy)>]
+Overfull \vbox (14.70174pt too high) has occurred while \output is active []
+
+ [23 <./figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png> <./figures/bbox_metrics/test_indoor1 (Raw Data)_velocity.png> <./figures/bbox_metrics/test_indoor1 (Raw Data)_acceleration.png> <./figures/bbox_metrics/test_indoor1 (Raw Data)_area.png>]
+<figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png, id=691, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png Graphic file (type png)
+<use figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png>
+Package pdftex.def Info: figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png  used on input line 1034.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_indoor1 (Savgol Filter)_velocity.png, id=692, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_indoor1 (Savgol Filter)_velocity.png Graphic file (type png)
+<use figures/bbox_metrics/test_indoor1 (Savgol Filter)_velocity.png>
+Package pdftex.def Info: figures/bbox_metrics/test_indoor1 (Savgol Filter)_velocity.png  used on input line 1040.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_indoor1 (Savgol Filter)_acceleration.png, id=693, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_indoor1 (Savgol Filter)_acceleration.png Graphic file (type png)
+<use figures/bbox_metrics/test_indoor1 (Savgol Filter)_acceleration.png>
+Package pdftex.def Info: figures/bbox_metrics/test_indoor1 (Savgol Filter)_acceleration.png  used on input line 1046.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_indoor1 (Savgol Filter)_area.png, id=694, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_indoor1 (Savgol Filter)_area.png Graphic file (type png)
+<use figures/bbox_metrics/test_indoor1 (Savgol Filter)_area.png>
+Package pdftex.def Info: figures/bbox_metrics/test_indoor1 (Savgol Filter)_area.png  used on input line 1052.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_outdoor1 (Raw Data)_central_position.png, id=695, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_outdoor1 (Raw Data)_central_position.png Graphic file (type png)
+<use figures/bbox_metrics/test_outdoor1 (Raw Data)_central_position.png>
+Package pdftex.def Info: figures/bbox_metrics/test_outdoor1 (Raw Data)_central_position.png  used on input line 1063.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_outdoor1 (Raw Data)_velocity.png, id=696, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_outdoor1 (Raw Data)_velocity.png Graphic file (type png)
+<use figures/bbox_metrics/test_outdoor1 (Raw Data)_velocity.png>
+Package pdftex.def Info: figures/bbox_metrics/test_outdoor1 (Raw Data)_velocity.png  used on input line 1069.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_outdoor1 (Raw Data)_acceleration.png, id=697, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_outdoor1 (Raw Data)_acceleration.png Graphic file (type png)
+<use figures/bbox_metrics/test_outdoor1 (Raw Data)_acceleration.png>
+Package pdftex.def Info: figures/bbox_metrics/test_outdoor1 (Raw Data)_acceleration.png  used on input line 1075.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_outdoor1 (Raw Data)_area.png, id=698, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_outdoor1 (Raw Data)_area.png Graphic file (type png)
+<use figures/bbox_metrics/test_outdoor1 (Raw Data)_area.png>
+Package pdftex.def Info: figures/bbox_metrics/test_outdoor1 (Raw Data)_area.png  used on input line 1081.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+ [24 <./figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png> <./figures/bbox_metrics/test_indoor1 (Savgol Filter)_velocity.png> <./figures/bbox_metrics/test_indoor1 (Savgol Filter)_acceleration.png> <./figures/bbox_metrics/test_indoor1 (Savgol Filter)_area.png>]
+<figures/bbox_metrics/test_outdoor1 (Savgol Filter)_central_position.png, id=707, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_outdoor1 (Savgol Filter)_central_position.png Graphic file (type png)
+<use figures/bbox_metrics/test_outdoor1 (Savgol Filter)_central_position.png>
+Package pdftex.def Info: figures/bbox_metrics/test_outdoor1 (Savgol Filter)_central_position.png  used on input line 1092.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_outdoor1 (Savgol Filter)_velocity.png, id=708, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_outdoor1 (Savgol Filter)_velocity.png Graphic file (type png)
+<use figures/bbox_metrics/test_outdoor1 (Savgol Filter)_velocity.png>
+Package pdftex.def Info: figures/bbox_metrics/test_outdoor1 (Savgol Filter)_velocity.png  used on input line 1098.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_outdoor1 (Savgol Filter)_acceleration.png, id=709, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_outdoor1 (Savgol Filter)_acceleration.png Graphic file (type png)
+<use figures/bbox_metrics/test_outdoor1 (Savgol Filter)_acceleration.png>
+Package pdftex.def Info: figures/bbox_metrics/test_outdoor1 (Savgol Filter)_acceleration.png  used on input line 1104.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/test_outdoor1 (Savgol Filter)_area.png, id=710, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/test_outdoor1 (Savgol Filter)_area.png Graphic file (type png)
+<use figures/bbox_metrics/test_outdoor1 (Savgol Filter)_area.png>
+Package pdftex.def Info: figures/bbox_metrics/test_outdoor1 (Savgol Filter)_area.png  used on input line 1110.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+ [25 <./figures/bbox_metrics/test_outdoor1 (Raw Data)_central_position.png> <./figures/bbox_metrics/test_outdoor1 (Raw Data)_velocity.png> <./figures/bbox_metrics/test_outdoor1 (Raw Data)_acceleration.png> <./figures/bbox_metrics/test_outdoor1 (Raw Data)_area.png>]
+<figures/bbox_metrics/video_lab_platform_6 (Raw Data)_central_position.png, id=719, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/video_lab_platform_6 (Raw Data)_central_position.png Graphic file (type png)
+<use figures/bbox_metrics/video_lab_platform_6 (Raw Data)_central_position.png>
+Package pdftex.def Info: figures/bbox_metrics/video_lab_platform_6 (Raw Data)_central_position.png  used on input line 1121.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/video_lab_platform_6 (Raw Data)_velocity.png, id=720, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/video_lab_platform_6 (Raw Data)_velocity.png Graphic file (type png)
+<use figures/bbox_metrics/video_lab_platform_6 (Raw Data)_velocity.png>
+Package pdftex.def Info: figures/bbox_metrics/video_lab_platform_6 (Raw Data)_velocity.png  used on input line 1127.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/video_lab_platform_6 (Raw Data)_acceleration.png, id=721, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/video_lab_platform_6 (Raw Data)_acceleration.png Graphic file (type png)
+<use figures/bbox_metrics/video_lab_platform_6 (Raw Data)_acceleration.png>
+Package pdftex.def Info: figures/bbox_metrics/video_lab_platform_6 (Raw Data)_acceleration.png  used on input line 1133.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/video_lab_platform_6 (Raw Data)_area.png, id=722, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/video_lab_platform_6 (Raw Data)_area.png Graphic file (type png)
+<use figures/bbox_metrics/video_lab_platform_6 (Raw Data)_area.png>
+Package pdftex.def Info: figures/bbox_metrics/video_lab_platform_6 (Raw Data)_area.png  used on input line 1139.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+
+Underfull \hbox (badness 4060) in paragraph at lines 1143--1143
+[]\OT1/ptm/m/n/12 Figure 3.9: |Tem-po-ral anal-y-sis of dif-fer-ent met-rics for the re-fu-el-ing port in the
+ []
+
+[26 <./figures/bbox_metrics/test_outdoor1 (Savgol Filter)_central_position.png> <./figures/bbox_metrics/test_outdoor1 (Savgol Filter)_velocity.png> <./figures/bbox_metrics/test_outdoor1 (Savgol Filter)_acceleration.png> <./figures/bbox_metrics/test_outdoor1 (Savgol Filter)_area.png>]
+<figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_central_position.png, id=731, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_central_position.png Graphic file (type png)
+<use figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_central_position.png>
+Package pdftex.def Info: figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_central_position.png  used on input line 1150.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_velocity.png, id=732, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_velocity.png Graphic file (type png)
+<use figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_velocity.png>
+Package pdftex.def Info: figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_velocity.png  used on input line 1156.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_acceleration.png, id=733, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_acceleration.png Graphic file (type png)
+<use figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_acceleration.png>
+Package pdftex.def Info: figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_acceleration.png  used on input line 1162.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+<figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png, id=734, 867.24pt x 433.62pt>
+File: figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png Graphic file (type png)
+<use figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png>
+Package pdftex.def Info: figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png  used on input line 1168.
+(pdftex.def)             Requested size: 271.7835pt x 135.88966pt.
+
+Underfull \hbox (badness 3219) in paragraph at lines 1172--1172
+[]\OT1/ptm/m/n/12 Figure 3.10: |Tem-po-ral anal-y-sis of dif-fer-ent met-rics for the re-fu-el-ing port in the
+ []
+
+[27 <./figures/bbox_metrics/video_lab_platform_6 (Raw Data)_central_position.png> <./figures/bbox_metrics/video_lab_platform_6 (Raw Data)_velocity.png> <./figures/bbox_metrics/video_lab_platform_6 (Raw Data)_acceleration.png> <./figures/bbox_metrics/video_lab_platform_6 (Raw Data)_area.png>] [28 <./figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_central_position.png> <./figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_velocity.png> <./figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_acceleration.png> <./figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png>]
+
+pdfTeX warning: pdflatex (file ./figures/FrameworkWorkflow.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<figures/FrameworkWorkflow.drawio.pdf, id=753, 582.25531pt x 657.41606pt>
+File: figures/FrameworkWorkflow.drawio.pdf Graphic file (type pdf)
+<use figures/FrameworkWorkflow.drawio.pdf>
+Package pdftex.def Info: figures/FrameworkWorkflow.drawio.pdf  used on input line 1217.
+(pdftex.def)             Requested size: 317.07614pt x 357.99876pt.
+[29]
+
+pdfTeX warning: pdflatex (file ./figures/GRUSizPos.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<figures/GRUSizPos.drawio.pdf, id=762, 679.57887pt x 220.9053pt>
+File: figures/GRUSizPos.drawio.pdf Graphic file (type pdf)
+<use figures/GRUSizPos.drawio.pdf>
+Package pdftex.def Info: figures/GRUSizPos.drawio.pdf  used on input line 1241.
+(pdftex.def)             Requested size: 452.9679pt x 147.24399pt.
+[30 <./figures/FrameworkWorkflow.drawio.pdf>]
+Overfull \hbox (6.52707pt too wide) in paragraph at lines 1268--1270
+\OT1/ptm/m/n/12 Here, $\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 x[]; y[]\OT1/ztmcm/m/n/12 )$ \OT1/ptm/m/n/12 rep-re-sents the cen-ter co-or-di-nates at time $\OML/ztmcm/m/it/12 t$\OT1/ptm/m/n/12 , $\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 v[]; v[]\OT1/ztmcm/m/n/12 )$ \OT1/ptm/m/n/12 are the ve-loc-i-ties, and $\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 a[]; a[]\OT1/ztmcm/m/n/12 )$
+ []
+
+[31 <./figures/GRUSizPos.drawio.pdf>] [32] [33] [34]
+Overfull \hbox (232.42397pt too wide) detected at line 1494
 [][][][] \OT1/ztmcm/m/n/12 = [] [] [] []
  []
 
-[26] [27] [28]
+[35] [36]
 Chapter 4.
-[29
+[37
 
 ]
+Overfull \hbox (1.86066pt too wide) in paragraph at lines 1619--1622
+[]\OT1/ptm/m/n/12 The Fi-nal In-ter-sec-tion over Union (FIOU) as-sesses the over-lap be-tween the pre-dicted bound-
+ []
+
+[38]
 Chapter 5.
 
-Overfull \hbox (0.1003pt too wide) in paragraph at lines 1324--1327
+Overfull \hbox (0.1003pt too wide) in paragraph at lines 1637--1640
 \OT1/ptm/m/n/12 yolov10s.pt, yolov10m.pt) on a dataset in-volv-ing the clas-si-fi-ca-tion of fuel port states (CLOSED,
  []
 
 
-Overfull \hbox (32.17229pt too wide) in paragraph at lines 1358--1364
+Overfull \hbox (32.17229pt too wide) in paragraph at lines 1671--1677
 []\OT1/ptm/m/n/12 Each model demon-strates strengths in dif-fer-ent as-pects of per-for-mance met-rics. The YOLOv10s.pt
  []
 
-[30
+[39
 
-] [31]
+] [40]
 Chapter 6.
-(./425500_Thesis_Report.bbl [32
+(./425500_Thesis_Report.bbl [41
 
 ]
-Underfull \hbox (badness 4120) in paragraph at lines 15--20
-[]\OT1/ptm/m/n/12 A. F. C. A. C. A. . M. C. (AvMC).  \OT1/ptm/m/it/12 AR3P Pro-gram Back-ground (2017-
+Underfull \hbox (badness 5022) in paragraph at lines 15--19
+[]\OT1/ptm/m/n/12 A. F. C. A. C. A. . M. C. (AvMC).  Ar3p pro-gram back-ground (2017-
  []
 
 
-Underfull \hbox (badness 2856) in paragraph at lines 15--20
-\OT1/ptm/m/it/12 2019) and Robotic Hot Re-fu-el-ing Demon-stra-tions (Sep-Oct 2020)\OT1/ptm/m/n/12 .  Army Fu-
+Underfull \hbox (badness 4217) in paragraph at lines 15--19
+\OT1/ptm/m/n/12 2019) and robotic hot re-fu-el-ing demon-stra-tions (sep-oct 2020), 2020.  URL
  []
 
 
-Underfull \hbox (badness 1264) in paragraph at lines 15--20
-\OT1/ptm/m/n/12 tures Com-mand (AFC) CCDC Avi-a-tion & Mis-sile Cen-ter (AvMC), 2020.  URL
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--20
+Underfull \hbox (badness 10000) in paragraph at lines 15--19
 [][]$\OT1/cmtt/m/n/12 hhttps : / / www . denix . osd . mil / ndcee / denix -[] files / sites / 44 / 2023 / 09 / EXSUM -[]
  []
 
 
-Underfull \hbox (badness 3668) in paragraph at lines 15--20
+Underfull \hbox (badness 3668) in paragraph at lines 15--19
 \OT1/cmtt/m/n/12 AR3P -[] Robotic -[] Refueling -[] K -[] MAX -[] and -[] S -[] 70 -[] Sep _ Oct -[] 2020 -[] v9 . pdf$[][]\OT1/ptm/m/n/12 .  Ac-cessed:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--44
-\OT1/cmtt/m/n/12 wpafb . af . mil / News / Article -[] Display / Article / 400022 / lab -[] demonstrates -[]
+Underfull \hbox (badness 1603) in paragraph at lines 39--43
+[]\OT1/ptm/m/n/12 H. Bur-nette.  Lab demon-strates robotic ground re-fu-el-ing of air-craft, Oct. 2010.
  []
 
-[33
+[42
 
 ]
-Underfull \hbox (badness 1077) in paragraph at lines 88--93
+Underfull \hbox (badness 1077) in paragraph at lines 87--92
 \OT1/ptm/m/n/12 8270, 2019.  URL [][]$\OT1/cmtt/m/n/12 https : / / www . scopus . com / inward / record . uri ? eid = 2 -[] s2 . 0 -[]
  []
 
 
-Underfull \hbox (badness 2302) in paragraph at lines 138--144
+Underfull \hbox (badness 2302) in paragraph at lines 137--143
 \OT1/ptm/m/n/12 pre-dic-tion.  \OT1/ptm/m/it/12 IEEE Ac-cess\OT1/ptm/m/n/12 , 12:73258 { 73267, 2024.  doi: $10 . 1109 / ACCESS .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--144
+Underfull \hbox (badness 10000) in paragraph at lines 137--143
 \OT1/ptm/m/n/12 2024 . 3394209$.  URL [][]$\OT1/cmtt/m/n/12 https : / / www . scopus . com / inward / record . uri ? eid = 2 -[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--144
+Underfull \hbox (badness 10000) in paragraph at lines 137--143
 \OT1/cmtt/m/n/12 s2 . 0 -[] 85191878045 & doi = 10 . 1109 % 2fACCESS . 2024 . 3394209 & partnerID = 40 & md5 =
  []
 
-[34]
-Underfull \hbox (badness 10000) in paragraph at lines 238--244
+[43]
+Underfull \hbox (badness 10000) in paragraph at lines 243--249
 \OT1/cmtt/m/n/12 www . scopus . com / inward / record . uri ? eid = 2 -[] s2 . 0 -[] 85152478811 & doi = 10 . 32604 %
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 238--244
+Underfull \hbox (badness 10000) in paragraph at lines 243--249
 \OT1/cmtt/m/n/12 2fcmc . 2023 . 026086 & partnerID = 40 & md5 = 3c3a7145b11a082102840f176198a13d$[][]\OT1/ptm/m/n/12 .
  []
 
-[35] [36]) [37] (./425500_Thesis_Report.aux)
+[44] [45]) [46] (./425500_Thesis_Report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `425500_Thesis_Report.out' has not changed.
-(rerunfilecheck)             Checksum: 21AAB43AA79F01115283F32132FA670A;1714.
+(rerunfilecheck)             Checksum: BB1A689BCE2629058A79F7DA06782ABC;1714.
  ) 
 Here is how much of TeX's memory you used:
- 24120 strings out of 476025
- 461372 string characters out of 5790016
- 1871388 words of memory out of 5000000
- 43923 multiletter control sequences out of 15000+600000
+ 24402 strings out of 476025
+ 476032 string characters out of 5790016
+ 1874388 words of memory out of 5000000
+ 44146 multiletter control sequences out of 15000+600000
  552903 words of font info for 118 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,117p,773b,1125s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on 425500_Thesis_Report.pdf (46 pages, 22468262 bytes).
+Output written on 425500_Thesis_Report.pdf (55 pages, 24153131 bytes).
 PDF statistics:
- 860 PDF objects out of 1000 (max. 8388607)
- 721 compressed objects within 8 object streams
- 222 named destinations out of 1000 (max. 500000)
- 252 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1053 PDF objects out of 1200 (max. 8388607)
+ 838 compressed objects within 9 object streams
+ 253 named destinations out of 1000 (max. 500000)
+ 387 words of extra memory for PDF output out of 10000 (max. 10000000)
 

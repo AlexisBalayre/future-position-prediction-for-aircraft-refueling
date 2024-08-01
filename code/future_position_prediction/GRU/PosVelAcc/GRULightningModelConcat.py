@@ -73,7 +73,7 @@ class GRULightningModelConcat(L.LightningModule):
             dropout=[dropout, dropout],
         )
 
-        self.combine_hidden = nn.Linear(hidden_dim * 3, hidden_dim)
+        self.combine_hidden = nn.Linear(hidden_dim * 2, hidden_dim)
 
         # Initialize metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
@@ -123,13 +123,13 @@ class GRULightningModelConcat(L.LightningModule):
         # Encode the Position, Velocity, and Acceleration
         _, encoder_hidden_states_bbox = self.bbox_encoder(bbox_seq, h_pos)
         _, encoder_hidden_states_vel = self.vel_encoder(velocity_seq, h_vel)
-        _, encoder_hidden_states_acc = self.acc_encoder(acceleration_seq, h_acc)
+        #_, encoder_hidden_states_acc = self.acc_encoder(acceleration_seq, h_acc)
 
         # Combine hidden states
         h_pos = h_vel = self.combine_hidden_states(
             encoder_hidden_states_bbox,
             encoder_hidden_states_vel,
-            encoder_hidden_states_acc,
+            #encoder_hidden_states_acc,
         )
 
         # decoder with teacher forcing

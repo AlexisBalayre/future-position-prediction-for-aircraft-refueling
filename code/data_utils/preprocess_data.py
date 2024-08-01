@@ -22,10 +22,21 @@ def preprocess_data(json_file, images_folder, output_folder, target_size=(480, 6
     if not os.path.exists(optical_flow_folder):
         os.makedirs(optical_flow_folder)
 
+    # Parameters for Lucas-Kanade optical flow
+    lk_params = dict(winSize=(15, 15),
+                     maxLevel=2,
+                     criteria=(cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
+
     for entry in tqdm(data):
         video_id = entry["video_id"]
         frames = entry["frames"]
         processed_frames = []
+
+        prev_gray = None
+        prev_points = None
+
+        prev_bbox = None
+        prev_velx, prev_vely = 0, 0
 
         for idx, frame in enumerate(frames):
             image_name = frame["image_name"]
@@ -34,9 +45,12 @@ def preprocess_data(json_file, images_folder, output_folder, target_size=(480, 6
 
             image_path = os.path.join(images_folder, image_name)
             image = cv2.imread(image_path)
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            if image is None:
+                print(f"Warning: Could not read image {image_path}")
+                continue
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-            if class_id is None or bbox == []:
+            if class_id is None or not bbox:
                 class_id = 3
                 bbox = [0, 0, 0, 0]
 
@@ -47,37 +61,65 @@ def preprocess_data(json_file, images_folder, output_folder, target_size=(480, 6
             y = y * height_ratio
             w = w * width_ratio
             h = h * height_ratio
-            bbox_position = [x, y, w, h]
 
             if idx == 0:
-                bbox_velocity = [0, 0, 0, 0]
+                velx, vely, accx, accy = 0, 0, 0, 0
+                deltaw, deltah = 0, 0
                 optical_flow = np.zeros((target_height, target_width, 2), dtype=np.float32)
+                prev_gray = gray
+                prev_points = cv2.goodFeaturesToTrack(gray, maxCorners=100, qualityLevel=0.3, minDistance=7, blockSize=7)
             else:
-                prev_frame = frames[idx - 1]["image_name"]
-                prev_image_path = os.path.join(images_folder, prev_frame)
-                prev_image = cv2.imread(prev_image_path)
-                prev_image = cv2.cvtColor(prev_image, cv2.COLOR_BGR2GRAY)
+                # Calculate Lucas-Kanade optical flow
+                if prev_points is not None and len(prev_points) > 0:
+                    next_points, status, _ = cv2.calcOpticalFlowPyrLK(prev_gray, gray, prev_points, None, **lk_params)
+                    
+                    # Select good points
+                    good_new = next_points[status == 1]
+                    good_old = prev_points[status == 1]
 
-                optical_flow = cv2.calcOpticalFlowFarneback(
-                    prev_image, image, None, 0.5, 3, 15, 3, 5, 1.2, 0
-                )
+                    # Create optical flow array
+                    optical_flow = np.zeros((target_height, target_width, 2), dtype=np.float32)
+                    for i, (new, old) in enumerate(zip(good_new, good_old)):
+                        a, b = new.ravel()
+                        c, d = old.ravel()
+                        if 0 <= int(b) < target_height and 0 <= int(a) < target_width:
+                            optical_flow[int(b), int(a)] = [a - c, b - d]
 
-                optical_flow_file = os.path.join(optical_flow_folder, f"{video_id}_{idx}.npy")
-                np.save(optical_flow_file, optical_flow)
+                    optical_flow_file = os.path.join(optical_flow_folder, f"{video_id}_{idx}.npy")
+                    try:
+                        np.save(optical_flow_file, optical_flow)
+                    except Exception as e:
+                        print(f"Error saving optical flow file {optical_flow_file}: {e}")
 
-                prev_bbox = frames[idx - 1].get("bbox", [])
-                prev_bbox = [0 if coord is None or np.isnan(float(coord)) else coord for coord in prev_bbox]
-                prev_x, prev_y, prev_w, prev_h = prev_bbox
-                prev_x = prev_x * width_ratio
-                prev_y = prev_y * height_ratio
-                prev_w = prev_w * width_ratio
-                prev_h = prev_h * height_ratio
-                bbox_velocity = [x - prev_x, y - prev_y, w - prev_w, h - prev_h]
+                    prev_x, prev_y, prev_w, prev_h = prev_bbox
+                    velx = x - prev_x
+                    vely = y - prev_y
+                    deltaw = w - prev_w
+                    deltah = h - prev_h
+
+                    accx = velx - prev_velx
+                    accy = vely - prev_vely
+
+                    prev_velx, prev_vely = velx, vely
+
+                    # Update the previous frame and points
+                    prev_gray = gray.copy()
+                    prev_points = good_new.reshape(-1, 1, 2)
+                else:
+                    optical_flow = np.zeros((target_height, target_width, 2), dtype=np.float32)
+                    velx, vely, accx, accy = 0, 0, 0, 0
+                    deltaw, deltah = 0, 0
+                    prev_gray = gray.copy()
+                    prev_points = cv2.goodFeaturesToTrack(gray, maxCorners=100, qualityLevel=0.3, minDistance=7, blockSize=7)
+
+            bbox_position = [x, y, velx, vely, accx, accy]
+            bbox_size = [w, h, deltaw, deltah]
+            prev_bbox = [x, y, w, h]
 
             processed_frames.append({
                 "image_name": image_name,
                 "bbox_position": bbox_position,
-                "bbox_velocity": bbox_velocity,
+                "bbox_size": bbox_size,
                 "optical_flow_file": f"{video_id}_{idx}.npy" if idx > 0 else None,
                 "class_id": class_id,
             })
@@ -91,11 +133,14 @@ def preprocess_data(json_file, images_folder, output_folder, target_size=(480, 6
     with open(output_file, "w") as f:
         json.dump(processed_data, f, indent=4)
 
+# Usage
+# preprocess_data("input.json", "images_folder", "output_folder")
+
 # Example usage for each split
 splits = ["train", "val", "test"]
 images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_YOLO/all/images"
 
 for split in splits:
     json_file = f"/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/{split}.json"
-    output_folder = f"/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/processed_data/{split}"
+    output_folder = f"/Volumes/ALEXIS/Thesis/OF2/{split}"
     preprocess_data(json_file, images_folder, output_folder)

@@ -76,12 +76,11 @@ class GRULightningModelConcat(L.LightningModule):
 
     def combine_hidden_states(
         self,
-        hidden_bbox: torch.Tensor,
-        hidden_velocity: torch.Tensor,
-        hidden_acceleration: torch.Tensor,
+        hidden_pos: torch.Tensor,
+        hidden_size: torch.Tensor,
     ) -> torch.Tensor:
         combined = torch.cat(
-            (hidden_bbox, hidden_velocity, hidden_acceleration), dim=-1
+            (hidden_pos, hidden_size), dim=-1
         )
         return self.combine_hidden(combined)
 
@@ -179,14 +178,15 @@ class GRULightningModelConcat(L.LightningModule):
         velocities_to_positions_loss = F.smooth_l1_loss(
             velocities_to_positions, ground_truth_bboxes
         )
-        total_loss = velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
+        sizes_loss = F.smooth_l1_loss(predicted_sizes, ground_truth_sizes)
+        positions_loss = F.smooth_l1_loss(predicted_positions, ground_truth_positions)
+        total_loss = sizes_loss + positions_loss + velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
 
         # Log losses
         self.log_dict(
             {
-                f"{stage}_vel_loss": velocity_loss,
-                f"{stage}_pos_loss": pos_loss,
-                f"{stage}_vel_to_pos_loss": velocities_to_positions_loss,
+                f"{stage}_sizes_loss": sizes_loss,
+                f"{stage}_positions_loss": positions_loss,
                 f"{stage}_loss": total_loss,
             },
             on_step=False,

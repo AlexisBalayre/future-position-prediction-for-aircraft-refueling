@@ -71,7 +71,7 @@ def evaluate_predictions(dataloader, output_seq_size):
 if __name__ == "__main__":
     train_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/train.json"
     val_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/val.json"
-    test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test.json"
+    test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test_filter_savgol.json"
 
     input_seq_sizes = [5, 10, 15, 20, 25, 30, 35, 45, 50, 55, 60]
     output_seq_sizes = [5, 10, 15, 20, 25, 30, 35, 45, 50, 55, 60]
@@ -115,5 +115,5 @@ if __name__ == "__main__":
                 )
 
                 # Save results to disk
-                results.to_csv("results.csv", index=False)
+                results.to_csv("results_filter.csv", index=False)
 

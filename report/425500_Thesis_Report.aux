@@ -200,73 +200,145 @@
 \newlabel{fig:kth-action-dataset}{{2.20}{17}{KTH Action Dataset. Source:~\citet {KTH}\relax }{figure.caption.26}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2.21}{\ignorespaces UCF Sports Dataset. Source:\nobreakspace  {}\citet  {UCFSport}\relax }}{17}{figure.caption.27}\protected@file@percent }
 \newlabel{fig:ucf-sports-dataset}{{2.21}{17}{UCF Sports Dataset. Source:~\citet {UCFSport}\relax }{figure.caption.27}{}}
+\citation{IntelRealSense}
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Methodology}{18}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \newlabel{chap:methodology}{{3}{18}{Methodology}{chapter.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.1}Dataset Configuration}{18}{section.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Provided Dataset Description}{18}{subsection.3.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Data Annotation}{18}{subsection.3.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Summary of Available Videos}{19}{subsection.3.1.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces \centering  Summary of available videos in the HARD dataset with their assignment.\relax }}{20}{table.caption.28}\protected@file@percent }
-\newlabel{tab:video_summary}{{3.1}{20}{\centering Summary of available videos in the HARD dataset with their assignment.\relax }{table.caption.28}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Intel® ${\text  {RealSense}}^{\text  {TM}}$ D435 Depth Camera. Source: Intel\relax }}{18}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:intel-realsense-d435}{{3.1}{18}{Intel® ${\text {RealSense}}^{\text {TM}}$ D435 Depth Camera. Source: Intel\relax }{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Data Annotation}{19}{subsection.3.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Summary of Available Videos}{20}{subsection.3.1.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces \centering  Summary of available videos in the HARD dataset with their assignment.\relax }}{20}{table.caption.29}\protected@file@percent }
+\newlabel{tab:video_summary}{{3.1}{20}{\centering Summary of available videos in the HARD dataset with their assignment.\relax }{table.caption.29}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.4}Initial Data Distribution}{20}{subsection.3.1.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{20}{table.caption.29}\protected@file@percent }
-\newlabel{tab:frame_distribution}{{3.2}{20}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }{table.caption.29}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{20}{table.caption.30}\protected@file@percent }
+\newlabel{tab:frame_distribution}{{3.2}{20}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }{table.caption.30}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.5}Balanced Data Distribution}{21}{subsection.3.1.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }}{21}{table.caption.30}\protected@file@percent }
-\newlabel{tab:balanced_frame_distribution}{{3.3}{21}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }{table.caption.30}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.6}Example Images from the Dataset}{21}{subsection.3.1.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Annotated images of the fueling port in the CLOSED state.\relax }}{22}{figure.caption.31}\protected@file@percent }
-\newlabel{fig:grid-closed-images}{{3.1}{22}{Annotated images of the fueling port in the CLOSED state.\relax }{figure.caption.31}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the fueling port in the OPEN state.\relax }}{22}{figure.caption.32}\protected@file@percent }
-\newlabel{fig:grid-open-images}{{3.2}{22}{Annotated images of the fueling port in the OPEN state.\relax }{figure.caption.32}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the fueling port in the SEMI-OPEN state.\relax }}{22}{figure.caption.33}\protected@file@percent }
-\newlabel{fig:grid-semi-open-images}{{3.3}{22}{Annotated images of the fueling port in the SEMI-OPEN state.\relax }{figure.caption.33}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Framework Design}{23}{section.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Model Design}{23}{section.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}LSTM-based Sequence Model}{23}{subsection.3.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1.1}Input Representation}{23}{subsubsection.3.3.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1.2}Encoders}{23}{subsubsection.3.3.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1.3}Attention Mechanism}{24}{subsubsection.3.3.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Decoders}{24}{subsection.3.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Transformer-Based Architecture}{25}{subsection.3.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.1}Input Representation}{25}{subsubsection.3.3.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.2}Encoder}{25}{subsubsection.3.3.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.3}Decoder}{26}{subsubsection.3.3.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.4}Multi-Head Self-Attention}{26}{subsubsection.3.3.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.5}Output Generation}{26}{subsubsection.3.3.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3.6}Loss Function and Training}{26}{subsubsection.3.3.3.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}Algorithm Design}{27}{section.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}Data Augmentation Strategy}{27}{section.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Sequence Reversal}{27}{subsection.3.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Camera Movement Simulation}{27}{subsection.3.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}Zoom Simulation}{27}{subsection.3.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.4}Detection Inaccuracy Simulation}{28}{subsection.3.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.5}Implementation Details}{28}{subsection.3.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Experiment Design}{29}{chapter.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }}{21}{table.caption.31}\protected@file@percent }
+\newlabel{tab:balanced_frame_distribution}{{3.3}{21}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }{table.caption.31}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.6}Example Images from the Dataset}{22}{subsection.3.1.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the refueling port in the CLOSED state.\relax }}{22}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:grid-closed-images}{{3.2}{22}{Annotated images of the refueling port in the CLOSED state.\relax }{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the refueling port in the OPEN state.\relax }}{22}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:grid-open-images}{{3.3}{22}{Annotated images of the refueling port in the OPEN state.\relax }{figure.caption.33}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Annotated images of the refueling port in the SEMI-OPEN state.\relax }}{22}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:grid-semi-open-images}{{3.4}{22}{Annotated images of the refueling port in the SEMI-OPEN state.\relax }{figure.caption.34}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.7}Sequence Model Data Preparation}{23}{subsection.3.1.7}\protected@file@percent }
+\newlabel{fig:central-position-test-indoor1}{{3.5a}{23}{Central position of the refueling port over time.\relax }{figure.caption.35}{}}
+\newlabel{sub@fig:central-position-test-indoor1}{{a}{23}{Central position of the refueling port over time.\relax }{figure.caption.35}{}}
+\newlabel{fig:velocity-test-indoor1}{{3.5b}{23}{Velocity of the refueling port over time.\relax }{figure.caption.35}{}}
+\newlabel{sub@fig:velocity-test-indoor1}{{b}{23}{Velocity of the refueling port over time.\relax }{figure.caption.35}{}}
+\newlabel{fig:acceleration-test-indoor1}{{3.5c}{23}{Acceleration of the refueling port over time.\relax }{figure.caption.35}{}}
+\newlabel{sub@fig:acceleration-test-indoor1}{{c}{23}{Acceleration of the refueling port over time.\relax }{figure.caption.35}{}}
+\newlabel{fig:size-test-indoor1}{{3.5d}{23}{Area of the refueling port over time.\relax }{figure.caption.35}{}}
+\newlabel{sub@fig:size-test-indoor1}{{d}{23}{Area of the refueling port over time.\relax }{figure.caption.35}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{23}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-indoor1}{{3.5}{23}{Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.35}{}}
+\newlabel{fig:central-position-test-indoor1-savgol}{{3.6a}{24}{Central position of the refueling port over time.\relax }{figure.caption.36}{}}
+\newlabel{sub@fig:central-position-test-indoor1-savgol}{{a}{24}{Central position of the refueling port over time.\relax }{figure.caption.36}{}}
+\newlabel{fig:velocity-test-indoor1-savgol}{{3.6b}{24}{Velocity of the refueling port over time.\relax }{figure.caption.36}{}}
+\newlabel{sub@fig:velocity-test-indoor1-savgol}{{b}{24}{Velocity of the refueling port over time.\relax }{figure.caption.36}{}}
+\newlabel{fig:acceleration-test-indoor1-savgol}{{3.6c}{24}{Acceleration of the refueling port over time.\relax }{figure.caption.36}{}}
+\newlabel{sub@fig:acceleration-test-indoor1-savgol}{{c}{24}{Acceleration of the refueling port over time.\relax }{figure.caption.36}{}}
+\newlabel{fig:size-test-indoor1-savgol}{{3.6d}{24}{Area of the refueling port over time.\relax }{figure.caption.36}{}}
+\newlabel{sub@fig:size-test-indoor1-savgol}{{d}{24}{Area of the refueling port over time.\relax }{figure.caption.36}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{24}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-indoor1-savgol}{{3.6}{24}{Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.36}{}}
+\newlabel{fig:central-position-test-outdoor1}{{3.7a}{25}{Central position of the refueling port over time.\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:central-position-test-outdoor1}{{a}{25}{Central position of the refueling port over time.\relax }{figure.caption.37}{}}
+\newlabel{fig:velocity-test-outdoor1}{{3.7b}{25}{Velocity of the refueling port over time.\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:velocity-test-outdoor1}{{b}{25}{Velocity of the refueling port over time.\relax }{figure.caption.37}{}}
+\newlabel{fig:acceleration-test-outdoor1}{{3.7c}{25}{Acceleration of the refueling port over time.\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:acceleration-test-outdoor1}{{c}{25}{Acceleration of the refueling port over time.\relax }{figure.caption.37}{}}
+\newlabel{fig:size-test-outdoor1}{{3.7d}{25}{Area of the refueling port over time.\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:size-test-outdoor1}{{d}{25}{Area of the refueling port over time.\relax }{figure.caption.37}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{25}{figure.caption.37}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-outdoor1}{{3.7}{25}{Temporal analysis of different metrics for the refueling port in the \textit {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.37}{}}
+\newlabel{fig:central-position-test-outdoor1-savgol}{{3.8a}{26}{Central position of the refueling port over time.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:central-position-test-outdoor1-savgol}{{a}{26}{Central position of the refueling port over time.\relax }{figure.caption.38}{}}
+\newlabel{fig:velocity-test-outdoor1-savgol}{{3.8b}{26}{Velocity of the refueling port over time.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:velocity-test-outdoor1-savgol}{{b}{26}{Velocity of the refueling port over time.\relax }{figure.caption.38}{}}
+\newlabel{fig:acceleration-test-outdoor1-savgol}{{3.8c}{26}{Acceleration of the refueling port over time.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:acceleration-test-outdoor1-savgol}{{c}{26}{Acceleration of the refueling port over time.\relax }{figure.caption.38}{}}
+\newlabel{fig:size-test-outdoor1-savgol}{{3.8d}{26}{Area of the refueling port over time.\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:size-test-outdoor1-savgol}{{d}{26}{Area of the refueling port over time.\relax }{figure.caption.38}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{26}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-outdoor1-savgol}{{3.8}{26}{Temporal analysis of different metrics for the refueling port in the \textit {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.38}{}}
+\newlabel{fig:central-position-test-video_lab_platform_6}{{3.9a}{27}{Central position of the refueling port over time.\relax }{figure.caption.39}{}}
+\newlabel{sub@fig:central-position-test-video_lab_platform_6}{{a}{27}{Central position of the refueling port over time.\relax }{figure.caption.39}{}}
+\newlabel{fig:velocity-test-video_lab_platform_6}{{3.9b}{27}{Velocity of the refueling port over time.\relax }{figure.caption.39}{}}
+\newlabel{sub@fig:velocity-test-video_lab_platform_6}{{b}{27}{Velocity of the refueling port over time.\relax }{figure.caption.39}{}}
+\newlabel{fig:acceleration-test-video_lab_platform_6}{{3.9c}{27}{Acceleration of the refueling port over time.\relax }{figure.caption.39}{}}
+\newlabel{sub@fig:acceleration-test-video_lab_platform_6}{{c}{27}{Acceleration of the refueling port over time.\relax }{figure.caption.39}{}}
+\newlabel{fig:size-test-video_lab_platform_6}{{3.9d}{27}{Area of the refueling port over time.\relax }{figure.caption.39}{}}
+\newlabel{sub@fig:size-test-video_lab_platform_6}{{d}{27}{Area of the refueling port over time.\relax }{figure.caption.39}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{27}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-video_lab_platform_6}{{3.9}{27}{Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.39}{}}
+\newlabel{fig:central-position-test-video_lab_platform_6-savgol}{{3.10a}{28}{Central position of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:central-position-test-video_lab_platform_6-savgol}{{a}{28}{Central position of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{fig:velocity-test-video_lab_platform_6-savgol}{{3.10b}{28}{Velocity of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:velocity-test-video_lab_platform_6-savgol}{{b}{28}{Velocity of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{fig:acceleration-test-video_lab_platform_6-savgol}{{3.10c}{28}{Acceleration of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:acceleration-test-video_lab_platform_6-savgol}{{c}{28}{Acceleration of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{fig:size-test-video_lab_platform_6-savgol}{{3.10d}{28}{Area of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:size-test-video_lab_platform_6-savgol}{{d}{28}{Area of the refueling port over time.\relax }{figure.caption.40}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{28}{figure.caption.40}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-video_lab_platform_6-savgol}{{3.10}{28}{Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.40}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.8}Framework Design Overview}{29}{subsection.3.1.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces Framework Workflow\relax }}{30}{figure.caption.41}\protected@file@percent }
+\newlabel{fig:framework-workflow}{{3.11}{30}{Framework Workflow\relax }{figure.caption.41}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.9}Object Detection Model}{30}{subsection.3.1.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Sequence Model Design}{31}{section.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.12}{\ignorespaces SizPos-GRU Model Architecture\relax }}{31}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:sizpos-gru}{{3.12}{31}{SizPos-GRU Model Architecture\relax }{figure.caption.42}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Input Representation}{31}{subsection.3.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1.1}Spatial Dynamics Vector}{31}{subsubsection.3.2.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1.2}Dimensional Attributes Vector}{31}{subsubsection.3.2.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1.3}Input Sequences for Model}{32}{subsubsection.3.2.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1.4}Encoders}{32}{subsubsection.3.2.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1.5}Attention Mechanism}{32}{subsubsection.3.2.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Decoders}{33}{subsection.3.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Transformer-Based Architecture}{33}{subsection.3.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3.1}Input Representation}{34}{subsubsection.3.2.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3.2}Encoder}{34}{subsubsection.3.2.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3.3}Decoder}{34}{subsubsection.3.2.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3.4}Multi-Head Self-Attention}{35}{subsubsection.3.2.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3.5}Output Generation}{35}{subsubsection.3.2.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3.6}Loss Function and Training}{35}{subsubsection.3.2.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Algorithm Design}{35}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Data Augmentation Strategy}{35}{section.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Sequence Reversal}{35}{subsection.3.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Camera Movement Simulation}{36}{subsection.3.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Zoom Simulation}{36}{subsection.3.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Detection Inaccuracy Simulation}{36}{subsection.3.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.5}Implementation Details}{36}{subsection.3.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Experiment Design}{37}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:experiment_design}{{4}{29}{Experiment Design}{chapter.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Experiment Environment}{29}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Comparison Experiments}{29}{section.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Results and Discussion}{30}{chapter.5}\protected@file@percent }
+\newlabel{chap:experiment_design}{{4}{37}{Experiment Design}{chapter.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Experiment Environment}{37}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Comparison Experiments}{37}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Evaluation Metrics}{37}{section.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Results and Discussion}{39}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:results}{{5}{30}{Results and Discussion}{chapter.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Object Detection Training Results}{30}{section.5.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Comparison of YOLO Models\relax }}{30}{table.caption.34}\protected@file@percent }
-\newlabel{tab:comparison}{{5.1}{30}{Comparison of YOLO Models\relax }{table.caption.34}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Summary}{30}{subsection.5.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Data Description}{31}{section.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Experiment Results}{31}{section.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Testing Visualisation}{31}{section.5.4}\protected@file@percent }
+\newlabel{chap:results}{{5}{39}{Results and Discussion}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Object Detection Training Results}{39}{section.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Comparison of YOLO Models\relax }}{39}{table.caption.43}\protected@file@percent }
+\newlabel{tab:comparison}{{5.1}{39}{Comparison of YOLO Models\relax }{table.caption.43}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Summary}{39}{subsection.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Data Description}{40}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Experiment Results}{40}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Testing Visualisation}{40}{section.5.4}\protected@file@percent }
 \bibstyle{abbrvnat}
 \bibdata{LaTeX,CUCitations}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{32}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{41}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:conclusion}{{6}{32}{Conclusion and Future Work}{chapter.6}{}}
+\newlabel{chap:conclusion}{{6}{41}{Conclusion and Future Work}{chapter.6}{}}
 \bibcite{Alahi2016}{{1}{2016}{{Alahi et~al.}}{{Alahi, Goel, Ramanathan, Robicquet, Fei-Fei, and Savarese}}}
 \bibcite{AR3P2020}{{2}{AvMC}{{}}{{(2020)}}}
 \bibcite{Bennett1991}{{3}{1991}{{Bennett et~al.}}{{Bennett, Shiu, and Leahy}}}
@@ -279,7 +351,7 @@
 \bibcite{CostsOfUnsafetyAviation}{{10}{2010}{{Cokorilo et~al.}}{{Cokorilo, Gvozdenovic, Vasov, and Mirosavljevic}}}
 \bibcite{DBLP:journals/corr/DaiLHS16}{{11}{2016}{{Dai et~al.}}{{Dai, Li, He, and Sun}}}
 \bibcite{DBLP:journals/corr/EitelHB17}{{12}{2017}{{Eitel et~al.}}{{Eitel, Hauff, and Burgard}}}
-\@writefile{toc}{\contentsline {chapter}{References}{33}{chapter*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{References}{42}{chapter*.44}\protected@file@percent }
 \bibcite{huggingface2023objectdetection}{{13}{2023}{{Face}}{{}}}
 \bibcite{CubicLSTMsVideoPrediction}{{14}{2019}{{Fan et~al.}}{{Fan, Zhu, and Yang}}}
 \bibcite{Ficken2017}{{15}{2017}{{Ficken}}{{}}}
@@ -290,43 +362,44 @@
 \bibcite{AARBinocularVision}{{20}{2023}{{Gong et~al.}}{{Gong, Liu, Xu, Xu, He, Zhang, and Rasol}}}
 \bibcite{HowDoUGoWhere}{{21}{2022}{{Hong et~al.}}{{Hong, Martin, and Raubal}}}
 \bibcite{DualBranchSpatialTemporalLearningNetworkVideoPrediction}{{22}{2024}{{Huang and Guan}}{{}}}
-\bibcite{UnsupervisedVideoForecastingFlowParsingMechanism}{{23}{2024}{{Jin et~al.}}{{Jin, Song, Li, and Zhang}}}
-\bibcite{YOLOv5Release}{{24}{2022}{{Jocher}}{{}}}
-\bibcite{YOLOv8}{{25}{2023}{{Jocher}}{{}}}
-\bibcite{SurveyDLOD}{{26}{2022}{{Kang et~al.}}{{Kang, Tariq, Oh, and Woo}}}
-\bibcite{FusionGRU}{{27}{2024}{{Karim et~al.}}{{Karim, Qin, and Wang}}}
-\bibcite{DatasetAGR}{{28}{2023}{{Kuang et~al.}}{{Kuang, Barnes, Tang, and Jenkins}}}
-\bibcite{SurveyTransformersSingleOT}{{29}{2023}{{Kugarajeevan et~al.}}{{Kugarajeevan, Kokul, Ramanan, and Fernando}}}
-\bibcite{FFPSpaceSystemVehicles}{{30}{2022}{{Lee et~al.}}{{Lee, Jeon, Han, and Jeong}}}
-\bibcite{li2023yolov6}{{31}{2023}{{Li et~al.}}{{Li, Li, Geng, Jiang, Cheng, Zhang, Ke, Xu, and Chu}}}
-\bibcite{lin2018focal}{{32}{2018}{{Lin et~al.}}{{Lin, Goyal, Girshick, He, and Dollár}}}
-\bibcite{10.1007/978-981-16-5943-0_26}{{33}{2021{}}{{Liu et~al.}}{{Liu, Chen, and Liu}}}
-\bibcite{OverviewCorrelationAlgoOT}{{34}{2021{}}{{Liu et~al.}}{{Liu, Liu, Srivastava, Połap, and Woźniak}}}
-\bibcite{DBLP:journals/corr/LiuAESR15}{{35}{2015}{{Liu et~al.}}{{Liu, Anguelov, Erhan, Szegedy, Reed, Fu, and Berg}}}
-\bibcite{doi:10.1080/13669877.2013.879493}{{36}{2014}{{Olja~Čokorilo and Dell’Acqua}}{{}}}
-\bibcite{ExpertSystemsAGR}{{37}{2021}{{Plaza and Santos}}{{}}}
-\bibcite{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}{{38}{2023}{{Ranjan et~al.}}{{Ranjan, Bhandari, Kim, and Kim}}}
-\bibcite{DBLP:journals/corr/RedmonF16}{{39}{2016}{{Redmon and Farhadi}}{{}}}
-\bibcite{DBLP:journals/corr/RedmonDGF15}{{40}{2015}{{Redmon et~al.}}{{Redmon, Divvala, Girshick, and Farhadi}}}
-\bibcite{Ren2017}{{41}{2017}{{Ren et~al.}}{{Ren, He, Girshick, and Sun}}}
-\bibcite{UCFSport}{{42}{2008}{{Rodriguez et~al.}}{{Rodriguez, Ahmed, and Shah}}}
-\bibcite{sati2019aircraft}{{43}{2019}{{Sati et~al.}}{{Sati, Singh, and Yadav}}}
-\bibcite{KTH}{{44}{2004}{{Schuldt et~al.}}{{Schuldt, Laptev, and Caputo}}}
-\bibcite{Schultz1986}{{45}{1986}{{Schultz}}{{}}}
-\bibcite{ConvLSTM}{{46}{2015}{{Shi et~al.}}{{Shi, Chen, Wang, Yeung, Wong, and Woo}}}
-\bibcite{DBLP:journals/corr/SrivastavaMS15}{{47}{2015}{{Srivastava et~al.}}{{Srivastava, Mansimov, and Salakhutdinov}}}
-\bibcite{Vaswani2017}{{48}{2017}{{Vaswani et~al.}}{{Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Łukasz Kaiser, and Polosukhin}}}
-\bibcite{wang2024yolov10}{{49}{2024{}}{{Wang et~al.}}{{Wang, Chen, Liu, Chen, Lin, Han, and Ding}}}
-\bibcite{wang2023goldyolo}{{50}{2023}{{Wang et~al.}}{{Wang, He, Nie, Guo, Liu, Han, and Wang}}}
-\bibcite{wang2024yolov9}{{51}{2024{}}{{Wang et~al.}}{{Wang, Yeh, and Liao}}}
-\bibcite{AARCNN}{{52}{2017}{{Wang et~al.}}{{Wang, Dong, Kong, Li, and Zhang}}}
-\bibcite{SmallObjectDetectionPositonPrediction}{{53}{2021}{{Wu and Xu}}{{}}}
-\bibcite{xu2022ppyoloe}{{54}{2022}{{Xu et~al.}}{{Xu, Wang, Lv, Chang, Cui, Deng, Wang, Dang, Wei, Du, and Lai}}}
-\bibcite{xu2023damoyolo}{{55}{2023}{{Xu et~al.}}{{Xu, Jiang, Chen, Huang, Zhang, and Sun}}}
-\bibcite{ODNetworkUAVCNNTransformer}{{56}{2023}{{Ye et~al.}}{{Ye, Qin, Zhao, Gao, Deng, and Ouyang}}}
-\bibcite{AGRPoseEstimation}{{57}{2021}{{Yildirim et~al.}}{{Yildirim, Rana, and Tang}}}
-\bibcite{HybridDatasetAGRV1}{{58}{2023}{{Yildirim et~al.}}{{Yildirim, Rana, and Tang}}}
-\bibcite{SurveyModernODModels}{{59}{2022}{{Zaidi et~al.}}{{Zaidi, Ansari, Aslam, Kanwal, Asghar, and Lee}}}
-\bibcite{SuveyAdvancesSingleOTMethods}{{60}{2021}{{Zhang et~al.}}{{Zhang, Wang, Liu, Zhang, and Chen}}}
-\bibcite{AAREKF}{{61}{2017}{{Zhong et~al.}}{{Zhong, Li, Wang, and Su}}}
-\gdef \@abspage@last{46}
+\bibcite{IntelRealSense}{{23}{2024}{{Intel}}{{}}}
+\bibcite{UnsupervisedVideoForecastingFlowParsingMechanism}{{24}{2024}{{Jin et~al.}}{{Jin, Song, Li, and Zhang}}}
+\bibcite{YOLOv5Release}{{25}{2022}{{Jocher}}{{}}}
+\bibcite{YOLOv8}{{26}{2023}{{Jocher}}{{}}}
+\bibcite{SurveyDLOD}{{27}{2022}{{Kang et~al.}}{{Kang, Tariq, Oh, and Woo}}}
+\bibcite{FusionGRU}{{28}{2024}{{Karim et~al.}}{{Karim, Qin, and Wang}}}
+\bibcite{DatasetAGR}{{29}{2023}{{Kuang et~al.}}{{Kuang, Barnes, Tang, and Jenkins}}}
+\bibcite{SurveyTransformersSingleOT}{{30}{2023}{{Kugarajeevan et~al.}}{{Kugarajeevan, Kokul, Ramanan, and Fernando}}}
+\bibcite{FFPSpaceSystemVehicles}{{31}{2022}{{Lee et~al.}}{{Lee, Jeon, Han, and Jeong}}}
+\bibcite{li2023yolov6}{{32}{2023}{{Li et~al.}}{{Li, Li, Geng, Jiang, Cheng, Zhang, Ke, Xu, and Chu}}}
+\bibcite{lin2018focal}{{33}{2018}{{Lin et~al.}}{{Lin, Goyal, Girshick, He, and Dollár}}}
+\bibcite{10.1007/978-981-16-5943-0_26}{{34}{2021{}}{{Liu et~al.}}{{Liu, Chen, and Liu}}}
+\bibcite{OverviewCorrelationAlgoOT}{{35}{2021{}}{{Liu et~al.}}{{Liu, Liu, Srivastava, Połap, and Woźniak}}}
+\bibcite{DBLP:journals/corr/LiuAESR15}{{36}{2015}{{Liu et~al.}}{{Liu, Anguelov, Erhan, Szegedy, Reed, Fu, and Berg}}}
+\bibcite{doi:10.1080/13669877.2013.879493}{{37}{2014}{{Olja~Čokorilo and Dell’Acqua}}{{}}}
+\bibcite{ExpertSystemsAGR}{{38}{2021}{{Plaza and Santos}}{{}}}
+\bibcite{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}{{39}{2023}{{Ranjan et~al.}}{{Ranjan, Bhandari, Kim, and Kim}}}
+\bibcite{DBLP:journals/corr/RedmonF16}{{40}{2016}{{Redmon and Farhadi}}{{}}}
+\bibcite{DBLP:journals/corr/RedmonDGF15}{{41}{2015}{{Redmon et~al.}}{{Redmon, Divvala, Girshick, and Farhadi}}}
+\bibcite{Ren2017}{{42}{2017}{{Ren et~al.}}{{Ren, He, Girshick, and Sun}}}
+\bibcite{UCFSport}{{43}{2008}{{Rodriguez et~al.}}{{Rodriguez, Ahmed, and Shah}}}
+\bibcite{sati2019aircraft}{{44}{2019}{{Sati et~al.}}{{Sati, Singh, and Yadav}}}
+\bibcite{KTH}{{45}{2004}{{Schuldt et~al.}}{{Schuldt, Laptev, and Caputo}}}
+\bibcite{Schultz1986}{{46}{1986}{{Schultz}}{{}}}
+\bibcite{ConvLSTM}{{47}{2015}{{Shi et~al.}}{{Shi, Chen, Wang, Yeung, Wong, and Woo}}}
+\bibcite{DBLP:journals/corr/SrivastavaMS15}{{48}{2015}{{Srivastava et~al.}}{{Srivastava, Mansimov, and Salakhutdinov}}}
+\bibcite{Vaswani2017}{{49}{2017}{{Vaswani et~al.}}{{Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Łukasz Kaiser, and Polosukhin}}}
+\bibcite{wang2024yolov10}{{50}{2024{}}{{Wang et~al.}}{{Wang, Chen, Liu, Chen, Lin, Han, and Ding}}}
+\bibcite{wang2023goldyolo}{{51}{2023}{{Wang et~al.}}{{Wang, He, Nie, Guo, Liu, Han, and Wang}}}
+\bibcite{wang2024yolov9}{{52}{2024{}}{{Wang et~al.}}{{Wang, Yeh, and Liao}}}
+\bibcite{AARCNN}{{53}{2017}{{Wang et~al.}}{{Wang, Dong, Kong, Li, and Zhang}}}
+\bibcite{SmallObjectDetectionPositonPrediction}{{54}{2021}{{Wu and Xu}}{{}}}
+\bibcite{xu2022ppyoloe}{{55}{2022}{{Xu et~al.}}{{Xu, Wang, Lv, Chang, Cui, Deng, Wang, Dang, Wei, Du, and Lai}}}
+\bibcite{xu2023damoyolo}{{56}{2023}{{Xu et~al.}}{{Xu, Jiang, Chen, Huang, Zhang, and Sun}}}
+\bibcite{ODNetworkUAVCNNTransformer}{{57}{2023}{{Ye et~al.}}{{Ye, Qin, Zhao, Gao, Deng, and Ouyang}}}
+\bibcite{AGRPoseEstimation}{{58}{2021}{{Yildirim et~al.}}{{Yildirim, Rana, and Tang}}}
+\bibcite{HybridDatasetAGRV1}{{59}{2023}{{Yildirim et~al.}}{{Yildirim, Rana, and Tang}}}
+\bibcite{SurveyModernODModels}{{60}{2022}{{Zaidi et~al.}}{{Zaidi, Ansari, Aslam, Kanwal, Asghar, and Lee}}}
+\bibcite{SuveyAdvancesSingleOTMethods}{{61}{2021}{{Zhang et~al.}}{{Zhang, Wang, Liu, Zhang, and Chen}}}
+\bibcite{AAREKF}{{62}{2017}{{Zhong et~al.}}{{Zhong, Li, Wang, and Su}}}
+\gdef \@abspage@last{55}

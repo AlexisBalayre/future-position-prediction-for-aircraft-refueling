@@ -25,9 +25,18 @@
 \contentsline {figure}{\numberline {2.20}{\ignorespaces KTH Action Dataset. Source:\nobreakspace {}\citet {KTH}\relax }}{17}{figure.caption.26}%
 \contentsline {figure}{\numberline {2.21}{\ignorespaces UCF Sports Dataset. Source:\nobreakspace {}\citet {UCFSport}\relax }}{17}{figure.caption.27}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Annotated images of the fueling port in the CLOSED state.\relax }}{22}{figure.caption.31}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the fueling port in the OPEN state.\relax }}{22}{figure.caption.32}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the fueling port in the SEMI-OPEN state.\relax }}{22}{figure.caption.33}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Intel® ${\text {RealSense}}^{\text {TM}}$ D435 Depth Camera. Source: Intel\relax }}{18}{figure.caption.28}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the refueling port in the CLOSED state.\relax }}{22}{figure.caption.32}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the refueling port in the OPEN state.\relax }}{22}{figure.caption.33}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Annotated images of the refueling port in the SEMI-OPEN state.\relax }}{22}{figure.caption.34}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{23}{figure.caption.35}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{24}{figure.caption.36}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{25}{figure.caption.37}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{26}{figure.caption.38}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{27}{figure.caption.39}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{28}{figure.caption.40}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Framework Workflow\relax }}{30}{figure.caption.41}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces SizPos-GRU Model Architecture\relax }}{31}{figure.caption.42}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
