@@ -1,4 +1,4 @@
-\begin{thebibliography}{62}
+\begin{thebibliography}{54}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -15,7 +15,13 @@ A.~Alahi, K.~Goel, V.~Ramanathan, A.~Robicquet, L.~Fei-Fei, and S.~Savarese.
 A.~F. C. A. C. A. . M.~C. (AvMC).
 \newblock Ar3p program background (2017-2019) and robotic hot refueling demonstrations (sep-oct 2020), 2020.
 \newblock URL \url{hhttps://www.denix.osd.mil/ndcee/denix-files/sites/44/2023/09/EXSUM-AR3P-Robotic-Refueling-K-MAX-and-S-70-Sep_Oct-2020-v9.pdf}.
-\newblock Accessed: 2024-07-24.
+\newblock Accessed: 2024-06-24.
+
+\bibitem[Bailey(2019)]{ImageRefueling}
+J.~Bailey.
+\newblock What is fuel tankering and why should you care?, 2019.
+\newblock URL \url{https://simpleflying.com/fuel-tankering/}.
+\newblock Accessed: 2024-06-24.
 
 \bibitem[Bennett et~al.(1991)Bennett, Shiu, and Leahy]{Bennett1991}
 R.~A. Bennett, Y.~C. Shiu, and M.~B. Leahy.
@@ -35,11 +41,17 @@ A.~Bochkovskiy, C.~Wang, and H.~M. Liao.
 \newblock \emph{CoRR}, abs/2004.10934, 2020.
 \newblock URL \url{https://arxiv.org/abs/2004.10934}.
 
+\bibitem[Bouhsain et~al.(2020)Bouhsain, Saadatnejad, and Alahi]{DBLP:journals/corr/abs-2010-10270}
+S.~A. Bouhsain, S.~Saadatnejad, and A.~Alahi.
+\newblock Pedestrian intention prediction: {A} multi-task perspective.
+\newblock \emph{CoRR}, abs/2010.10270, 2020.
+\newblock URL \url{https://arxiv.org/abs/2010.10270}.
+
 \bibitem[Burnette(2010)]{Burnette2010}
 H.~Burnette.
 \newblock Lab demonstrates robotic ground refueling of aircraft, Oct. 2010.
 \newblock URL \url{https://www.wpafb.af.mil/News/Article-Display/Article/400022/lab-demonstrates-robotic-ground-refueling-of-aircraft/}.
-\newblock Accessed: 2024-07-24.
+\newblock Accessed: 2024-06-24.
 
 \bibitem[Chen et~al.(2022)Chen, Wang, Zhao, Lv, and Niu]{SurveyVisualOT}
 F.~Chen, X.~Wang, Y.~Zhao, S.~Lv, and X.~Niu.
@@ -71,42 +83,29 @@ J.~Dai, Y.~Li, K.~He, and J.~Sun.
 \newblock \emph{CoRR}, abs/1605.06409, 2016.
 \newblock URL \url{http://arxiv.org/abs/1605.06409}.
 
-\bibitem[Eitel et~al.(2017)Eitel, Hauff, and Burgard]{DBLP:journals/corr/EitelHB17}
-A.~Eitel, N.~Hauff, and W.~Burgard.
-\newblock Learning to singulate objects using a push proposal network.
-\newblock \emph{CoRR}, abs/1707.08101, 2017.
-\newblock URL \url{http://arxiv.org/abs/1707.08101}.
-
 \bibitem[Face(2023)]{huggingface2023objectdetection}
 H.~Face.
 \newblock Object detection leaderboard, 2023.
 \newblock URL \url{https://huggingface.co/blog/object-detection-leaderboard}.
 \newblock Accessed: 2024-06-17.
 
-\bibitem[Fan et~al.(2019)Fan, Zhu, and Yang]{CubicLSTMsVideoPrediction}
-H.~Fan, L.~Zhu, and Y.~Yang.
-\newblock Cubic lstms for video prediction.
-\newblock page 8263 – 8270, 2019.
-\newblock URL \url{https://www.scopus.com/inward/record.uri?eid=2-s2.0-85085021761&partnerID=40&md5=5ef1e8834ec46834bbb53bbcf11720c9}.
-\newblock Cited by: 41.
-
 \bibitem[Ficken(2017)]{Ficken2017}
 N.~Ficken.
 \newblock Concept demonstration explores robotic aviation refueling system, July 18 2017.
 \newblock URL \url{https://www.army.mil/article/190980/concept_demonstration_explores_robotic_aviation_refueling_system}.
-\newblock Accessed: 2024-07-24.
-
-\bibitem[Finn et~al.(2016)Finn, Goodfellow, and Levine]{DBLP:journals/corr/FinnGL16}
-C.~Finn, I.~J. Goodfellow, and S.~Levine.
-\newblock Unsupervised learning for physical interaction through video prediction.
-\newblock \emph{CoRR}, abs/1605.07157, 2016.
-\newblock URL \url{http://arxiv.org/abs/1605.07157}.
+\newblock Accessed: 2024-06-24.
 
 \bibitem[Ge et~al.(2021)Ge, Liu, Wang, Li, and Sun]{DBLP:journals/corr/abs-2107-08430}
 Z.~Ge, S.~Liu, F.~Wang, Z.~Li, and J.~Sun.
 \newblock {YOLOX:} exceeding {YOLO} series in 2021.
 \newblock \emph{CoRR}, abs/2107.08430, 2021.
 \newblock URL \url{https://arxiv.org/abs/2107.08430}.
+
+\bibitem[Ghosh(2024)]{LearnOpenCVYOLOv10}
+A.~Ghosh.
+\newblock Yolov10: The dual-head og of yolo series, 2024.
+\newblock URL \url{https://learnopencv.com/yolov10/}.
+\newblock Accessed: 2024-06-24.
 
 \bibitem[Girshick(2015)]{DBLP:journals/corr/Girshick15}
 R.~B. Girshick.
@@ -127,33 +126,11 @@ K.~Gong, B.~Liu, X.~Xu, Y.~Xu, Y.~He, Z.~Zhang, and J.~Rasol.
 \newblock ISSN 2504446X.
 \newblock \doi{10.3390/drones7070433}.
 
-\bibitem[Hong et~al.(2022)Hong, Martin, and Raubal]{HowDoUGoWhere}
-Y.~Hong, H.~Martin, and M.~Raubal.
-\newblock How do you go where?: improving next location prediction by learning travel mode information using transformers.
-\newblock 2022.
-\newblock \doi{10.1145/3557915.3560996}.
-
-\bibitem[Huang and Guan(2024)]{DualBranchSpatialTemporalLearningNetworkVideoPrediction}
-H.~Huang and Y.~Guan.
-\newblock A dual-branch spatial-temporal learning network for video prediction.
-\newblock \emph{IEEE Access}, 12:\penalty0 73258 – 73267, 2024.
-\newblock \doi{10.1109/ACCESS.2024.3394209}.
-\newblock URL \url{https://www.scopus.com/inward/record.uri?eid=2-s2.0-85191878045&doi=10.1109%2fACCESS.2024.3394209&partnerID=40&md5=a2491ede039a7189014acb3b7eb0256d}.
-\newblock Cited by: 0; All Open Access, Gold Open Access.
-
 \bibitem[Intel(2024)]{IntelRealSense}
 Intel.
 \newblock Intel realsense depth camera d435, 2024.
 \newblock URL \url{https://www.intelrealsense.com/depth-camera-d435/}.
 \newblock Accessed: 2024-06-24.
-
-\bibitem[Jin et~al.(2024)Jin, Song, Li, and Zhang]{UnsupervisedVideoForecastingFlowParsingMechanism}
-B.~Jin, X.~Song, J.~Li, and P.~Zhang.
-\newblock Unsupervised video forecasting with flow parsing mechanism of human visual system.
-\newblock \emph{Engineering Applications of Artificial Intelligence}, 134:\penalty0 108652, 2024.
-\newblock ISSN 0952-1976.
-\newblock \doi{https://doi.org/10.1016/j.engappai.2024.108652}.
-\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S0952197624008108}.
 
 \bibitem[Jocher(2022)]{YOLOv5Release}
 G.~Jocher.
@@ -239,14 +216,6 @@ E.~Plaza and M.~Santos.
 \newblock ISSN 14680394.
 \newblock \doi{10.1111/exsy.12631}.
 
-\bibitem[Ranjan et~al.(2023)Ranjan, Bhandari, Kim, and Kim]{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}
-N.~Ranjan, S.~Bhandari, Y.-C. Kim, and H.~Kim.
-\newblock Video frame prediction by joint optimization of direct frame synthesis and optical-flow estimation.
-\newblock \emph{Computers, Materials and Continua}, 75\penalty0 (2):\penalty0 2615 – 2639, 2023.
-\newblock \doi{10.32604/cmc.2023.026086}.
-\newblock URL \url{https://www.scopus.com/inward/record.uri?eid=2-s2.0-85152478811&doi=10.32604%2fcmc.2023.026086&partnerID=40&md5=3c3a7145b11a082102840f176198a13d}.
-\newblock Cited by: 0; All Open Access, Gold Open Access.
-
 \bibitem[Redmon and Farhadi(2016)]{DBLP:journals/corr/RedmonF16}
 J.~Redmon and A.~Farhadi.
 \newblock {YOLO9000:} better, faster, stronger.
@@ -266,23 +235,11 @@ S.~Ren, K.~He, R.~Girshick, and J.~Sun.
 \newblock ISSN 01628828.
 \newblock \doi{10.1109/TPAMI.2016.2577031}.
 
-\bibitem[Rodriguez et~al.(2008)Rodriguez, Ahmed, and Shah]{UCFSport}
-M.~D. Rodriguez, J.~Ahmed, and M.~Shah.
-\newblock Action mach a spatio-temporal maximum average correlation height filter for action recognition.
-\newblock In \emph{2008 IEEE Conference on Computer Vision and Pattern Recognition}, pages 1--8, 2008.
-\newblock \doi{10.1109/CVPR.2008.4587727}.
-
 \bibitem[Sati et~al.(2019)Sati, Singh, and Yadav]{sati2019aircraft}
 R.~Sati, S.~Singh, and R.~Yadav.
 \newblock Aircraft fuel system: design, components, and safety.
 \newblock \emph{International Journal of Aerospace Engineering}, 2019:\penalty0 1--12, 2019.
 \newblock \doi{10.1155/2019/6943787}.
-
-\bibitem[Schuldt et~al.(2004)Schuldt, Laptev, and Caputo]{KTH}
-C.~Schuldt, I.~Laptev, and B.~Caputo.
-\newblock Recognizing human actions: a local svm approach.
-\newblock In \emph{Proceedings of the 17th International Conference on Pattern Recognition, 2004. ICPR 2004.}, volume~3, pages 32--36 Vol.3, 2004.
-\newblock \doi{10.1109/ICPR.2004.1334462}.
 
 \bibitem[Schultz(1986)]{Schultz1986}
 E.~R. Schultz.
@@ -291,22 +248,11 @@ E.~R. Schultz.
 \newblock ISSN 08858985.
 \newblock \doi{10.1109/MAES.1986.5005018}.
 
-\bibitem[Shi et~al.(2015)Shi, Chen, Wang, Yeung, Wong, and Woo]{ConvLSTM}
-X.~Shi, Z.~Chen, H.~Wang, D.~Yeung, W.~Wong, and W.~Woo.
-\newblock Convolutional {LSTM} network: {A} machine learning approach for precipitation nowcasting.
-\newblock \emph{CoRR}, abs/1506.04214, 2015.
-\newblock URL \url{http://arxiv.org/abs/1506.04214}.
-
-\bibitem[Srivastava et~al.(2015)Srivastava, Mansimov, and Salakhutdinov]{DBLP:journals/corr/SrivastavaMS15}
-N.~Srivastava, E.~Mansimov, and R.~Salakhutdinov.
-\newblock Unsupervised learning of video representations using lstms.
-\newblock \emph{CoRR}, abs/1502.04681, 2015.
-\newblock URL \url{http://arxiv.org/abs/1502.04681}.
-
-\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Łukasz Kaiser, and Polosukhin]{Vaswani2017}
-A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez, Łukasz Kaiser, and I.~Polosukhin.
-\newblock Attention is all you need.
-\newblock volume 2017-December, 2017.
+\bibitem[Styles et~al.(2020)Styles, Guha, and Sanchez]{MultipleObjectForecasting}
+O.~Styles, T.~Guha, and V.~Sanchez.
+\newblock Multiple object forecasting: Predicting future object locations in diverse environments.
+\newblock 2020.
+\newblock \doi{10.1109/WACV45572.2020.9093446}.
 
 \bibitem[Wang et~al.(2024{\natexlab{a}})Wang, Chen, Liu, Chen, Lin, Han, and Ding]{wang2024yolov10}
 A.~Wang, H.~Chen, L.~Liu, K.~Chen, Z.~Lin, J.~Han, and G.~Ding.

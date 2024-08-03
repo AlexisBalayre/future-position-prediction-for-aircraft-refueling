@@ -6,52 +6,50 @@ Database file #1: LaTeX.bib
 Database file #2: CUCitations.bib
 Warning--empty booktitle in Alahi2016
 Warning--empty booktitle in Bennett1991
-Warning--empty booktitle in CubicLSTMsVideoPrediction
-Warning--empty booktitle in HowDoUGoWhere
 Warning--empty booktitle in DatasetAGR
-Warning--empty booktitle in Vaswani2017
+Warning--empty booktitle in MultipleObjectForecasting
 Warning--empty booktitle in AGRPoseEstimation
 Warning--empty booktitle in HybridDatasetAGRV1
 Warning--empty booktitle in AAREKF
-You've used 62 entries,
+You've used 54 entries,
             2773 wiz_defined-function locations,
-            1016 strings with 19503 characters,
-and the built_in function-call counts, 31280 in all, are:
-= -- 2667
-> -- 2381
-< -- 24
-+ -- 801
-- -- 737
-* -- 2679
-:= -- 4995
-add.period$ -- 251
-call.type$ -- 62
-change.case$ -- 430
-chr.to.int$ -- 60
-cite$ -- 133
-duplicate$ -- 1257
-empty$ -- 2177
-format.name$ -- 809
-if$ -- 6439
+            946 strings with 16405 characters,
+and the built_in function-call counts, 26061 in all, are:
+= -- 2197
+> -- 2020
+< -- 20
++ -- 682
+- -- 626
+* -- 2215
+:= -- 4207
+add.period$ -- 213
+call.type$ -- 54
+change.case$ -- 369
+chr.to.int$ -- 52
+cite$ -- 115
+duplicate$ -- 1032
+empty$ -- 1818
+format.name$ -- 688
+if$ -- 5325
 int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 46
-newline$ -- 382
-num.names$ -- 250
-pop$ -- 839
+missing$ -- 36
+newline$ -- 328
+num.names$ -- 218
+pop$ -- 739
 preamble$ -- 1
-purify$ -- 368
+purify$ -- 315
 quote$ -- 0
-skip$ -- 1097
+skip$ -- 901
 stack$ -- 0
-substring$ -- 442
-swap$ -- 127
-text.length$ -- 10
+substring$ -- 248
+swap$ -- 76
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 682
-warning$ -- 9
-while$ -- 206
+type$ -- 594
+warning$ -- 7
+while$ -- 174
 width$ -- 0
-write$ -- 915
-(There were 9 warnings)
+write$ -- 782
+(There were 7 warnings)

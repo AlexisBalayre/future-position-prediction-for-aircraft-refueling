@@ -187,7 +187,7 @@ be addressed, and the refueling process will become safer and more efficient.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{figures/pressure-refuelling.jpeg}
-    \caption{Pressure Refuelling of a Commercial Aircraft. Source: Tom Boon/Simple Flying}\label{fig:pressure-refuelling}
+    \caption{Pressure Refuelling of a Commercial Aircraft. Photo Credit: Tom Boon/Simple Flying~\cite{ImageRefueling}}\label{fig:pressure-refuelling}
 \end{figure}
 
 The aviation industry is undergoing a significant transformation with the
@@ -508,6 +508,98 @@ their high detection speeds but sometimes compromise accuracy~\cite{SurveyDLOD,
     \caption{Basic deep learning-based one-stage vs two-stage object detection model architectures~\cite{SurveyDLOD}.}\label{fig:two-stage-vs-single-stage}
 \end{figure}
 
+\newpage
+YOLOv10, the latest iteration in the YOLO series, marks a significant leap
+forward in real-time object detection with the introduction of NMS-free
+training. Traditionally, single-stage detectors relied on Non-Maximum
+Suppression (NMS) during post-processing to eliminate redundant predictions, as
+illustrated in Figure~\ref{fig:nms}. However, this process can sometimes be
+overly aggressive, risking the loss of valuable predictions or failing to
+remove all duplicates effectively, which also adds to computational costs
+during both training and inference~\cite{LearnOpenCVYOLOv10}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/NMS.png}
+    \caption{Non-Maximum Suppression (NMS) in Object Detection~\cite{LearnOpenCVYOLOv10}.}\label{fig:nms}
+\end{figure}
+
+YOLOv10 overcomes these limitations by implementing a consistent dual
+assignments strategy that facilitates NMS-free training. This strategy
+leverages both one-to-many and one-to-one label assignments during training,
+providing the model with rich supervision while enabling efficient end-to-end
+deployment. During inference, the one-to-one assignment head is employed, which
+eliminates the need for NMS and significantly reduces inference time. As
+depicted in Figure~\ref{fig:yolov10}, the one-to-many head assigns multiple
+labels to each anchor box, enriching the model’s supervision, while the
+one-to-one head refines these predictions by assigning a single label to each
+anchor box, ensuring precise and efficient detection~\cite{wang2024yolov10}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/YOLOV10.png}
+    \caption{YOLOv10 Model Workflow~\cite{wang2024yolov10}}\label{fig:yolov10}
+\end{figure}
+
+In addition, YOLOv10 adopts a holistic efficiency-accuracy driven design that
+optimizes the model’s architecture across various dimensions. The
+classification head has been redesigned to be more lightweight, reducing
+computational overhead while maintaining accuracy. The spatial-channel
+decoupled downsampling technique separates spatial reduction and channel
+increase operations, which lowers computational costs and reduces the parameter
+count. Furthermore, the rank-guided block design minimizes redundancy within
+the model by adapting the complexity of different stages based on their
+intrinsic rank values, ensuring optimal capacity-efficiency trade-offs. YOLOv10
+also introduces large-kernel convolutions selectively in the deeper stages of
+the network to increase the receptive field, allowing the model to capture more
+contextual information without a significant increase in computational cost.
+Moreover, YOLOv10 incorporates a partial self-attention (PSA) mechanism, which
+integrates the benefits of global context modeling while maintaining a
+lightweight architecture. This careful balance of efficiency and accuracy
+enables YOLOv10 to deliver state-of-the-art performance.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/KernelYOLOv10.png}
+    \caption{Large-Kernel Convolution in YOLOv10~\cite{LearnOpenCVYOLOv10}}\label{fig:large-kernel-yolov10}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \caption{Performance Comparison of YOLO Models with State-of-the-Art Techniques. Latency is reported using official pre-trained models. \textsuperscript{f}Latency refers to the forward pass duration without including post-processing. \textsuperscript{\textdagger} indicates YOLOv10 results obtained with the original one-to-many training and Non-Maximum Suppression (NMS). All metrics below exclude the use of advanced training methods like knowledge distillation or PGI to ensure fair comparisons \cite{wang2024yolov10}.}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lcccccc}
+            \toprule
+            \textbf{Model}     & \textbf{Params (M)} & \textbf{FLOPs (G)} & \textbf{AP\textsubscript{val} (\%)}               & \textbf{Latency\textsuperscript{c} (ms)} & \textbf{Latency\textsuperscript{f} (ms)} \\
+            \midrule
+            YOLOv6-3.0-N       & 4.7                 & 11.4               & 37.0                                              & 2.69                                     & 1.76                                     \\
+            Gold-YOLO-N        & 5.6                 & 12.1               & 39.6                                              & 2.92                                     & 1.82                                     \\
+            YOLOv8-N           & 3.2                 & 8.7                & 37.3                                              & 6.16                                     & 1.77                                     \\
+            \textbf{YOLOv10-N} & \textbf{2.3}        & \textbf{6.7}       & \textbf{38.5 / 39.5\textsuperscript{\textdagger}} & \textbf{1.84}                            & \textbf{1.79}                            \\  
+            \midrule
+            YOLOv6-3.0-S       & 18.5                & 45.3               & 44.3                                              & 3.42                                     & 2.35                                     \\  
+            Gold-YOLO-S        & 21.5                & 46.0               & 45.4                                              & 3.82                                     & 2.73                                     \\  
+            YOLO-MS-XS         & 4.5                 & 17.4               & 43.4                                              & 8.23                                     & 2.80                                     \\  
+            YOLO-MS-S          & 8.1                 & 31.2               & 46.2                                              & 10.12                                    & 4.83                                     \\  
+            YOLOv8-S           & 11.2                & 28.6               & 44.9                                              & 7.07                                     & 2.33                                     \\  
+            YOLOv9-S           & 7.1                 & 26.4               & 46.7                                              & -                                        & -                                        \\  
+            RT-DETR-R18        & 20.0                & 60.0               & 46.5                                              & 4.58                                     & 4.49                                     \\  
+            \textbf{YOLOv10-S} & \textbf{7.2}        & \textbf{21.6}      & \textbf{46.3 / 46.8\textsuperscript{\textdagger}} & \textbf{2.49}                            & \textbf{2.39}                            \\  
+            \midrule
+            YOLOv6-3.0-M       & 34.9                & 85.8               & 49.1                                              & 5.63                                     & 4.56                                     \\  
+            Gold-YOLO-M        & 41.3                & 87.5               & 49.8                                              & 6.38                                     & 5.45                                     \\  
+            YOLO-MS            & 22.2                & 80.2               & 51.0                                              & 12.41                                    & 7.30                                     \\  
+            YOLOv8-M           & 25.9                & 78.9               & 50.6                                              & 9.50                                     & 5.09                                     \\  
+            YOLOv9-M           & 20.0                & 76.3               & 51.1                                              & -                                        & -                                        \\  
+            RT-DETR-R34        & 31.0                & 92.0               & 48.9                                              & 6.32                                     & 6.21                                     \\  
+            RT-DETR-R50m       & 36.0                & 100.0              & 51.3                                              & 6.90                                     & 6.84                                     \\  
+            \textbf{YOLOv10-M} & \textbf{15.4}       & \textbf{59.1}      & \textbf{51.1 / 51.3\textsuperscript{\textdagger}} & \textbf{4.74}                            & \textbf{4.63}                            \\  
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:comparison}
+\end{table}
+
 Evaluating Object Detection models involves several key metrics to measure
 their performance. One common metric is Intersection over Union (IoU), which
 measures the overlap between a predicted bounding box and a ground-truth
@@ -618,85 +710,7 @@ instance,~\citet{Alahi2016} proposed a Social-LSTM to model pedestrian
 trajectories and interactions, further improving global context capture through
 a social pooling module.
 
-\subsection*{Transformer Models for Frame-Based Prediction}
-Transformer model, introduced by~\citet{Vaswani2017}, has revolutionised
-sequence modeling with its efficient and powerful network structure. For video
-prediction, transformers leverage self-attention mechanisms to capture
-long-range dependencies across frames. The~\citet{HowDoUGoWhere} study shows
-how transformers can effectively learn mobility patterns from historical frame
-sequences, achieving state-of-the-art performance in next-location prediction
-tasks.
-
 \subsection*{Frame-Based Approaches in Spatio-Temporal Prediction}
-
-Video prediction, a critical task in spatio-temporal data analysis, involves
-forecasting future frames based on past and current frames. This process
-requires understanding both spatial and temporal dynamics within the data.
-
-\subsubsection*{Convolutional LSTM (ConvLSTM)}
-
-ConvLSTM integrates convolutional operations into LSTM units to better capture
-spatial features in addition to temporal dependencies~\cite{ConvLSTM}. By
-processing video data as sequences of frames, ConvLSTM effectively models the
-spatio-temporal dependencies necessary for accurate video prediction. Each
-frame serves as a spatial unit, and the sequence of frames provides temporal
-context, allowing the model to predict future frames by learning from the
-patterns in previous ones.
-
-\subsubsection*{Cubic LSTM for Video Prediction}
-
-The Cubic Long Short-Term Memory (CubicLSTM) unit, as proposed
-by~\citet{CubicLSTMsVideoPrediction}, extends the capabilities of ConvLSTM by
-separately processing spatial and temporal information through three branches:
-temporal, spatial, and output. This approach mitigates the computational burden
-and enhances prediction accuracy. Specifically:
-\begin{itemize}
-    \item The \textit{temporal branch} processes motion information by analysing the
-          sequence of frames over time.
-    \item The \textit{spatial branch} captures object information within individual
-          frames.
-    \item The \textit{output branch} combines temporal and spatial information to
-          generate predicted future frames.
-\end{itemize}
-This separation of concerns allows the model to handle the complexities of video data more effectively, resulting in more accurate predictions of future frames.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{figures/CubicLSTM.png}
-    \caption{Cubic LSTM Architecture. (a) 3D structure of the CubicLSTM unit. (b) Topological diagram of the CubicLSTM unit. (c) Two-spatial-layer RNN composed of CubicLSTM units. The unit consists of three branches, a spatial (z-) branch for extracting and recognizing moving objects, a temporal (y-) branch for capturing and predicting motions, and an output (x-) branch for combining the first two branches to generate the predicted frames. Source:~\citet{CubicLSTMsVideoPrediction}}\label{fig:cubic-lstm}
-\end{figure}
-
-\subsubsection*{Unsupervised Video Forecasting with Flow Parsing}
-\citet{UnsupervisedVideoForecastingFlowParsingMechanism} introduced an unsupervised video forecasting approach that incorporates a flow parsing mechanism. This model separates the motion and appearance learning processes:
-\begin{itemize}
-    \item The \textit{motion stream} predicts optical flow between frames to capture
-          dynamic changes.
-    \item The \textit{appearance stream} reconstructs frames to preserve spatial details.
-\end{itemize}
-By integrating these streams, the model can predict future frames with improved motion accuracy and appearance fidelity.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{figures/Unsupervised-Video-Forecasting.png}
-    \caption{Model Architecture. Source:~\citet{UnsupervisedVideoForecastingFlowParsingMechanism}}\label{fig:unsupervised-video-forecasting-flow-parsing}
-\end{figure}
-
-\subsubsection*{Joint Optimization with Synthesis and Optical Flow Estimation}
-\citet{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}
-proposed a method that jointly optimizes frame synthesis and optical flow
-estimation. Their approach leverages:
-\begin{itemize}
-    \item A \textit{frame synthesis network} to generate predicted frames.
-    \item An \textit{optical flow estimation network} to capture motion dynamics between
-          frames.
-\end{itemize}
-This joint optimization enhances the model's ability to produce accurate and visually coherent future frames.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/FPNet-OF.png}
-    \caption{FPNet-OF model architecture. Source:~\citet{VideoFramePredictionByJointOptimizationWithSynthesisAndOpticalFlowEstimation}}\label{fig:joint-optimization-synthesis-optical-flow}
-\end{figure}
 
 \subsubsection*{Fusion-GRU}
 \citet{FusionGRU} developed the Fusion-Gated Recurrent
@@ -715,107 +729,75 @@ performance in challenging driving scenarios.
     \caption{Fusion-GRU model architecture. Source:~\citet{FusionGRU}}\label{fig:fusion-gru}
 \end{figure}
 
-\subsubsection*{Dual-Branch Spatial-Temporal Learning Network}
+The Spatio-Temporal Encoder-Decoder (STED) model represents a significant
+advancement in multiple object forecasting (MOF) by integrating both visual and
+temporal features to predict future object bounding boxes in dynamic
+environments. Traditional trajectory forecasting models, which often simplify
+objects to single points in space and rely on fixed overhead camera
+perspectives, fall short in capturing the rich visual cues and complex motion
+patterns necessary for accurate predictions in real-world scenarios. To address
+these limitations, the STED model employs a Gated Recurrent Unit (GRU) for
+temporal encoding of past bounding box coordinates, effectively capturing the
+motion history of objects from 30 previous frames, which corresponds to one
+second of video data at 30Hz. Complementing this, the model incorporates a
+Convolutional Neural Network (CNN) to extract features from optical flow,
+providing detailed insights into both object motion and ego-motion. By
+combining these encoded features, the STED model's decoder generates
+predictions for the next 60 frames, equivalent to two seconds into the future.
 
-Huang and Guan~\cite{DualBranchSpatialTemporalLearningNetworkVideoPrediction}
-proposed a dual-branch video prediction network that aims to generate
-high-quality future frames by simultaneously capturing complex motion patterns
-and preserving appearance information. Their network includes two distinct
-units:
-\begin{itemize}
-    \item The \textit{motion prediction unit (MPU)} focuses on inter-frame motion and
-          intra-frame appearance by using depth and multiple-scale convolutions, along
-          with temporal attention mechanisms to enhance feature interactions over time.
-    \item The \textit{spatial prediction unit (SPU)} concentrates on spatial information,
-          ensuring appearance consistency across video frames by capturing various
-          appearance features.
-\end{itemize}
-This dual-branch approach addresses the limitations of relying on external information or complex state transition units, resulting in better visual quality and fewer blurry artifacts in predicted frames.
+The STED architecture has been rigorously evaluated against several baseline
+models, including the Constant Velocity and Constant Scale (CV-CS) model,
+Linear Kalman Filter (LKF), Dynamic Trajectory Predictor (DTP), and Future
+Person Localization (FPL). The results, presented in Table~\ref{tab:results},
+demonstrate the superior performance of the STED model across key metrics. On
+the Citywalks dataset, the STED model achieved an Average Displacement Error
+(ADE) of 26.0 pixels and a Final Displacement Error (FDE) of 46.9 pixels,
+significantly outperforming the baseline models. Additionally, the model showed
+enhanced Intersection-over-Union (IoU) metrics, indicating better alignment of
+predicted bounding boxes with the ground truth.
+
+\begin{table}[H]
+    \centering
+    \caption{Performance Comparison of STED Model with Baseline Models on Citywalks and MOT-17 Datasets. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection-over-Union (AIOU), and Final Intersection-over-Union (FIOU). The model was evaluated using 30 input frames to predict 60 future frames.}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lcccccc}
+            \toprule
+            \textbf{Model} & \textbf{Dataset}   & \textbf{ADE (pixels)} & \textbf{FDE (pixels)} & \textbf{AIOU (\%)} & \textbf{FIOU (\%)} \\
+            \midrule
+            CV-CS          & Citywalks          & 31.6                  & 57.6                  & 46.0               & 21.3               \\
+            LKF            & Citywalks          & 32.9                  & 59.0                  & 43.9               & 20.1               \\
+            DTP            & Citywalks          & 27.3                  & 49.2                  & N/A                & N/A                \\
+            FPL            & Citywalks          & 28.6                  & 49.8                  & N/A                & N/A                \\
+            \textbf{STED}  & \textbf{Citywalks} & \textbf{26.0}         & \textbf{46.9}         & \textbf{51.8}      & \textbf{27.5}      \\
+            \midrule
+            CV-CS          & MOT-17             & 58.9                  & 104.7                 & 43.8               & 21.5               \\
+            LKF            & MOT-17             & 62.0                  & 110.2                 & 41.6               & 20.1               \\
+            DTP            & MOT-17             & 55.2                  & 99.0                  & N/A                & N/A                \\
+            FPL            & MOT-17             & 56.9                  & 96.3                  & N/A                & N/A                \\
+            \textbf{STED}  & \textbf{MOT-17}    & \textbf{51.8}         & \textbf{91.6}         & \textbf{46.7}      & \textbf{24.4}      \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:results}
+\end{table}
+
+The results highlight the STED model's ability to outperform existing methods,
+particularly in terms of lower ADE and FDE, which reflect more accurate
+predictions of future object positions. Additionally, the higher AIOU and FIOU
+metrics demonstrate that STED achieves better alignment with the actual object
+boundaries, further confirming its efficacy in complex, real-world environments
+(Figure~\ref{fig:sted}).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/dual-branch-architecture.png}
-    \caption{Dual-Branch Spatial-Temporal Learning Network. Source:~\citet{DualBranchSpatialTemporalLearningNetworkVideoPrediction}}\label{fig:dual-branch-spatial-temporal-learning-network}
+    \includegraphics[width=1\textwidth]{figures/STED.png}
+    \caption{STED Model Architecture. Source:~\citet{MultipleObjectForecasting}}\label{fig:sted}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/dual-branch-inter-intra-frames.png}
-    \caption{Dual-Branch Spatial-Temporal Learning Network. Source:~\citet{SurveyDLOD}}\label{fig:dual-branch-inter-intra-frames}
-\end{figure}
-
-\subsection*{Applications and Case Studies}
-
-In various applications, the frame-based approach to spatio-temporal prediction
-has proven highly effective:
-
-\subsubsection*{Moving-MNIST Dataset}
-
-The Moving-MNIST dataset consists of sequences of moving handwritten digits.
-Each sequence includes a series of frames, and the goal is to predict future
-frames based on the observed ones. This dataset contains 10000 videos, each
-consisting of 20 frames~\cite{DBLP:journals/corr/SrivastavaMS15}. The
-CubicLSTM-based CubicRNN demonstrated superior accuracy compared to traditional
-ConvLSTM models, showcasing its ability to capture both motion and spatial
-features effectively~\cite{ CubicLSTMsVideoPrediction}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.3\textwidth]{figures/2-digit-Moving-MNIST-data-Fig-5-3-digit-Moving-MNIST-data.jpeg}
-    \caption{2-digit Moving MNIST data by~\citet{DBLP:journals/corr/SrivastavaMS15}}\label{fig:moving-mnist}
-\end{figure}
-
-\subsubsection*{Robotic Pushing Dataset}
-
-This dataset involves sequences of robotic arms pushing objects, with each
-frame representing a step in the sequence. The dataset contains 3456 training
-images with labels and 1024 validation images with
-labels~\cite{DBLP:journals/corr/FinnGL16}. The CubicLSTM model, combined with
-convolutional dynamic neural advection (CDNA) models, achieved higher accuracy
-and generated clearer frames compared to ConvLSTM and CNN-based models. This
-application highlights the importance of accurately predicting future frames to
-understand and anticipate the movements of robotic
-systems~\cite{CubicLSTMsVideoPrediction}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/robotpush.png}
-    \caption{Robotic Pushing Dataset. Source:~\citet{DBLP:journals/corr/EitelHB17}}\label{fig:robotic-pushing-dataset}
-\end{figure}
-
-\subsubsection*{KTH Action Dataset}
-
-The KTH Action dataset features videos of people performing various actions,
-with each video divided into frames. The dataset contains 2391
-sequences~\cite{KTH}. The CubicLSTM model provided more accurate and visually
-consistent predictions of future frames compared to other state-of-the-art
-models like DrNet and MCnet. This demonstrates the model's effectiveness in
-understanding and predicting human actions over
-time~\cite{CubicLSTMsVideoPrediction}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/KTH-dataset.png}
-    \caption{KTH Action Dataset. Source:~\citet{KTH}}\label{fig:kth-action-dataset}
-\end{figure}
-
-\subsubsection*{UCF Sports Dataset}
-
-The UCF Sports dataset consists of a collection of footage collected from
-various sports that are typically shown on television channels such as the BBC
-and ESPN.\@ It comprises a total of 150 sequences~\cite{UCFSport}. Huang and
-Guan's dual-branch network was tested on the UCF Sports dataset, which includes
-complex motion patterns and large movements. Their method outperformed other
-state-of-the-art methods in terms of visual quality and motion accuracy, as
-evidenced by superior metrics such as PSNR, SSIM, and LPIPS. The results
-validate the network's ability to handle intricate video prediction tasks
-without relying on additional information~\cite{
-    DualBranchSpatialTemporalLearningNetworkVideoPrediction}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{figures/ucf-sport-dataset.png}
-    \caption{UCF Sports Dataset. Source:~\citet{UCFSport}}\label{fig:ucf-sports-dataset}
+    \includegraphics[width=1\textwidth]{figures/PV-LSTM.png}
+    \caption{PV-LSTM Model Architecture. Source:~\citet{DBLP:journals/corr/abs-2010-10270}}\label{fig:pv-lstm}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1173,82 +1155,67 @@ different states:
     \label{fig:bbox-metrics-test-video_lab_platform_6-savgol}
 \end{figure}
 
-\subsection{Framework Design Overview}
-The proposed framework (see figure~\ref{fig:framework-workflow}) aims to
-predict the future bounding boxes of the refueling port over the next \(m\)
-frames of a video stream, using the observed bounding boxes from the current
-and previous frames. The observed bounding box at time step \(t\) is
-represented as \(\mathbf{b}_t = [x_t, y_t, w_t, h_t]\), where \((x_t, y_t)\)
-denotes the coordinates of the bounding box center, and \(w_t\) and \(h_t\)
-represent the width and height of the bounding box, respectively. The objective
-is to predict a sequence of future bounding boxes \(\mathbf{S}_{t+1:t+m} =
-\{\mathbf{b}_{t+1}, \dots, \mathbf{b}_{t+m}\}\) on the following \(m\) frames,
-based on the past \(n\) observed bounding boxes \(\mathbf{S}_{t-1+n:t} =
+\section{Framework Design}
+The proposed framework, illustrated in Figure~\ref{fig:framework-workflow}, is
+designed to predict the future positions of the refueling port’s bounding boxes
+across the next \(m\) frames of a video stream. It does this by leveraging the
+bounding boxes observed in the current and previous frames. At any given time
+step \(t\), the observed bounding box is denoted as \(\mathbf{b}_t = [x_t, y_t,
+w_t, h_t]\), where \((x_t, y_t)\) represents the center coordinates of the
+bounding box, and \(w_t\) and \(h_t\) represent the width and height of the
+bounding box, respectively. The goal is to predict a sequence of future
+bounding boxes, \(\mathbf{S}_{t+1:t+m} = \{\mathbf{b}_{t+1}, \dots,
+\mathbf{b}_{t+m}\}\), for the upcoming \(m\) frames based on the observed
+bounding boxes from the past \(n\) frames, \(\mathbf{S}_{t-1+n:t} =
 \{\mathbf{b}_{t-1+n}, \dots, \mathbf{b}_{t}\}\). 
-
-The frame process begins with the input video sequence, which is analysed frame
-by frame. An object detection model identifies and locates the bounding boxes
-of the supply port. These bounding boxes are then used in subsequent stages of
-data processing.
-
-Two key input vectors are extracted from the bounding box information: the
-\textit{spatial dynamics vector} and the \textit{dimensional attributes
-    vector}. The spatial dynamics vector includes information about the position,
-velocity, and acceleration of the bounding box center, represented as
-\(\mathbf{p}_t = [x_t, y_t, v_{x,t}, v_{y,t}, a_{x,t}, a_{y,t}]\). The
-dimensional attributes vector captures the size of the bounding box and the
-changes in its dimensions over time, expressed as \(\mathbf{d}_t = [w_t, h_t,
-\Delta w_t, \Delta h_t]\).
-
-These input vectors are fed into a sequence model, where they are processed
-through separate encoders to extract meaningful temporal features. The encoded
-features are then concatenated and passed to a decoder, which predicts the
-future bounding boxes for the refueling port across the next \(N\) frames. The
-resulting output, \(\mathbf{B}_{t} = \{\mathbf{b}_{t+1}, \dots,
-\mathbf{b}_{t+N}\}\), provides an estimate of the bounding box positions and
-sizes in the subsequent frames.
-
-This method effectively leverages both the spatial and dimensional information
-of the bounding boxes to generate accurate predictions of future positions and
-sizes, which are essential for tasks such as object tracking and navigation.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/FrameworkWorkflow.drawio.pdf}
+    \includegraphics[width=0.79\textwidth]{figures/FrameworkWorkflow.drawio.pdf}
     \caption{Framework Workflow}\label{fig:framework-workflow}
 \end{figure}
 
-The proposed framework consists of two main components: an object detection
-model and a sequence model. The object detection model is responsible for
-detecting the refueling port in each frame of the video, while the sequence
-model predicts the future positions and sizes of the detected refueling port.
-The framework workflow is illustrated in Figure~\ref{fig:framework-workflow}. 
+The process starts with an input video sequence, which is analysed on a
+frame-by-frame basis. An object detection model first identifies and locates
+the bounding boxes of the refueling port in each frame. These detected bounding
+boxes are then formatted into input vectors suitable for the sequence model.
+The sequence model is responsible for predicting the future spatial positions
+and dimensions of the refueling port’s bounding boxes. Finally, these
+predictions are refined through postprocessing steps to produce the final
+bounding box forecasts for the subsequent frames.
 
-\subsection{Object Detection Model}
-The object detection model provides a sequence of bounding boxes in each video
-frame, represented in the following format:
-\[
-    (x_{\text{center}}, y_{\text{center}}, w, h),
-\]
-where $(x_{\text{center}}, y_{\text{center}})$ denotes the coordinates of the
-bounding box center, and $(w, h)$ represent the width and height of the
-bounding box, respectively.
+\section{Object Detection Model Fine-tuning}
+A fine-tuned YOLOv10 Nano model is used to detect the refueling port within the
+video frames. As highlighted in the literature review, YOLOv10 represents the
+latest advancement in object detection technology, offering an optimal balance
+between speed and accuracy. The YOLOv10 Nano variant is particularly
+well-suited for real-time applications, especially on resource-constrained
+embedded devices, due to its lightweight architecture. The model is fine-tuned
+through transfer learning on the HARD dataset, enabling precise detection of
+the refueling port within the video frames. This fine-tuning process ensures
+that the model meets the demands of real-time video analysis with both accuracy
+and responsiveness. The implementation uses the Ultralytics YOLOv10 framework,
+which provides a reliable and efficient pipeline for both training and
+inference. This framework optimises detection performance and guarantees robust
+operation in different scenarios.
 
 \section{Sequence Model Design}
+This thesis introduces the \textit{SizPos-GRU model} model, a deep learning
+sequence model for predicting future positions and sizes of a unique object in
+a video stream. The model leverages an encoder-attention-decoder architecture
+to capture temporal dependencies and spatial relationships effectively. The
+SizPos-GRU model leverages an encoder-attention-decoder architecture to
+effectively capture temporal dependencies and spatial relationships. The
+framework consists of four main components: two encoders, an attention
+mechanism, and two decoders. Each component is designed to handle specific
+aspects of the sequence modeling task, from encoding input sequences to
+generating context-aware predictions.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{figures/GRUSizPos.drawio.pdf}
     \caption{SizPos-GRU Model Architecture}\label{fig:sizpos-gru}
 \end{figure}
-
-This thesis introduces the SizPos-GRU model, a deep learning sequence model for
-predicting future positions and sizes of a unique object in a video stream. The
-model leverages an encoder-attention-decoder architecture to capture temporal
-dependencies and spatial relationships effectively. The framework consists of
-four main components: two encoders, an attention mechanism, and two decoders.
-Each component is designed to handle specific aspects of the sequence modeling
-task, from encoding input sequences to generating context-aware predictions.
 
 \subsection{Input Representation}
 The \textit{SizPos-GRU} model expects two types of input sequences to predict
@@ -1257,245 +1224,183 @@ spatial dynamics of the object, including its position, velocity and
 acceleration. The second input focuses on the object's dimensional attributes,
 such as its width and height, and changes in these dimensions over time.
 
-\subsubsection{Spatial Dynamics Vector}
-The spatial dynamics vector at time $t$, denoted as $\mathbf{p}_t$, is obtained
-by computing the position, velocity, and acceleration of the bounding box
-center:
+\subsubsection*{Spatial Dynamics Vector}
+The spatial dynamics vector at time $t$, denoted as $\mathbf{p}_t$, represents the position, velocity, and acceleration of the bounding box center. It is defined as:
 \begin{align}
     \mathbf{p}_t & = \left(x_t, y_t, v_{x,t}, v_{y,t}, a_{x,t}, a_{y,t}\right), \\
     v_{x,t}      & = x_t - x_{t-1}, \quad v_{y,t} = y_t - y_{t-1},              \\
     a_{x,t}      & = v_{x,t} - v_{x,t-1}, \quad a_{y,t} = v_{y,t} - v_{y,t-1}.
 \end{align}
-Here, $(x_t, y_t)$ represents the center coordinates at time $t$, $(v_{x,t}, v_{y,t})$ are the velocities, and $(a_{x,t}, a_{y,t})$ are the accelerations along the $x$ and $y$ axes.
+Here, $(x_t, y_t)$ represents the center coordinates at time $t$, $(v_{x,t}, v_{y,t})$ are the velocities, and $(a_{x,t}, a_{y,t})$ are the accelerations along the $x$ and $y$ axes, respectively.
 
-\subsubsection{Dimensional Attributes Vector}
-The dimensional attributes vector at time $t$, denoted as $\mathbf{d}_t$,
-captures the size of the bounding box and the changes in its dimensions:
+\subsubsection*{Dimensional Attributes Vector}
+The dimensional attributes vector at time $t$, denoted as $\mathbf{d}_t$, captures the size of the bounding box and the changes in its dimensions:
 \begin{align}
     \mathbf{d}_t & = \left(w_t, h_t, \Delta w_t, \Delta h_t\right),    \\
     \Delta w_t   & = w_t - w_{t-1}, \quad \Delta h_t = h_t - h_{t-1}.
 \end{align}
 Here, $(w_t, h_t)$ represents the width and height at time $t$, and $(\Delta w_t, \Delta h_t)$ are the changes in these dimensions from the previous time step.
 
-\subsubsection{Input Sequences for Model}
-The sequences of these vectors over a time window $T$ are fed into the model
-as:
+\subsubsection*{Input Sequences for Model}
+The sequences of these vectors over a time window of \(n\) frames are fed into the model as:
 \[
-    \mathbf{P} = \{\mathbf{p}_1, \mathbf{p}_2, \dots, \mathbf{p}_T\}, \quad \mathbf{D} = \{\mathbf{d}_1, \mathbf{d}_2, \dots, \mathbf{d}_T\},
+    \mathbf{P} = \{\mathbf{p}_{t-1+n}, \mathbf{p}_{t-n+2}, \dots, \mathbf{p}_t\}, \quad \mathbf{D} = \{\mathbf{d}_{t-1+n}, \mathbf{d}_{t-n+2}, \dots, \mathbf{d}_t\},
 \]
-where $\mathbf{P}$ is the sequence of spatial dynamics vectors and $\mathbf{D}$
-is the sequence of dimensional attributes vectors. These sequences are then
-processed by the model's encoders to extract temporal features for predicting
-future bounding box positions and sizes.
+where $\mathbf{P}$ is the sequence of spatial dynamics vectors, and
+$\mathbf{D}$ is the sequence of dimensional attributes vectors. These sequences
+are processed by the model's encoders to extract temporal features, which are
+then used to predict future bounding box positions and sizes.
 
-These sequences are fed into the encoders to extract meaningful temporal
-features.
+\subsection{Encoders}
+The SizPos-GRU model employs two separate GRU encoders: one for processing the
+sequence of spatial dynamics vectors and another for processing the sequence of
+dimensional attributes vectors. Both encoders are designed to extract
+meaningful temporal features from their respective input sequences, which are
+subsequently used by the decoders to generate predictions.
 
-\subsubsection{Encoders}
-The framework employs two separate LSTM encoders: one for processing the
-sequence of bounding boxes and another for processing the sequence of
-velocities. Each encoder is designed to capture the temporal dependencies
-within its respective input data.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/GRUSizPosEncoder.drawio.pdf}
+    \caption{SizPos-GRU Encoder Architecture. The input sequence \( \mathbf{X} = \{\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_T\} \) represents either the spatial dynamics vector (\(\mathbf{P}\)) or the dimensional attributes vector (\(\mathbf{D}\)). This sequence is processed through multiple GRU layers, producing a sequence of hidden states \( H = \{h_1, h_2, \dots, h_T\} \) and a final hidden state \( h_T \) that encapsulates the temporal dependencies in the input sequence.}
+    \label{fig:sizpos-gru-encoder}
+\end{figure}
 
-The bounding box encoder is defined as:
-
+\subsubsection*{Position Encoder}
+The position encoder processes the sequence of spatial dynamics vectors, which include the bounding box’s position, velocity, and acceleration over time. It is defined as:
 \begin{equation}
-    H_p, (h_{p_n}, c_{p_n}) = \text{LSTM}_p(\mathbf{P})
+    H_p, h_{p_T} = \text{GRU}_p(\mathbf{P}, h_{p_0}),
 \end{equation}
+where $\mathbf{P} = (\mathbf{p}_{t-1+n}, \mathbf{p}_{t-n+2}, \ldots, \mathbf{p}_t)$ is the input sequence of spatial dynamics vectors, $H_p = (h_{p_1}, h_{p_2}, \ldots, h_{p_T})$ represents the sequence of hidden states generated by the GRU, and $h_{p_T}$ is the final hidden state at time $T$. The initial hidden state $h_{p_0}$ is typically initialized to zero.
 
-where $\mathbf{P} = (\mathbf{p}_1, \mathbf{p}_2, \ldots, \mathbf{p}_T)$ is the
-input sequence of bounding boxes, $H_p = (h_{p_1}, h_{p_2}, \ldots, h_{p_T})$
-represents the sequence of hidden states, and $(h_{p_n}, c_{p_n})$ are the
-final hidden and cell states of the bounding box encoder.
-
-The velocity encoder is defined as:
-
+\subsubsection*{Size Encoder}
+The size encoder processes the sequence of dimensional attributes vectors, which include the bounding box’s width, height, and changes in these dimensions over time. It is defined as:
 \begin{equation}
-    H_v, (h_{v_n}, c_{v_n}) = \text{LSTM}_v(\mathbf{V})
+    H_d, h_{d_T} = \text{GRU}_d(\mathbf{D}, h_{d_0}),
 \end{equation}
+where $\mathbf{D} = (\mathbf{d}_{t-1+n}, \mathbf{d}_{t-n+2}, \ldots, \mathbf{d}_t)$ is the input sequence of dimensional attributes vectors, $H_d = (h_{d_1}, h_{d_2}, \ldots, h_{d_T})$ represents the sequence of hidden states generated by the GRU, and $h_{d_T}$ is the final hidden state at time $T$. Similarly, the initial hidden state $h_{d_0}$ is initialized to zero.
 
-where $\mathbf{V} = (\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_T)$ is the
-input sequence of velocities, $H_v = (h_{v_1}, h_{v_2}, \ldots, h_{v_T})$
-represents the sequence of hidden states, and $(h_{v_n}, c_{v_n})$ are the
-final hidden and cell states of the velocity encoder.
-
-\subsubsection{Attention Mechanism}
-
-The attention mechanism is crucial for allowing the model to focus on relevant
-parts of the input sequences when making predictions. It computes a set of
-attention weights that highlight important hidden states from both encoders.
-These weights are used to form context vectors, which provide the decoders with
-relevant information from the input sequences.
-
-The attention weights $\alpha_t$ are calculated as follows:
-
+\subsection{Hidden State Fusion}
+After the position and size encoders process their respective input sequences,
+the resulting hidden states are combined to leverage information from both
+spatial dynamics and dimensional attributes. This fusion is achieved by
+concatenating the final hidden states from both encoders and passing them
+through a fully connected layer:
 \begin{equation}
-    \alpha_t = \text{softmax}(v^\top \tanh(W_{h_p} H_p + W_{h_v} H_v + W_s s_{t-1}))
+    h_{\text{combined}} = W_{\text{combine}} \cdot \left[h_{p_T} \oplus h_{d_T}\right] + b_{\text{combine}},
 \end{equation}
-
-where $W_{h_p}$ and $W_{h_v}$ are learned weight matrices for the bounding box
-and velocity hidden states, respectively, $W_s$ is a learned weight matrix for
-the previous decoder state, and $v$ is a learned vector. The context vectors
-$c_{p_t}$ and $c_{v_t}$ are then computed as:
-
-\begin{equation}
-    c_{p_t} = \sum_{i=1}^{T} \alpha_{t,i} h_{p_i}
-\end{equation}
-
-\begin{equation}
-    c_{v_t} = \sum_{i=1}^{T} \alpha_{t,i} h_{v_i}
-\end{equation}
-
-These context vectors are passed to the decoders to generate the next time step
-predictions.
+where $h_{p_T}$ and $h_{d_T}$ are the final hidden states from the position and size encoders, respectively, $\oplus$ denotes the concatenation operation, $W_{\text{combine}}$ is the weight matrix, and $b_{\text{combine}}$ is the bias vector. The fused hidden state $h_{\text{combined}}$ encapsulates the temporal features from both input sequences, enabling the model to generate context-aware predictions.
 
 \subsection{Decoders}
-The framework employs two separate LSTM decoders: one for generating
-predictions for future bounding boxes and another for generating predictions
-for future velocities. Each decoder takes as input the previous output and the
-context vectors from the attention mechanism.
+The \textit{SizPos-GRU} model utilises two specialised decoders to predict the
+future bounding boxes over the next \(m\) frames. These decoders are designed
+to process the temporal features extracted by the encoders and the fused hidden
+states, generating accurate and context-aware predictions.
 
-The bounding box decoder's input at each time step $t$ is the concatenated
-vector of the previous output and the context vector from the bounding box
-encoder:
+\subsubsection{Position Decoder}
+The position decoder is responsible for predicting the future spatial dynamics
+of the bounding boxes, including their positions and velocities. The decoding
+process begins by initialising the input with the last observed position in the
+sequence. The decoder then iteratively predicts future positions over the
+defined prediction horizon \(m\).
 
-\begin{equation}
-    \mathbf{d}_{p_t} = [\mathbf{p}_{t-1}, c_{p_{t-1}}]
-\end{equation}
-
-The LSTM in the bounding box decoder processes this input to update its hidden
-and cell states:
-
-\begin{equation}
-    s_{p_t}, (h_{p_t}, c_{p_t}) = \text{LSTM}_p(\mathbf{d}_{p_t}, (h_{p_{t-1}}, c_{p_{t-1}}))
-\end{equation}
-
-The final output for the bounding box is obtained through a fully connected
-layer with a sigmoid activation function to ensure the output values are
-between 0 and 1:
+During each iteration, the current input is processed through a stack of GRU
+layers, which update the hidden state based on the previous hidden state and
+current input. This updated hidden state, encapsulating temporal dependencies,
+is then passed through a self-attention mechanism. The self-attention mechanism
+computes attention scores, which are normalized using a softmax function to
+produce attention weights. These weights are applied to the hidden states to
+generate a context vector that highlights the most relevant temporal features.
 
 \begin{equation}
-    \mathbf{p}_t = \text{Sigmoid}(\text{Linear}_p(s_{p_t}))
+    H_p = \text{GRU}p(h{\text{combined}}),
+\end{equation}
+\begin{equation}
+    \alpha_i = \frac{\exp(w_i)}{\sum_{j=1}^{m}\exp(w_j)}, \quad w_i = \text{Linear}(h_{p_i}),
+\end{equation}
+\begin{equation}
+    c_p = \sum_{i=1}^{m} \alpha_i h_{p_i},
 \end{equation}
 
-Similarly, the velocity decoder's input at each time step $t$ is the
-concatenated vector of the previous output and the context vector from the
-velocity encoder:
+The context vector $c_p$ is then passed through a series of fully connected
+layers, with dropout and ReLU activation functions, to produce the final
+position prediction for the current time step:
 
 \begin{equation}
-    \mathbf{d}_{v_t} = [\mathbf{v}_{t-1}, c_{v_{t-1}}]
+    \hat{\mathbf{P}}_{t+1:m} = \text{ReLU}(\text{Dropout}(\text{Dense}1(c_p))),
+\end{equation}
+\begin{equation}
+    \hat{\mathbf{P}}{t+1:m} = \text{Dense}2(\hat{\mathbf{P}}{t+1:m}),
 \end{equation}
 
-The LSTM in the velocity decoder processes this input to update its hidden and
-cell states:
+The predicted position is then used as the input for the next iteration of the
+decoding loop, enabling the model to recursively generate predictions for
+subsequent time steps. This iterative process continues until predictions for
+all future time steps within the prediction window have been generated, and the
+accumulated sequence of predicted positions is returned as the final output.
+
+\subsubsection{Size Decoder}
+The size decoder operates similarly to the position decoder but focuses on
+predicting the future dimensions of the bounding boxes, such as width and
+height. The decoding process starts with the last observed size in the
+sequence, and the decoder iteratively generates predictions for future sizes
+over the prediction horizon m.
+
+In each iteration, the current size input is processed through GRU layers that
+capture the temporal dynamics of size changes. The output from the GRU is then
+passed through a self-attention mechanism, which assigns different weights to
+the hidden states across time. These weights are used to compute a context
+vector $c_d$, which represents the most relevant temporal and spatial
+information for the current prediction step.
 
 \begin{equation}
-    s_{v_t}, (h_{v_t}, c_{v_t}) = \text{LSTM}_v(\mathbf{d}_{v_t}, (h_{v_{t-1}}, c_{v_{t-1}}))
+    H_d = \text{GRU}d(h{\text{combined}}),
+\end{equation}
+\begin{equation}
+    \beta_i = \frac{\exp(v_i)}{\sum_{j=1}^{m}\exp(v_j)}, \quad v_i = \text{Linear}(h_{d_i}),
+\end{equation}
+\begin{equation}
+    c_d = \sum_{i=1}^{m} \beta_i h_{d_i},
 \end{equation}
 
-The final output for the velocity is obtained through a fully connected layer
-without any activation function. This design choice allows the output values to
-range freely, including negative values, which is necessary because velocities
-can be positive or negative:
+The context vector $c_d$ is passed through dense layers with dropout and ReLU
+activation to produce the final size prediction:
 
 \begin{equation}
-    \mathbf{v}_t = \text{Linear}_v(s_{v_t})
+    \hat{\mathbf{D}}_{t+1:m} = \text{ReLU}(\text{Dropout}(\text{Dense}1(c_d))),
 \end{equation}
-
-The decoders continue this process for the entire prediction horizon, using
-their own previous outputs as inputs for future predictions.
-
-\subsection{Transformer-Based Architecture}
-
-The proposed model leverages a Transformer architecture to predict future
-positions and velocities of objects in a video stream. Transformers, introduced
-by Vaswani et al. (2017), have demonstrated superior performance in
-sequence-to-sequence tasks by effectively capturing long-range dependencies
-through self-attention mechanisms. Our architecture consists of three main
-components: an encoder, a decoder, and a multi-head self-attention mechanism.
-Each component is designed to handle specific aspects of the sequence modeling
-task, from encoding input sequences to generating context-aware predictions.
-
-\subsubsection{Input Representation}
-
-The model takes as input sequences of bounding boxes and their velocities
-extracted from video frames. Each bounding box is represented by its center
-coordinates $(x_{\text{center}}, y_{\text{center}})$, width $(w)$, and height
-$(h)$. Corresponding velocities are represented by changes in these values:
-$(\Delta x, \Delta y, \Delta w, \Delta h)$. Thus, each input vector
-$\mathbf{p}_t$ and $\mathbf{v}_t$ at time $t$ can be represented as:
-
 \begin{equation}
-    \mathbf{p}_t = (x_{\text{center}, t}, y_{\text{center}, t}, w_t, h_t)
+    \hat{\mathbf{D}}{t+1:m} = \text{Dense}2(\hat{\mathbf{D}}{t+1:m}),
 \end{equation}
 
-\begin{equation}
-    \mathbf{v}_t = (\Delta x_t, \Delta y_t, \Delta w_t, \Delta h_t)
-\end{equation}
+Similar to the position decoder, the predicted size is then used as input for
+the next iteration, ensuring that each prediction is contextually informed by
+previous outputs. This loop continues until the decoder has generated
+predictions for all future time steps within the prediction window m, which are
+then returned as the sequence of predicted sizes.
 
-These sequences are fed into the encoder to extract meaningful temporal
-features.
+\subsubsection{Self-Attention Mechanism}
+The self-attention mechanism plays a pivotal role in both decoders by enhancing
+the model’s ability to focus on the most relevant parts of the input sequences.
+By dynamically assigning weights to different time steps, the self-attention
+mechanism allows the model to capture long-range dependencies, which are
+crucial for accurate predictions over extended time horizons.
 
-\subsubsection{Encoder}
+\subsubsection{Final Output}
+The final output of the decoding process consists of sequences of predicted
+positions and sizes for the specified number of future time steps m. These
+predictions provide valuable insights into the expected future states of the
+bounding boxes, including their movement and changes in dimensions. The
+integration of GRU layers and self-attention mechanisms within the decoders
+ensures that the \textit{SizPos-GRU} model can effectively handle complex
+sequence prediction tasks, making it well-suited for applications such as video
+analysis and object tracking.
 
-The encoder consists of multiple layers, each containing two main components: a
-multi-head self-attention mechanism and a position-wise fully connected
-feed-forward network. The input to the encoder is a sequence of bounding box
-and velocity vectors. The encoder processes these sequences independently using
-the following steps:
-
-\begin{itemize}
-    \item \textbf{Positional Encoding}: Since the Transformer model does not have a built-in notion of order, positional encodings are added to the input embeddings to incorporate sequence order information.
-    \item \textbf{Self-Attention}: The multi-head self-attention mechanism allows the model to focus on different parts of the input sequence simultaneously, capturing dependencies regardless of their distance in the sequence.
-    \item \textbf{Feed-Forward Network}: A position-wise fully connected feed-forward network is applied to the output of the self-attention mechanism to introduce non-linearity and further process the information.
-    \item \textbf{Residual Connection and Layer Normalization}: Residual connections around each sub-layer followed by layer normalization help in stabilizing the training and improving gradient flow.
-\end{itemize}
-
-\subsubsection{Decoder}
-
-The decoder is similarly composed of multiple layers, with each layer
-containing three main components: a multi-head self-attention mechanism, a
-multi-head encoder-decoder attention mechanism, and a position-wise fully
-connected feed-forward network. The decoder generates predictions for future
-bounding boxes and velocities using the following steps:
-
-\begin{itemize}
-    \item \textbf{Masked Self-Attention}: The decoder's self-attention mechanism is masked to prevent positions from attending to subsequent positions, ensuring that the prediction for a position depends only on known outputs.
-    \item \textbf{Encoder-Decoder Attention}: This mechanism allows the decoder to focus on relevant parts of the encoder's output, providing context from the input sequence.
-    \item \textbf{Feed-Forward Network}: Similar to the encoder, a fully connected feed-forward network is applied to the output of the attention mechanisms.
-    \item \textbf{Residual Connection and Layer Normalization}: As in the encoder, residual connections and layer normalization are applied to stabilize training and improve gradient flow.
-\end{itemize}
-
-\subsubsection{Multi-Head Self-Attention}
-
-The multi-head self-attention mechanism is a key component of the Transformer
-architecture, enabling the model to jointly attend to information from
-different representation subspaces. It works by projecting the input sequence
-into multiple sets of queries, keys, and values, performing scaled dot-product
-attention for each set, and concatenating the results. This process allows the
-model to capture various aspects of the input sequence, enhancing its ability
-to learn complex patterns.
-
-\subsubsection{Output Generation}
-
-The output of the decoder is passed through a linear layer to generate
-predictions for the bounding box coordinates and velocities. Separate linear
-layers are used for bounding box predictions (with a sigmoid activation to
-ensure values are between 0 and 1) and velocity predictions (without activation
-to allow for positive and negative values).
-
-\subsubsection{Loss Function and Training}
-
-The model is trained to minimize the mean squared error between the predicted
-and actual bounding boxes and velocities. The loss function is defined as:
-
-\begin{equation}
-    \text{Loss} = \frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{T} \left[ (x_{i,t} - \hat{x}_{i,t})^2 + (y_{i,t} - \hat{y}_{i,t})^2 + (w_{i,t} - \hat{w}_{i,t})^2 + (h_{i,t} - \hat{h}_{i,t})^2 + (\Delta x_{i,t} - \hat{\Delta x}_{i,t})^2 + (\Delta y_{i,t} - \hat{\Delta y}_{i,t})^2 + (\Delta w_{i,t} - \hat{\Delta w}_{i,t})^2 + (\Delta h_{i,t} - \hat{\Delta h}_{i,t})^2 \right]
-\end{equation}
-
-The Adam optimizer is used to update the model parameters, and early stopping
-based on validation loss is employed to prevent overfitting and ensure
-generalization.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/GRUSizPosDecoder.drawio.pdf}
+    \caption{SizPos-GRU Decoder Architecture. This architecture illustrates the decoding process where the input sequence \( \mathbf{x}_t \) and the last hidden state \( h_{t-1} \) are processed through multiple GRU layers to generate the next hidden state \( h_t \). The sequence of hidden states \( H = \{h_1, h_2, \dots, h_t\} \) is then passed through a self-attention mechanism, which calculates attention scores and weights. The weighted sum of hidden states is combined with linear and non-linear transformations, including dropout and ReLU activation functions, to produce the final output \( \mathbf{x}_{t+1} \). This output is used for predicting the next time step in the sequence, continuing the process iteratively for future predictions.}
+    \label{fig:sizpos-gru-decoder}
+\end{figure}
 
 \section{Algorithm Design}
 

@@ -1,0 +1,2 @@
+model,batch_size,hidden_size,hidden_depth,learning_rate,scheduler_patience,scheduler_factor,max_epochs,dropout,input_frames,output_frames,test_sizes_loss,test_positions_loss,test_loss,test_ADE,test_FDE,test_AIOU,test_FIOU,test_ADE_from_vel,test_FDE_from_vel,test_AIOU_from_vel,test_FIOU_from_vel,test_Best_FIOU
+concat,16,64,1,0.0005,15,0.5,100,0.1,15,30,0.00293174060061574,0.002464608522132039,0.011401351541280746,43.4760856628418,71.23963165283203,0.42128387093544006,0.2700415253639221,30.74416160583496,60.76205825805664,0.571506917476654,0.3308803141117096,0.3308803141117096

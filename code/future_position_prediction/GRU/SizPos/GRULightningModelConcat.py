@@ -79,9 +79,7 @@ class GRULightningModelConcat(L.LightningModule):
         hidden_pos: torch.Tensor,
         hidden_size: torch.Tensor,
     ) -> torch.Tensor:
-        combined = torch.cat(
-            (hidden_pos, hidden_size), dim=-1
-        )
+        combined = torch.cat((hidden_pos, hidden_size), dim=-1)
         return self.combine_hidden(combined)
 
     def forward(
@@ -119,7 +117,6 @@ class GRULightningModelConcat(L.LightningModule):
             encoder_hidden_states_size,
         )
 
-        # decoder with teacher forcing
         decoder_input_pos = position_seq[:, -1, :]
         decoder_input_size = size_seq[:, -1, :]
 
@@ -173,14 +170,15 @@ class GRULightningModelConcat(L.LightningModule):
         )
 
         # Compute losses
-        velocity_loss = F.smooth_l1_loss(predicted_velocities, ground_truth_velocities)
-        pos_loss = F.smooth_l1_loss(predicted_bboxes, ground_truth_bboxes)
+        sizes_loss = F.smooth_l1_loss(predicted_sizes, ground_truth_sizes)
+        positions_loss = F.smooth_l1_loss(predicted_positions, ground_truth_positions)
+        bbox_loss = F.smooth_l1_loss(predicted_bboxes, ground_truth_bboxes)
         velocities_to_positions_loss = F.smooth_l1_loss(
             velocities_to_positions, ground_truth_bboxes
         )
-        sizes_loss = F.smooth_l1_loss(predicted_sizes, ground_truth_sizes)
-        positions_loss = F.smooth_l1_loss(predicted_positions, ground_truth_positions)
-        total_loss = sizes_loss + positions_loss + velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
+        total_loss = (
+            sizes_loss + positions_loss + bbox_loss + velocities_to_positions_loss
+        )
 
         # Log losses
         self.log_dict(
@@ -245,7 +243,7 @@ class GRULightningModelConcat(L.LightningModule):
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": "val_loss",
+                "monitor": "train_loss",
                 "interval": "epoch",
             },
         }

@@ -18,20 +18,20 @@ if __name__ == "__main__":
     L.seed_everything(42)
 
     # Model initialization with specified architecture parameters
-    train_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/train.json"
-    val_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/val.json"
-    test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test.json"
+    train_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/train_filter_savgol.json"
+    val_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/val_filter_savgol.json"
+    test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test_filter_savgol.json"
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
     input_frames = [15]  # Number of input frames
     output_frames = [30]  # Number of output frames
     hidden_sizes = [128]  # Size of the model's hidden layers
-    hidden_depths = [1, 8]  # Number of hidden layers
+    hidden_depths = [3]  # Number of hidden layers
     learning_rate = 5e-4  # Initial learning rate
-    scheduler_patiences = [10]
-    scheduler_factors = [0.1]
-    max_epochs = 1000  # Maximum number of training epochs
+    scheduler_patiences = [15]
+    scheduler_factors = [0.5]
+    max_epochs = 30  # Maximum number of training epochs
     dropout = 0.2  # Dropout rate
 
     # Create a dataframe to store the results
@@ -237,4 +237,4 @@ if __name__ == "__main__":
                             )
 
                             # Save the results to a CSV file
-                            results.to_csv("train_1.csv", index=False)
+                            results.to_csv("train_4.csv", index=False)
