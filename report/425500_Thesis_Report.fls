@@ -1333,8 +1333,6 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmri7t.vf
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 OUTPUT 425500_Thesis_Report.lof
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7t.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm
@@ -1348,6 +1346,7 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7m.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/psyro.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7m.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/psyro.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
@@ -1355,6 +1354,7 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7y.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/rsfs/rsfs10.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmri7t.vf
 INPUT ./425500_Thesis_Report.lot
 INPUT 425500_Thesis_Report.lot
 INPUT 425500_Thesis_Report.lot
@@ -1450,14 +1450,14 @@ INPUT figures/KernelYOLOv10.png
 INPUT ./figures/KernelYOLOv10.png
 INPUT ./figures/KernelYOLOv10.png
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmb8c.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmb8c.vf
 INPUT ./figures/iou.png
 INPUT ./figures/iou.png
 INPUT figures/iou.png
 INPUT ./figures/iou.png
 INPUT ./figures/iou.png
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmb8c.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm
 INPUT ./figures/lstm-rnn-gru.png
@@ -1465,11 +1465,6 @@ INPUT ./figures/lstm-rnn-gru.png
 INPUT figures/lstm-rnn-gru.png
 INPUT ./figures/lstm-rnn-gru.png
 INPUT ./figures/lstm-rnn-gru.png
-INPUT ./figures/FusionGRU.png
-INPUT ./figures/FusionGRU.png
-INPUT figures/FusionGRU.png
-INPUT ./figures/FusionGRU.png
-INPUT ./figures/FusionGRU.png
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT ./figures/STED.png
@@ -1482,6 +1477,11 @@ INPUT ./figures/PV-LSTM.png
 INPUT figures/PV-LSTM.png
 INPUT ./figures/PV-LSTM.png
 INPUT ./figures/PV-LSTM.png
+INPUT ./figures/FusionGRU.png
+INPUT ./figures/FusionGRU.png
+INPUT figures/FusionGRU.png
+INPUT ./figures/FusionGRU.png
+INPUT ./figures/FusionGRU.png
 INPUT ./figures/depth-camera-d435_details.jpg
 INPUT ./figures/depth-camera-d435_details.jpg
 INPUT figures/depth-camera-d435_details.jpg
@@ -1502,6 +1502,38 @@ INPUT ./figures/grid_semiopen_images.png
 INPUT figures/grid_semiopen_images.png
 INPUT ./figures/grid_semiopen_images.png
 INPUT ./figures/grid_semiopen_images.png
+INPUT ./figures/FrameworkWorkflow.drawio.pdf
+INPUT ./figures/FrameworkWorkflow.drawio.pdf
+INPUT figures/FrameworkWorkflow.drawio.pdf
+INPUT ./figures/FrameworkWorkflow.drawio.pdf
+INPUT ./figures/FrameworkWorkflow.drawio.pdf
+INPUT ./figures/GRUSizPos.drawio.pdf
+INPUT ./figures/GRUSizPos.drawio.pdf
+INPUT figures/GRUSizPos.drawio.pdf
+INPUT ./figures/GRUSizPos.drawio.pdf
+INPUT ./figures/GRUSizPos.drawio.pdf
+INPUT ./figures/GRUSizPosEncoder.drawio.pdf
+INPUT ./figures/GRUSizPosEncoder.drawio.pdf
+INPUT figures/GRUSizPosEncoder.drawio.pdf
+INPUT ./figures/GRUSizPosEncoder.drawio.pdf
+INPUT ./figures/GRUSizPosEncoder.drawio.pdf
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7m.vf
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/psyro.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7t.vf
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7v.vf
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm
+INPUT ./figures/GRUSizPosDecoder.drawio.pdf
+INPUT ./figures/GRUSizPosDecoder.drawio.pdf
+INPUT figures/GRUSizPosDecoder.drawio.pdf
+INPUT ./figures/GRUSizPosDecoder.drawio.pdf
+INPUT ./figures/GRUSizPosDecoder.drawio.pdf
 INPUT ./figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png
 INPUT ./figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png
 INPUT figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png
@@ -1622,38 +1654,6 @@ INPUT ./figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png
 INPUT figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png
 INPUT ./figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png
 INPUT ./figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png
-INPUT ./figures/FrameworkWorkflow.drawio.pdf
-INPUT ./figures/FrameworkWorkflow.drawio.pdf
-INPUT figures/FrameworkWorkflow.drawio.pdf
-INPUT ./figures/FrameworkWorkflow.drawio.pdf
-INPUT ./figures/FrameworkWorkflow.drawio.pdf
-INPUT ./figures/GRUSizPos.drawio.pdf
-INPUT ./figures/GRUSizPos.drawio.pdf
-INPUT figures/GRUSizPos.drawio.pdf
-INPUT ./figures/GRUSizPos.drawio.pdf
-INPUT ./figures/GRUSizPos.drawio.pdf
-INPUT ./figures/GRUSizPosEncoder.drawio.pdf
-INPUT ./figures/GRUSizPosEncoder.drawio.pdf
-INPUT figures/GRUSizPosEncoder.drawio.pdf
-INPUT ./figures/GRUSizPosEncoder.drawio.pdf
-INPUT ./figures/GRUSizPosEncoder.drawio.pdf
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7m.vf
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/psyro.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7t.vf
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7v.vf
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm
-INPUT ./figures/GRUSizPosDecoder.drawio.pdf
-INPUT ./figures/GRUSizPosDecoder.drawio.pdf
-INPUT figures/GRUSizPosDecoder.drawio.pdf
-INPUT ./figures/GRUSizPosDecoder.drawio.pdf
-INPUT ./figures/GRUSizPosDecoder.drawio.pdf
 INPUT ./425500_Thesis_Report.bbl
 INPUT 425500_Thesis_Report.bbl
 INPUT ./425500_Thesis_Report.bbl

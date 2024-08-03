@@ -520,7 +520,7 @@ during both training and inference~\cite{LearnOpenCVYOLOv10}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/NMS.png}
+    \includegraphics[width=0.5\textwidth]{figures/NMS.png}
     \caption{Non-Maximum Suppression (NMS) in Object Detection~\cite{LearnOpenCVYOLOv10}.}\label{fig:nms}
 \end{figure}
 
@@ -537,36 +537,47 @@ anchor box, ensuring precise and efficient detection~\cite{wang2024yolov10}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/YOLOV10.png}
+    \includegraphics[width=0.5\textwidth]{figures/YOLOV10.png}
     \caption{YOLOv10 Model Workflow~\cite{wang2024yolov10}}\label{fig:yolov10}
 \end{figure}
 
 In addition, YOLOv10 adopts a holistic efficiency-accuracy driven design that
-optimizes the model’s architecture across various dimensions. The
+optimises the model’s architecture across various dimensions. The
 classification head has been redesigned to be more lightweight, reducing
 computational overhead while maintaining accuracy. The spatial-channel
 decoupled downsampling technique separates spatial reduction and channel
 increase operations, which lowers computational costs and reduces the parameter
-count. Furthermore, the rank-guided block design minimizes redundancy within
+count. Furthermore, the rank-guided block design minimises redundancy within
 the model by adapting the complexity of different stages based on their
 intrinsic rank values, ensuring optimal capacity-efficiency trade-offs. YOLOv10
-also introduces large-kernel convolutions selectively in the deeper stages of
-the network to increase the receptive field, allowing the model to capture more
-contextual information without a significant increase in computational cost.
-Moreover, YOLOv10 incorporates a partial self-attention (PSA) mechanism, which
-integrates the benefits of global context modeling while maintaining a
-lightweight architecture. This careful balance of efficiency and accuracy
-enables YOLOv10 to deliver state-of-the-art performance.
+also introduces large-kernel (see figure~\ref{fig:large-kernel-yolov10})
+convolutions selectively in the deeper stages of the network to increase the
+receptive field, allowing the model to capture more contextual information
+without a significant increase in computational cost. Moreover, YOLOv10
+incorporates a partial self-attention (PSA) mechanism, which integrates the
+benefits of global context modeling while maintaining a lightweight
+architecture. This careful balance of efficiency and accuracy enables YOLOv10
+to deliver state-of-the-art
+performance~\cite{wang2024yolov10,LearnOpenCVYOLOv10}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/KernelYOLOv10.png}
+    \includegraphics[width=0.5\textwidth]{figures/KernelYOLOv10.png}
     \caption{Large-Kernel Convolution in YOLOv10~\cite{LearnOpenCVYOLOv10}}\label{fig:large-kernel-yolov10}
 \end{figure}
 
+As shown in table~\ref{tab:yolov10-benchmarks}, extensive testing on standard
+benchmarks, such as COCO, demonstrates YOLOv10’s superior performance in both
+speed and accuracy. For example, YOLOv10-S is 1.8 times faster than RT-DETR-R18
+while also using fewer parameters. Similarly, YOLOv10-B achieves a 46\%
+reduction in latency compared to YOLOv9-C without compromising performance.
+These results underscore YOLOv10’s effectiveness as a real-time end-to-end
+object detection model, making it well-suited for applications requiring both
+high speed and accuracy.
+
 \begin{table}[H]
     \centering
-    \caption{Performance Comparison of YOLO Models with State-of-the-Art Techniques. Latency is reported using official pre-trained models. \textsuperscript{f}Latency refers to the forward pass duration without including post-processing. \textsuperscript{\textdagger} indicates YOLOv10 results obtained with the original one-to-many training and Non-Maximum Suppression (NMS). All metrics below exclude the use of advanced training methods like knowledge distillation or PGI to ensure fair comparisons \cite{wang2024yolov10}.}
+    \caption{Performance Comparison of YOLO Models with State-of-the-Art Techniques. Latency is reported using official pre-trained models. \textsuperscript{f}Latency refers to the forward pass duration without including post-processing. \textsuperscript{\textdagger} indicates YOLOv10 results obtained with the original one-to-many training and Non-Maximum Suppression (NMS)~\cite{wang2024yolov10}.}
     \begin{adjustbox}{max width=\textwidth}
         \begin{tabular}{lcccccc}
             \toprule
@@ -597,7 +608,7 @@ enables YOLOv10 to deliver state-of-the-art performance.
             \bottomrule
         \end{tabular}
     \end{adjustbox}
-    \label{tab:comparison}
+    \label{tab:yolov10-benchmarks}
 \end{table}
 
 Evaluating Object Detection models involves several key metrics to measure
@@ -691,12 +702,18 @@ datasets are usually classified into units of time such as seconds, minutes and
 hours, allowing the construction of metadata for machine
 learning~\cite{FFPSpaceSystemVehicles}.
 
-\subsection*{Early Approaches and Models}
+\subsection*{Deep Learning Sequence Models}
 The problem of predicting the future locations of objects has been extensively
 studied, particularly for static surveillance cameras. Initial efforts utilised
 recurrent neural networks (RNNs), including long-term memory networks (LSTMs)
 and gated recurrent units (GRUs), in an encoder-decoder format to encode past
 observations and decode future locations. 
+
+Recurrent Neural Networks (RNNs), particularly Long Short-Term Memory networks
+(LSTMs) and Gated Recurrent Units (GRUs), have exhibited promise in this
+direction. Nevertheless, most RNN-based models suffer from performance
+degradation over time since they rely on recurrently predicting future bounding
+boxes based on previous outputs. 
 
 \begin{figure}[H]
     \centering
@@ -710,7 +727,136 @@ instance,~\citet{Alahi2016} proposed a Social-LSTM to model pedestrian
 trajectories and interactions, further improving global context capture through
 a social pooling module.
 
-\subsection*{Frame-Based Approaches in Spatio-Temporal Prediction}
+\subsection*{Related Work}
+\subsubsection{STED Model}
+
+The STED (Spatio-Temporal Encoder-Decoder) model was introduced
+by~\citet{MultipleObjectForecasting} as a novel approach for multiple object
+forecasting (MOF), particularly in predicting the future bounding boxes of
+tracked objects from video sequences. This model is designed to handle the
+challenges of object forecasting in diverse environments, leveraging both
+visual and temporal features to predict object-motion and ego-motion
+effectively. As shown in figure~\ref{fig:sted}, the STED model consists of
+three main components: a bounding box feature encoder, an optical flow feature
+encoder, and a decoder. The \textit{Bounding Box Feature Encoder} utilizes a
+Gated Recurrent Unit (GRU) to extract temporal features from past object
+bounding boxes, which include coordinates $(x, y)$, dimensions $(w, h)$, and
+velocity changes $(\Delta x, \Delta y, \Delta w, \Delta h)$ over a window of 30
+frames, representing 1 second of observation. Simultaneously, the
+\textit{Optical Flow Feature Encoder} captures motion features directly from
+optical flow, using a Convolutional Neural Network (CNN) to process a stack of
+10 frames sampled uniformly from the past 1 second of video data. The
+combination of these features provides a comprehensive understanding of both
+the object's movement and the camera's movement (ego-motion). The
+\textit{Decoder} then takes the concatenated feature vector from the encoders
+and predicts the future bounding box coordinates for the next 60 frames (2
+seconds prediction window). The GRU-based decoder generates bounding box
+predictions iteratively, using the encoded feature vector and the internal
+hidden state to output changes in bounding box velocity and dimensions over
+time.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/STED.png}
+    \caption{STED Model Architecture. Source:~\citet{MultipleObjectForecasting}}\label{fig:sted}
+\end{figure}
+
+The STED architecture is specifically designed to address the complexities of
+predicting future object positions in video sequences, particularly under
+conditions of non-linear object motion and varying scales due to camera
+movement. By combining temporal features from bounding boxes with motion
+information from optical flow, the model effectively captures both the dynamic
+behavior of the objects and the impact of the camera's motion on the observed
+scene. The STED model was evaluated on the Citywalks dataset, a diverse dataset
+designed to test the model's ability to predict future object locations across
+different environments. The performance of STED was compared with several
+baseline models, as summarised in Table~\ref{tab:sted-results}.
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison of the performance of STED with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection-over-Union (AIOU), and Final Intersection-over-Union (FIOU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lcccc}
+            \toprule
+            \textbf{Model}                         & \textbf{ADE (pixels)} & \textbf{FDE (pixels)} & \textbf{AIOU (\%)} & \textbf{FIOU (\%)} \\ 
+            \midrule
+            CV-CS~\cite{MultipleObjectForecasting} & 31.6                  & 57.6                  & 46.0               & 21.3               \\
+            LKF~\cite{MultipleObjectForecasting}   & 32.9                  & 59.0                  & 43.9               & 20.1               \\
+            STED~\cite{MultipleObjectForecasting}  & \textbf{26.0}         & \textbf{46.9}         & \textbf{51.8}      & \textbf{27.5}      \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:sted-results}
+\end{table}
+
+The STED model achieved an Average Displacement Error (ADE) of 26.0 pixels and
+a Final Displacement Error (FDE) of 46.9 pixels, with an Average Intersection
+Over Union (AIOU) of 51.8\% and a Final Intersection Over Union (FIOU) of
+27.5\%. These results indicate that STED outperforms existing models in both
+displacement and intersection-over-union metrics, making it a robust solution
+for forecasting future object locations in challenging video sequences.
+
+In summary, the STED model’s ability to combine visual and temporal features
+from both object bounding boxes and optical flow enables it to predict future
+object positions more accurately, making it an effective tool for applications
+in autonomous driving and robotic navigation.
+
+\subsubsection*{PV-LSTM Model}
+
+The PV-LSTM (Position-Velocity Long Short-Term Memory) model was developed
+by~\citet{DBLP:journals/corr/abs-2010-10270} to predict pedestrian intentions
+and future bounding box positions, a crucial task for enhancing the safety of
+autonomous driving systems. The architecture of this model is illustrated in
+figure~\ref{fig:pv-lstm}. The model utilises a sequence-to-sequence LSTM
+architecture that processes both spatial and temporal information effectively.
+To do that, it processes input sequences of observed bounding boxes $(x, y, w,
+    h)$ and their velocity changes $(\Delta x, \Delta y, \Delta w, \Delta h)$ over
+a window of 30 frames, representing 1 second of observation. These inputs are
+encoded through two encoders: the \textit{Bounding Box Position Encoder} and
+the \textit{Bounding Box Velocity Encoder}. The encoded features are then
+concatenated and passed to two decoders: the \textit{Velocity Decoder}, which
+predicts future bounding box velocities, and the \textit{Intention Decoder},
+which predicts pedestrian crossing intentions over the next 60 frames (2
+seconds prediction window). The PV-LSTM model’s architecture is designed to
+capture the dynamic and complex nature of pedestrian behavior, which is crucial
+for real-time decision-making in autonomous driving. By integrating both
+position and velocity information through dual encoders, the model can more
+accurately predict the future movements and intentions of pedestrians, thus
+enhancing safety and reliability in autonomous navigation systems.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/PV-LSTM.png}
+    \caption{PV-LSTM Model Architecture. Source:~\citet{DBLP:journals/corr/abs-2010-10270}}\label{fig:pv-lstm}
+\end{figure}
+
+The PV-LSTM model was evaluated on the Citywalks dataset, and its performance
+was compared against several baseline models. The results are summarised in
+Table~\ref{tab:pv-lstm-results}, showcasing the model's effectiveness in
+predicting pedestrian trajectories and intentions. The PV-LSTM model achieved
+an Average Displacement Error (ADE) of 25.2 pixels and a Final Displacement
+Error (FDE) of 49.9 pixels, with an Average Intersection Over Union (AIOU) of
+40.2\%. Although the STED model slightly outperforms in AIOU and FIOU, the
+PV-LSTM model provides a robust solution with competitive prediction accuracy,
+while maintaining a simpler architecture.
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison of the performance of PV-LSTM with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), and Average Intersection-over-Union (AIOU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lcccc}
+            \toprule
+            \textbf{Model}                                   & \textbf{ADE (pixels)} & \textbf{FDE (pixels)} & \textbf{AIOU (\%)} & \textbf{FIOU (\%)} \\ 
+            \midrule
+            CV-CS~\cite{DBLP:journals/corr/abs-2010-10270}   & 31.6                  & 57.6                  & 46.0               & 21.3               \\
+            LKF~\cite{DBLP:journals/corr/abs-2010-10270}     & 32.9                  & 59.0                  & 43.9               & 20.1               \\
+            STED~\cite{DBLP:journals/corr/abs-2010-10270}    & \textbf{26.0}         & \textbf{46.9}         & \textbf{51.8}      & \textbf{27.5}      \\
+            PV-LSTM~\cite{DBLP:journals/corr/abs-2010-10270} & 25.2                  & 49.9                  & 40.2               & 20.3               \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:pv-lstm-results}
+\end{table}
 
 \subsubsection*{Fusion-GRU}
 \citet{FusionGRU} developed the Fusion-Gated Recurrent
@@ -727,77 +873,6 @@ performance in challenging driving scenarios.
     \centering
     \includegraphics[width=1\textwidth]{figures/FusionGRU.png}
     \caption{Fusion-GRU model architecture. Source:~\citet{FusionGRU}}\label{fig:fusion-gru}
-\end{figure}
-
-The Spatio-Temporal Encoder-Decoder (STED) model represents a significant
-advancement in multiple object forecasting (MOF) by integrating both visual and
-temporal features to predict future object bounding boxes in dynamic
-environments. Traditional trajectory forecasting models, which often simplify
-objects to single points in space and rely on fixed overhead camera
-perspectives, fall short in capturing the rich visual cues and complex motion
-patterns necessary for accurate predictions in real-world scenarios. To address
-these limitations, the STED model employs a Gated Recurrent Unit (GRU) for
-temporal encoding of past bounding box coordinates, effectively capturing the
-motion history of objects from 30 previous frames, which corresponds to one
-second of video data at 30Hz. Complementing this, the model incorporates a
-Convolutional Neural Network (CNN) to extract features from optical flow,
-providing detailed insights into both object motion and ego-motion. By
-combining these encoded features, the STED model's decoder generates
-predictions for the next 60 frames, equivalent to two seconds into the future.
-
-The STED architecture has been rigorously evaluated against several baseline
-models, including the Constant Velocity and Constant Scale (CV-CS) model,
-Linear Kalman Filter (LKF), Dynamic Trajectory Predictor (DTP), and Future
-Person Localization (FPL). The results, presented in Table~\ref{tab:results},
-demonstrate the superior performance of the STED model across key metrics. On
-the Citywalks dataset, the STED model achieved an Average Displacement Error
-(ADE) of 26.0 pixels and a Final Displacement Error (FDE) of 46.9 pixels,
-significantly outperforming the baseline models. Additionally, the model showed
-enhanced Intersection-over-Union (IoU) metrics, indicating better alignment of
-predicted bounding boxes with the ground truth.
-
-\begin{table}[H]
-    \centering
-    \caption{Performance Comparison of STED Model with Baseline Models on Citywalks and MOT-17 Datasets. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection-over-Union (AIOU), and Final Intersection-over-Union (FIOU). The model was evaluated using 30 input frames to predict 60 future frames.}
-    \begin{adjustbox}{max width=\textwidth}
-        \begin{tabular}{lcccccc}
-            \toprule
-            \textbf{Model} & \textbf{Dataset}   & \textbf{ADE (pixels)} & \textbf{FDE (pixels)} & \textbf{AIOU (\%)} & \textbf{FIOU (\%)} \\
-            \midrule
-            CV-CS          & Citywalks          & 31.6                  & 57.6                  & 46.0               & 21.3               \\
-            LKF            & Citywalks          & 32.9                  & 59.0                  & 43.9               & 20.1               \\
-            DTP            & Citywalks          & 27.3                  & 49.2                  & N/A                & N/A                \\
-            FPL            & Citywalks          & 28.6                  & 49.8                  & N/A                & N/A                \\
-            \textbf{STED}  & \textbf{Citywalks} & \textbf{26.0}         & \textbf{46.9}         & \textbf{51.8}      & \textbf{27.5}      \\
-            \midrule
-            CV-CS          & MOT-17             & 58.9                  & 104.7                 & 43.8               & 21.5               \\
-            LKF            & MOT-17             & 62.0                  & 110.2                 & 41.6               & 20.1               \\
-            DTP            & MOT-17             & 55.2                  & 99.0                  & N/A                & N/A                \\
-            FPL            & MOT-17             & 56.9                  & 96.3                  & N/A                & N/A                \\
-            \textbf{STED}  & \textbf{MOT-17}    & \textbf{51.8}         & \textbf{91.6}         & \textbf{46.7}      & \textbf{24.4}      \\
-            \bottomrule
-        \end{tabular}
-    \end{adjustbox}
-    \label{tab:results}
-\end{table}
-
-The results highlight the STED model's ability to outperform existing methods,
-particularly in terms of lower ADE and FDE, which reflect more accurate
-predictions of future object positions. Additionally, the higher AIOU and FIOU
-metrics demonstrate that STED achieves better alignment with the actual object
-boundaries, further confirming its efficacy in complex, real-world environments
-(Figure~\ref{fig:sted}).
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{figures/STED.png}
-    \caption{STED Model Architecture. Source:~\citet{MultipleObjectForecasting}}\label{fig:sted}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{figures/PV-LSTM.png}
-    \caption{PV-LSTM Model Architecture. Source:~\citet{DBLP:journals/corr/abs-2010-10270}}\label{fig:pv-lstm}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -981,179 +1056,6 @@ different states:
 \end{figure}
 
 \subsection{Sequence Model Data Preparation}
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-indoor1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-indoor1}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-indoor1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-indoor1}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-indoor1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-indoor1-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-indoor1-savgol}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-indoor1-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-indoor1-savgol}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-indoor1-savgol}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-outdoor1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-outdoor1}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-outdoor1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-outdoor1}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-outdoor1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-outdoor1-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-outdoor1-savgol}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-outdoor1-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-outdoor1-savgol}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-outdoor1-savgol}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-video_lab_platform_6}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-video_lab_platform_6}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-video_lab_platform_6}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-video_lab_platform_6}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-video_lab_platform_6}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-video_lab_platform_6-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-video_lab_platform_6-savgol}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-video_lab_platform_6-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-video_lab_platform_6-savgol}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-video_lab_platform_6-savgol}
-\end{figure}
 
 \section{Framework Design}
 The proposed framework, illustrated in Figure~\ref{fig:framework-workflow}, is
@@ -1590,9 +1492,185 @@ and mAP for the intended application.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONCLUSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusion and Future Work}\label{chap:conclusion}
 
-%% Back matter
-%
-% This is where we include references and appendices
+%TC:ignore 
+\appendix
+\chapter{Source Codes}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-indoor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-indoor1}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-indoor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-indoor1}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-indoor1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-indoor1-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-indoor1-savgol}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-indoor1-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-indoor1-savgol}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-indoor1-savgol}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-outdoor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-outdoor1}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-outdoor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-outdoor1}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-outdoor1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-outdoor1-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-outdoor1-savgol}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-outdoor1-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-outdoor1-savgol}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-outdoor1-savgol}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-video_lab_platform_6}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-video_lab_platform_6}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-video_lab_platform_6}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-video_lab_platform_6}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-video_lab_platform_6}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_central_position.png}
+        \caption{Central position of the refueling port over time.}
+        \label{fig:central-position-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_velocity.png}
+        \caption{Velocity of the refueling port over time.}
+        \label{fig:velocity-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_acceleration.png}
+        \caption{Acceleration of the refueling port over time.}
+        \label{fig:acceleration-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png}
+        \caption{Area of the refueling port over time.}
+        \label{fig:size-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-video_lab_platform_6-savgol}
+\end{figure}
+
+%TC:endignore 
 
 \bibliographystyle{abbrvnat}
 \bibliography{LaTeX,CUCitations}
