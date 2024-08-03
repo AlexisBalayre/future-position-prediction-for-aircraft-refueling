@@ -858,22 +858,78 @@ while maintaining a simpler architecture.
     \label{tab:pv-lstm-results}
 \end{table}
 
-\subsubsection*{Fusion-GRU}
+\subsubsection{Fusion-GRU Model}
+
 \citet{FusionGRU} developed the Fusion-Gated Recurrent
 Unit (Fusion-GRU) model to predict the future bounding boxes of traffic agents
 in risky driving scenarios. This model leverages multiple sources of
-information, including location-scale data, monocular depth information, and
-optical flow data, to capture complex interactions among information cues and
-transform them into hidden representations. The Fusion-GRU model uses an
-intermediary estimator and self-attention aggregation layer to enhance
-sequential dependencies for long-term predictions, demonstrating superior
-performance in challenging driving scenarios.
+information, such as location-scale data, monocular depth information, and
+optical flow data, to capture complex interactions among these cues and
+transform them into meaningful hidden representations. This approach is
+particularly suited for dealing with scenarios where the available observation
+time is limited due to abrupt motion changes or tracking loss. 
+The Fusion-GRU model consists of several components that work together to
+predict future bounding boxes. The model takes input video sequences, extracts
+depth maps, and calculates optical flow to capture motion dynamics. Bounding
+boxes are detected and tracked using YOLOv5 and DeepSort, respectively. The
+feature extractor processes both object-level and scene-level features using
+ResNet50, transforming them into feature vectors. These vectors are then
+concatenated and passed to the Fusion-GRU encoder, which integrates location,
+scale, and distance information into hidden representations. 
+The model also introduces an intermediary estimator, which generates
+intermediate bounding boxes that help in capturing sequential dependencies
+across frames. Additionally, a self-attention aggregation layer is employed to
+reduce error accumulation by focusing on the most relevant information for
+long-term predictions. Finally, a GRU decoder iteratively predicts the future
+bounding boxes based on the aggregated feature vectors and the hidden
+representations from the Fusion-GRU encoder.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{figures/FusionGRU.png}
     \caption{Fusion-GRU model architecture. Source:~\citet{FusionGRU}}\label{fig:fusion-gru}
 \end{figure}
+
+The Fusion-GRU model is specifically designed to address the limitations of
+traditional GRU-based models, which often suffer from performance degradation
+over time. By integrating complex interactions among various input features and
+employing self-attention mechanisms, the Fusion-GRU model enhances its ability
+to predict future bounding boxes more accurately. This architecture is
+particularly effective in cluttered and dynamic driving environments, where
+understanding the relationships between different traffic agents and their
+surroundings is crucial for accurate prediction.
+
+The Fusion-GRU model was evaluated on two publicly available datasets, ROL
+(Risky Object Localization) and HEV-I (Honda Egocentric View-Intersection),
+demonstrating its superior performance in predicting future bounding boxes
+compared to other state-of-the-art models. The results are summarized in
+Table~\ref{tab:fusion-gru-results}, which compares the performance of
+Fusion-GRU with baseline models based on metrics such as Average Displacement
+Error (ADE), Final Displacement Error (FDE), and Intersection over Union (IOU).
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison of the performance of Fusion-GRU with baseline models on the ROL and HEV-I datasets. Metrics include ADE, FDE, and FIoU. The model was evaluated using 0.5-second and 1-second prediction horizons.}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lcccc}
+            \toprule
+            \textbf{Model}              & \textbf{ADE0.5 (pixels)} & \textbf{FDE0.5 (pixels)} & \textbf{FIoU0.5 (\%)} & \textbf{ADE1.0 (pixels)} \\ 
+            \midrule
+            FOL-X~\cite{FusionGRU}      & 6.7                      & 11.0                     & 85.0                  & 12.6                     \\
+            SGDNet~\cite{FusionGRU}     & 6.3                      & --                       & --                    & 11.4                     \\
+            Fusion-GRU~\cite{FusionGRU} & \textbf{5.5}             & \textbf{8.3}             & \textbf{85.2}         & \textbf{11.2}            \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:fusion-gru-results}
+\end{table}
+
+The Fusion-GRU model achieved the lowest Average Displacement Error (ADE) and
+Final Displacement Error (FDE) in both 0.5-second and 1-second prediction
+horizons on the HEV-I dataset. It also exhibited the highest Final Intersection
+over Union (FIoU) of 85.2\% in the 0.5-second horizon, indicating its strong
+capability to accurately predict the future positions and scales of traffic
+agents.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% METHODOLOGY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

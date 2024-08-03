@@ -188,148 +188,154 @@
 \citation{FusionGRU}
 \@writefile{lot}{\contentsline {table}{\numberline {2.3}{\ignorespaces Comparison of the performance of PV-LSTM with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), and Average Intersection-over-Union (AIOU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.\relax }}{16}{table.caption.25}\protected@file@percent }
 \newlabel{tab:pv-lstm-results}{{2.3}{16}{Comparison of the performance of PV-LSTM with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), and Average Intersection-over-Union (AIOU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.\relax }{table.caption.25}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.0.2}Fusion-GRU Model}{16}{subsubsection.2.3.0.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2.17}{\ignorespaces Fusion-GRU model architecture. Source:\nobreakspace  {}\citet  {FusionGRU}\relax }}{16}{figure.caption.26}\protected@file@percent }
 \newlabel{fig:fusion-gru}{{2.17}{16}{Fusion-GRU model architecture. Source:~\citet {FusionGRU}\relax }{figure.caption.26}{}}
+\citation{FusionGRU}
+\citation{FusionGRU}
+\citation{FusionGRU}
+\@writefile{lot}{\contentsline {table}{\numberline {2.4}{\ignorespaces Comparison of the performance of Fusion-GRU with baseline models on the ROL and HEV-I datasets. Metrics include ADE, FDE, and FIoU. The model was evaluated using 0.5-second and 1-second prediction horizons.\relax }}{17}{table.caption.27}\protected@file@percent }
+\newlabel{tab:fusion-gru-results}{{2.4}{17}{Comparison of the performance of Fusion-GRU with baseline models on the ROL and HEV-I datasets. Metrics include ADE, FDE, and FIoU. The model was evaluated using 0.5-second and 1-second prediction horizons.\relax }{table.caption.27}{}}
 \citation{IntelRealSense}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Methodology}{17}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Methodology}{18}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:methodology}{{3}{17}{Methodology}{chapter.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Dataset Configuration}{17}{section.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Provided Dataset Description}{17}{subsection.3.1.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Intel® ${\text  {RealSense}}^{\text  {TM}}$ D435 Depth Camera. Source: Intel\relax }}{17}{figure.caption.27}\protected@file@percent }
-\newlabel{fig:intel-realsense-d435}{{3.1}{17}{Intel® ${\text {RealSense}}^{\text {TM}}$ D435 Depth Camera. Source: Intel\relax }{figure.caption.27}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Data Annotation}{18}{subsection.3.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Summary of Available Videos}{19}{subsection.3.1.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces \centering  Summary of available videos in the HARD dataset with their assignment.\relax }}{19}{table.caption.28}\protected@file@percent }
-\newlabel{tab:video_summary}{{3.1}{19}{\centering Summary of available videos in the HARD dataset with their assignment.\relax }{table.caption.28}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.4}Initial Data Distribution}{19}{subsection.3.1.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{19}{table.caption.29}\protected@file@percent }
-\newlabel{tab:frame_distribution}{{3.2}{19}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }{table.caption.29}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.5}Balanced Data Distribution}{20}{subsection.3.1.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }}{20}{table.caption.30}\protected@file@percent }
-\newlabel{tab:balanced_frame_distribution}{{3.3}{20}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }{table.caption.30}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.6}Example Images from the Dataset}{21}{subsection.3.1.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the refueling port in the CLOSED state.\relax }}{21}{figure.caption.31}\protected@file@percent }
-\newlabel{fig:grid-closed-images}{{3.2}{21}{Annotated images of the refueling port in the CLOSED state.\relax }{figure.caption.31}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the refueling port in the OPEN state.\relax }}{21}{figure.caption.32}\protected@file@percent }
-\newlabel{fig:grid-open-images}{{3.3}{21}{Annotated images of the refueling port in the OPEN state.\relax }{figure.caption.32}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Annotated images of the refueling port in the SEMI-OPEN state.\relax }}{21}{figure.caption.33}\protected@file@percent }
-\newlabel{fig:grid-semi-open-images}{{3.4}{21}{Annotated images of the refueling port in the SEMI-OPEN state.\relax }{figure.caption.33}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.7}Sequence Model Data Preparation}{22}{subsection.3.1.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Framework Design}{22}{section.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Framework Workflow\relax }}{22}{figure.caption.34}\protected@file@percent }
-\newlabel{fig:framework-workflow}{{3.5}{22}{Framework Workflow\relax }{figure.caption.34}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Object Detection Model Fine-tuning}{23}{section.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}Sequence Model Design}{23}{section.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces SizPos-GRU Model Architecture\relax }}{23}{figure.caption.35}\protected@file@percent }
-\newlabel{fig:sizpos-gru}{{3.6}{23}{SizPos-GRU Model Architecture\relax }{figure.caption.35}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Input Representation}{23}{subsection.3.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Encoders}{24}{subsection.3.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces SizPos-GRU Encoder Architecture. The input sequence \( \mathbf  {X} = \{\mathbf  {x}_1, \mathbf  {x}_2, \dots  , \mathbf  {x}_T\} \) represents either the spatial dynamics vector (\(\mathbf  {P}\)) or the dimensional attributes vector (\(\mathbf  {D}\)). This sequence is processed through multiple GRU layers, producing a sequence of hidden states \( H = \{h_1, h_2, \dots  , h_T\} \) and a final hidden state \( h_T \) that encapsulates the temporal dependencies in the input sequence.\relax }}{25}{figure.caption.36}\protected@file@percent }
-\newlabel{fig:sizpos-gru-encoder}{{3.7}{25}{SizPos-GRU Encoder Architecture. The input sequence \( \mathbf {X} = \{\mathbf {x}_1, \mathbf {x}_2, \dots , \mathbf {x}_T\} \) represents either the spatial dynamics vector (\(\mathbf {P}\)) or the dimensional attributes vector (\(\mathbf {D}\)). This sequence is processed through multiple GRU layers, producing a sequence of hidden states \( H = \{h_1, h_2, \dots , h_T\} \) and a final hidden state \( h_T \) that encapsulates the temporal dependencies in the input sequence.\relax }{figure.caption.36}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Hidden State Fusion}{25}{subsection.3.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Decoders}{26}{subsection.3.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.1}Position Decoder}{26}{subsubsection.3.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.2}Size Decoder}{26}{subsubsection.3.4.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.3}Self-Attention Mechanism}{27}{subsubsection.3.4.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.4}Final Output}{27}{subsubsection.3.4.4.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces SizPos-GRU Decoder Architecture. This architecture illustrates the decoding process where the input sequence \( \mathbf  {x}_t \) and the last hidden state \( h_{t-1} \) are processed through multiple GRU layers to generate the next hidden state \( h_t \). The sequence of hidden states \( H = \{h_1, h_2, \dots  , h_t\} \) is then passed through a self-attention mechanism, which calculates attention scores and weights. The weighted sum of hidden states is combined with linear and non-linear transformations, including dropout and ReLU activation functions, to produce the final output \( \mathbf  {x}_{t+1} \). This output is used for predicting the next time step in the sequence, continuing the process iteratively for future predictions.\relax }}{28}{figure.caption.37}\protected@file@percent }
-\newlabel{fig:sizpos-gru-decoder}{{3.8}{28}{SizPos-GRU Decoder Architecture. This architecture illustrates the decoding process where the input sequence \( \mathbf {x}_t \) and the last hidden state \( h_{t-1} \) are processed through multiple GRU layers to generate the next hidden state \( h_t \). The sequence of hidden states \( H = \{h_1, h_2, \dots , h_t\} \) is then passed through a self-attention mechanism, which calculates attention scores and weights. The weighted sum of hidden states is combined with linear and non-linear transformations, including dropout and ReLU activation functions, to produce the final output \( \mathbf {x}_{t+1} \). This output is used for predicting the next time step in the sequence, continuing the process iteratively for future predictions.\relax }{figure.caption.37}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}Algorithm Design}{28}{section.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.6}Data Augmentation Strategy}{28}{section.3.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.1}Sequence Reversal}{28}{subsection.3.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.2}Camera Movement Simulation}{28}{subsection.3.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.3}Zoom Simulation}{29}{subsection.3.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.4}Detection Inaccuracy Simulation}{29}{subsection.3.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.5}Implementation Details}{29}{subsection.3.6.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Experiment Design}{30}{chapter.4}\protected@file@percent }
+\newlabel{chap:methodology}{{3}{18}{Methodology}{chapter.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Dataset Configuration}{18}{section.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Provided Dataset Description}{18}{subsection.3.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Intel® ${\text  {RealSense}}^{\text  {TM}}$ D435 Depth Camera. Source: Intel\relax }}{18}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:intel-realsense-d435}{{3.1}{18}{Intel® ${\text {RealSense}}^{\text {TM}}$ D435 Depth Camera. Source: Intel\relax }{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Data Annotation}{19}{subsection.3.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Summary of Available Videos}{20}{subsection.3.1.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces \centering  Summary of available videos in the HARD dataset with their assignment.\relax }}{20}{table.caption.29}\protected@file@percent }
+\newlabel{tab:video_summary}{{3.1}{20}{\centering Summary of available videos in the HARD dataset with their assignment.\relax }{table.caption.29}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.4}Initial Data Distribution}{20}{subsection.3.1.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{20}{table.caption.30}\protected@file@percent }
+\newlabel{tab:frame_distribution}{{3.2}{20}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }{table.caption.30}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.5}Balanced Data Distribution}{21}{subsection.3.1.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }}{21}{table.caption.31}\protected@file@percent }
+\newlabel{tab:balanced_frame_distribution}{{3.3}{21}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }{table.caption.31}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.6}Example Images from the Dataset}{22}{subsection.3.1.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the refueling port in the CLOSED state.\relax }}{22}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:grid-closed-images}{{3.2}{22}{Annotated images of the refueling port in the CLOSED state.\relax }{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the refueling port in the OPEN state.\relax }}{22}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:grid-open-images}{{3.3}{22}{Annotated images of the refueling port in the OPEN state.\relax }{figure.caption.33}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Annotated images of the refueling port in the SEMI-OPEN state.\relax }}{22}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:grid-semi-open-images}{{3.4}{22}{Annotated images of the refueling port in the SEMI-OPEN state.\relax }{figure.caption.34}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.7}Sequence Model Data Preparation}{23}{subsection.3.1.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Framework Design}{23}{section.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Framework Workflow\relax }}{23}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:framework-workflow}{{3.5}{23}{Framework Workflow\relax }{figure.caption.35}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Object Detection Model Fine-tuning}{24}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Sequence Model Design}{24}{section.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces SizPos-GRU Model Architecture\relax }}{24}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:sizpos-gru}{{3.6}{24}{SizPos-GRU Model Architecture\relax }{figure.caption.36}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Input Representation}{24}{subsection.3.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Encoders}{25}{subsection.3.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces SizPos-GRU Encoder Architecture. The input sequence \( \mathbf  {X} = \{\mathbf  {x}_1, \mathbf  {x}_2, \dots  , \mathbf  {x}_T\} \) represents either the spatial dynamics vector (\(\mathbf  {P}\)) or the dimensional attributes vector (\(\mathbf  {D}\)). This sequence is processed through multiple GRU layers, producing a sequence of hidden states \( H = \{h_1, h_2, \dots  , h_T\} \) and a final hidden state \( h_T \) that encapsulates the temporal dependencies in the input sequence.\relax }}{26}{figure.caption.37}\protected@file@percent }
+\newlabel{fig:sizpos-gru-encoder}{{3.7}{26}{SizPos-GRU Encoder Architecture. The input sequence \( \mathbf {X} = \{\mathbf {x}_1, \mathbf {x}_2, \dots , \mathbf {x}_T\} \) represents either the spatial dynamics vector (\(\mathbf {P}\)) or the dimensional attributes vector (\(\mathbf {D}\)). This sequence is processed through multiple GRU layers, producing a sequence of hidden states \( H = \{h_1, h_2, \dots , h_T\} \) and a final hidden state \( h_T \) that encapsulates the temporal dependencies in the input sequence.\relax }{figure.caption.37}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Hidden State Fusion}{26}{subsection.3.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Decoders}{27}{subsection.3.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.1}Position Decoder}{27}{subsubsection.3.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.2}Size Decoder}{27}{subsubsection.3.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.3}Self-Attention Mechanism}{28}{subsubsection.3.4.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.4}Final Output}{28}{subsubsection.3.4.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces SizPos-GRU Decoder Architecture. This architecture illustrates the decoding process where the input sequence \( \mathbf  {x}_t \) and the last hidden state \( h_{t-1} \) are processed through multiple GRU layers to generate the next hidden state \( h_t \). The sequence of hidden states \( H = \{h_1, h_2, \dots  , h_t\} \) is then passed through a self-attention mechanism, which calculates attention scores and weights. The weighted sum of hidden states is combined with linear and non-linear transformations, including dropout and ReLU activation functions, to produce the final output \( \mathbf  {x}_{t+1} \). This output is used for predicting the next time step in the sequence, continuing the process iteratively for future predictions.\relax }}{29}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:sizpos-gru-decoder}{{3.8}{29}{SizPos-GRU Decoder Architecture. This architecture illustrates the decoding process where the input sequence \( \mathbf {x}_t \) and the last hidden state \( h_{t-1} \) are processed through multiple GRU layers to generate the next hidden state \( h_t \). The sequence of hidden states \( H = \{h_1, h_2, \dots , h_t\} \) is then passed through a self-attention mechanism, which calculates attention scores and weights. The weighted sum of hidden states is combined with linear and non-linear transformations, including dropout and ReLU activation functions, to produce the final output \( \mathbf {x}_{t+1} \). This output is used for predicting the next time step in the sequence, continuing the process iteratively for future predictions.\relax }{figure.caption.38}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Algorithm Design}{29}{section.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Data Augmentation Strategy}{29}{section.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.1}Sequence Reversal}{29}{subsection.3.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.2}Camera Movement Simulation}{29}{subsection.3.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.3}Zoom Simulation}{30}{subsection.3.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.4}Detection Inaccuracy Simulation}{30}{subsection.3.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.5}Implementation Details}{30}{subsection.3.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Experiment Design}{31}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:experiment_design}{{4}{30}{Experiment Design}{chapter.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Experiment Environment}{30}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Comparison Experiments}{30}{section.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Evaluation Metrics}{30}{section.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Results and Discussion}{32}{chapter.5}\protected@file@percent }
+\newlabel{chap:experiment_design}{{4}{31}{Experiment Design}{chapter.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Experiment Environment}{31}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Comparison Experiments}{31}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Evaluation Metrics}{31}{section.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Results and Discussion}{33}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:results}{{5}{32}{Results and Discussion}{chapter.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Object Detection Training Results}{32}{section.5.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Comparison of YOLO Models\relax }}{32}{table.caption.38}\protected@file@percent }
-\newlabel{tab:comparison}{{5.1}{32}{Comparison of YOLO Models\relax }{table.caption.38}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Summary}{32}{subsection.5.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Data Description}{33}{section.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Experiment Results}{33}{section.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Testing Visualisation}{33}{section.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{34}{chapter.6}\protected@file@percent }
+\newlabel{chap:results}{{5}{33}{Results and Discussion}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Object Detection Training Results}{33}{section.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Comparison of YOLO Models\relax }}{33}{table.caption.39}\protected@file@percent }
+\newlabel{tab:comparison}{{5.1}{33}{Comparison of YOLO Models\relax }{table.caption.39}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Summary}{33}{subsection.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Data Description}{34}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Experiment Results}{34}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Testing Visualisation}{34}{section.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{35}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:conclusion}{{6}{34}{Conclusion and Future Work}{chapter.6}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Source Codes}{35}{appendix.A}\protected@file@percent }
+\newlabel{chap:conclusion}{{6}{35}{Conclusion and Future Work}{chapter.6}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Source Codes}{36}{appendix.A}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{fig:central-position-test-indoor1}{{A.1a}{36}{Central position of the refueling port over time.\relax }{figure.caption.39}{}}
-\newlabel{sub@fig:central-position-test-indoor1}{{a}{36}{Central position of the refueling port over time.\relax }{figure.caption.39}{}}
-\newlabel{fig:velocity-test-indoor1}{{A.1b}{36}{Velocity of the refueling port over time.\relax }{figure.caption.39}{}}
-\newlabel{sub@fig:velocity-test-indoor1}{{b}{36}{Velocity of the refueling port over time.\relax }{figure.caption.39}{}}
-\newlabel{fig:acceleration-test-indoor1}{{A.1c}{36}{Acceleration of the refueling port over time.\relax }{figure.caption.39}{}}
-\newlabel{sub@fig:acceleration-test-indoor1}{{c}{36}{Acceleration of the refueling port over time.\relax }{figure.caption.39}{}}
-\newlabel{fig:size-test-indoor1}{{A.1d}{36}{Area of the refueling port over time.\relax }{figure.caption.39}{}}
-\newlabel{sub@fig:size-test-indoor1}{{d}{36}{Area of the refueling port over time.\relax }{figure.caption.39}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{36}{figure.caption.39}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-indoor1}{{A.1}{36}{Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.39}{}}
-\newlabel{fig:central-position-test-indoor1-savgol}{{A.2a}{37}{Central position of the refueling port over time.\relax }{figure.caption.40}{}}
-\newlabel{sub@fig:central-position-test-indoor1-savgol}{{a}{37}{Central position of the refueling port over time.\relax }{figure.caption.40}{}}
-\newlabel{fig:velocity-test-indoor1-savgol}{{A.2b}{37}{Velocity of the refueling port over time.\relax }{figure.caption.40}{}}
-\newlabel{sub@fig:velocity-test-indoor1-savgol}{{b}{37}{Velocity of the refueling port over time.\relax }{figure.caption.40}{}}
-\newlabel{fig:acceleration-test-indoor1-savgol}{{A.2c}{37}{Acceleration of the refueling port over time.\relax }{figure.caption.40}{}}
-\newlabel{sub@fig:acceleration-test-indoor1-savgol}{{c}{37}{Acceleration of the refueling port over time.\relax }{figure.caption.40}{}}
-\newlabel{fig:size-test-indoor1-savgol}{{A.2d}{37}{Area of the refueling port over time.\relax }{figure.caption.40}{}}
-\newlabel{sub@fig:size-test-indoor1-savgol}{{d}{37}{Area of the refueling port over time.\relax }{figure.caption.40}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{37}{figure.caption.40}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-indoor1-savgol}{{A.2}{37}{Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.40}{}}
-\newlabel{fig:central-position-test-outdoor1}{{A.3a}{38}{Central position of the refueling port over time.\relax }{figure.caption.41}{}}
-\newlabel{sub@fig:central-position-test-outdoor1}{{a}{38}{Central position of the refueling port over time.\relax }{figure.caption.41}{}}
-\newlabel{fig:velocity-test-outdoor1}{{A.3b}{38}{Velocity of the refueling port over time.\relax }{figure.caption.41}{}}
-\newlabel{sub@fig:velocity-test-outdoor1}{{b}{38}{Velocity of the refueling port over time.\relax }{figure.caption.41}{}}
-\newlabel{fig:acceleration-test-outdoor1}{{A.3c}{38}{Acceleration of the refueling port over time.\relax }{figure.caption.41}{}}
-\newlabel{sub@fig:acceleration-test-outdoor1}{{c}{38}{Acceleration of the refueling port over time.\relax }{figure.caption.41}{}}
-\newlabel{fig:size-test-outdoor1}{{A.3d}{38}{Area of the refueling port over time.\relax }{figure.caption.41}{}}
-\newlabel{sub@fig:size-test-outdoor1}{{d}{38}{Area of the refueling port over time.\relax }{figure.caption.41}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{38}{figure.caption.41}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-outdoor1}{{A.3}{38}{Temporal analysis of different metrics for the refueling port in the \textit {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.41}{}}
-\newlabel{fig:central-position-test-outdoor1-savgol}{{A.4a}{39}{Central position of the refueling port over time.\relax }{figure.caption.42}{}}
-\newlabel{sub@fig:central-position-test-outdoor1-savgol}{{a}{39}{Central position of the refueling port over time.\relax }{figure.caption.42}{}}
-\newlabel{fig:velocity-test-outdoor1-savgol}{{A.4b}{39}{Velocity of the refueling port over time.\relax }{figure.caption.42}{}}
-\newlabel{sub@fig:velocity-test-outdoor1-savgol}{{b}{39}{Velocity of the refueling port over time.\relax }{figure.caption.42}{}}
-\newlabel{fig:acceleration-test-outdoor1-savgol}{{A.4c}{39}{Acceleration of the refueling port over time.\relax }{figure.caption.42}{}}
-\newlabel{sub@fig:acceleration-test-outdoor1-savgol}{{c}{39}{Acceleration of the refueling port over time.\relax }{figure.caption.42}{}}
-\newlabel{fig:size-test-outdoor1-savgol}{{A.4d}{39}{Area of the refueling port over time.\relax }{figure.caption.42}{}}
-\newlabel{sub@fig:size-test-outdoor1-savgol}{{d}{39}{Area of the refueling port over time.\relax }{figure.caption.42}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.4}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{39}{figure.caption.42}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-outdoor1-savgol}{{A.4}{39}{Temporal analysis of different metrics for the refueling port in the \textit {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.42}{}}
-\newlabel{fig:central-position-test-video_lab_platform_6}{{A.5a}{40}{Central position of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{sub@fig:central-position-test-video_lab_platform_6}{{a}{40}{Central position of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{fig:velocity-test-video_lab_platform_6}{{A.5b}{40}{Velocity of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{sub@fig:velocity-test-video_lab_platform_6}{{b}{40}{Velocity of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{fig:acceleration-test-video_lab_platform_6}{{A.5c}{40}{Acceleration of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{sub@fig:acceleration-test-video_lab_platform_6}{{c}{40}{Acceleration of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{fig:size-test-video_lab_platform_6}{{A.5d}{40}{Area of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{sub@fig:size-test-video_lab_platform_6}{{d}{40}{Area of the refueling port over time.\relax }{figure.caption.43}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.5}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{40}{figure.caption.43}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-video_lab_platform_6}{{A.5}{40}{Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.43}{}}
+\newlabel{fig:central-position-test-indoor1}{{A.1a}{37}{Central position of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:central-position-test-indoor1}{{a}{37}{Central position of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{fig:velocity-test-indoor1}{{A.1b}{37}{Velocity of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:velocity-test-indoor1}{{b}{37}{Velocity of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{fig:acceleration-test-indoor1}{{A.1c}{37}{Acceleration of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:acceleration-test-indoor1}{{c}{37}{Acceleration of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{fig:size-test-indoor1}{{A.1d}{37}{Area of the refueling port over time.\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:size-test-indoor1}{{d}{37}{Area of the refueling port over time.\relax }{figure.caption.40}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{37}{figure.caption.40}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-indoor1}{{A.1}{37}{Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.40}{}}
+\newlabel{fig:central-position-test-indoor1-savgol}{{A.2a}{38}{Central position of the refueling port over time.\relax }{figure.caption.41}{}}
+\newlabel{sub@fig:central-position-test-indoor1-savgol}{{a}{38}{Central position of the refueling port over time.\relax }{figure.caption.41}{}}
+\newlabel{fig:velocity-test-indoor1-savgol}{{A.2b}{38}{Velocity of the refueling port over time.\relax }{figure.caption.41}{}}
+\newlabel{sub@fig:velocity-test-indoor1-savgol}{{b}{38}{Velocity of the refueling port over time.\relax }{figure.caption.41}{}}
+\newlabel{fig:acceleration-test-indoor1-savgol}{{A.2c}{38}{Acceleration of the refueling port over time.\relax }{figure.caption.41}{}}
+\newlabel{sub@fig:acceleration-test-indoor1-savgol}{{c}{38}{Acceleration of the refueling port over time.\relax }{figure.caption.41}{}}
+\newlabel{fig:size-test-indoor1-savgol}{{A.2d}{38}{Area of the refueling port over time.\relax }{figure.caption.41}{}}
+\newlabel{sub@fig:size-test-indoor1-savgol}{{d}{38}{Area of the refueling port over time.\relax }{figure.caption.41}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{38}{figure.caption.41}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-indoor1-savgol}{{A.2}{38}{Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.41}{}}
+\newlabel{fig:central-position-test-outdoor1}{{A.3a}{39}{Central position of the refueling port over time.\relax }{figure.caption.42}{}}
+\newlabel{sub@fig:central-position-test-outdoor1}{{a}{39}{Central position of the refueling port over time.\relax }{figure.caption.42}{}}
+\newlabel{fig:velocity-test-outdoor1}{{A.3b}{39}{Velocity of the refueling port over time.\relax }{figure.caption.42}{}}
+\newlabel{sub@fig:velocity-test-outdoor1}{{b}{39}{Velocity of the refueling port over time.\relax }{figure.caption.42}{}}
+\newlabel{fig:acceleration-test-outdoor1}{{A.3c}{39}{Acceleration of the refueling port over time.\relax }{figure.caption.42}{}}
+\newlabel{sub@fig:acceleration-test-outdoor1}{{c}{39}{Acceleration of the refueling port over time.\relax }{figure.caption.42}{}}
+\newlabel{fig:size-test-outdoor1}{{A.3d}{39}{Area of the refueling port over time.\relax }{figure.caption.42}{}}
+\newlabel{sub@fig:size-test-outdoor1}{{d}{39}{Area of the refueling port over time.\relax }{figure.caption.42}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{39}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-outdoor1}{{A.3}{39}{Temporal analysis of different metrics for the refueling port in the \textit {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.42}{}}
+\newlabel{fig:central-position-test-outdoor1-savgol}{{A.4a}{40}{Central position of the refueling port over time.\relax }{figure.caption.43}{}}
+\newlabel{sub@fig:central-position-test-outdoor1-savgol}{{a}{40}{Central position of the refueling port over time.\relax }{figure.caption.43}{}}
+\newlabel{fig:velocity-test-outdoor1-savgol}{{A.4b}{40}{Velocity of the refueling port over time.\relax }{figure.caption.43}{}}
+\newlabel{sub@fig:velocity-test-outdoor1-savgol}{{b}{40}{Velocity of the refueling port over time.\relax }{figure.caption.43}{}}
+\newlabel{fig:acceleration-test-outdoor1-savgol}{{A.4c}{40}{Acceleration of the refueling port over time.\relax }{figure.caption.43}{}}
+\newlabel{sub@fig:acceleration-test-outdoor1-savgol}{{c}{40}{Acceleration of the refueling port over time.\relax }{figure.caption.43}{}}
+\newlabel{fig:size-test-outdoor1-savgol}{{A.4d}{40}{Area of the refueling port over time.\relax }{figure.caption.43}{}}
+\newlabel{sub@fig:size-test-outdoor1-savgol}{{d}{40}{Area of the refueling port over time.\relax }{figure.caption.43}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.4}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{40}{figure.caption.43}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-outdoor1-savgol}{{A.4}{40}{Temporal analysis of different metrics for the refueling port in the \textit {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.43}{}}
+\newlabel{fig:central-position-test-video_lab_platform_6}{{A.5a}{41}{Central position of the refueling port over time.\relax }{figure.caption.44}{}}
+\newlabel{sub@fig:central-position-test-video_lab_platform_6}{{a}{41}{Central position of the refueling port over time.\relax }{figure.caption.44}{}}
+\newlabel{fig:velocity-test-video_lab_platform_6}{{A.5b}{41}{Velocity of the refueling port over time.\relax }{figure.caption.44}{}}
+\newlabel{sub@fig:velocity-test-video_lab_platform_6}{{b}{41}{Velocity of the refueling port over time.\relax }{figure.caption.44}{}}
+\newlabel{fig:acceleration-test-video_lab_platform_6}{{A.5c}{41}{Acceleration of the refueling port over time.\relax }{figure.caption.44}{}}
+\newlabel{sub@fig:acceleration-test-video_lab_platform_6}{{c}{41}{Acceleration of the refueling port over time.\relax }{figure.caption.44}{}}
+\newlabel{fig:size-test-video_lab_platform_6}{{A.5d}{41}{Area of the refueling port over time.\relax }{figure.caption.44}{}}
+\newlabel{sub@fig:size-test-video_lab_platform_6}{{d}{41}{Area of the refueling port over time.\relax }{figure.caption.44}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.5}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{41}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-video_lab_platform_6}{{A.5}{41}{Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.44}{}}
 \bibstyle{abbrvnat}
 \bibdata{LaTeX,CUCitations}
-\newlabel{fig:central-position-test-video_lab_platform_6-savgol}{{A.6a}{41}{Central position of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{sub@fig:central-position-test-video_lab_platform_6-savgol}{{a}{41}{Central position of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{fig:velocity-test-video_lab_platform_6-savgol}{{A.6b}{41}{Velocity of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{sub@fig:velocity-test-video_lab_platform_6-savgol}{{b}{41}{Velocity of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{fig:acceleration-test-video_lab_platform_6-savgol}{{A.6c}{41}{Acceleration of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{sub@fig:acceleration-test-video_lab_platform_6-savgol}{{c}{41}{Acceleration of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{fig:size-test-video_lab_platform_6-savgol}{{A.6d}{41}{Area of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{sub@fig:size-test-video_lab_platform_6-savgol}{{d}{41}{Area of the refueling port over time.\relax }{figure.caption.44}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.6}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{41}{figure.caption.44}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-video_lab_platform_6-savgol}{{A.6}{41}{Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.44}{}}
+\newlabel{fig:central-position-test-video_lab_platform_6-savgol}{{A.6a}{42}{Central position of the refueling port over time.\relax }{figure.caption.45}{}}
+\newlabel{sub@fig:central-position-test-video_lab_platform_6-savgol}{{a}{42}{Central position of the refueling port over time.\relax }{figure.caption.45}{}}
+\newlabel{fig:velocity-test-video_lab_platform_6-savgol}{{A.6b}{42}{Velocity of the refueling port over time.\relax }{figure.caption.45}{}}
+\newlabel{sub@fig:velocity-test-video_lab_platform_6-savgol}{{b}{42}{Velocity of the refueling port over time.\relax }{figure.caption.45}{}}
+\newlabel{fig:acceleration-test-video_lab_platform_6-savgol}{{A.6c}{42}{Acceleration of the refueling port over time.\relax }{figure.caption.45}{}}
+\newlabel{sub@fig:acceleration-test-video_lab_platform_6-savgol}{{c}{42}{Acceleration of the refueling port over time.\relax }{figure.caption.45}{}}
+\newlabel{fig:size-test-video_lab_platform_6-savgol}{{A.6d}{42}{Area of the refueling port over time.\relax }{figure.caption.45}{}}
+\newlabel{sub@fig:size-test-video_lab_platform_6-savgol}{{d}{42}{Area of the refueling port over time.\relax }{figure.caption.45}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.6}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{42}{figure.caption.45}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-video_lab_platform_6-savgol}{{A.6}{42}{Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.45}{}}
 \bibcite{Alahi2016}{{1}{2016}{{Alahi et~al.}}{{Alahi, Goel, Ramanathan, Robicquet, Fei-Fei, and Savarese}}}
 \bibcite{AR3P2020}{{2}{AvMC}{{}}{{(2020)}}}
 \bibcite{ImageRefueling}{{3}{2019}{{Bailey}}{{}}}
@@ -342,7 +348,7 @@
 \bibcite{chen2023yoloms}{{10}{2023}{{Chen et~al.}}{{Chen, Yuan, Wu, Wang, Hou, and Cheng}}}
 \bibcite{SurveySmallObjectDetection}{{11}{2023}{{Cheng et~al.}}{{Cheng, Yuan, Yao, Yan, Zeng, Xie, and Han}}}
 \bibcite{CostsOfUnsafetyAviation}{{12}{2010}{{Cokorilo et~al.}}{{Cokorilo, Gvozdenovic, Vasov, and Mirosavljevic}}}
-\@writefile{toc}{\contentsline {chapter}{References}{42}{appendix*.45}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{References}{43}{appendix*.46}\protected@file@percent }
 \bibcite{DBLP:journals/corr/DaiLHS16}{{13}{2016}{{Dai et~al.}}{{Dai, Li, He, and Sun}}}
 \bibcite{huggingface2023objectdetection}{{14}{2023}{{Face}}{{}}}
 \bibcite{Ficken2017}{{15}{2017}{{Ficken}}{{}}}
@@ -385,4 +391,4 @@
 \bibcite{SurveyModernODModels}{{52}{2022}{{Zaidi et~al.}}{{Zaidi, Ansari, Aslam, Kanwal, Asghar, and Lee}}}
 \bibcite{SuveyAdvancesSingleOTMethods}{{53}{2021}{{Zhang et~al.}}{{Zhang, Wang, Liu, Zhang, and Chen}}}
 \bibcite{AAREKF}{{54}{2017}{{Zhong et~al.}}{{Zhong, Li, Wang, and Su}}}
-\gdef \@abspage@last{54}
+\gdef \@abspage@last{55}
