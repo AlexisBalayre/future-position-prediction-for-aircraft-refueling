@@ -75,7 +75,7 @@ if __name__ == "__main__":
                             data_module.setup("train")
 
                             # Trainer initialization with configurations for training process
-                            trainer_classic_model = L.Trainer(
+                            """ trainer_classic_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
@@ -89,7 +89,7 @@ if __name__ == "__main__":
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="classic"),
-                            )
+                            ) """
                             trainer_sum_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
@@ -105,7 +105,7 @@ if __name__ == "__main__":
                                 ],
                                 logger=CSVLogger("logs", name="sum"),
                             )
-                            trainer_average_model = L.Trainer(
+                            """ trainer_average_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
@@ -134,9 +134,9 @@ if __name__ == "__main__":
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="concat"),
-                            )
+                            ) """
 
-                            # Model without combining hidden states
+                            """ # Model without combining hidden states
                             model_classic = LSTMLightningModelClassic(
                                 lr=learning_rate,
                                 input_frames=in_frames,
@@ -147,7 +147,7 @@ if __name__ == "__main__":
                                 dropout=dropout,
                                 scheduler_factor=scheduler_factor,
                                 scheduler_patience=scheduler_patience,
-                            )
+                            ) """
 
                             # Model (Hidden State Sum)
                             model_sum = LSTMLightningModelSum(
@@ -162,7 +162,7 @@ if __name__ == "__main__":
                                 scheduler_patience=scheduler_patience,
                             )
 
-                            # Model (Hidden State Average)
+                            """ # Model (Hidden State Average)
                             model_average = LSTMLightningModelAverage(
                                 lr=learning_rate,
                                 input_frames=in_frames,
@@ -186,26 +186,26 @@ if __name__ == "__main__":
                                 dropout=dropout,
                                 scheduler_factor=scheduler_factor,
                                 scheduler_patience=scheduler_patience,
-                            )
+                            ) """
 
                             # Training phase
-                            trainer_classic_model.fit(
+                            """ trainer_classic_model.fit(
                                 model_classic, datamodule=data_module
-                            )
+                            ) """
                             trainer_sum_model.fit(model_sum, datamodule=data_module)
-                            trainer_average_model.fit(
+                            """ trainer_average_model.fit(
                                 model_average, datamodule=data_module
                             )
                             trainer_concat_model.fit(
                                 model_concat, datamodule=data_module
-                            )
+                            ) """
 
                             # Setup data module for testing
                             data_module.setup("test")
 
-                            for i in range(4):
+                            for i in range(1):
                                 # Select the model to evaluate
-                                if i == 0:
+                                """ if i == 0:
                                     model = model_classic
                                     model_name = "classic"
                                     trainer = trainer_classic_model
@@ -220,7 +220,10 @@ if __name__ == "__main__":
                                 elif i == 3:
                                     model = model_concat
                                     model_name = "concat"
-                                    trainer = trainer_concat_model
+                                    trainer = trainer_concat_model """
+                                model = model_sum
+                                model_name = "sum"
+                                trainer = trainer_sum_model
 
                                 # Compute the metrics over the test dataset
                                 test_metrics = trainer.test(
@@ -254,5 +257,5 @@ if __name__ == "__main__":
 
                                 # Save the results to a CSV file
                                 results.to_csv(
-                                    "results.csv", index=False
+                                    "results_LSTM_VelPosAcc.csv", index=False
                                 )

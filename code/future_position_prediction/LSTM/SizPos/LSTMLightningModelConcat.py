@@ -11,6 +11,7 @@ from utils import (
     compute_AIOU,
     compute_FIOU,
     convert_velocity_to_positions,
+    convert_PosSize_to_PosVel,
 )
 
 from MetricsMonitoring import MetricsMonitoring
@@ -231,61 +232,28 @@ class LSTMLightningModelConcat(L.LightningModule):
 
     def _shared_step(self, batch, batch_idx, stage):
         (
-            video_id,
+            _,
             input_positions,
             input_sizes,
-            output_positions,
-            output_sizes,
+            ground_truth_positions,
+            ground_truth_sizes,
         ) = batch
 
-        # Predict future positions and sizes
-        if stage == "train":
-            predicted_positions, predicted_sizes = self(
-                input_positions,
-                input_sizes,
-                training_prediction="mixed_teacher_forcing",
-                position_seq_target=output_positions,
-                size_seq_target=output_sizes,
-                teacher_forcing_ratio=0.6,
-            )
-        else:
-            predicted_positions, predicted_sizes = self(input_positions, input_sizes)
+        # Predict future sizes
+        predicted_positions, predicted_sizes = self(input_positions, input_sizes)
 
-        # Convert predicted_positions and predicted_sizes to YOLO format
-        predicted_bboxes = torch.zeros_like(predicted_positions[:, :, :4])
-        predicted_velocities = torch.zeros_like(predicted_positions[:, :, :4])
+        # Convert predictions to positions and velocities
+        predicted_bboxes, predicted_velocities = convert_PosSize_to_PosVel(
+            predicted_positions, predicted_sizes
+        )
 
-        # YOLO format: xcenter, ycenter, width, height
-        predicted_bboxes[:, :, 0] = predicted_positions[:, :, 0]  # xcenter
-        predicted_bboxes[:, :, 1] = predicted_positions[:, :, 1]  # ycenter
-        predicted_bboxes[:, :, 2] = predicted_sizes[:, :, 0]  # width
-        predicted_bboxes[:, :, 3] = predicted_sizes[:, :, 1]  # height
+        # Convert ground truth to positions and velocities
+        ground_truth_bboxes, ground_truth_velocities = convert_PosSize_to_PosVel(
+            ground_truth_positions, ground_truth_sizes
+        )
 
-        # Velocities: velx, vely, deltaw, deltah
-        predicted_velocities[:, :, 0] = predicted_positions[:, :, 2]  # velx
-        predicted_velocities[:, :, 1] = predicted_positions[:, :, 3]  # vely
-        predicted_velocities[:, :, 2] = predicted_sizes[:, :, 2]  # deltaw
-        predicted_velocities[:, :, 3] = predicted_sizes[:, :, 3]  # deltah
-
-        # Input positions to YOLO format
-        input_bboxes = torch.zeros_like(input_positions[:, :, :4])
-        input_bboxes[:, :, 0] = input_positions[:, :, 0]  # xcenter
-        input_bboxes[:, :, 1] = input_positions[:, :, 1]  # ycenter
-        input_bboxes[:, :, 2] = input_sizes[:, :, 0]  # width
-        input_bboxes[:, :, 3] = input_sizes[:, :, 1]  # height
-
-        # Output positions to YOLO format
-        output_bboxes = torch.zeros_like(output_positions[:, :, :4])
-        output_bboxes[:, :, 0] = output_positions[:, :, 0]  # xcenter
-        output_bboxes[:, :, 1] = output_positions[:, :, 1]  # ycenter
-        output_bboxes[:, :, 2] = output_sizes[:, :, 0]  # width
-        output_bboxes[:, :, 3] = output_sizes[:, :, 1]  # height
-
-        ground_truth_velocities = torch.zeros_like(output_positions[:, :, :4])
-        ground_truth_velocities[:, :, 0] = output_positions[:, :, 2]  # velx
-        ground_truth_velocities[:, :, 1] = output_positions[:, :, 3]  # vely
-        ground_truth_velocities[:, :, 2] = output_sizes[:, :, 2]  # deltaw
-        ground_truth_velocities[:, :, 3] = output_sizes[:, :, 3]  # deltah
+        # Convert inputs to positions and velocities
+        input_bboxes, _ = convert_PosSize_to_PosVel(input_positions, input_sizes)
 
         # Convert predicted future velocities to future positions
         velocities_to_positions = convert_velocity_to_positions(
@@ -293,14 +261,15 @@ class LSTMLightningModelConcat(L.LightningModule):
         )
 
         # Compute losses
-        velocity_loss = F.smooth_l1_loss(predicted_velocities, ground_truth_velocities)
-        pos_loss = F.smooth_l1_loss(predicted_bboxes, output_bboxes)
+        sizes_loss = F.smooth_l1_loss(predicted_sizes, ground_truth_sizes)
+        positions_loss = F.smooth_l1_loss(predicted_positions, ground_truth_positions)
+        bbox_loss = F.smooth_l1_loss(predicted_bboxes, ground_truth_bboxes)
         velocities_to_positions_loss = F.smooth_l1_loss(
-            velocities_to_positions, output_bboxes
+            velocities_to_positions, ground_truth_bboxes
         )
-        sizes_loss = F.smooth_l1_loss(predicted_sizes, output_sizes)
-        positions_loss = F.smooth_l1_loss(predicted_positions, output_positions)
-        total_loss = sizes_loss + positions_loss + velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
+        total_loss = (
+            sizes_loss + positions_loss + bbox_loss + velocities_to_positions_loss
+        )
 
         # Log losses
         self.log_dict(
@@ -319,7 +288,7 @@ class LSTMLightningModelConcat(L.LightningModule):
         metrics_monitor.update(
             predicted_bbox=predicted_bboxes,
             predicted_bbox_from_vel=velocities_to_positions,
-            ground_truth_bbox=output_bboxes,
+            ground_truth_bbox=ground_truth_bboxes,
         )
 
         return total_loss
@@ -365,7 +334,7 @@ class LSTMLightningModelConcat(L.LightningModule):
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": "val_loss",
+                "monitor": "train_loss",
                 "interval": "epoch",
             },
         }

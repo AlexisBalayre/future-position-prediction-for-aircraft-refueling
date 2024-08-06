@@ -90,35 +90,43 @@
 \maketitle
 
 % Abstract and Keywords
-%\begin{abstract}
-%    Replace with your abstract text of not more than 300 words.
-%\end{abstract}
+\begin{abstract}
+    Replace with your abstract text of not more than 300 words.
+\end{abstract}
 
-%\begin{keywords}
-%    Replace with at least 6, semicolon seperated keywords (not contained within the thesis title) – this makes the thesis searchable.
-%\end{keywords}
+\begin{keywords}
+    Replace with at least 6, semicolon seperated keywords (not contained within the thesis title) – this makes the thesis searchable.
+\end{keywords}
 
 % Acknowledgements
-%\chapter{Acknowledgements}
-%The author would like to thank \dots
+\chapter{Acknowledgements}
+ %The author would like to thank \dots
 
-% Use single spacing for Table of Contents, List of Figures, etc
-{
-    \clearpage
+ % Use single spacing for Table of Contents, List of Figures, etc
+ {
+  \clearpage
 
-    % Table of Contents
-    \singlespacing{
-        \tableofcontents
-    }
-    \clearpage
+  % Table of Contents
+  \singlespacing{
+      \tableofcontents
+  }
+  \clearpage
 
-    % List of Figures
-    \listoffigures
+  % List of Figures
+  {%
+      \let\oldnumberline\numberline%
+      \renewcommand{\numberline}{\figurename~\oldnumberline}%
+      \listoffigures%
+  }
 
-    \clearpage
-    % List of Tables
-    \listoftables
-}
+  \clearpage
+  % List of Tables
+  {%
+      \let\oldnumberline\numberline%
+      \renewcommand{\numberline}{\tablename~\oldnumberline}%
+      \listoftables%
+  }
+ }
 
 % The list of abbreviations can't be automatically generated so you need to populate it yourself
 \begin{listofabbreviations}
@@ -727,8 +735,8 @@ instance,~\citet{Alahi2016} proposed a Social-LSTM to model pedestrian
 trajectories and interactions, further improving global context capture through
 a social pooling module.
 
-\subsection*{Related Work}
-\subsubsection{STED Model}
+\subsection*{Deep Learning for Spatio-Temporal Prediction}
+\subsubsection*{STED Model}
 
 The STED (Spatio-Temporal Encoder-Decoder) model was introduced
 by~\citet{MultipleObjectForecasting} as a novel approach for multiple object
@@ -738,7 +746,7 @@ challenges of object forecasting in diverse environments, leveraging both
 visual and temporal features to predict object-motion and ego-motion
 effectively. As shown in figure~\ref{fig:sted}, the STED model consists of
 three main components: a bounding box feature encoder, an optical flow feature
-encoder, and a decoder. The \textit{Bounding Box Feature Encoder} utilizes a
+encoder, and a decoder. The \textit{Bounding Box Feature Encoder} utilises a
 Gated Recurrent Unit (GRU) to extract temporal features from past object
 bounding boxes, which include coordinates $(x, y)$, dimensions $(w, h)$, and
 velocity changes $(\Delta x, \Delta y, \Delta w, \Delta h)$ over a window of 30
@@ -774,11 +782,11 @@ baseline models, as summarised in Table~\ref{tab:sted-results}.
 
 \begin{table}[H]
     \centering
-    \caption{Comparison of the performance of STED with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection-over-Union (AIOU), and Final Intersection-over-Union (FIOU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.}
+    \caption{Comparison of the performance of STED with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection-over-Union (AIoU), and Final Intersection-over-Union (FIoU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.}
     \begin{adjustbox}{max width=\textwidth}
         \begin{tabular}{lcccc}
             \toprule
-            \textbf{Model}                         & \textbf{ADE (pixels)} & \textbf{FDE (pixels)} & \textbf{AIOU (\%)} & \textbf{FIOU (\%)} \\ 
+            \textbf{Model}                         & \textbf{ADE (pixels)} & \textbf{FDE (pixels)} & \textbf{AIoU (\%)} & \textbf{FIoU (\%)} \\ 
             \midrule
             CV-CS~\cite{MultipleObjectForecasting} & 31.6                  & 57.6                  & 46.0               & 21.3               \\
             LKF~\cite{MultipleObjectForecasting}   & 32.9                  & 59.0                  & 43.9               & 20.1               \\
@@ -791,7 +799,7 @@ baseline models, as summarised in Table~\ref{tab:sted-results}.
 
 The STED model achieved an Average Displacement Error (ADE) of 26.0 pixels and
 a Final Displacement Error (FDE) of 46.9 pixels, with an Average Intersection
-Over Union (AIOU) of 51.8\% and a Final Intersection Over Union (FIOU) of
+Over Union (AIoU) of 51.8\% and a Final Intersection Over Union (FIoU) of
 27.5\%. These results indicate that STED outperforms existing models in both
 displacement and intersection-over-union metrics, making it a robust solution
 for forecasting future object locations in challenging video sequences.
@@ -835,18 +843,18 @@ was compared against several baseline models. The results are summarised in
 Table~\ref{tab:pv-lstm-results}, showcasing the model's effectiveness in
 predicting pedestrian trajectories and intentions. The PV-LSTM model achieved
 an Average Displacement Error (ADE) of 25.2 pixels and a Final Displacement
-Error (FDE) of 49.9 pixels, with an Average Intersection Over Union (AIOU) of
-40.2\%. Although the STED model slightly outperforms in AIOU and FIOU, the
+Error (FDE) of 49.9 pixels, with an Average Intersection Over Union (AIoU) of
+40.2\%. Although the STED model slightly outperforms in AIoU and FIoU, the
 PV-LSTM model provides a robust solution with competitive prediction accuracy,
 while maintaining a simpler architecture.
 
 \begin{table}[H]
     \centering
-    \caption{Comparison of the performance of PV-LSTM with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), and Average Intersection-over-Union (AIOU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.}
+    \caption{Comparison of the performance of PV-LSTM with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), and Average Intersection-over-Union (AIoU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.}
     \begin{adjustbox}{max width=\textwidth}
         \begin{tabular}{lcccc}
             \toprule
-            \textbf{Model}                                   & \textbf{ADE (pixels)} & \textbf{FDE (pixels)} & \textbf{AIOU (\%)} & \textbf{FIOU (\%)} \\ 
+            \textbf{Model}                                   & \textbf{ADE (pixels)} & \textbf{FDE (pixels)} & \textbf{AIoU (\%)} & \textbf{FIoU (\%)} \\ 
             \midrule
             CV-CS~\cite{DBLP:journals/corr/abs-2010-10270}   & 31.6                  & 57.6                  & 46.0               & 21.3               \\
             LKF~\cite{DBLP:journals/corr/abs-2010-10270}     & 32.9                  & 59.0                  & 43.9               & 20.1               \\
@@ -858,7 +866,7 @@ while maintaining a simpler architecture.
     \label{tab:pv-lstm-results}
 \end{table}
 
-\subsubsection{Fusion-GRU Model}
+\subsubsection*{Fusion-GRU Model}
 
 \citet{FusionGRU} developed the Fusion-Gated Recurrent
 Unit (Fusion-GRU) model to predict the future bounding boxes of traffic agents
@@ -902,7 +910,7 @@ surroundings is crucial for accurate prediction.
 The Fusion-GRU model was evaluated on two publicly available datasets, ROL
 (Risky Object Localization) and HEV-I (Honda Egocentric View-Intersection),
 demonstrating its superior performance in predicting future bounding boxes
-compared to other state-of-the-art models. The results are summarized in
+compared to other state-of-the-art models. The results are summarised in
 Table~\ref{tab:fusion-gru-results}, which compares the performance of
 Fusion-GRU with baseline models based on metrics such as Average Displacement
 Error (ADE), Final Displacement Error (FDE), and Intersection over Union (IOU).
@@ -935,7 +943,7 @@ agents.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% METHODOLOGY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Methodology}\label{chap:methodology}
 \section{Dataset Configuration}
-\subsection{Provided Dataset Description}
+\subsection{Dataset Description}
 The `Indoor Hangar Fueling Port Detection and Tracking Dataset' (HARD) is an
 integral part of Phase-1 of the ONEHeart project, funded by UKRI. The ONEHeart
 project aims to develop an automated aircraft refuelling system based on
@@ -943,52 +951,59 @@ computer vision and robotics technology. This dataset can be utilised for
 various purposes, including but not limited to refueling port detection,
 fueling port tracking, camera pose estimation, and visual image processing. It
 is provided under the terms of the UKRI funding agreement. Unauthorised use,
-distribution, or reproduction is prohibited.
-
-The HARD dataset consists of 21 video sequences captured in an indoor hangar at
-the Aerospace Integration Research Centre (AIRC). The videos were recorded
-using an Intel® ${\text{RealSense}}^{\text{TM}}$ D435~\cite{IntelRealSense}
-(Shown in Figure~\ref{fig:intel-realsense-d435}), which provides depth
-information in addition to RGB data. The target area for detection and tracking
-is near the refueling port of an Airbus A320 wing. The videos were recorded
-under different lighting conditions, including indoor artificial lighting and
-natural daylight, to simulate real-world scenarios.
+distribution, or reproduction is prohibited. The HARD dataset consists of 21
+video sequences captured in an indoor hangar at the Aerospace Integration
+Research Centre (AIRC). The videos were recorded using an Intel®
+${\text{RealSense}}^{\text{TM}}$ D435~\cite{IntelRealSense} (Shown in
+Figure~\ref{fig:intel-realsense-d435}), which provides depth information in
+addition to RGB data. The target area for detection and tracking is near the
+refueling port of an Airbus A320 wing. The videos were recorded under different
+lighting conditions, including indoor artificial lighting and natural daylight,
+to simulate real-world scenarios. In addition, the refueling port was in
+different states (closed, open, and semi-open) to capture a wide range of
+variations for training and testing machine learning models.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/depth-camera-d435_details.jpg}
+    \includegraphics[width=0.8\textwidth]{figures/depth-camera-d435_details.jpg}
     \caption{Intel® ${\text{RealSense}}^{\text{TM}}$ D435 Depth Camera. Source: Intel}\label{fig:intel-realsense-d435}
 \end{figure}
 
-There are three states of the refueling port in the dataset:
-\begin{itemize}
-    \item \textbf{CLOSED}: The refueling port is closed.
-    \item \textbf{OPEN}: The refueling port is open.
-    \item \textbf{SEMI-OPEN}: The refueling port is partially open.
-\end{itemize}
-
+\newpage
 \subsection{Data Annotation}
 The HARD dataset provided for this project was not fully annotated. Therefore,
 the first step in the data preparation process was to annotate the dataset.
 This annotation process was crucial to enable the training of machine learning
-models for accurate refueling port detection and tracking.
+models for accurate refueling port detection and tracking. Initially, 100
+frames from each video sequence were manually annotated. This involved labeling
+the refueling port in each frame, which required identifying and marking the
+exact location of the refueling port using bounding boxes. This was done using
+the Label Studio tool, a powerful annotation platform that allows users to
+create and manage annotations in images and videos. Label Studio was chosen for
+its flexibility and ease of use. It supports various annotation formats and
+integrates well with machine learning workflows. Users can draw bounding boxes
+around objects of interest, in this case, the refueling port, to create labeled
+datasets. The initial manual annotations created a preliminary dataset. This
+dataset was used to train a YOLOv10 (You Only Look Once, version 10) model for
+refueling port detection. The annotated dataset was used to train the YOLOv10
+model. The model learned to detect the refueling port from the annotated
+images, improving its accuracy with each training iteration. After training the
+YOLOv10 model, it was implemented as a backend service for Label Studio. This
+was deployed as a Docker container, allowing the model to be used for automated
+annotation of the remaining images in the dataset. The model predicted the
+location of the refueling port in new frames, and these predictions were used
+to annotate the rest of the dataset automatically. Each automatically generated
+annotation was reviewed manually to ensure accuracy. This review process
+involved verifying the location of the refueling port in each frame and making
+necessary corrections to the annotations. This thorough quality control ensured
+that the entire dataset was consistently and accurately labeled.This
+comprehensive annotation process ensured that the entire dataset was accurately
+labeled, providing a robust foundation for training machine learning models
+aimed at refueling port detection and tracking. The combination of manual and
+automated annotation techniques maximised efficiency while maintaining high
+annotation quality. 
 
-The annotation process involved several steps:
-\begin{enumerate}
-    \item \textbf{Initial Manual Annotation}: Initially, 100 frames from each video sequence were manually annotated. This involved labeling the refueling port in each frame, which required identifying and marking the exact location of the refueling port using bounding boxes. This was done using the Label Studio tool, a powerful annotation platform that allows users to create and manage annotations in images and videos.
-    \item \textbf{Tool Used - Label Studio}: Label Studio was chosen for its flexibility and ease of use. It supports various annotation formats and integrates well with machine learning workflows. Users can draw bounding boxes around objects of interest, in this case, the refueling port, to create labeled datasets.
-    \item \textbf{Preliminary Dataset Creation}: The initial manual annotations created a preliminary dataset. This dataset was used to train a YOLOv10 (You Only Look Once, version 10) model for refueling port detection.
-    \item \textbf{Model Training}: The annotated dataset was used to train the YOLOv10 model. The model learned to detect the refueling port from the annotated images, improving its accuracy with each training iteration.
-    \item \textbf{Automated Annotation}: After training the YOLOv10 model, it was implemented as a backend service for Label Studio. This was deployed as a Docker container, allowing the model to be used for automated annotation of the remaining images in the dataset. The model predicted the location of the refueling port in new frames, and these predictions were used to annotate the rest of the dataset automatically.
-    \item \textbf{Review and Quality Control}: Each automatically generated annotation was reviewed manually to ensure accuracy. This review process involved verifying the location of the refueling port in each frame and making necessary corrections to the annotations. This thorough quality control ensured that the entire dataset was consistently and accurately labeled.
-\end{enumerate}
-
-This comprehensive annotation process ensured that the entire dataset was
-accurately labeled, providing a robust foundation for training machine learning
-models aimed at refueling port detection and tracking. The combination of
-manual and automated annotation techniques maximised efficiency while
-maintaining high annotation quality.
-
+\newpage
 \subsection{Summary of Available Videos}
 Each video was assigned to a specific dataset (train, val, and test), with an
 approximate split of 70\% for training, 15\% for validation, and 15\% for
@@ -1026,7 +1041,7 @@ with the number of frames for each video and their assignment:
     \label{tab:video_summary}
 \end{table}
 
-\subsection{Initial Data Distribution}
+\subsection{Data Distribution}
 Before balancing the data, the distribution of video frames across the
 different datasets (train, validation, and test) for each state of the fueling
 port (CLOSED, OPEN, and SEMI-OPEN) was as follows:
@@ -1052,17 +1067,16 @@ and underperform on the less represented states.
 
 \subsection{Balanced Data Distribution}
 To address this issue, a balancing strategy was employed to create a more
-uniform dataset. The steps taken were as follows:
-\begin{enumerate}
-    \item \textbf{Shuffling and Subsetting}: Each state (CLOSED, OPEN, and SEMI-OPEN) subset was shuffled, and only the minimum number of frames from each state was kept. This step ensured that the number of frames for each state was equal, avoiding bias toward any particular state.
-    \item \textbf{Merging Subsets}: The subsets were merged to create three balanced datasets: Training, Validation, and Test, each with an equal number of frames for each state.
-    \item \textbf{Final Shuffling and Resizing}: Each balanced dataset was shuffled again and resized to maintain the required split ratio of 70\% for training, 15\% for validation, and 15\% for testing.
-\end{enumerate}
-
-The balanced dataset will be used for training and evaluating the object
-detection model, while the full dataset will be utilised for sequence model
-training and framework evaluation.
-
+uniform dataset. The first step involved shuffling and subsetting each state
+(CLOSED, OPEN, and SEMI-OPEN) to keep only the minimum number of frames for
+each state. This ensured that the number of frames for each state was equal,
+avoiding bias towards any particular state. The subsets were then merged to
+create three balanced datasets: Training, Validation, and Test, each with an
+equal number of frames for each state. Finally, the balanced datasets were
+shuffled again and resized to maintain the required split ratio of 70\% for
+training, 15\% for validation, and 15\% for testing. The balanced dataset will
+be used for training and evaluating the object detection model, while the full
+dataset will be utilised for sequence model training and framework evaluation.
 The resulting distribution of frames across the train, test, and validation
 sets for each state after balancing is as follows:
 \begin{table}[H]
@@ -1082,36 +1096,11 @@ The primary reason for balancing the dataset is to ensure that the object
 detection model is equally trained on all states of the refueling port. An
 imbalanced dataset could cause the model to perform well on the more common
 states (like CLOSED) while underperforming on the less common states (like OPEN
-and SEMI-OPEN). By balancing the dataset:
-
-\begin{itemize}
-    \item \textbf{Improved Generalization}: The model will have an equal opportunity to learn from all states, improving its generalization and robustness.
-    \item \textbf{Avoiding Bias}: Equal representation of each state prevents the model from becoming biased towards any particular state.
-    \item \textbf{Consistent Performance}: This strategy ensures consistent performance across all states, which is critical for the reliable operation of the automated refueling system.
-\end{itemize}
-
-\subsection{Example Images from the Dataset}
-The following figures show annotated examples of the refueling port in
-different states:
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.45\textwidth]{figures/grid\_closed\_images.png}
-    \caption{Annotated images of the refueling port in the CLOSED state.}~\label{fig:grid-closed-images}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.45\textwidth]{figures/grid\_open\_images.png}
-    \caption{Annotated images of the refueling port in the OPEN state.}~\label{fig:grid-open-images}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.45\textwidth]{figures/grid\_semiopen\_images.png}
-    \caption{Annotated images of the refueling port in the SEMI-OPEN state.}~\label{fig:grid-semi-open-images}
-\end{figure}
-
-\subsection{Sequence Model Data Preparation}
+and SEMI-OPEN). By balancing the dataset, the model has an equal opportunity to
+learn from all states, improving its generalisation and robustness. This
+strategy also prevents the model from becoming biased towards any particular
+state, ensuring consistent performance across all states, which is critical for
+the reliable operation of the automated refueling system.
 
 \section{Framework Design}
 The proposed framework, illustrated in Figure~\ref{fig:framework-workflow}, is
@@ -1175,6 +1164,7 @@ generating context-aware predictions.
     \caption{SizPos-GRU Model Architecture}\label{fig:sizpos-gru}
 \end{figure}
 
+\newpage
 \subsection{Input Representation}
 The \textit{SizPos-GRU} model expects two types of input sequences to predict
 the future positions and sizes of an object. The first input captures the
@@ -1228,14 +1218,14 @@ The position encoder processes the sequence of spatial dynamics vectors, which i
 \begin{equation}
     H_p, h_{p_T} = \text{GRU}_p(\mathbf{P}, h_{p_0}),
 \end{equation}
-where $\mathbf{P} = (\mathbf{p}_{t-1+n}, \mathbf{p}_{t-n+2}, \ldots, \mathbf{p}_t)$ is the input sequence of spatial dynamics vectors, $H_p = (h_{p_1}, h_{p_2}, \ldots, h_{p_T})$ represents the sequence of hidden states generated by the GRU, and $h_{p_T}$ is the final hidden state at time $T$. The initial hidden state $h_{p_0}$ is typically initialized to zero.
+where $\mathbf{P} = (\mathbf{p}_{t-1+n}, \mathbf{p}_{t-n+2}, \ldots, \mathbf{p}_t)$ is the input sequence of spatial dynamics vectors, $H_p = (h_{p_1}, h_{p_2}, \ldots, h_{p_T})$ represents the sequence of hidden states generated by the GRU, and $h_{p_T}$ is the final hidden state at time $T$. The initial hidden state $h_{p_0}$ is typically initialised to zero.
 
 \subsubsection*{Size Encoder}
 The size encoder processes the sequence of dimensional attributes vectors, which include the bounding box’s width, height, and changes in these dimensions over time. It is defined as:
 \begin{equation}
     H_d, h_{d_T} = \text{GRU}_d(\mathbf{D}, h_{d_0}),
 \end{equation}
-where $\mathbf{D} = (\mathbf{d}_{t-1+n}, \mathbf{d}_{t-n+2}, \ldots, \mathbf{d}_t)$ is the input sequence of dimensional attributes vectors, $H_d = (h_{d_1}, h_{d_2}, \ldots, h_{d_T})$ represents the sequence of hidden states generated by the GRU, and $h_{d_T}$ is the final hidden state at time $T$. Similarly, the initial hidden state $h_{d_0}$ is initialized to zero.
+where $\mathbf{D} = (\mathbf{d}_{t-1+n}, \mathbf{d}_{t-n+2}, \ldots, \mathbf{d}_t)$ is the input sequence of dimensional attributes vectors, $H_d = (h_{d_1}, h_{d_2}, \ldots, h_{d_T})$ represents the sequence of hidden states generated by the GRU, and $h_{d_T}$ is the final hidden state at time $T$. Similarly, the initial hidden state $h_{d_0}$ is initialised to zero.
 
 \subsection{Hidden State Fusion}
 After the position and size encoders process their respective input sequences,
@@ -1265,7 +1255,7 @@ During each iteration, the current input is processed through a stack of GRU
 layers, which update the hidden state based on the previous hidden state and
 current input. This updated hidden state, encapsulating temporal dependencies,
 is then passed through a self-attention mechanism. The self-attention mechanism
-computes attention scores, which are normalized using a softmax function to
+computes attention scores, which are normalised using a softmax function to
 produce attention weights. These weights are applied to the hidden states to
 generate a context vector that highlights the most relevant temporal features.
 
@@ -1361,15 +1351,17 @@ analysis and object tracking.
 \end{figure}
 
 \section{Algorithm Design}
+\subsection{Data Preprocessing}
 
-\section{Data Augmentation Strategy}
+\subsection{Data Postprocessing}
 
+\subsection{Data Augmentation Strategy}
 The data augmentation strategy is designed to enhance the robustness and
 generalization capability of the model. This strategy simulates various camera
 movements and imperfections that might occur in real-world scenarios. The
 augmentation approach consists of the following key components:
 
-\subsection{Sequence Reversal}
+\subsubsection*{Sequence Reversal}
 
 For the training stage, the size of the dataset is doubled by including
 reversed sequences:
@@ -1381,7 +1373,7 @@ reversed sequences:
           movements of the camera relative to the aircraft refueling port.
 \end{itemize}
 
-\subsection{Camera Movement Simulation}
+\subsubsection*{Camera Movement Simulation}
 
 Subtle camera movements are simulated to make the model more robust to varying
 camera positions:
@@ -1395,7 +1387,7 @@ camera positions:
           where $N(0, \sigma^2)$ is a normal distribution with mean 0 and variance $\sigma^2$.
 \end{itemize}
 
-\subsection{Zoom Simulation}
+\subsubsection*{Zoom Simulation}
 
 To account for changes in the apparent size of the refueling port due to camera
 zoom or aircraft movement:
@@ -1410,7 +1402,7 @@ zoom or aircraft movement:
           where $U(0.98, 1.02)$ is a uniform distribution between 0.98 and 1.02.
 \end{itemize}
 
-\subsection{Detection Inaccuracy Simulation}
+\subsubsection*{Detection Inaccuracy Simulation}
 
 To make the model more robust to slight inaccuracies in object detection:
 
@@ -1429,11 +1421,11 @@ The augmentation strategy is applied with the following considerations:
     \item When applied, augmentations affect both input and output sequences consistently
           to maintain temporal coherence.
     \item All augmented values are clipped to the range [0, 1] to ensure they remain
-          valid normalized coordinates in the YOLO format.
+          valid normalised coordinates in the YOLO format.
 \end{itemize}
 
 This comprehensive augmentation strategy enhances the diversity of the training
-data, helping the model generalize better to various real-world scenarios
+data, helping the model generalise better to various real-world scenarios
 involving camera movements and detection variations.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1442,19 +1434,118 @@ involving camera movements and detection variations.
 \section{Experiment Environment}
 
 \section{Comparison Experiments}
+To evaluate the performance of the proposed \textit{SizPos-GRU} model, a series
+of comparison experiments are conducted using various baseline models. These
+models are designed to predict the future positions and sizes of the refueling
+port in video sequences, providing a reference point for assessing the
+effectiveness of the \textit{SizPos-GRU} model. 
+
+\subsection*{Linear Kalman Filter (LKF)}
+The Linear Kalman Filter (LKF) is a powerful tool for predicting the future
+positions of objects based on their observed trajectories. This model is
+particularly useful in scenarios where the motion of objects follows a linear
+pattern with Gaussian noise. In this implementation, the LKF is applied to
+predict future bounding box positions in a video stream. The LKF operates on
+sequences of past bounding box positions. The state vector \(\mathbf{x} \in
+\mathbb{R}^4\) includes the position and velocity components, and the state
+transition matrix \(\mathbf{F}\) governs the linear motion model:
+
+\[
+    \mathbf{F} = \begin{bmatrix} 1 & 0 & \Delta t & 0 \\ 0 & 1 & 0 & \Delta t \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix},
+\]
+
+where \(\Delta t\) is the time step between frames.
+
+Given a sequence of past positions \(\mathbf{P} \in \mathbb{R}^{T \times 4}\),
+where \(T\) is the number of observed frames, the LKF iteratively predicts and
+updates the state estimate \(\mathbf{x}\) using the following steps:
+
+\begin{enumerate}
+    \item \textbf{Prediction Step:} The state and error covariance matrices are predicted using the state transition matrix \(\mathbf{F}\) and process noise covariance \(\mathbf{Q}\).
+    \item \textbf{Update Step:} The Kalman Gain \(\mathbf{K}\) is computed, and the state estimate is updated using the latest measurement.
+\end{enumerate}
+
+This process continues for the length of the observed sequence, and the final
+state is used to predict the future positions for up to \(K\) frames.
+
+\subsection*{Constant Velocity (CV)}
+The Constant Velocity Trajectory Prediction Model assumes that an object's
+future trajectory can be extrapolated from its recent motion, with constant
+speed and direction. Given a sequence of past bounding boxes \(\mathbf{P} \in
+\mathbb{R}^{T \times 4}\), where \(T\) is the number of past time steps, the
+model first computes the velocities between consecutive frames:
+
+\[
+    \text{velocities} = \mathbf{P}[:, 1:] - \mathbf{P}[:, :-1].
+\]
+
+The average velocity \(\bar{\mathbf{V}}\) is then calculated across all time
+steps:
+
+\[
+    \bar{\mathbf{V}} = \text{mean}(\text{velocities}, \text{dim}=1, \text{keepdim=True}).
+\]
+
+Using the last observed position \(\mathbf{P}_T\) and the average velocity
+\(\bar{\mathbf{V}}\), the future positions for \(k = 1, 2, \dots, K\) frames
+are predicted as:
+
+\[
+    \mathbf{F}_k = \mathbf{P}_T + k \cdot \bar{\mathbf{V}},
+\]
+
+where \(K\) represents the number of future frames to predict. This prediction
+assumes that the object will continue to move with a constant velocity.
+
+\subsection*{LSTM PosVelAcc}
+The LSTM PosVelAcc model employs a Long Short-Term Memory (LSTM) network to
+predict future bounding box positions by encoding past positions, velocities,
+and accelerations. The model is designed to capture the temporal dependencies
+in the movement of the refueling port. The input features include positional
+data, velocities, and accelerations, and the LSTM architecture is configured
+with multiple layers and hidden units. This model was inspired by the PV-LSTM
+model from~\citet{DBLP:journals/corr/abs-2010-10270}.
+
+\subsection*{LSTM SizPos}
+The LSTM SizPos model is a variant of the LSTM architecture that focuses on
+predicting future bounding box sizes and positions. This model encodes both the
+size (width and height) and positional data of the bounding boxes to provide a
+comprehensive prediction. The LSTM SizPos model differs from the LSTM PosVelAcc
+model in its input representation and architecture, specifically designed to
+handle changes in both size and position over time. The predictions of size and
+position are combined to produce the final bounding box predictions for future
+frames.
+
+\subsection*{GRU PosVelAcc}
+The GRU PosVelAcc model is similar to the LSTM PosVelAcc model but uses a Gated
+Recurrent Unit (GRU) network instead of an LSTM. GRU networks are known for
+their computational efficiency and are used here to predict future positions by
+leveraging past positional, velocity, and acceleration data. The GRU
+architecture is configured to capture the temporal dynamics of the bounding
+box, and its simplicity offers an efficient alternative to the LSTM-based
+models. This model was inspired by the Fusion-GRU model from~\citet{FusionGRU}.
 
 \section{Evaluation Metrics}
-
-To evaluate the performance of the proposed framework, four key metrics are
-used: Average Displacement Error (ADE), Final Displacement Error (FDE), Average
-Intersection over Union (AIOU), and Final Intersection over Union (FIOU). These
-metrics provide a comprehensive assessment of the accuracy and robustness of
-the predicted bounding boxes over time.
+In order to assess the performance of the proposed framework for predicting the
+future position of aircraft refueling ports, it is imperative to utilise
+appropriate evaluation metrics that reflect both the accuracy and reliability
+of the predictions. This section outlines and discusses the four primary
+evaluation metrics employed in this study: Average Displacement Error (ADE),
+Final Displacement Error (FDE), Average Intersection over Union (AIoU), and
+Final Intersection over Union (FIoU). These metrics provide a comprehensive
+evaluation by measuring different aspects of the predicted trajectories and
+bounding boxes.
 
 \subsection*{Average Displacement Error (ADE)}
 The Average Displacement Error (ADE) measures the average Euclidean distance
 between the predicted bounding box centers and the ground truth bounding box
-centers over all predicted frames. It is defined as:
+centers over all predicted frames. The ADE provides an overall measure of the
+spatial accuracy of the prediction model over time. It captures how closely the
+predicted trajectory follows the actual trajectory of the refueling port. In
+practical terms, a lower ADE indicates that the model consistently predicts the
+position of the refueling port with minimal deviation from its true path, which
+is critical in applications where continuous tracking and precise positioning
+are essential. It is defined as:
 \begin{equation}
     \text{ADE} = \frac{1}{m} \sum_{t=1}^{m} \sqrt{(x_t^{\text{pred}} - x_t^{\text{gt}})^2 + (y_t^{\text{pred}} - y_t^{\text{gt}})^2},
 \end{equation}
@@ -1462,34 +1553,54 @@ where \(m\) is the number of predicted frames, \((x_t^{\text{pred}}, y_t^{\text{
 
 \subsection*{Final Displacement Error (FDE)}
 The Final Displacement Error (FDE) focuses on the accuracy of the predicted
-bounding box center in the final frame of the prediction horizon. It is defined
-as the Euclidean distance between the predicted and ground truth bounding box
-centers at the final frame \(m\):
+bounding box center in the final frame of the prediction horizon. The FDE is
+crucial for evaluating the model’s performance at the end of the prediction
+sequence. It focuses on the model’s ability to accurately predict the final
+position of the refueling port, which is particularly important in scenarios
+where the terminal accuracy of the object’s position is critical. A lower FDE
+indicates a high level of precision in predicting the final position. It is
+defined as the Euclidean distance between the predicted and ground truth
+bounding box centers at the final frame \(T\):
 \begin{equation}
     \text{FDE} = \sqrt{(x_T^{\text{pred}} - x_T^{\text{gt}})^2 + (y_T^{\text{pred}} - y_T^{\text{gt}})^2}.
 \end{equation}
+where \((x_T^{\text{pred}}, y_T^{\text{pred}})\) represents the center of the predicted bounding box at the final frame, and \((x_T^{\text{gt}}, y_T^{\text{gt}})\) represents the center of the ground truth bounding box at the same frame.
 
-\subsection*{Average Intersection over Union (AIOU)}
-The Average Intersection over Union (AIOU) evaluates the overlap between the
+\newpage
+\subsection*{Average Intersection over Union (AIoU)}
+The Average Intersection over Union (AIoU) evaluates the overlap between the
 predicted bounding boxes and the ground truth bounding boxes, averaged over all
-predicted frames. It is computed as:
+predicted frames. AIoU provides an integrated measure of both the spatial
+accuracy and the dimensional consistency of the predicted bounding boxes over
+time. A higher AIoU indicates that the predicted bounding boxes consistently
+maintain a high degree of overlap with the ground truth, reflecting the model’s
+ability to accurately track both the position and the scale of the refueling
+port. This metric is particularly relevant in tasks where the object’s size and
+shape are critical, as it ensures that the detected object not only matches the
+position but also the correct dimensions, which is vital for the subsequent
+physical interaction with the object. It is computed as:
 \begin{equation}
-    \text{AIOU} = \frac{1}{m} \sum_{t=1}^{m} \frac{A(\mathbf{b}_t^{\text{pred}} \cap \mathbf{b}_t^{\text{gt}})}{A(\mathbf{b}_t^{\text{pred}} \cup \mathbf{b}_t^{\text{gt}})},
+    \text{AIoU} = \frac{1}{m} \sum_{t=1}^{m} \frac{A(\mathbf{b}_t^{\text{pred}} \cap \mathbf{b}_t^{\text{gt}})}{A(\mathbf{b}_t^{\text{pred}} \cup \mathbf{b}_t^{\text{gt}})},
 \end{equation}
 where \(A(\mathbf{b}_t^{\text{pred}} \cap \mathbf{b}_t^{\text{gt}})\) denotes the area of the intersection between the predicted bounding box \(\mathbf{b}_t^{\text{pred}}\) and the ground truth bounding box \(\mathbf{b}_t^{\text{gt}}\) at the \(t\)-th frame, and \(A(\mathbf{b}_t^{\text{pred}} \cup \mathbf{b}_t^{\text{gt}})\) denotes the area of their union.
 
-\subsection*{Final Intersection over Union (FIOU)}
-The Final Intersection over Union (FIOU) assesses the overlap between the
+\subsection*{Final Intersection over Union (FIoU)}
+The Final Intersection over Union (FIoU) assesses the overlap between the
 predicted bounding box and the ground truth bounding box at the final frame of
-the prediction horizon. It is defined as:
+the prediction horizon. FIoU is a critical metric when the final prediction
+accuracy is more important than the performance across all frames. It measures
+how well the predicted bounding box fits the ground truth at the crucial final
+moment, which is important for tasks that rely on the precise final positioning
+of an object. For instance, in automated systems that involve docking or
+alignment tasks, ensuring that the final predicted bounding box is highly
+accurate in terms of both position and size is essential for successful
+operation. A higher FIoU score implies a more reliable and accurate final
+prediction, which is indispensable in high-stakes applications where precision
+is paramount. It is defined as:
 \begin{equation}
-    \text{FIOU} = \frac{A(\mathbf{b}_T^{\text{pred}} \cap \mathbf{b}_T^{\text{gt}})}{A(\mathbf{b}_T^{\text{pred}} \cup \mathbf{b}_T^{\text{gt}})},
+    \text{FIoU} = \frac{A(\mathbf{b}_T^{\text{pred}} \cap \mathbf{b}_T^{\text{gt}})}{A(\mathbf{b}_T^{\text{pred}} \cup \mathbf{b}_T^{\text{gt}})},
 \end{equation}
 where \(A(\mathbf{b}_T^{\text{pred}} \cap \mathbf{b}_T^{\text{gt}})\) and \(A(\mathbf{b}_T^{\text{pred}} \cup \mathbf{b}_T^{\text{gt}})\) denote the intersection and union areas at the final frame \(m\), respectively.
-
-These metrics provide a balanced evaluation of the prediction performance,
-capturing both the spatial accuracy and the temporal consistency of the
-predicted bounding boxes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULTS & DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1539,8 +1650,48 @@ optimal model should consider the specific requirements of precision, recall,
 and mAP for the intended application.
 
 \section{Data Description}
+\:section{Example Images from the Dataset}
+The following figures show annotated examples of the refueling port in
+different states:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/grid\_closed\_images.png}
+    \caption{Annotated images of the refueling port in the CLOSED state.}~\label{fig:grid-closed-images}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/grid\_open\_images.png}
+    \caption{Annotated images of the refueling port in the OPEN state.}~\label{fig:grid-open-images}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/grid\_semiopen\_images.png}
+    \caption{Annotated images of the refueling port in the SEMI-OPEN state.}~\label{fig:grid-semi-open-images}
+\end{figure}
 
 \section{Experiment Results}
+
+\begin{table}[H]
+    \centering
+    \caption{Performance comparison of various models on trajectory prediction tasks from 30 to 60 frames. The table reports the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) for each model. Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The GRUSizPos model achieves the best performance across all metrics.}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lcccc}
+            \toprule
+            \textbf{Model}       & \textbf{ADE (pxl)} & \textbf{FDE (pxl)} & \textbf{AIoU (\%)} & \textbf{FIoU (\%)} \\ 
+            \midrule
+            CV                   & 131.5              & 271.0              & 25.4               & 8.7                \\
+            LKF                  & 121.1              & 270.3              & 29.3               & 6.4                \\
+            LSTMPosVelAcc (ours) & 69.1               & 115.0              & 26.6               & 11.2               \\
+            LSTMSizPos (ours)    & 49.7               & 95.7               & 41.3               & 15.7               \\
+            GRUPosVelAcc (ours)  & 81.5               & 121.3              & 23.3               & 10.7               \\
+            GRUSizPos (ours)     & \textbf{34.2}      & \textbf{73.4}      & \textbf{46.5}      & \textbf{22.1}      \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:fusion-gru-results}
+\end{table}
 
 \section{Testing Visualisation}
 
@@ -1550,7 +1701,7 @@ and mAP for the intended application.
 
 %TC:ignore 
 \appendix
-\chapter{Source Codes}
+\chapter{Analysis of Bounding Box Metrics}\label{chap:appendix}
 
 \begin{figure}[H]
     \centering

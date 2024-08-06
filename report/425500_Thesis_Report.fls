@@ -1302,6 +1302,8 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmr8c.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT ./425500_Thesis_Report.toc
 INPUT 425500_Thesis_Report.toc
 INPUT 425500_Thesis_Report.toc
@@ -1323,8 +1325,6 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm1
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
-INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 OUTPUT 425500_Thesis_Report.toc
 INPUT ./425500_Thesis_Report.lof
 INPUT 425500_Thesis_Report.lof
@@ -1333,7 +1333,6 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
-OUTPUT 425500_Thesis_Report.lof
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7t.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
@@ -1351,6 +1350,7 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7m.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/psyro.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
+OUTPUT 425500_Thesis_Report.lof
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/vf/adobe/times/zptmcm7y.vf
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/rsfs/rsfs10.tfm
@@ -1487,21 +1487,6 @@ INPUT ./figures/depth-camera-d435_details.jpg
 INPUT figures/depth-camera-d435_details.jpg
 INPUT ./figures/depth-camera-d435_details.jpg
 INPUT ./figures/depth-camera-d435_details.jpg
-INPUT ./figures/grid_closed_images.png
-INPUT ./figures/grid_closed_images.png
-INPUT figures/grid_closed_images.png
-INPUT ./figures/grid_closed_images.png
-INPUT ./figures/grid_closed_images.png
-INPUT ./figures/grid_open_images.png
-INPUT ./figures/grid_open_images.png
-INPUT figures/grid_open_images.png
-INPUT ./figures/grid_open_images.png
-INPUT ./figures/grid_open_images.png
-INPUT ./figures/grid_semiopen_images.png
-INPUT ./figures/grid_semiopen_images.png
-INPUT figures/grid_semiopen_images.png
-INPUT ./figures/grid_semiopen_images.png
-INPUT ./figures/grid_semiopen_images.png
 INPUT ./figures/FrameworkWorkflow.drawio.pdf
 INPUT ./figures/FrameworkWorkflow.drawio.pdf
 INPUT figures/FrameworkWorkflow.drawio.pdf
@@ -1534,6 +1519,21 @@ INPUT ./figures/GRUSizPosDecoder.drawio.pdf
 INPUT figures/GRUSizPosDecoder.drawio.pdf
 INPUT ./figures/GRUSizPosDecoder.drawio.pdf
 INPUT ./figures/GRUSizPosDecoder.drawio.pdf
+INPUT ./figures/grid_closed_images.png
+INPUT ./figures/grid_closed_images.png
+INPUT figures/grid_closed_images.png
+INPUT ./figures/grid_closed_images.png
+INPUT ./figures/grid_closed_images.png
+INPUT ./figures/grid_open_images.png
+INPUT ./figures/grid_open_images.png
+INPUT figures/grid_open_images.png
+INPUT ./figures/grid_open_images.png
+INPUT ./figures/grid_open_images.png
+INPUT ./figures/grid_semiopen_images.png
+INPUT ./figures/grid_semiopen_images.png
+INPUT figures/grid_semiopen_images.png
+INPUT ./figures/grid_semiopen_images.png
+INPUT ./figures/grid_semiopen_images.png
 INPUT ./figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png
 INPUT ./figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png
 INPUT figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png
@@ -1667,6 +1667,7 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb
+INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/urw/symbol/usyr.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/urw/symbol/usyr.pfb
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb

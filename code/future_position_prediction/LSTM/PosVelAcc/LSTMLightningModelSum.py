@@ -268,7 +268,7 @@ class LSTMLightningModelSum(L.LightningModule):
         velocities_to_positions_loss = F.smooth_l1_loss(
             velocities_to_positions, output_bboxes
         )
-        total_loss = velocity_loss + velocities_to_positions_loss * 0.1 + pos_loss
+        total_loss = velocity_loss + velocities_to_positions_loss + pos_loss
 
         # Log losses
         self.log_dict(
@@ -334,7 +334,7 @@ class LSTMLightningModelSum(L.LightningModule):
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": "val_loss",
+                "monitor": "train_loss",
                 "interval": "epoch",
             },
         }

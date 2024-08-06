@@ -11,6 +11,7 @@ from utils import (
     compute_AIOU,
     compute_FIOU,
     convert_velocity_to_positions,
+    convert_PosSize_to_PosVel
 )
 
 from MetricsMonitoring import MetricsMonitoring

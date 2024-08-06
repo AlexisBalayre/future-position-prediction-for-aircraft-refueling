@@ -2,7 +2,7 @@ import torch
 from torch import Tensor
 from typing import Dict, Tuple
 
-from utils import (
+from future_position_prediction.GRU.SizPos.utils import (
     compute_ADE,
     compute_FDE,
     compute_AIOU,

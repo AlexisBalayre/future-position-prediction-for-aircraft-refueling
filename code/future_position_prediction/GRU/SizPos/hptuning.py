@@ -24,14 +24,14 @@ if __name__ == "__main__":
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = [15]  # Number of input frames
-    output_frames = [30]  # Number of output frames
+    input_frames = [30]  # Number of input frames
+    output_frames = [60]  # Number of output frames
     hidden_sizes = [128]  # Size of the model's hidden layers
-    hidden_depths = [3]  # Number of hidden layers
+    hidden_depths = [8]  # Number of hidden layers
     learning_rate = 5e-4  # Initial learning rate
-    scheduler_patiences = [15]
-    scheduler_factors = [0.5]
-    max_epochs = 30  # Maximum number of training epochs
+    scheduler_patiences = [10]
+    scheduler_factors = [0.9]
+    max_epochs = 100  # Maximum number of training epochs
     dropout = 0.2  # Dropout rate
 
     # Create a dataframe to store the results

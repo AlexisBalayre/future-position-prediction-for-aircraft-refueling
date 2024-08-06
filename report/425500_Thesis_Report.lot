@@ -1,16 +1,19 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Performance Comparison of YOLO Models with State-of-the-Art Techniques. Latency is reported using official pre-trained models. \textsuperscript {f}Latency refers to the forward pass duration without including post-processing. \textsuperscript {\textdagger } indicates YOLOv10 results obtained with the original one-to-many training and Non-Maximum Suppression (NMS)\nobreakspace {}\cite {wang2024yolov10}.\relax }}{10}{table.caption.19}%
-\contentsline {table}{\numberline {2.2}{\ignorespaces Comparison of the performance of STED with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection-over-Union (AIOU), and Final Intersection-over-Union (FIOU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.\relax }}{14}{table.caption.23}%
-\contentsline {table}{\numberline {2.3}{\ignorespaces Comparison of the performance of PV-LSTM with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), and Average Intersection-over-Union (AIOU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.\relax }}{16}{table.caption.25}%
-\contentsline {table}{\numberline {2.4}{\ignorespaces Comparison of the performance of Fusion-GRU with baseline models on the ROL and HEV-I datasets. Metrics include ADE, FDE, and FIoU. The model was evaluated using 0.5-second and 1-second prediction horizons.\relax }}{17}{table.caption.27}%
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces \centering Summary of available videos in the HARD dataset with their assignment.\relax }}{20}{table.caption.29}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{20}{table.caption.30}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }}{21}{table.caption.31}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Comparison of YOLO Models\relax }}{33}{table.caption.39}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Performance Comparison of YOLO Models with State-of-the-Art Techniques. Latency is reported using official pre-trained models. \textsuperscript {f}Latency refers to the forward pass duration without including post-processing. \textsuperscript {\textdagger } indicates YOLOv10 results obtained with the original one-to-many training and Non-Maximum Suppression (NMS)\nobreakspace {}\cite {wang2024yolov10}.\relax }}{10}{table.caption.21}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Comparison of the performance of STED with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection-over-Union (AIoU), and Final Intersection-over-Union (FIoU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.\relax }}{14}{table.caption.25}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Comparison of the performance of PV-LSTM with baseline models on the Citywalks dataset. Metrics include Average Displacement Error (ADE), Final Displacement Error (FDE), and Average Intersection-over-Union (AIoU). The model was evaluated using 1 second of input frames to predict 2 seconds of future frames.\relax }}{16}{table.caption.27}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Comparison of the performance of Fusion-GRU with baseline models on the ROL and HEV-I datasets. Metrics include ADE, FDE, and FIoU. The model was evaluated using 0.5-second and 1-second prediction horizons.\relax }}{17}{table.caption.29}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces \centering Summary of available videos in the HARD dataset with their assignment.\relax }}{20}{table.caption.31}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{20}{table.caption.32}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }}{21}{table.caption.33}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Comparison of YOLO Models\relax }}{34}{table.caption.38}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Performance comparison of various models on trajectory prediction tasks from 30 to 60 frames. The table reports the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) for each model. Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The GRUSizPos model achieves the best performance across all metrics.\relax }}{36}{table.caption.42}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -1,5 +1,6 @@
 import torch
 import pandas as pd
+from typing import Tuple
 from tqdm import tqdm
 from torch.utils.data import DataLoader
 from CVLightningDataset import CVLightningDataset
@@ -28,10 +29,10 @@ def compute_IoU_batch(
     area1 = w1 * h1
     area2 = w2 * h2
 
-    left = torch.max(x1, x2)
-    right = torch.min(x1 + w1, x2 + w2)
-    top = torch.max(y1, y2)
-    bottom = torch.min(y1 + h1, y2 + h2)
+    left = torch.max(x1 - w1 / 2, x2 - w2 / 2)
+    right = torch.min(x1 + w1 / 2, x2 + w2 / 2)
+    top = torch.max(y1 - h1 / 2, y2 - h2 / 2)
+    bottom = torch.min(y1 + h1 / 2, y2 + h2 / 2)
 
     inter_area = (right - left).clamp(min=0) * (bottom - top).clamp(min=0)
     union_area = area1 + area2 - inter_area
@@ -40,7 +41,33 @@ def compute_IoU_batch(
     return torch.clamp(iou, min=0, max=1)
 
 
-def evaluate_predictions(dataloader, output_seq_size):
+@torch.no_grad()
+def compute_ADE_FDE(
+    predictions: torch.Tensor, targets: torch.Tensor, img_width: int, img_height: int
+) -> Tuple[float, float]:
+    # Denormalize the bounding box center coordinates (x_center, y_center)
+    pred_centers = predictions[:, :, :2] * torch.tensor(
+        [img_width, img_height], device=predictions.device
+    )
+    target_centers = targets[:, :, :2] * torch.tensor(
+        [img_width, img_height], device=targets.device
+    )
+
+    # Compute Euclidean distances between predicted and target center coordinates
+    euclidean_distances = torch.norm(
+        pred_centers - target_centers, dim=-1
+    )  # Shape: (batch_size, seq_len)
+
+    # ADE: Mean of all Euclidean distances over the entire sequence
+    ade = euclidean_distances.mean().item()
+
+    # FDE: Euclidean distance at the final time step
+    fde = euclidean_distances[:, -1].mean().item()
+
+    return ade, fde
+
+
+def evaluate_predictions(dataloader, output_seq_size, img_width: int, img_height: int):
     all_predictions = []
     all_targets = []
 
@@ -65,7 +92,9 @@ def evaluate_predictions(dataloader, output_seq_size):
         all_predictions.view(-1, 4), all_targets.view(-1, 4)
     ).mean()
 
-    return fiou.item(), aiou.item()
+    ade, fde = compute_ADE_FDE(all_predictions, all_targets, img_width, img_height)
+
+    return fiou.item(), aiou.item(), ade, fde
 
 
 if __name__ == "__main__":
@@ -73,11 +102,22 @@ if __name__ == "__main__":
     val_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/val.json"
     test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test_filter_savgol.json"
 
-    input_seq_sizes = [5, 10, 15, 20, 25, 30, 35, 45, 50, 55, 60]
-    output_seq_sizes = [5, 10, 15, 20, 25, 30, 35, 45, 50, 55, 60]
+    input_seq_sizes = [5, 30, 60]
+    output_seq_sizes = [5, 15, 30, 60]
+
+    img_width = 640
+    img_height = 480
 
     results = pd.DataFrame(
-        columns=["stage", "input_seq_size", "output_seq_size", "FIOU", "AIOU"]
+        columns=[
+            "stage",
+            "input_seq_size",
+            "output_seq_size",
+            "FIOU",
+            "AIOU",
+            "ADE",
+            "FDE",
+        ]
     )
 
     for stage in ["test"]:
@@ -96,7 +136,9 @@ if __name__ == "__main__":
                     dataset, batch_size=16, num_workers=8, shuffle=False
                 )
 
-                fiou, aiou = evaluate_predictions(dataloader, output_seq_size)
+                fiou, aiou, ade, fde = evaluate_predictions(
+                    dataloader, output_seq_size, img_width, img_height
+                )
 
                 # Save results to DataFrame
                 results = pd.concat(
@@ -109,11 +151,12 @@ if __name__ == "__main__":
                                 "output_seq_size": [output_seq_size],
                                 "FIOU": [fiou],
                                 "AIOU": [aiou],
+                                "ADE": [ade],
+                                "FDE": [fde],
                             }
                         ),
                     ]
                 )
 
                 # Save results to disk
-                results.to_csv("results_filter.csv", index=False)
-
+                results.to_csv("results_filter_CV2.csv", index=False)
