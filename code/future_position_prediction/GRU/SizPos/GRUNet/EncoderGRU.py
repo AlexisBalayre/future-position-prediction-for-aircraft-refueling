@@ -9,7 +9,7 @@ class EncoderGRU(nn.Module):
         hidden_dim: int,
         n_layers: int,
         output_frames_nb: int = 10,
-        dropout: float = 0.1
+        dropout: float = 0.1,
     ):
         super(EncoderGRU, self).__init__()
         self.hidden_dim = hidden_dim

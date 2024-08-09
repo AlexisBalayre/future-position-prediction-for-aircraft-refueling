@@ -69,29 +69,10 @@ class GRULightningModelConcat(L.LightningModule):
 
         self.combine_hidden = nn.Linear(hidden_dim * 2, hidden_dim)
 
-        # Initialize hidden state
-        self.h_pos = self.h_size = None
-
         # Initialize metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
-
-    def reset_hidden_states(self, position_seq, size_seq):
-        batch_size = position_seq.size(0)
-        # Initialize hidden state
-        self.h_pos = torch.zeros(
-            self.position_encoder.n_layers,
-            batch_size,
-            self.hparams.hidden_dim,
-            device=position_seq.device,
-        )
-        self.h_size = torch.zeros(
-            self.size_encoder.n_layers,
-            batch_size,
-            self.hparams.hidden_dim,
-            device=size_seq.device,
-        )
 
     def combine_hidden_states(
         self,
@@ -106,19 +87,32 @@ class GRULightningModelConcat(L.LightningModule):
         position_seq,
         size_seq,
     ):
-        if self.h_pos is None or self.h_size is None:
-            self.reset_hidden_states(position_seq, size_seq)
-            
+        batch_size = position_seq.size(0)
+
+        # Initialize hidden state
+        h_pos = torch.zeros(
+            self.position_encoder.n_layers,
+            batch_size,
+            self.hparams.hidden_dim,
+            device=position_seq.device,
+        )
+        h_size = torch.zeros(
+            self.size_encoder.n_layers,
+            batch_size,
+            self.hparams.hidden_dim,
+            device=size_seq.device,
+        )
+
         # Encode the Position, Velocity, and Acceleration
         encoder_out_pos, encoder_hidden_states_pos = self.position_encoder(
-            position_seq, self.h_pos
+            position_seq, h_pos
         )
         encoder_out_size, encoder_hidden_states_size = self.size_encoder(
-            size_seq, self.h_size
+            size_seq, h_size
         )
 
         # Combine the hidden states and cell states (concatenation)
-        self.h_pos = self.h_size = self.combine_hidden_states(
+        h_pos = h_size = self.combine_hidden_states(
             encoder_hidden_states_pos,
             encoder_hidden_states_size,
         )
@@ -130,8 +124,8 @@ class GRULightningModelConcat(L.LightningModule):
         predictions_size = torch.tensor([], device=size_seq.device)
 
         for t in range(self.hparams.output_frames):
-            out_pos, self.h_pos = self.pos_decoder(decoder_input_pos, self.h_pos)
-            out_size, self.h_size = self.size(decoder_input_size, self.h_size)
+            out_pos, h_pos = self.pos_decoder(decoder_input_pos, h_pos)
+            out_size, h_size = self.size(decoder_input_size, h_size)
 
             predictions_position = torch.cat(
                 (predictions_position, out_pos.unsqueeze(1)), dim=1
@@ -147,16 +141,12 @@ class GRULightningModelConcat(L.LightningModule):
 
     def _shared_step(self, batch, batch_idx, stage):
         (
-            video_id,
+            _,
             input_positions,
             input_sizes,
             ground_truth_positions,
             ground_truth_sizes,
         ) = batch
-        
-        # Reset hidden states
-        if stage == "train":
-            self.reset_hidden_states(input_positions, input_sizes)
 
         # Predict future sizes
         predicted_positions, predicted_sizes = self(input_positions, input_sizes)

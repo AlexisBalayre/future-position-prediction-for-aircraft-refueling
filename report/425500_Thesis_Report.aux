@@ -38,7 +38,7 @@
 \@writefile{toc}{\contentsline {chapter}{List of Figures}{vi}{chapter*.4}\protected@file@percent }
 \citation{wang2024yolov10}
 \@writefile{toc}{\contentsline {chapter}{List of Tables}{viii}{chapter*.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{List of Abbreviations}{ix}{chapter*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Abbreviations}{x}{chapter*.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \citation{blakey2011aviation}
@@ -213,187 +213,231 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Summary of Available Videos}{20}{subsection.3.1.3}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces \centering  Summary of available videos in the HARD dataset with their assignment.\relax }}{20}{table.caption.31}\protected@file@percent }
 \newlabel{tab:video_summary}{{3.1}{20}{\centering Summary of available videos in the HARD dataset with their assignment.\relax }{table.caption.31}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.4}Data Distribution}{20}{subsection.3.1.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{20}{table.caption.32}\protected@file@percent }
-\newlabel{tab:frame_distribution}{{3.2}{20}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }{table.caption.32}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.5}Balanced Data Distribution}{21}{subsection.3.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.4}Data Distribution}{21}{subsection.3.1.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }}{21}{table.caption.32}\protected@file@percent }
+\newlabel{tab:frame_distribution}{{3.2}{21}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset before balancing.\relax }{table.caption.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.5}Data Balancing}{21}{subsection.3.1.5}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces \centering  Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }}{21}{table.caption.33}\protected@file@percent }
 \newlabel{tab:balanced_frame_distribution}{{3.3}{21}{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.\relax }{table.caption.33}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Framework Design}{21}{section.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Framework Workflow\relax }}{22}{figure.caption.34}\protected@file@percent }
-\newlabel{fig:framework-workflow}{{3.2}{22}{Framework Workflow\relax }{figure.caption.34}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Object Detection Model Fine-tuning}{22}{section.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}Sequence Model Design}{23}{section.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces SizPos-GRU Model Architecture\relax }}{23}{figure.caption.35}\protected@file@percent }
-\newlabel{fig:sizpos-gru}{{3.3}{23}{SizPos-GRU Model Architecture\relax }{figure.caption.35}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Input Representation}{24}{subsection.3.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Encoders}{24}{subsection.3.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces SizPos-GRU Encoder Architecture. The input sequence \( \mathbf  {X} = \{\mathbf  {x}_1, \mathbf  {x}_2, \dots  , \mathbf  {x}_T\} \) represents either the spatial dynamics vector (\(\mathbf  {P}\)) or the dimensional attributes vector (\(\mathbf  {D}\)). This sequence is processed through multiple GRU layers, producing a sequence of hidden states \( H = \{h_1, h_2, \dots  , h_T\} \) and a final hidden state \( h_T \) that encapsulates the temporal dependencies in the input sequence.\relax }}{25}{figure.caption.36}\protected@file@percent }
-\newlabel{fig:sizpos-gru-encoder}{{3.4}{25}{SizPos-GRU Encoder Architecture. The input sequence \( \mathbf {X} = \{\mathbf {x}_1, \mathbf {x}_2, \dots , \mathbf {x}_T\} \) represents either the spatial dynamics vector (\(\mathbf {P}\)) or the dimensional attributes vector (\(\mathbf {D}\)). This sequence is processed through multiple GRU layers, producing a sequence of hidden states \( H = \{h_1, h_2, \dots , h_T\} \) and a final hidden state \( h_T \) that encapsulates the temporal dependencies in the input sequence.\relax }{figure.caption.36}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Hidden State Fusion}{25}{subsection.3.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Decoders}{26}{subsection.3.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.1}Position Decoder}{26}{subsubsection.3.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.2}Size Decoder}{26}{subsubsection.3.4.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.3}Self-Attention Mechanism}{27}{subsubsection.3.4.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.4}Final Output}{27}{subsubsection.3.4.4.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces SizPos-GRU Decoder Architecture. This architecture illustrates the decoding process where the input sequence \( \mathbf  {x}_t \) and the last hidden state \( h_{t-1} \) are processed through multiple GRU layers to generate the next hidden state \( h_t \). The sequence of hidden states \( H = \{h_1, h_2, \dots  , h_t\} \) is then passed through a self-attention mechanism, which calculates attention scores and weights. The weighted sum of hidden states is combined with linear and non-linear transformations, including dropout and ReLU activation functions, to produce the final output \( \mathbf  {x}_{t+1} \). This output is used for predicting the next time step in the sequence, continuing the process iteratively for future predictions.\relax }}{28}{figure.caption.37}\protected@file@percent }
-\newlabel{fig:sizpos-gru-decoder}{{3.5}{28}{SizPos-GRU Decoder Architecture. This architecture illustrates the decoding process where the input sequence \( \mathbf {x}_t \) and the last hidden state \( h_{t-1} \) are processed through multiple GRU layers to generate the next hidden state \( h_t \). The sequence of hidden states \( H = \{h_1, h_2, \dots , h_t\} \) is then passed through a self-attention mechanism, which calculates attention scores and weights. The weighted sum of hidden states is combined with linear and non-linear transformations, including dropout and ReLU activation functions, to produce the final output \( \mathbf {x}_{t+1} \). This output is used for predicting the next time step in the sequence, continuing the process iteratively for future predictions.\relax }{figure.caption.37}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}Algorithm Design}{28}{section.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Data Preprocessing}{28}{subsection.3.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Data Postprocessing}{28}{subsection.3.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}Data Augmentation Strategy}{28}{subsection.3.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.4}Implementation Details}{29}{subsection.3.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Experiment Design}{30}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.6}Example Images from the Datase}{22}{subsection.3.1.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Annotated images of the refueling port in the CLOSED state.\relax }}{22}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:grid-closed-images}{{3.2}{22}{Annotated images of the refueling port in the CLOSED state.\relax }{figure.caption.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Annotated images of the refueling port in the OPEN state.\relax }}{22}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:grid-open-images}{{3.3}{22}{Annotated images of the refueling port in the OPEN state.\relax }{figure.caption.35}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Annotated images of the refueling port in the SEMI-OPEN state.\relax }}{22}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:grid-semi-open-images}{{3.4}{22}{Annotated images of the refueling port in the SEMI-OPEN state.\relax }{figure.caption.36}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.7}Analysis of Temporal Dynamics with Savitzky-Golay Filtering}{23}{subsection.3.1.7}\protected@file@percent }
+\newlabel{fig:central-position-test-indoor1}{{3.5a}{24}{Central position of the refueling port over time (Raw Data).\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:central-position-test-indoor1}{{a}{24}{Central position of the refueling port over time (Raw Data).\relax }{figure.caption.37}{}}
+\newlabel{fig:velocity-test-indoor1}{{3.5b}{24}{Velocity of the refueling port over time (Raw Data).\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:velocity-test-indoor1}{{b}{24}{Velocity of the refueling port over time (Raw Data).\relax }{figure.caption.37}{}}
+\newlabel{fig:acceleration-test-indoor1}{{3.5c}{24}{Acceleration of the refueling port over time (Raw Data).\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:acceleration-test-indoor1}{{c}{24}{Acceleration of the refueling port over time (Raw Data).\relax }{figure.caption.37}{}}
+\newlabel{fig:size-test-indoor1}{{3.5d}{24}{Area of the refueling port over time (Raw Data).\relax }{figure.caption.37}{}}
+\newlabel{sub@fig:size-test-indoor1}{{d}{24}{Area of the refueling port over time (Raw Data).\relax }{figure.caption.37}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_indoor1} video (Raw Data). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing an overview of the object's dynamics over time.\relax }}{24}{figure.caption.37}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-indoor1}{{3.5}{24}{Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video (Raw Data). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing an overview of the object's dynamics over time.\relax }{figure.caption.37}{}}
+\newlabel{fig:central-position-test-indoor1-savgol}{{3.6a}{24}{Central position of the refueling port over time (Savgol Filter).\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:central-position-test-indoor1-savgol}{{a}{24}{Central position of the refueling port over time (Savgol Filter).\relax }{figure.caption.38}{}}
+\newlabel{fig:velocity-test-indoor1-savgol}{{3.6b}{24}{Velocity of the refueling port over time (Savgol Filter).\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:velocity-test-indoor1-savgol}{{b}{24}{Velocity of the refueling port over time (Savgol Filter).\relax }{figure.caption.38}{}}
+\newlabel{fig:acceleration-test-indoor1-savgol}{{3.6c}{24}{Acceleration of the refueling port over time (Savgol Filter).\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:acceleration-test-indoor1-savgol}{{c}{24}{Acceleration of the refueling port over time (Savgol Filter).\relax }{figure.caption.38}{}}
+\newlabel{fig:size-test-indoor1-savgol}{{3.6d}{24}{Area of the refueling port over time (Savgol Filter).\relax }{figure.caption.38}{}}
+\newlabel{sub@fig:size-test-indoor1-savgol}{{d}{24}{Area of the refueling port over time (Savgol Filter).\relax }{figure.caption.38}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_indoor1} video (Savgol Filter). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a clearer overview of the object's dynamics over time after applying the Savitzky-Golay filter.\relax }}{24}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-indoor1-savgol}{{3.6}{24}{Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video (Savgol Filter). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a clearer overview of the object's dynamics over time after applying the Savitzky-Golay filter.\relax }{figure.caption.38}{}}
+\newlabel{fig:central-position-test-video_lab_platform_6}{{3.7a}{25}{Central position of the refueling port over time (Raw Data).\relax }{figure.caption.39}{}}
+\newlabel{sub@fig:central-position-test-video_lab_platform_6}{{a}{25}{Central position of the refueling port over time (Raw Data).\relax }{figure.caption.39}{}}
+\newlabel{fig:velocity-test-video_lab_platform_6}{{3.7b}{25}{Velocity of the refueling port over time (Raw Data).\relax }{figure.caption.39}{}}
+\newlabel{sub@fig:velocity-test-video_lab_platform_6}{{b}{25}{Velocity of the refueling port over time (Raw Data).\relax }{figure.caption.39}{}}
+\newlabel{fig:acceleration-test-video_lab_platform_6}{{3.7c}{25}{Acceleration of the refueling port over time (Raw Data).\relax }{figure.caption.39}{}}
+\newlabel{sub@fig:acceleration-test-video_lab_platform_6}{{c}{25}{Acceleration of the refueling port over time (Raw Data).\relax }{figure.caption.39}{}}
+\newlabel{fig:size-test-video_lab_platform_6}{{3.7d}{25}{Area of the refueling port over time (Raw Data).\relax }{figure.caption.39}{}}
+\newlabel{sub@fig:size-test-video_lab_platform_6}{{d}{25}{Area of the refueling port over time (Raw Data).\relax }{figure.caption.39}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_video\_lab\_platform\_6} video (Raw Data). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing an overview of the object's dynamics over time.\relax }}{25}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-video_lab_platform_6}{{3.7}{25}{Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video (Raw Data). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing an overview of the object's dynamics over time.\relax }{figure.caption.39}{}}
+\newlabel{fig:central-position-test-video_lab_platform_6-savgol}{{3.8a}{25}{Central position of the refueling port over time (Savgol Filter).\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:central-position-test-video_lab_platform_6-savgol}{{a}{25}{Central position of the refueling port over time (Savgol Filter).\relax }{figure.caption.40}{}}
+\newlabel{fig:velocity-test-video_lab_platform_6-savgol}{{3.8b}{25}{Velocity of the refueling port over time (Savgol Filter).\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:velocity-test-video_lab_platform_6-savgol}{{b}{25}{Velocity of the refueling port over time (Savgol Filter).\relax }{figure.caption.40}{}}
+\newlabel{fig:acceleration-test-video_lab_platform_6-savgol}{{3.8c}{25}{Acceleration of the refueling port over time (Savgol Filter).\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:acceleration-test-video_lab_platform_6-savgol}{{c}{25}{Acceleration of the refueling port over time (Savgol Filter).\relax }{figure.caption.40}{}}
+\newlabel{fig:size-test-video_lab_platform_6-savgol}{{3.8d}{25}{Area of the refueling port over time (Savgol Filter).\relax }{figure.caption.40}{}}
+\newlabel{sub@fig:size-test-video_lab_platform_6-savgol}{{d}{25}{Area of the refueling port over time (Savgol Filter).\relax }{figure.caption.40}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_video\_lab\_platform\_6} video (Savgol Filter). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a clearer overview of the object's dynamics over time after applying the Savitzky-Golay filter.\relax }}{25}{figure.caption.40}\protected@file@percent }
+\newlabel{fig:bbox-metrics-test-video_lab_platform_6-savgol}{{3.8}{25}{Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video (Savgol Filter). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a clearer overview of the object's dynamics over time after applying the Savitzky-Golay filter.\relax }{figure.caption.40}{}}
+\citation{Jocher_Ultralytics_YOLO_2023}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Framework Design}{26}{section.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Framework Workflow\relax }}{26}{figure.caption.41}\protected@file@percent }
+\newlabel{fig:framework-workflow}{{3.9}{26}{Framework Workflow\relax }{figure.caption.41}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Object Detection Model Fine-tuning}{27}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Sequence Model Design}{27}{section.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces SizPos-GRU Model Architecture\relax }}{27}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:sizpos-gru}{{3.10}{27}{SizPos-GRU Model Architecture\relax }{figure.caption.42}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Input Representation}{28}{subsection.3.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Encoders}{28}{subsection.3.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces SizPos-GRU Encoder Architecture. The input sequence \( \mathbf  {X} = \{\mathbf  {x}_1, \mathbf  {x}_2, \dots  , \mathbf  {x}_T\} \) represents either the spatial dynamics vector (\(\mathbf  {P}\)) or the dimensional attributes vector (\(\mathbf  {D}\)). This sequence is processed through multiple GRU layers, producing a sequence of hidden states \( H = \{h_1, h_2, \dots  , h_T\} \) and a final hidden state \( h_T \) that encapsulates the temporal dependencies in the input sequence.\relax }}{29}{figure.caption.43}\protected@file@percent }
+\newlabel{fig:sizpos-gru-encoder}{{3.11}{29}{SizPos-GRU Encoder Architecture. The input sequence \( \mathbf {X} = \{\mathbf {x}_1, \mathbf {x}_2, \dots , \mathbf {x}_T\} \) represents either the spatial dynamics vector (\(\mathbf {P}\)) or the dimensional attributes vector (\(\mathbf {D}\)). This sequence is processed through multiple GRU layers, producing a sequence of hidden states \( H = \{h_1, h_2, \dots , h_T\} \) and a final hidden state \( h_T \) that encapsulates the temporal dependencies in the input sequence.\relax }{figure.caption.43}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Hidden State Fusion}{29}{subsection.3.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Decoders}{30}{subsection.3.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.12}{\ignorespaces SizPos-GRU Decoder Architecture. This architecture illustrates the decoding process where the input sequence \( \mathbf  {x}_t \) and the last hidden state \( h_{t-1} \) are processed through multiple GRU layers to generate the next hidden state \( h_t \). The sequence of hidden states \( H = \{h_1, h_2, \dots  , h_t\} \) is then passed through a self-attention mechanism, which calculates attention scores and weights. The weighted sum of hidden states is combined with linear and non-linear transformations, including dropout and ReLU activation functions, to produce the final output \( \mathbf  {x}_{t+1} \). This output is used for predicting the next time step in the sequence, continuing the process iteratively for future predictions.\relax }}{32}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:sizpos-gru-decoder}{{3.12}{32}{SizPos-GRU Decoder Architecture. This architecture illustrates the decoding process where the input sequence \( \mathbf {x}_t \) and the last hidden state \( h_{t-1} \) are processed through multiple GRU layers to generate the next hidden state \( h_t \). The sequence of hidden states \( H = \{h_1, h_2, \dots , h_t\} \) is then passed through a self-attention mechanism, which calculates attention scores and weights. The weighted sum of hidden states is combined with linear and non-linear transformations, including dropout and ReLU activation functions, to produce the final output \( \mathbf {x}_{t+1} \). This output is used for predicting the next time step in the sequence, continuing the process iteratively for future predictions.\relax }{figure.caption.44}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Algorithm Design}{33}{section.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Calculation of Key Values for Loss Functions}{33}{subsection.3.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Loss Function Formulation}{34}{subsection.3.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}Data Postprocessing}{35}{subsection.3.5.3}\protected@file@percent }
+\citation{Falcon_PyTorch_Lightning_2019}
+\citation{Ansel_PyTorch_2_Faster_2024}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Experiment Design}{37}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:experiment_design}{{4}{30}{Experiment Design}{chapter.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Experiment Environment}{30}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Comparison Experiments}{30}{section.4.2}\protected@file@percent }
+\newlabel{chap:experiment_design}{{4}{37}{Experiment Design}{chapter.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Experiment Environment}{37}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Model Training and Optimization}{37}{section.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Training Configuration Parameters for the SizPos-GRU Model. The values were selected based on optimal results from hyperparameter tuning.\relax }}{38}{table.caption.45}\protected@file@percent }
+\newlabel{tab:training_parameters}{{4.1}{38}{Training Configuration Parameters for the SizPos-GRU Model. The values were selected based on optimal results from hyperparameter tuning.\relax }{table.caption.45}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Hyperparameter Tuning Configuration\relax }}{38}{table.caption.46}\protected@file@percent }
+\newlabel{tab:hp_tuning}{{4.2}{38}{Hyperparameter Tuning Configuration\relax }{table.caption.46}{}}
 \citation{DBLP:journals/corr/abs-2010-10270}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Comparison Experiments}{41}{section.4.3}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces PosVelAcc-LSTM Model\relax }}{42}{algorithm.1}\protected@file@percent }
+\newlabel{alg:lstm_posvelacc}{{1}{42}{PosVelAcc-LSTM Model\relax }{algorithm.1}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces SizPos-LSTM Model\relax }}{42}{algorithm.2}\protected@file@percent }
+\newlabel{alg:lstm_sizpos}{{2}{42}{SizPos-LSTM Model\relax }{algorithm.2}{}}
 \citation{FusionGRU}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Evaluation Metrics}{32}{section.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Results and Discussion}{34}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Evaluation Metrics}{44}{section.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}Framework Evaluation}{46}{section.4.5}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Object Detection and Future Position Prediction Framework\relax }}{46}{algorithm.3}\protected@file@percent }
+\newlabel{alg:framework}{{3}{46}{Object Detection and Future Position Prediction Framework\relax }{algorithm.3}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Results and Discussion}{47}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:results}{{5}{34}{Results and Discussion}{chapter.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Object Detection Training Results}{34}{section.5.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Comparison of YOLO Models\relax }}{34}{table.caption.38}\protected@file@percent }
-\newlabel{tab:comparison}{{5.1}{34}{Comparison of YOLO Models\relax }{table.caption.38}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Summary}{34}{subsection.5.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Data Description}{34}{section.5.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Annotated images of the refueling port in the CLOSED state.\relax }}{35}{figure.caption.39}\protected@file@percent }
-\newlabel{fig:grid-closed-images}{{5.1}{35}{Annotated images of the refueling port in the CLOSED state.\relax }{figure.caption.39}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Annotated images of the refueling port in the OPEN state.\relax }}{35}{figure.caption.40}\protected@file@percent }
-\newlabel{fig:grid-open-images}{{5.2}{35}{Annotated images of the refueling port in the OPEN state.\relax }{figure.caption.40}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Annotated images of the refueling port in the SEMI-OPEN state.\relax }}{35}{figure.caption.41}\protected@file@percent }
-\newlabel{fig:grid-semi-open-images}{{5.3}{35}{Annotated images of the refueling port in the SEMI-OPEN state.\relax }{figure.caption.41}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Experiment Results}{36}{section.5.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Performance comparison of various models on trajectory prediction tasks from 30 to 60 frames. The table reports the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) for each model. Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The GRUSizPos model achieves the best performance across all metrics.\relax }}{36}{table.caption.42}\protected@file@percent }
-\newlabel{tab:fusion-gru-results}{{5.2}{36}{Performance comparison of various models on trajectory prediction tasks from 30 to 60 frames. The table reports the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) for each model. Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The GRUSizPos model achieves the best performance across all metrics.\relax }{table.caption.42}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Testing Visualisation}{36}{section.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{37}{chapter.6}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:conclusion}{{6}{37}{Conclusion and Future Work}{chapter.6}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Analysis of Bounding Box Metrics}{38}{appendix.A}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:appendix}{{A}{39}{Analysis of Bounding Box Metrics}{appendix.A}{}}
-\newlabel{fig:central-position-test-indoor1}{{A.1a}{39}{Central position of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{sub@fig:central-position-test-indoor1}{{a}{39}{Central position of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{fig:velocity-test-indoor1}{{A.1b}{39}{Velocity of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{sub@fig:velocity-test-indoor1}{{b}{39}{Velocity of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{fig:acceleration-test-indoor1}{{A.1c}{39}{Acceleration of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{sub@fig:acceleration-test-indoor1}{{c}{39}{Acceleration of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{fig:size-test-indoor1}{{A.1d}{39}{Area of the refueling port over time.\relax }{figure.caption.43}{}}
-\newlabel{sub@fig:size-test-indoor1}{{d}{39}{Area of the refueling port over time.\relax }{figure.caption.43}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{39}{figure.caption.43}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-indoor1}{{A.1}{39}{Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.43}{}}
-\newlabel{fig:central-position-test-indoor1-savgol}{{A.2a}{40}{Central position of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{sub@fig:central-position-test-indoor1-savgol}{{a}{40}{Central position of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{fig:velocity-test-indoor1-savgol}{{A.2b}{40}{Velocity of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{sub@fig:velocity-test-indoor1-savgol}{{b}{40}{Velocity of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{fig:acceleration-test-indoor1-savgol}{{A.2c}{40}{Acceleration of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{sub@fig:acceleration-test-indoor1-savgol}{{c}{40}{Acceleration of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{fig:size-test-indoor1-savgol}{{A.2d}{40}{Area of the refueling port over time.\relax }{figure.caption.44}{}}
-\newlabel{sub@fig:size-test-indoor1-savgol}{{d}{40}{Area of the refueling port over time.\relax }{figure.caption.44}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{40}{figure.caption.44}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-indoor1-savgol}{{A.2}{40}{Temporal analysis of different metrics for the refueling port in the \textit {test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.44}{}}
-\newlabel{fig:central-position-test-outdoor1}{{A.3a}{41}{Central position of the refueling port over time.\relax }{figure.caption.45}{}}
-\newlabel{sub@fig:central-position-test-outdoor1}{{a}{41}{Central position of the refueling port over time.\relax }{figure.caption.45}{}}
-\newlabel{fig:velocity-test-outdoor1}{{A.3b}{41}{Velocity of the refueling port over time.\relax }{figure.caption.45}{}}
-\newlabel{sub@fig:velocity-test-outdoor1}{{b}{41}{Velocity of the refueling port over time.\relax }{figure.caption.45}{}}
-\newlabel{fig:acceleration-test-outdoor1}{{A.3c}{41}{Acceleration of the refueling port over time.\relax }{figure.caption.45}{}}
-\newlabel{sub@fig:acceleration-test-outdoor1}{{c}{41}{Acceleration of the refueling port over time.\relax }{figure.caption.45}{}}
-\newlabel{fig:size-test-outdoor1}{{A.3d}{41}{Area of the refueling port over time.\relax }{figure.caption.45}{}}
-\newlabel{sub@fig:size-test-outdoor1}{{d}{41}{Area of the refueling port over time.\relax }{figure.caption.45}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{41}{figure.caption.45}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-outdoor1}{{A.3}{41}{Temporal analysis of different metrics for the refueling port in the \textit {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.45}{}}
-\newlabel{fig:central-position-test-outdoor1-savgol}{{A.4a}{42}{Central position of the refueling port over time.\relax }{figure.caption.46}{}}
-\newlabel{sub@fig:central-position-test-outdoor1-savgol}{{a}{42}{Central position of the refueling port over time.\relax }{figure.caption.46}{}}
-\newlabel{fig:velocity-test-outdoor1-savgol}{{A.4b}{42}{Velocity of the refueling port over time.\relax }{figure.caption.46}{}}
-\newlabel{sub@fig:velocity-test-outdoor1-savgol}{{b}{42}{Velocity of the refueling port over time.\relax }{figure.caption.46}{}}
-\newlabel{fig:acceleration-test-outdoor1-savgol}{{A.4c}{42}{Acceleration of the refueling port over time.\relax }{figure.caption.46}{}}
-\newlabel{sub@fig:acceleration-test-outdoor1-savgol}{{c}{42}{Acceleration of the refueling port over time.\relax }{figure.caption.46}{}}
-\newlabel{fig:size-test-outdoor1-savgol}{{A.4d}{42}{Area of the refueling port over time.\relax }{figure.caption.46}{}}
-\newlabel{sub@fig:size-test-outdoor1-savgol}{{d}{42}{Area of the refueling port over time.\relax }{figure.caption.46}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.4}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{42}{figure.caption.46}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-outdoor1-savgol}{{A.4}{42}{Temporal analysis of different metrics for the refueling port in the \textit {test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.46}{}}
-\newlabel{fig:central-position-test-video_lab_platform_6}{{A.5a}{43}{Central position of the refueling port over time.\relax }{figure.caption.47}{}}
-\newlabel{sub@fig:central-position-test-video_lab_platform_6}{{a}{43}{Central position of the refueling port over time.\relax }{figure.caption.47}{}}
-\newlabel{fig:velocity-test-video_lab_platform_6}{{A.5b}{43}{Velocity of the refueling port over time.\relax }{figure.caption.47}{}}
-\newlabel{sub@fig:velocity-test-video_lab_platform_6}{{b}{43}{Velocity of the refueling port over time.\relax }{figure.caption.47}{}}
-\newlabel{fig:acceleration-test-video_lab_platform_6}{{A.5c}{43}{Acceleration of the refueling port over time.\relax }{figure.caption.47}{}}
-\newlabel{sub@fig:acceleration-test-video_lab_platform_6}{{c}{43}{Acceleration of the refueling port over time.\relax }{figure.caption.47}{}}
-\newlabel{fig:size-test-video_lab_platform_6}{{A.5d}{43}{Area of the refueling port over time.\relax }{figure.caption.47}{}}
-\newlabel{sub@fig:size-test-video_lab_platform_6}{{d}{43}{Area of the refueling port over time.\relax }{figure.caption.47}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.5}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{43}{figure.caption.47}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-video_lab_platform_6}{{A.5}{43}{Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.47}{}}
+\newlabel{chap:results}{{5}{47}{Results and Discussion}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Object Detection Training Results}{47}{section.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Performance comparison of YOLO models (YOLOv10n.pt, YOLOv10s.pt, YOLOv10m.pt) on the classification of fuel port states (CLOSED, SEMI-OPEN, OPEN). The table reports Precision (P), Recall (R), mean Average Precision at IoU=0.5 (mAP50), and mean Average Precision across IoU thresholds from 0.5 to 0.95 (mAP50-95) for each state.\relax }}{47}{table.caption.47}\protected@file@percent }
+\newlabel{tab:comparison}{{5.1}{47}{Performance comparison of YOLO models (YOLOv10n.pt, YOLOv10s.pt, YOLOv10m.pt) on the classification of fuel port states (CLOSED, SEMI-OPEN, OPEN). The table reports Precision (P), Recall (R), mean Average Precision at IoU=0.5 (mAP50), and mean Average Precision across IoU thresholds from 0.5 to 0.95 (mAP50-95) for each state.\relax }{table.caption.47}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Experiment Results}{48}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Hyperparameter Tuning}{48}{subsection.5.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Hyperparameter tuning results for trajectory prediction using SizPos-GRU model that leverages 30 past frames (1 sec) to predict the position 60 frames (2 sec) into the future. The table presents the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) across different configurations of hidden sizes and hidden depths. These metrics help to evaluate the accuracy and spatial consistency of the model’s predictions\relax }}{48}{table.caption.48}\protected@file@percent }
+\newlabel{tab:vel-metrics-rounded}{{5.2}{48}{Hyperparameter tuning results for trajectory prediction using SizPos-GRU model that leverages 30 past frames (1 sec) to predict the position 60 frames (2 sec) into the future. The table presents the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) across different configurations of hidden sizes and hidden depths. These metrics help to evaluate the accuracy and spatial consistency of the model’s predictions\relax }{table.caption.48}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Hyperparameter tuning results for trajectory prediction using SizPos-GRU model that leverages 15 past frames (0.5 sec) to predict the position 30 frames (1 sec) into the future. The table presents the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) across different configurations of hidden sizes and hidden depths. These metrics help to evaluate the accuracy and spatial consistency of the model’s predictions\relax }}{49}{table.caption.49}\protected@file@percent }
+\newlabel{tab:new-dataset-adjusted-header}{{5.3}{49}{Hyperparameter tuning results for trajectory prediction using SizPos-GRU model that leverages 15 past frames (0.5 sec) to predict the position 30 frames (1 sec) into the future. The table presents the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) across different configurations of hidden sizes and hidden depths. These metrics help to evaluate the accuracy and spatial consistency of the model’s predictions\relax }{table.caption.49}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}SizPos-GRU Model Evaluation}{49}{subsection.5.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.4}{\ignorespaces Performance comparison of various models on trajectory prediction tasks using 30 past frames to predict 60 future frames. The table reports the Average Displacement Error (ADE) and Final Displacement Error (FDE) in both pixels and percentage, as well as Average Intersection over Union (AIoU) and Final Intersection over Union (FIoU). Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The SizPos-GRU model demonstrates superior performance across all metrics.\relax }}{50}{table.caption.50}\protected@file@percent }
+\newlabel{tab:fusion-gru-results-60frames}{{5.4}{50}{Performance comparison of various models on trajectory prediction tasks using 30 past frames to predict 60 future frames. The table reports the Average Displacement Error (ADE) and Final Displacement Error (FDE) in both pixels and percentage, as well as Average Intersection over Union (AIoU) and Final Intersection over Union (FIoU). Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The SizPos-GRU model demonstrates superior performance across all metrics.\relax }{table.caption.50}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.5}{\ignorespaces Performance comparison of various models on trajectory prediction tasks using 15 past frames to predict 30 future frames. The table reports the Average Displacement Error (ADE) and Final Displacement Error (FDE) in both pixels and percentage, as well as Average Intersection over Union (AIoU) and Final Intersection over Union (FIoU). Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The SizPos-GRU model consistently outperforms the other models across all evaluation metrics.\relax }}{50}{table.caption.51}\protected@file@percent }
+\newlabel{tab:fusion-gru-results-30frames}{{5.5}{50}{Performance comparison of various models on trajectory prediction tasks using 15 past frames to predict 30 future frames. The table reports the Average Displacement Error (ADE) and Final Displacement Error (FDE) in both pixels and percentage, as well as Average Intersection over Union (AIoU) and Final Intersection over Union (FIoU). Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The SizPos-GRU model consistently outperforms the other models across all evaluation metrics.\relax }{table.caption.51}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Framework Evaluation}{50}{subsection.5.2.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.6}{\ignorespaces Performance metrics using different smoothing filters and Linear Kalman Filter (LKF) configurations for the video \textit  {video\_lab\_platform\_6}. The table presents Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU). The results demonstrate the impact of various filtering techniques on the model’s predictive accuracy.\relax }}{51}{table.caption.52}\protected@file@percent }
+\newlabel{tab:performance_metrics}{{5.6}{51}{Performance metrics using different smoothing filters and Linear Kalman Filter (LKF) configurations for the video \textit {video\_lab\_platform\_6}. The table presents Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU). The results demonstrate the impact of various filtering techniques on the model’s predictive accuracy.\relax }{table.caption.52}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.7}{\ignorespaces Framework Test with LKF and Savitzky-Golay filter for the videos \textit  {video\_lab\_platform\_6}, \textit  {test\_indoor1}, and \textit  {video\_lab\_semiopen\_1\_\_\_\_\_\_3}. The table presents Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) for each video. The results demonstrate the model’s predictive accuracy across different scenarios.\relax }}{51}{table.caption.53}\protected@file@percent }
+\newlabel{tab:framework-test}{{5.7}{51}{Framework Test with LKF and Savitzky-Golay filter for the videos \textit {video\_lab\_platform\_6}, \textit {test\_indoor1}, and \textit {video\_lab\_semiopen\_1\_\_\_\_\_\_3}. The table presents Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) for each video. The results demonstrate the model’s predictive accuracy across different scenarios.\relax }{table.caption.53}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Testing Visualisation}{52}{section.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Visualisation of the trajectory prediction framework output for the \textit  {video\_lab\_platform\_6} and \textit  {test\_indoor1} videos. The figure shows the ground truth trajectory (blue) and the predicted trajectory (red) for the refueling port. The close alignment between the predicted and actual trajectories demonstrates the model’s accuracy in predicting the object’s future positions.\relax }}{52}{figure.caption.54}\protected@file@percent }
+\newlabel{fig:trajectory-prediction-test-indoor1}{{5.1}{52}{Visualisation of the trajectory prediction framework output for the \textit {video\_lab\_platform\_6} and \textit {test\_indoor1} videos. The figure shows the ground truth trajectory (blue) and the predicted trajectory (red) for the refueling port. The close alignment between the predicted and actual trajectories demonstrates the model’s accuracy in predicting the object’s future positions.\relax }{figure.caption.54}{}}
+\newlabel{fig:framework-video_lab_platform_6-0}{{5.2a}{53}{Predictions from frame 16 to 45.\relax }{figure.caption.55}{}}
+\newlabel{sub@fig:framework-video_lab_platform_6-0}{{a}{53}{Predictions from frame 16 to 45.\relax }{figure.caption.55}{}}
+\newlabel{fig:framework-video_lab_platform_6-1}{{5.2b}{53}{Predictions from frame 61 to 90.\relax }{figure.caption.55}{}}
+\newlabel{sub@fig:framework-video_lab_platform_6-1}{{b}{53}{Predictions from frame 61 to 90.\relax }{figure.caption.55}{}}
+\newlabel{fig:framework-video_lab_platform_6-2}{{5.2c}{53}{Predictions from frame 106 to 135.\relax }{figure.caption.55}{}}
+\newlabel{sub@fig:framework-video_lab_platform_6-2}{{c}{53}{Predictions from frame 106 to 135.\relax }{figure.caption.55}{}}
+\newlabel{fig:framework-video_lab_platform_6-3}{{5.2d}{53}{Predictions from frame 151 to 180.\relax }{figure.caption.55}{}}
+\newlabel{sub@fig:framework-video_lab_platform_6-3}{{d}{53}{Predictions from frame 151 to 180.\relax }{figure.caption.55}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Predicted vs Ground Truth Central Position for video \textit  {video\_lab\_platform\_6} (No Smoothing). \relax }}{53}{figure.caption.55}\protected@file@percent }
+\newlabel{fig:framework-video_lab_platform_6}{{5.2}{53}{Predicted vs Ground Truth Central Position for video \textit {video\_lab\_platform\_6} (No Smoothing). \relax }{figure.caption.55}{}}
+\newlabel{fig:framework-video_lab_platform_6-savgol-0}{{5.3a}{54}{Predictions from frame 16 to 45.\relax }{figure.caption.56}{}}
+\newlabel{sub@fig:framework-video_lab_platform_6-savgol-0}{{a}{54}{Predictions from frame 16 to 45.\relax }{figure.caption.56}{}}
+\newlabel{fig:framework-video_lab_platform_6-savgol-1}{{5.3b}{54}{Predictions from frame 61 to 90.\relax }{figure.caption.56}{}}
+\newlabel{sub@fig:framework-video_lab_platform_6-savgol-1}{{b}{54}{Predictions from frame 61 to 90.\relax }{figure.caption.56}{}}
+\newlabel{fig:framework-video_lab_platform_6-savgol-2}{{5.3c}{54}{Predictions from frame 106 to 135.\relax }{figure.caption.56}{}}
+\newlabel{sub@fig:framework-video_lab_platform_6-savgol-2}{{c}{54}{Predictions from frame 106 to 135.\relax }{figure.caption.56}{}}
+\newlabel{fig:framework-video_lab_platform_6-savgol-3}{{5.3d}{54}{Predictions from frame 151 to 180.\relax }{figure.caption.56}{}}
+\newlabel{sub@fig:framework-video_lab_platform_6-savgol-3}{{d}{54}{Predictions from frame 151 to 180.\relax }{figure.caption.56}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Predicted vs Ground Truth Central Position for video \textit  {video\_lab\_platform\_6} (Savitzky-Golay \& LKF filter). \relax }}{54}{figure.caption.56}\protected@file@percent }
+\newlabel{fig:framework-video_lab_platform_6-savgol}{{5.3}{54}{Predicted vs Ground Truth Central Position for video \textit {video\_lab\_platform\_6} (Savitzky-Golay \& LKF filter). \relax }{figure.caption.56}{}}
+\newlabel{fig:framework-test_indoor1-0}{{5.4a}{54}{Predictions from frame 16 to 45.\relax }{figure.caption.57}{}}
+\newlabel{sub@fig:framework-test_indoor1-0}{{a}{54}{Predictions from frame 16 to 45.\relax }{figure.caption.57}{}}
+\newlabel{fig:framework-test_indoor1-1}{{5.4b}{54}{Predictions from frame 61 to 90.\relax }{figure.caption.57}{}}
+\newlabel{sub@fig:framework-test_indoor1-1}{{b}{54}{Predictions from frame 61 to 90.\relax }{figure.caption.57}{}}
+\newlabel{fig:framework-test_indoor1-3}{{5.4c}{54}{Predictions from frame 151 to 180.\relax }{figure.caption.57}{}}
+\newlabel{sub@fig:framework-test_indoor1-3}{{c}{54}{Predictions from frame 151 to 180.\relax }{figure.caption.57}{}}
+\newlabel{fig:framework-test_indoor1-4}{{5.4d}{54}{Predictions from frame 196 to 225.\relax }{figure.caption.57}{}}
+\newlabel{sub@fig:framework-test_indoor1-4}{{d}{54}{Predictions from frame 196 to 225.\relax }{figure.caption.57}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Predicted vs Ground Truth Central Position for video \textit  {test\_indoor1} (No Smoothing). \relax }}{54}{figure.caption.57}\protected@file@percent }
+\newlabel{fig:framework-test_indoor1}{{5.4}{54}{Predicted vs Ground Truth Central Position for video \textit {test\_indoor1} (No Smoothing). \relax }{figure.caption.57}{}}
+\newlabel{fig:framework-test_indoor1-savgol-0}{{5.5a}{55}{Predictions from frame 16 to 45.\relax }{figure.caption.58}{}}
+\newlabel{sub@fig:framework-test_indoor1-savgol-0}{{a}{55}{Predictions from frame 16 to 45.\relax }{figure.caption.58}{}}
+\newlabel{fig:framework-test_indoor1-savgol-1}{{5.5b}{55}{Predictions from frame 61 to 90.\relax }{figure.caption.58}{}}
+\newlabel{sub@fig:framework-test_indoor1-savgol-1}{{b}{55}{Predictions from frame 61 to 90.\relax }{figure.caption.58}{}}
+\newlabel{fig:framework-test_indoor1-savgol-3}{{5.5c}{55}{Predictions from frame 151 to 180.\relax }{figure.caption.58}{}}
+\newlabel{sub@fig:framework-test_indoor1-savgol-3}{{c}{55}{Predictions from frame 151 to 180.\relax }{figure.caption.58}{}}
+\newlabel{fig:framework-test_indoor1-savgol-4}{{5.5d}{55}{Predictions from frame 196 to 225.\relax }{figure.caption.58}{}}
+\newlabel{sub@fig:framework-test_indoor1-savgol-4}{{d}{55}{Predictions from frame 196 to 225.\relax }{figure.caption.58}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Predicted vs Ground Truth Central Position for video \textit  {test\_indoor1} (Savitzky-Golay \& LKF filter). \relax }}{55}{figure.caption.58}\protected@file@percent }
+\newlabel{fig:framework-test_indoor1-savgol}{{5.5}{55}{Predicted vs Ground Truth Central Position for video \textit {test\_indoor1} (Savitzky-Golay \& LKF filter). \relax }{figure.caption.58}{}}
 \bibstyle{abbrvnat}
 \bibdata{LaTeX,CUCitations}
-\newlabel{fig:central-position-test-video_lab_platform_6-savgol}{{A.6a}{44}{Central position of the refueling port over time.\relax }{figure.caption.48}{}}
-\newlabel{sub@fig:central-position-test-video_lab_platform_6-savgol}{{a}{44}{Central position of the refueling port over time.\relax }{figure.caption.48}{}}
-\newlabel{fig:velocity-test-video_lab_platform_6-savgol}{{A.6b}{44}{Velocity of the refueling port over time.\relax }{figure.caption.48}{}}
-\newlabel{sub@fig:velocity-test-video_lab_platform_6-savgol}{{b}{44}{Velocity of the refueling port over time.\relax }{figure.caption.48}{}}
-\newlabel{fig:acceleration-test-video_lab_platform_6-savgol}{{A.6c}{44}{Acceleration of the refueling port over time.\relax }{figure.caption.48}{}}
-\newlabel{sub@fig:acceleration-test-video_lab_platform_6-savgol}{{c}{44}{Acceleration of the refueling port over time.\relax }{figure.caption.48}{}}
-\newlabel{fig:size-test-video_lab_platform_6-savgol}{{A.6d}{44}{Area of the refueling port over time.\relax }{figure.caption.48}{}}
-\newlabel{sub@fig:size-test-video_lab_platform_6-savgol}{{d}{44}{Area of the refueling port over time.\relax }{figure.caption.48}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.6}{\ignorespaces Temporal analysis of different metrics for the refueling port in the \textit  {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }}{44}{figure.caption.48}\protected@file@percent }
-\newlabel{fig:bbox-metrics-test-video_lab_platform_6-savgol}{{A.6}{44}{Temporal analysis of different metrics for the refueling port in the \textit {test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.\relax }{figure.caption.48}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{56}{chapter.6}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{chap:conclusion}{{6}{56}{Conclusion and Future Work}{chapter.6}{}}
 \bibcite{Alahi2016}{{1}{2016}{{Alahi et~al.}}{{Alahi, Goel, Ramanathan, Robicquet, Fei-Fei, and Savarese}}}
-\bibcite{AR3P2020}{{2}{AvMC}{{}}{{(2020)}}}
-\bibcite{ImageRefueling}{{3}{2019}{{Bailey}}{{}}}
-\bibcite{Bennett1991}{{4}{1991}{{Bennett et~al.}}{{Bennett, Shiu, and Leahy}}}
-\bibcite{blakey2011aviation}{{5}{2011}{{Blakey et~al.}}{{Blakey, Rye, and Wilson}}}
-\bibcite{DBLP:journals/corr/abs-2004-10934}{{6}{2020}{{Bochkovskiy et~al.}}{{Bochkovskiy, Wang, and Liao}}}
-\bibcite{DBLP:journals/corr/abs-2010-10270}{{7}{2020}{{Bouhsain et~al.}}{{Bouhsain, Saadatnejad, and Alahi}}}
-\bibcite{Burnette2010}{{8}{2010}{{Burnette}}{{}}}
-\bibcite{SurveyVisualOT}{{9}{2022}{{Chen et~al.}}{{Chen, Wang, Zhao, Lv, and Niu}}}
-\bibcite{chen2023yoloms}{{10}{2023}{{Chen et~al.}}{{Chen, Yuan, Wu, Wang, Hou, and Cheng}}}
-\bibcite{SurveySmallObjectDetection}{{11}{2023}{{Cheng et~al.}}{{Cheng, Yuan, Yao, Yan, Zeng, Xie, and Han}}}
-\bibcite{CostsOfUnsafetyAviation}{{12}{2010}{{Cokorilo et~al.}}{{Cokorilo, Gvozdenovic, Vasov, and Mirosavljevic}}}
-\@writefile{toc}{\contentsline {chapter}{References}{45}{appendix*.49}\protected@file@percent }
-\bibcite{DBLP:journals/corr/DaiLHS16}{{13}{2016}{{Dai et~al.}}{{Dai, Li, He, and Sun}}}
-\bibcite{huggingface2023objectdetection}{{14}{2023}{{Face}}{{}}}
-\bibcite{Ficken2017}{{15}{2017}{{Ficken}}{{}}}
-\bibcite{DBLP:journals/corr/abs-2107-08430}{{16}{2021}{{Ge et~al.}}{{Ge, Liu, Wang, Li, and Sun}}}
-\bibcite{LearnOpenCVYOLOv10}{{17}{2024}{{Ghosh}}{{}}}
-\bibcite{DBLP:journals/corr/Girshick15}{{18}{2015}{{Girshick}}{{}}}
-\bibcite{DBLP:journals/corr/GirshickDDM13}{{19}{2013}{{Girshick et~al.}}{{Girshick, Donahue, Darrell, and Malik}}}
-\bibcite{AARBinocularVision}{{20}{2023}{{Gong et~al.}}{{Gong, Liu, Xu, Xu, He, Zhang, and Rasol}}}
-\bibcite{IntelRealSense}{{21}{2024}{{Intel}}{{}}}
-\bibcite{YOLOv5Release}{{22}{2022}{{Jocher}}{{}}}
-\bibcite{YOLOv8}{{23}{2023}{{Jocher}}{{}}}
-\bibcite{SurveyDLOD}{{24}{2022}{{Kang et~al.}}{{Kang, Tariq, Oh, and Woo}}}
-\bibcite{FusionGRU}{{25}{2024}{{Karim et~al.}}{{Karim, Qin, and Wang}}}
-\bibcite{DatasetAGR}{{26}{2023}{{Kuang et~al.}}{{Kuang, Barnes, Tang, and Jenkins}}}
-\bibcite{SurveyTransformersSingleOT}{{27}{2023}{{Kugarajeevan et~al.}}{{Kugarajeevan, Kokul, Ramanan, and Fernando}}}
-\bibcite{FFPSpaceSystemVehicles}{{28}{2022}{{Lee et~al.}}{{Lee, Jeon, Han, and Jeong}}}
-\bibcite{li2023yolov6}{{29}{2023}{{Li et~al.}}{{Li, Li, Geng, Jiang, Cheng, Zhang, Ke, Xu, and Chu}}}
-\bibcite{lin2018focal}{{30}{2018}{{Lin et~al.}}{{Lin, Goyal, Girshick, He, and Dollár}}}
-\bibcite{10.1007/978-981-16-5943-0_26}{{31}{2021{}}{{Liu et~al.}}{{Liu, Chen, and Liu}}}
-\bibcite{OverviewCorrelationAlgoOT}{{32}{2021{}}{{Liu et~al.}}{{Liu, Liu, Srivastava, Połap, and Woźniak}}}
-\bibcite{DBLP:journals/corr/LiuAESR15}{{33}{2015}{{Liu et~al.}}{{Liu, Anguelov, Erhan, Szegedy, Reed, Fu, and Berg}}}
-\bibcite{doi:10.1080/13669877.2013.879493}{{34}{2014}{{Olja~Čokorilo and Dell’Acqua}}{{}}}
-\bibcite{ExpertSystemsAGR}{{35}{2021}{{Plaza and Santos}}{{}}}
-\bibcite{DBLP:journals/corr/RedmonF16}{{36}{2016}{{Redmon and Farhadi}}{{}}}
-\bibcite{DBLP:journals/corr/RedmonDGF15}{{37}{2015}{{Redmon et~al.}}{{Redmon, Divvala, Girshick, and Farhadi}}}
-\bibcite{Ren2017}{{38}{2017}{{Ren et~al.}}{{Ren, He, Girshick, and Sun}}}
-\bibcite{sati2019aircraft}{{39}{2019}{{Sati et~al.}}{{Sati, Singh, and Yadav}}}
-\bibcite{Schultz1986}{{40}{1986}{{Schultz}}{{}}}
-\bibcite{MultipleObjectForecasting}{{41}{2020}{{Styles et~al.}}{{Styles, Guha, and Sanchez}}}
-\bibcite{wang2024yolov10}{{42}{2024{}}{{Wang et~al.}}{{Wang, Chen, Liu, Chen, Lin, Han, and Ding}}}
-\bibcite{wang2023goldyolo}{{43}{2023}{{Wang et~al.}}{{Wang, He, Nie, Guo, Liu, Han, and Wang}}}
-\bibcite{wang2024yolov9}{{44}{2024{}}{{Wang et~al.}}{{Wang, Yeh, and Liao}}}
-\bibcite{AARCNN}{{45}{2017}{{Wang et~al.}}{{Wang, Dong, Kong, Li, and Zhang}}}
-\bibcite{SmallObjectDetectionPositonPrediction}{{46}{2021}{{Wu and Xu}}{{}}}
-\bibcite{xu2022ppyoloe}{{47}{2022}{{Xu et~al.}}{{Xu, Wang, Lv, Chang, Cui, Deng, Wang, Dang, Wei, Du, and Lai}}}
-\bibcite{xu2023damoyolo}{{48}{2023}{{Xu et~al.}}{{Xu, Jiang, Chen, Huang, Zhang, and Sun}}}
-\bibcite{ODNetworkUAVCNNTransformer}{{49}{2023}{{Ye et~al.}}{{Ye, Qin, Zhao, Gao, Deng, and Ouyang}}}
-\bibcite{AGRPoseEstimation}{{50}{2021}{{Yildirim et~al.}}{{Yildirim, Rana, and Tang}}}
-\bibcite{HybridDatasetAGRV1}{{51}{2023}{{Yildirim et~al.}}{{Yildirim, Rana, and Tang}}}
-\bibcite{SurveyModernODModels}{{52}{2022}{{Zaidi et~al.}}{{Zaidi, Ansari, Aslam, Kanwal, Asghar, and Lee}}}
-\bibcite{SuveyAdvancesSingleOTMethods}{{53}{2021}{{Zhang et~al.}}{{Zhang, Wang, Liu, Zhang, and Chen}}}
-\bibcite{AAREKF}{{54}{2017}{{Zhong et~al.}}{{Zhong, Li, Wang, and Su}}}
-\gdef \@abspage@last{59}
+\bibcite{Ansel_PyTorch_2_Faster_2024}{{2}{2024}{{Ansel et~al.}}{{Ansel, Yang, He, Gimelshein, Jain, Voznesensky, Bao, Bell, Berard, Burovski, Chauhan, Chourdia, Constable, Desmaison, DeVito, Ellison, Feng, Gong, Gschwind, Hirsh, Huang, Kalambarkar, Kirsch, Lazos, Lezcano, Liang, Liang, Lu, Luk, Maher, Pan, Puhrsch, Reso, Saroufim, Siraichi, Suk, Suo, Tillet, Wang, Wang, Wen, Zhang, Zhao, Zhou, Zou, Mathews, Chanan, Wu, and Chintala}}}
+\bibcite{AR3P2020}{{3}{AvMC}{{}}{{(2020)}}}
+\bibcite{ImageRefueling}{{4}{2019}{{Bailey}}{{}}}
+\bibcite{Bennett1991}{{5}{1991}{{Bennett et~al.}}{{Bennett, Shiu, and Leahy}}}
+\bibcite{blakey2011aviation}{{6}{2011}{{Blakey et~al.}}{{Blakey, Rye, and Wilson}}}
+\bibcite{DBLP:journals/corr/abs-2004-10934}{{7}{2020}{{Bochkovskiy et~al.}}{{Bochkovskiy, Wang, and Liao}}}
+\bibcite{DBLP:journals/corr/abs-2010-10270}{{8}{2020}{{Bouhsain et~al.}}{{Bouhsain, Saadatnejad, and Alahi}}}
+\bibcite{Burnette2010}{{9}{2010}{{Burnette}}{{}}}
+\bibcite{SurveyVisualOT}{{10}{2022}{{Chen et~al.}}{{Chen, Wang, Zhao, Lv, and Niu}}}
+\@writefile{toc}{\contentsline {chapter}{References}{57}{appendix*.59}\protected@file@percent }
+\bibcite{chen2023yoloms}{{11}{2023}{{Chen et~al.}}{{Chen, Yuan, Wu, Wang, Hou, and Cheng}}}
+\bibcite{SurveySmallObjectDetection}{{12}{2023}{{Cheng et~al.}}{{Cheng, Yuan, Yao, Yan, Zeng, Xie, and Han}}}
+\bibcite{CostsOfUnsafetyAviation}{{13}{2010}{{Cokorilo et~al.}}{{Cokorilo, Gvozdenovic, Vasov, and Mirosavljevic}}}
+\bibcite{DBLP:journals/corr/DaiLHS16}{{14}{2016}{{Dai et~al.}}{{Dai, Li, He, and Sun}}}
+\bibcite{huggingface2023objectdetection}{{15}{2023}{{Face}}{{}}}
+\bibcite{Falcon_PyTorch_Lightning_2019}{{16}{2019}{{Falcon and {The PyTorch Lightning team}}}{{}}}
+\bibcite{Ficken2017}{{17}{2017}{{Ficken}}{{}}}
+\bibcite{DBLP:journals/corr/abs-2107-08430}{{18}{2021}{{Ge et~al.}}{{Ge, Liu, Wang, Li, and Sun}}}
+\bibcite{LearnOpenCVYOLOv10}{{19}{2024}{{Ghosh}}{{}}}
+\bibcite{DBLP:journals/corr/Girshick15}{{20}{2015}{{Girshick}}{{}}}
+\bibcite{DBLP:journals/corr/GirshickDDM13}{{21}{2013}{{Girshick et~al.}}{{Girshick, Donahue, Darrell, and Malik}}}
+\bibcite{AARBinocularVision}{{22}{2023}{{Gong et~al.}}{{Gong, Liu, Xu, Xu, He, Zhang, and Rasol}}}
+\bibcite{IntelRealSense}{{23}{2024}{{Intel}}{{}}}
+\bibcite{YOLOv5Release}{{24}{2022}{{Jocher}}{{}}}
+\bibcite{YOLOv8}{{25}{2023}{{Jocher}}{{}}}
+\bibcite{Jocher_Ultralytics_YOLO_2023}{{26}{2023}{{Jocher et~al.}}{{Jocher, Chaurasia, and Qiu}}}
+\bibcite{SurveyDLOD}{{27}{2022}{{Kang et~al.}}{{Kang, Tariq, Oh, and Woo}}}
+\bibcite{FusionGRU}{{28}{2024}{{Karim et~al.}}{{Karim, Qin, and Wang}}}
+\bibcite{DatasetAGR}{{29}{2023}{{Kuang et~al.}}{{Kuang, Barnes, Tang, and Jenkins}}}
+\bibcite{SurveyTransformersSingleOT}{{30}{2023}{{Kugarajeevan et~al.}}{{Kugarajeevan, Kokul, Ramanan, and Fernando}}}
+\bibcite{FFPSpaceSystemVehicles}{{31}{2022}{{Lee et~al.}}{{Lee, Jeon, Han, and Jeong}}}
+\bibcite{li2023yolov6}{{32}{2023}{{Li et~al.}}{{Li, Li, Geng, Jiang, Cheng, Zhang, Ke, Xu, and Chu}}}
+\bibcite{lin2018focal}{{33}{2018}{{Lin et~al.}}{{Lin, Goyal, Girshick, He, and Dollár}}}
+\bibcite{10.1007/978-981-16-5943-0_26}{{34}{2021{}}{{Liu et~al.}}{{Liu, Chen, and Liu}}}
+\bibcite{OverviewCorrelationAlgoOT}{{35}{2021{}}{{Liu et~al.}}{{Liu, Liu, Srivastava, Połap, and Woźniak}}}
+\bibcite{DBLP:journals/corr/LiuAESR15}{{36}{2015}{{Liu et~al.}}{{Liu, Anguelov, Erhan, Szegedy, Reed, Fu, and Berg}}}
+\bibcite{doi:10.1080/13669877.2013.879493}{{37}{2014}{{Olja~Čokorilo and Dell’Acqua}}{{}}}
+\bibcite{ExpertSystemsAGR}{{38}{2021}{{Plaza and Santos}}{{}}}
+\bibcite{DBLP:journals/corr/RedmonF16}{{39}{2016}{{Redmon and Farhadi}}{{}}}
+\bibcite{DBLP:journals/corr/RedmonDGF15}{{40}{2015}{{Redmon et~al.}}{{Redmon, Divvala, Girshick, and Farhadi}}}
+\bibcite{Ren2017}{{41}{2017}{{Ren et~al.}}{{Ren, He, Girshick, and Sun}}}
+\bibcite{sati2019aircraft}{{42}{2019}{{Sati et~al.}}{{Sati, Singh, and Yadav}}}
+\bibcite{Schultz1986}{{43}{1986}{{Schultz}}{{}}}
+\bibcite{MultipleObjectForecasting}{{44}{2020}{{Styles et~al.}}{{Styles, Guha, and Sanchez}}}
+\bibcite{wang2024yolov10}{{45}{2024{}}{{Wang et~al.}}{{Wang, Chen, Liu, Chen, Lin, Han, and Ding}}}
+\bibcite{wang2023goldyolo}{{46}{2023}{{Wang et~al.}}{{Wang, He, Nie, Guo, Liu, Han, and Wang}}}
+\bibcite{wang2024yolov9}{{47}{2024{}}{{Wang et~al.}}{{Wang, Yeh, and Liao}}}
+\bibcite{AARCNN}{{48}{2017}{{Wang et~al.}}{{Wang, Dong, Kong, Li, and Zhang}}}
+\bibcite{SmallObjectDetectionPositonPrediction}{{49}{2021}{{Wu and Xu}}{{}}}
+\bibcite{xu2022ppyoloe}{{50}{2022}{{Xu et~al.}}{{Xu, Wang, Lv, Chang, Cui, Deng, Wang, Dang, Wei, Du, and Lai}}}
+\bibcite{xu2023damoyolo}{{51}{2023}{{Xu et~al.}}{{Xu, Jiang, Chen, Huang, Zhang, and Sun}}}
+\bibcite{ODNetworkUAVCNNTransformer}{{52}{2023}{{Ye et~al.}}{{Ye, Qin, Zhao, Gao, Deng, and Ouyang}}}
+\bibcite{AGRPoseEstimation}{{53}{2021}{{Yildirim et~al.}}{{Yildirim, Rana, and Tang}}}
+\bibcite{HybridDatasetAGRV1}{{54}{2023}{{Yildirim et~al.}}{{Yildirim, Rana, and Tang}}}
+\bibcite{SurveyModernODModels}{{55}{2022}{{Zaidi et~al.}}{{Zaidi, Ansari, Aslam, Kanwal, Asghar, and Lee}}}
+\bibcite{SuveyAdvancesSingleOTMethods}{{56}{2021}{{Zhang et~al.}}{{Zhang, Wang, Liu, Zhang, and Chen}}}
+\bibcite{AAREKF}{{57}{2017}{{Zhong et~al.}}{{Zhong, Li, Wang, and Su}}}
+\gdef \@abspage@last{73}

@@ -1,0 +1,142 @@
+[
+  {
+    "smooth_filter": "sa",
+    "lkf": true,
+    "mean_fde": 124.74871964721397,
+    "mean_fiou": 0.0457464691718397,
+    "mean_ade": 79.49543499932726,
+    "mean_aiou": 0.1809083896095231,
+    "mean_fde_percent": 15.593589955901747,
+    "mean_ade_percent": 9.936929374915907
+  },
+  {
+    "smooth_filter": "ma",
+    "lkf": true,
+    "mean_fde": 191.95671051787957,
+    "mean_fiou": 0.0,
+    "mean_ade": 82.40906281948803,
+    "mean_aiou": 0.1763400174974216,
+    "mean_fde_percent": 23.994588814734946,
+    "mean_ade_percent": 10.301132852436004
+  },
+  {
+    "smooth_filter": "mes",
+    "lkf": true,
+    "mean_fde": 125.48526640336821,
+    "mean_fiou": 0.051336399368365815,
+    "mean_ade": 85.53769060105154,
+    "mean_aiou": 0.1703136277874622,
+    "mean_fde_percent": 15.685658300421027,
+    "mean_ade_percent": 10.692211325131442
+  },
+  {
+    "smooth_filter": "es",
+    "lkf": true,
+    "mean_fde": 125.48526640336821,
+    "mean_fiou": 0.051336399368365815,
+    "mean_ade": 85.53769060105154,
+    "mean_aiou": 0.1703136277874622,
+    "mean_fde_percent": 15.685658300421027,
+    "mean_ade_percent": 10.692211325131442
+  },
+  {
+    "smooth_filter": "hybrid",
+    "lkf": true,
+    "mean_fde": 171.86772027550865,
+    "mean_fiou": 0.007365529526446833,
+    "mean_ade": 81.04435007880346,
+    "mean_aiou": 0.17951130724959857,
+    "mean_fde_percent": 21.48346503443858,
+    "mean_ade_percent": 10.130543759850434
+  },
+  {
+    "smooth_filter": "adaptive",
+    "lkf": true,
+    "mean_fde": 125.73461241995818,
+    "mean_fiou": 0.0438954410189269,
+    "mean_ade": 79.91175471743696,
+    "mean_aiou": 0.1758199875618266,
+    "mean_fde_percent": 15.716826552494773,
+    "mean_ade_percent": 9.98896933967962
+  },
+  {
+    "smooth_filter": "",
+    "lkf": true,
+    "mean_fde": 125.73461241995818,
+    "mean_fiou": 0.0438954410189269,
+    "mean_ade": 79.91175471743696,
+    "mean_aiou": 0.1758199875618266,
+    "mean_fde_percent": 15.716826552494773,
+    "mean_ade_percent": 9.98896933967962
+  },
+  {
+    "smooth_filter": "sa",
+    "lkf": false,
+    "mean_fde": 123.72468847889958,
+    "mean_fiou": 0.05777226079313857,
+    "mean_ade": 77.57115512425682,
+    "mean_aiou": 0.2062450236383906,
+    "mean_fde_percent": 15.465586059862447,
+    "mean_ade_percent": 9.696394390532102
+  },
+  {
+    "smooth_filter": "ma",
+    "lkf": false,
+    "mean_fde": 188.73539033932622,
+    "mean_fiou": 0.00033586276684666487,
+    "mean_ade": 80.44242379019336,
+    "mean_aiou": 0.20220709877551077,
+    "mean_fde_percent": 23.591923792415777,
+    "mean_ade_percent": 10.055302973774172
+  },
+  {
+    "smooth_filter": "mes",
+    "lkf": false,
+    "mean_fde": 124.74781328572428,
+    "mean_fiou": 0.060801424971677016,
+    "mean_ade": 83.7605210536475,
+    "mean_aiou": 0.18476507355401428,
+    "mean_fde_percent": 15.593476660715535,
+    "mean_ade_percent": 10.470065131705937
+  },
+  {
+    "smooth_filter": "es",
+    "lkf": false,
+    "mean_fde": 124.74781328572428,
+    "mean_fiou": 0.060801424971677016,
+    "mean_ade": 83.7605210536475,
+    "mean_aiou": 0.18476507355401428,
+    "mean_fde_percent": 15.593476660715535,
+    "mean_ade_percent": 10.470065131705937
+  },
+  {
+    "smooth_filter": "hybrid",
+    "lkf": false,
+    "mean_fde": 169.7831900500359,
+    "mean_fiou": 0.0035177348794384385,
+    "mean_ade": 79.13132679497798,
+    "mean_aiou": 0.20389217232998447,
+    "mean_fde_percent": 21.222898756254487,
+    "mean_ade_percent": 9.891415849372247
+  },
+  {
+    "smooth_filter": "adaptive",
+    "lkf": false,
+    "mean_fde": 123.91099434015536,
+    "mean_fiou": 0.05427355785973809,
+    "mean_ade": 77.66657109424237,
+    "mean_aiou": 0.20726965807465075,
+    "mean_fde_percent": 15.48887429251942,
+    "mean_ade_percent": 9.708321386780296
+  },
+  {
+    "smooth_filter": "",
+    "lkf": false,
+    "mean_fde": 123.91099434015536,
+    "mean_fiou": 0.05427355785973809,
+    "mean_ade": 77.66657109424237,
+    "mean_aiou": 0.20726965807465075,
+    "mean_fde_percent": 15.48887429251942,
+    "mean_ade_percent": 9.708321386780296
+  }
+]

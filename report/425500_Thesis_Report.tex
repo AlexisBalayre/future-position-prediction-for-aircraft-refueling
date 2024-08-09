@@ -91,42 +91,56 @@
 
 % Abstract and Keywords
 \begin{abstract}
-    Replace with your abstract text of not more than 300 words.
+    This thesis presents the development of a robust and efficient framework for predicting the future position of the pressure refuelling port of commercial aircraft. The proposed framework addresses critical challenges in automated aircraft refuelling systems, where accurate detection and prediction of the refuelling port’s position is essential for operational efficiency and safety. Leveraging deep learning techniques, the framework integrates a fine-tuned YOLOv10 object detection model with a novel sequence prediction model, termed SizPos-GRU. This sequence model utilizes an encoder-attention-decoder architecture to effectively capture temporal dependencies and spatial relationships from video frames. The methodology includes meticulous dataset configuration and annotation, followed by hyperparameter tuning to optimize model performance. Experimental results demonstrate the SizPos-GRU model’s superior predictive accuracy across different scenarios, validated through metrics such as Average Displacement Error (ADE), Final Displacement Error (FDE), and Intersection over Union (IoU). The implementation of smoothing filters like Savitzky-Golay and the application of Extended Kalman Filters further enhance the prediction stability and reliability. The research findings highlight the potential of the proposed framework to significantly improve the automation of aircraft ground operations, making a valuable contribution to the field by advancing the state-of-the-art in predictive modeling for dynamic environments.
 \end{abstract}
 
 \begin{keywords}
-    Replace with at least 6, semicolon seperated keywords (not contained within the thesis title) – this makes the thesis searchable.
+    Automated aircraft refuelling, Object detection, Deep learning, YOLOv10, SizPos-GRU, Spatio-temporal prediction, Kalman filtering, Savitzky-Golay smoothing
 \end{keywords}
 
 % Acknowledgements
 \chapter{Acknowledgements}
- %The author would like to thank \dots
+I would like to express my deepest gratitude to my supervisors, Dr. Boyu Kuang
+and Dr. Stuart Barnes, for their invaluable guidance, encouragement, and
+support throughout this research. I am especially grateful to Dr. Boyu Kuang,
+whose unwavering dedication, insightful feedback, and willingness to go the
+extra mile have been instrumental in overcoming the challenges faced during
+this study. His mentorship has not only greatly enriched the quality of this
+thesis but also inspired me to pursue excellence in my research. I would also
+like to extend my appreciation to the faculty and staff of the School of
+Aerospace, Transport and Manufacturing at Cranfield University for providing an
+enriching academic environment and the necessary resources to carry out this
+research. Special thanks to my colleagues and fellow students for their
+camaraderie and for sharing ideas that have contributed to the development of
+this work. I am deeply grateful to my family and friends for their unwavering
+support and understanding during the course of my studies. Their belief in me
+has been a source of strength and motivation. Finally, I would like to
+acknowledge the financial support provided by UKRI through the ONEHeart
+project, which made this research possible. The data and resources provided
+through this project have been essential to the completion of this thesis. {
+        \clearpage
 
- % Use single spacing for Table of Contents, List of Figures, etc
- {
-  \clearpage
+        % Table of Contents
+        \singlespacing{
+            \tableofcontents
+        }
+        \clearpage
 
-  % Table of Contents
-  \singlespacing{
-      \tableofcontents
-  }
-  \clearpage
+        % List of Figures
+        {%
+            \let\oldnumberline\numberline%
+            \renewcommand{\numberline}{\figurename~\oldnumberline}%
+            \listoffigures%
+        }
 
-  % List of Figures
-  {%
-      \let\oldnumberline\numberline%
-      \renewcommand{\numberline}{\figurename~\oldnumberline}%
-      \listoffigures%
-  }
-
-  \clearpage
-  % List of Tables
-  {%
-      \let\oldnumberline\numberline%
-      \renewcommand{\numberline}{\tablename~\oldnumberline}%
-      \listoftables%
-  }
- }
+        \clearpage
+        % List of Tables
+        {%
+            \let\oldnumberline\numberline%
+            \renewcommand{\numberline}{\tablename~\oldnumberline}%
+            \listoftables%
+        }
+    }
 
 % The list of abbreviations can't be automatically generated so you need to populate it yourself
 \begin{listofabbreviations}
@@ -1041,6 +1055,7 @@ with the number of frames for each video and their assignment:
     \label{tab:video_summary}
 \end{table}
 
+\newpage
 \subsection{Data Distribution}
 Before balancing the data, the distribution of video frames across the
 different datasets (train, validation, and test) for each state of the fueling
@@ -1065,7 +1080,7 @@ This imbalance could lead to biased training and inaccurate model performance,
 as the model might become overly familiar with the more prevalent CLOSED state
 and underperform on the less represented states.
 
-\subsection{Balanced Data Distribution}
+\subsection{Data Balancing}
 To address this issue, a balancing strategy was employed to create a more
 uniform dataset. The first step involved shuffling and subsetting each state
 (CLOSED, OPEN, and SEMI-OPEN) to keep only the minimum number of frames for
@@ -1091,17 +1106,188 @@ sets for each state after balancing is as follows:
     \caption{\centering Distribution of frames across train, test, and validation sets for each state in the HARD dataset after balancing.}
     \label{tab:balanced_frame_distribution}
 \end{table}
-
+’’
 The primary reason for balancing the dataset is to ensure that the object
 detection model is equally trained on all states of the refueling port. An
 imbalanced dataset could cause the model to perform well on the more common
 states (like CLOSED) while underperforming on the less common states (like OPEN
 and SEMI-OPEN). By balancing the dataset, the model has an equal opportunity to
-learn from all states, improving its generalisation and robustness. This
-strategy also prevents the model from becoming biased towards any particular
-state, ensuring consistent performance across all states, which is critical for
-the reliable operation of the automated refueling system.
+learn from all states, improving its generalisation and robustness. 
 
+\subsection{Example Images from the Datase}
+The following figures show annotated examples of the refueling port in
+different states:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/grid\_closed\_images.png}
+    \caption{Annotated images of the refueling port in the CLOSED state.}~\label{fig:grid-closed-images}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/grid\_open\_images.png}
+    \caption{Annotated images of the refueling port in the OPEN state.}~\label{fig:grid-open-images}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/grid\_semiopen\_images.png}
+    \caption{Annotated images of the refueling port in the SEMI-OPEN state.}~\label{fig:grid-semi-open-images}
+\end{figure}
+
+\subsection{Analysis of Temporal Dynamics with Savitzky-Golay Filtering}
+The temporal dynamics of the refueling port were analysed by examining several
+key metrics, including the central position, velocity, acceleration, and area
+over time. These metrics were extracted from video sequences and analysed in
+both their raw form and after applying a Savitzky-Golay filter with a small
+window size of 5 frames. This filtering technique is known for its ability to
+smooth data and reduce noise while preserving significant features, making it
+an ideal choice for analyzing the dynamic behavior of objects in video data.
+Figures~\ref{fig:bbox-metrics-test-indoor1}
+and~\ref{fig:bbox-metrics-test-video_lab_platform_6} present the unfiltered,
+raw data, which captures the real-time fluctuations in the refueling port's
+behavior. However, due to the presence of noise, these figures can sometimes
+obscure the underlying patterns and trends. For example, in the raw data
+(Figure~\ref{fig:bbox-metrics-test-indoor1}), the central position of the
+refueling port shows considerable variation, particularly in the y-axis, which
+may not fully represent the true motion of the port but rather include noise
+from sensor data or minor frame-to-frame inconsistencies. The application of
+the Savitzky-Golay filter, as shown in
+Figures~\ref{fig:bbox-metrics-test-indoor1-savgol}
+and~\ref{fig:bbox-metrics-test-video_lab_platform_6-savgol}, provides a clearer
+and more accurate depiction of the refueling port's movement. The central
+position data (Figure~\ref{fig:central-position-test-indoor1-savgol}) now shows
+a smoother trajectory, revealing the actual motion trends of the port without
+the distraction of short-term noise. This is particularly evident in the
+smoothed velocity and acceleration graphs
+(Figures~\ref{fig:velocity-test-indoor1-savgol}
+and~\ref{fig:acceleration-test-indoor1-savgol}), where significant changes in
+motion are clearly delineated, allowing for more accurate identification of
+periods of acceleration or deceleration. Moreover, the analysis of the area of
+the bounding box (Figure~\ref{fig:size-test-video_lab_platform_6-savgol}) after
+filtering highlights the changes in the apparent size of the refueling port
+with more clarity. The smoother curve suggests that the port’s distance from
+the camera or its orientation relative to the camera lens changes gradually
+rather than abruptly, providing a more realistic depiction of its dynamics.
+
+\newpage
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png}
+        \caption{Central position of the refueling port over time (Raw Data).}
+        \label{fig:central-position-test-indoor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_velocity.png}
+        \caption{Velocity of the refueling port over time (Raw Data).}
+        \label{fig:velocity-test-indoor1}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_acceleration.png}
+        \caption{Acceleration of the refueling port over time (Raw Data).}
+        \label{fig:acceleration-test-indoor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_area.png}
+        \caption{Area of the refueling port over time (Raw Data).}
+        \label{fig:size-test-indoor1}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_indoor1} video (Raw Data). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing an overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-indoor1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png}
+        \caption{Central position of the refueling port over time (Savgol Filter).}
+        \label{fig:central-position-test-indoor1-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_velocity.png}
+        \caption{Velocity of the refueling port over time (Savgol Filter).}
+        \label{fig:velocity-test-indoor1-savgol}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_acceleration.png}
+        \caption{Acceleration of the refueling port over time (Savgol Filter).}
+        \label{fig:acceleration-test-indoor1-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_area.png}
+        \caption{Area of the refueling port over time (Savgol Filter).}
+        \label{fig:size-test-indoor1-savgol}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_indoor1} video (Savgol Filter). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a clearer overview of the object's dynamics over time after applying the Savitzky-Golay filter.}
+    \label{fig:bbox-metrics-test-indoor1-savgol}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_central_position.png}
+        \caption{Central position of the refueling port over time (Raw Data).}
+        \label{fig:central-position-test-video_lab_platform_6}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_velocity.png}
+        \caption{Velocity of the refueling port over time (Raw Data).}
+        \label{fig:velocity-test-video_lab_platform_6}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_acceleration.png}
+        \caption{Acceleration of the refueling port over time (Raw Data).}
+        \label{fig:acceleration-test-video_lab_platform_6}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_area.png}
+        \caption{Area of the refueling port over time (Raw Data).}
+        \label{fig:size-test-video_lab_platform_6}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_video\_lab\_platform\_6} video (Raw Data). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing an overview of the object's dynamics over time.}
+    \label{fig:bbox-metrics-test-video_lab_platform_6}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_central_position.png}
+        \caption{Central position of the refueling port over time (Savgol Filter).}
+        \label{fig:central-position-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_velocity.png}
+        \caption{Velocity of the refueling port over time (Savgol Filter).}
+        \label{fig:velocity-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_acceleration.png}
+        \caption{Acceleration of the refueling port over time (Savgol Filter).}
+        \label{fig:acceleration-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png}
+        \caption{Area of the refueling port over time (Savgol Filter).}
+        \label{fig:size-test-video_lab_platform_6-savgol}
+    \end{subfigure}
+    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_video\_lab\_platform\_6} video (Savgol Filter). The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a clearer overview of the object's dynamics over time after applying the Savitzky-Golay filter.}
+    \label{fig:bbox-metrics-test-video_lab_platform_6-savgol}
+\end{figure}
+
+\newpage
 \section{Framework Design}
 The proposed framework, illustrated in Figure~\ref{fig:framework-workflow}, is
 designed to predict the future positions of the refueling port’s bounding boxes
@@ -1141,16 +1327,16 @@ embedded devices, due to its lightweight architecture. The model is fine-tuned
 through transfer learning on the HARD dataset, enabling precise detection of
 the refueling port within the video frames. This fine-tuning process ensures
 that the model meets the demands of real-time video analysis with both accuracy
-and responsiveness. The implementation uses the Ultralytics YOLOv10 framework,
-which provides a reliable and efficient pipeline for both training and
-inference. This framework optimises detection performance and guarantees robust
-operation in different scenarios.
+and responsiveness. The implementation uses the Ultralytics YOLOv10
+framework~\cite{Jocher_Ultralytics_YOLO_2023}, which provides a reliable and
+efficient pipeline for both training and inference. This framework optimises
+detection performance and guarantees robust operation in different scenarios.
 
 \section{Sequence Model Design}
-This thesis introduces the \textit{SizPos-GRU model} model, a deep learning
-sequence model for predicting future positions and sizes of a unique object in
-a video stream. The model leverages an encoder-attention-decoder architecture
-to capture temporal dependencies and spatial relationships effectively. The
+This thesis introduces the \textit{SizPos-GRU} model, a deep learning sequence
+model for predicting future positions and sizes of a unique object in a video
+stream. The model leverages an encoder-attention-decoder architecture to
+capture temporal dependencies and spatial relationships effectively. The
 SizPos-GRU model leverages an encoder-attention-decoder architecture to
 effectively capture temporal dependencies and spatial relationships. The
 framework consists of four main components: two encoders, an attention
@@ -1166,14 +1352,14 @@ generating context-aware predictions.
 
 \newpage
 \subsection{Input Representation}
-The \textit{SizPos-GRU} model expects two types of input sequences to predict
+\noindent The \textit{SizPos-GRU} model expects two types of input sequences to predict
 the future positions and sizes of an object. The first input captures the
 spatial dynamics of the object, including its position, velocity and
 acceleration. The second input focuses on the object's dimensional attributes,
 such as its width and height, and changes in these dimensions over time.
 
 \subsubsection*{Spatial Dynamics Vector}
-The spatial dynamics vector at time $t$, denoted as $\mathbf{p}_t$, represents the position, velocity, and acceleration of the bounding box center. It is defined as:
+\noindent The spatial dynamics vector at time $t$, denoted as $\mathbf{p}_t$, represents the position, velocity, and acceleration of the bounding box center. It is defined as:
 \begin{align}
     \mathbf{p}_t & = \left(x_t, y_t, v_{x,t}, v_{y,t}, a_{x,t}, a_{y,t}\right), \\
     v_{x,t}      & = x_t - x_{t-1}, \quad v_{y,t} = y_t - y_{t-1},              \\
@@ -1182,7 +1368,7 @@ The spatial dynamics vector at time $t$, denoted as $\mathbf{p}_t$, represents t
 Here, $(x_t, y_t)$ represents the center coordinates at time $t$, $(v_{x,t}, v_{y,t})$ are the velocities, and $(a_{x,t}, a_{y,t})$ are the accelerations along the $x$ and $y$ axes, respectively.
 
 \subsubsection*{Dimensional Attributes Vector}
-The dimensional attributes vector at time $t$, denoted as $\mathbf{d}_t$, captures the size of the bounding box and the changes in its dimensions:
+\noindent The dimensional attributes vector at time $t$, denoted as $\mathbf{d}_t$, captures the size of the bounding box and the changes in its dimensions:
 \begin{align}
     \mathbf{d}_t & = \left(w_t, h_t, \Delta w_t, \Delta h_t\right),    \\
     \Delta w_t   & = w_t - w_{t-1}, \quad \Delta h_t = h_t - h_{t-1}.
@@ -1190,7 +1376,7 @@ The dimensional attributes vector at time $t$, denoted as $\mathbf{d}_t$, captur
 Here, $(w_t, h_t)$ represents the width and height at time $t$, and $(\Delta w_t, \Delta h_t)$ are the changes in these dimensions from the previous time step.
 
 \subsubsection*{Input Sequences for Model}
-The sequences of these vectors over a time window of \(n\) frames are fed into the model as:
+\noindent The sequences of these vectors over a time window of \(n\) frames are fed into the model as:
 \[
     \mathbf{P} = \{\mathbf{p}_{t-1+n}, \mathbf{p}_{t-n+2}, \dots, \mathbf{p}_t\}, \quad \mathbf{D} = \{\mathbf{d}_{t-1+n}, \mathbf{d}_{t-n+2}, \dots, \mathbf{d}_t\},
 \]
@@ -1200,7 +1386,7 @@ are processed by the model's encoders to extract temporal features, which are
 then used to predict future bounding box positions and sizes.
 
 \subsection{Encoders}
-The SizPos-GRU model employs two separate GRU encoders: one for processing the
+\noindent The SizPos-GRU model employs two separate GRU encoders: one for processing the
 sequence of spatial dynamics vectors and another for processing the sequence of
 dimensional attributes vectors. Both encoders are designed to extract
 meaningful temporal features from their respective input sequences, which are
@@ -1214,21 +1400,21 @@ subsequently used by the decoders to generate predictions.
 \end{figure}
 
 \subsubsection*{Position Encoder}
-The position encoder processes the sequence of spatial dynamics vectors, which include the bounding box’s position, velocity, and acceleration over time. It is defined as:
+\noindent The position encoder processes the sequence of spatial dynamics vectors, which include the bounding box’s position, velocity, and acceleration over time. It is defined as:
 \begin{equation}
     H_p, h_{p_T} = \text{GRU}_p(\mathbf{P}, h_{p_0}),
 \end{equation}
 where $\mathbf{P} = (\mathbf{p}_{t-1+n}, \mathbf{p}_{t-n+2}, \ldots, \mathbf{p}_t)$ is the input sequence of spatial dynamics vectors, $H_p = (h_{p_1}, h_{p_2}, \ldots, h_{p_T})$ represents the sequence of hidden states generated by the GRU, and $h_{p_T}$ is the final hidden state at time $T$. The initial hidden state $h_{p_0}$ is typically initialised to zero.
 
 \subsubsection*{Size Encoder}
-The size encoder processes the sequence of dimensional attributes vectors, which include the bounding box’s width, height, and changes in these dimensions over time. It is defined as:
+\noindent The size encoder processes the sequence of dimensional attributes vectors, which include the bounding box’s width, height, and changes in these dimensions over time. It is defined as:
 \begin{equation}
     H_d, h_{d_T} = \text{GRU}_d(\mathbf{D}, h_{d_0}),
 \end{equation}
 where $\mathbf{D} = (\mathbf{d}_{t-1+n}, \mathbf{d}_{t-n+2}, \ldots, \mathbf{d}_t)$ is the input sequence of dimensional attributes vectors, $H_d = (h_{d_1}, h_{d_2}, \ldots, h_{d_T})$ represents the sequence of hidden states generated by the GRU, and $h_{d_T}$ is the final hidden state at time $T$. Similarly, the initial hidden state $h_{d_0}$ is initialised to zero.
 
 \subsection{Hidden State Fusion}
-After the position and size encoders process their respective input sequences,
+\noindent After the position and size encoders process their respective input sequences,
 the resulting hidden states are combined to leverage information from both
 spatial dynamics and dimensional attributes. This fusion is achieved by
 concatenating the final hidden states from both encoders and passing them
@@ -1239,19 +1425,17 @@ through a fully connected layer:
 where $h_{p_T}$ and $h_{d_T}$ are the final hidden states from the position and size encoders, respectively, $\oplus$ denotes the concatenation operation, $W_{\text{combine}}$ is the weight matrix, and $b_{\text{combine}}$ is the bias vector. The fused hidden state $h_{\text{combined}}$ encapsulates the temporal features from both input sequences, enabling the model to generate context-aware predictions.
 
 \subsection{Decoders}
-The \textit{SizPos-GRU} model utilises two specialised decoders to predict the
+\noindent The \textit{SizPos-GRU} model utilises two specialised decoders to predict the
 future bounding boxes over the next \(m\) frames. These decoders are designed
 to process the temporal features extracted by the encoders and the fused hidden
 states, generating accurate and context-aware predictions.
 
-\subsubsection{Position Decoder}
-The position decoder is responsible for predicting the future spatial dynamics
+\subsubsection*{Position Decoder}
+\noindent The position decoder is responsible for predicting the future spatial dynamics
 of the bounding boxes, including their positions and velocities. The decoding
 process begins by initialising the input with the last observed position in the
 sequence. The decoder then iteratively predicts future positions over the
-defined prediction horizon \(m\).
-
-During each iteration, the current input is processed through a stack of GRU
+defined prediction horizon \(m\). During each iteration, the current input is processed through a stack of GRU
 layers, which update the hidden state based on the previous hidden state and
 current input. This updated hidden state, encapsulating temporal dependencies,
 is then passed through a self-attention mechanism. The self-attention mechanism
@@ -1268,7 +1452,6 @@ generate a context vector that highlights the most relevant temporal features.
 \begin{equation}
     c_p = \sum_{i=1}^{m} \alpha_i h_{p_i},
 \end{equation}
-
 The context vector $c_p$ is then passed through a series of fully connected
 layers, with dropout and ReLU activation functions, to produce the final
 position prediction for the current time step:
@@ -1279,21 +1462,18 @@ position prediction for the current time step:
 \begin{equation}
     \hat{\mathbf{P}}{t+1:m} = \text{Dense}2(\hat{\mathbf{P}}{t+1:m}),
 \end{equation}
-
 The predicted position is then used as the input for the next iteration of the
 decoding loop, enabling the model to recursively generate predictions for
 subsequent time steps. This iterative process continues until predictions for
 all future time steps within the prediction window have been generated, and the
 accumulated sequence of predicted positions is returned as the final output.
 
-\subsubsection{Size Decoder}
-The size decoder operates similarly to the position decoder but focuses on
+\subsubsection*{Size Decoder}
+\noindent The size decoder operates similarly to the position decoder but focuses on
 predicting the future dimensions of the bounding boxes, such as width and
 height. The decoding process starts with the last observed size in the
 sequence, and the decoder iteratively generates predictions for future sizes
-over the prediction horizon m.
-
-In each iteration, the current size input is processed through GRU layers that
+over the prediction horizon m. In each iteration, the current size input is processed through GRU layers that
 capture the temporal dynamics of size changes. The output from the GRU is then
 passed through a self-attention mechanism, which assigns different weights to
 the hidden states across time. These weights are used to compute a context
@@ -1309,7 +1489,6 @@ information for the current prediction step.
 \begin{equation}
     c_d = \sum_{i=1}^{m} \beta_i h_{d_i},
 \end{equation}
-
 The context vector $c_d$ is passed through dense layers with dropout and ReLU
 activation to produce the final size prediction:
 
@@ -1319,22 +1498,21 @@ activation to produce the final size prediction:
 \begin{equation}
     \hat{\mathbf{D}}{t+1:m} = \text{Dense}2(\hat{\mathbf{D}}{t+1:m}),
 \end{equation}
-
 Similar to the position decoder, the predicted size is then used as input for
 the next iteration, ensuring that each prediction is contextually informed by
 previous outputs. This loop continues until the decoder has generated
 predictions for all future time steps within the prediction window m, which are
 then returned as the sequence of predicted sizes.
 
-\subsubsection{Self-Attention Mechanism}
-The self-attention mechanism plays a pivotal role in both decoders by enhancing
+\subsubsection*{Self-Attention Mechanism}
+\noindent The self-attention mechanism plays a pivotal role in both decoders by enhancing
 the model’s ability to focus on the most relevant parts of the input sequences.
 By dynamically assigning weights to different time steps, the self-attention
 mechanism allows the model to capture long-range dependencies, which are
 crucial for accurate predictions over extended time horizons.
 
-\subsubsection{Final Output}
-The final output of the decoding process consists of sequences of predicted
+\subsubsection*{Final Output}
+\noindent The final output of the decoding process consists of sequences of predicted
 positions and sizes for the specified number of future time steps m. These
 predictions provide valuable insights into the expected future states of the
 bounding boxes, including their movement and changes in dimensions. The
@@ -1350,181 +1528,525 @@ analysis and object tracking.
     \label{fig:sizpos-gru-decoder}
 \end{figure}
 
+\newpage
 \section{Algorithm Design}
-\subsection{Data Preprocessing}
+
+\subsection{Calculation of Key Values for Loss Functions}
+\noindent In the SizPos-GRU model, several values are calculated to derive the loss
+functions that guide the model training and optimisation process. These values
+are obtained by transforming the model's raw outputs into meaningful metrics
+that can be compared with the ground truth data. The key values calculated
+include:
+
+\subsubsection*{Bounding Box and Velocity Estimation}
+\noindent For each time step \(t\), the model predicts spatial dynamics \(\hat{\mathbf{p}}_t\) and dimensional attributes \(\hat{\mathbf{d}}_t\). These predictions are used to estimate bounding boxes and velocities:
+
+\begin{align}
+    \hat{b}_{x,t} & = \hat{p}_{x,t},                    \\
+    \hat{b}_{y,t} & = \hat{p}_{y,t},                    \\
+    \hat{b}_{w,t} & = \hat{d}_{w,t},                    \\
+    \hat{b}_{h,t} & = \hat{d}_{h,t},                    \\
+    \hat{v}_{x,t} & = \hat{p}_{x,t} - \hat{p}_{x,t-1},  \\
+    \hat{v}_{y,t} & = \hat{p}_{y,t} - \hat{p}_{y,t-1},  \\
+    \hat{v}_{w,t} & = \hat{d}_{w,t} - \hat{d}_{w,t-1},  \\
+    \hat{v}_{h,t} & = \hat{d}_{h,t} - \hat{d}_{h,t-1}.
+\end{align}
+Where \(\hat{b}_{x,t}, \hat{b}_{y,t}, \hat{b}_{w,t}, \hat{b}_{h,t}\) represent
+the predicted bounding box's center coordinates, width, and height at time
+\(t\), and \(\hat{v}_{x,t}, \hat{v}_{y,t}, \hat{v}_{w,t}, \hat{v}_{h,t}\)
+represent the corresponding velocities.
+
+\subsubsection*{Velocity to Position Conversion}
+\noindent To derive future positions from the predicted velocities, the following equations are used:
+
+\begin{align}
+    \hat{p}_{x,t+1} & = \hat{p}_{x,t} + \hat{v}_{x,t},  \\
+    \hat{p}_{y,t+1} & = \hat{p}_{y,t} + \hat{v}_{y,t},  \\
+    \hat{d}_{w,t+1} & = \hat{d}_{w,t} + \hat{v}_{w,t},  \\
+    \hat{d}_{h,t+1} & = \hat{d}_{h,t} + \hat{v}_{h,t}.
+\end{align}
+These equations are used iteratively to predict the positions and sizes at each
+future time step, integrating the model's output over time.
+
+\newpage
+\subsection{Loss Function Formulation}
+To train the SizPos-GRU model, Smooth L1 Loss, also known as Huber Loss, a
+composite loss function is employed, which takes into account various aspects
+of prediction accuracy. This loss function is a combination of L1 and L2
+losses, providing a balance between the two, making it less sensitive to
+outliers than L2 loss while avoiding the large gradient changes associated with
+L1 loss. The loss functions have been applied to various aspects of the model
+predictions:
+
+\subsubsection*{Size and Position Loss}
+\noindent The model calculates the Smooth L1 Loss for the predicted sizes and positions compared to the ground truth data:
+
+\begin{align}
+    \mathcal{L}_{\text{size}}     & = \frac{1}{N} \sum_{t=1}^{m} \sum_{i \in \{w, h\}} \text{SmoothL1}\left(\hat{d}_{i,t}, d^{gt}_{i,t}\right),  \\
+    \mathcal{L}_{\text{position}} & = \frac{1}{N} \sum_{t=1}^{m} \sum_{i \in \{x, y\}} \text{SmoothL1}\left(\hat{p}_{i,t}, p^{gt}_{i,t}\right).
+\end{align}
+Where \(\text{SmoothL1}(a, b)\) is defined as:
+
+\begin{equation}
+    \text{SmoothL1}(a, b) =
+    \begin{cases} 
+        0.5 \times (a - b)^2 & \text{if } |a - b| < 1 \\
+        |a - b| - 0.5        & \text{otherwise}.
+    \end{cases}
+\end{equation}
+
+\subsubsection*{Bounding Box Loss}
+\noindent The model also computes the loss for the predicted bounding boxes, which represent the object's position and size in a unified format. The bounding box at each time step \(t\) is given by \(\hat{\mathbf{b}}_t = (\hat{b}_{x,t}, \hat{b}_{y,t}, \hat{b}_{w,t}, \hat{b}_{h,t})\). The loss for these predictions is calculated as:
+
+\begin{equation}
+    \mathcal{L}_{\text{bbox}} = \frac{1}{N} \sum_{t=1}^{m} \sum_{i \in \{x, y, w, h\}} \text{SmoothL1}\left(\hat{b}_{i,t}, b^{gt}_{i,t}\right),
+\end{equation}
+where \(b^{gt}_{i,t}\) represents the ground truth bounding box coordinates and
+dimensions at time \(t\).
+
+\subsubsection*{Velocity-to-Position Loss}
+\noindent To ensure that the predicted velocities accurately translate to future positions, the model includes a loss term that compares the predicted positions derived from velocities (\(\hat{p}_{x,t+1}\), \(\hat{p}_{y,t+1}\), \(\hat{d}_{w,t+1}\), \(\hat{d}_{h,t+1}\)) with the ground truth positions and sizes at the next time step:
+
+\begin{equation}
+    \mathcal{L}_{\text{vel-to-pos}} = \frac{1}{N} \sum_{t=1}^{m} \sum_{i \in \{x, y, w, h\}} \text{SmoothL1}\left(\hat{p}_{i,t+1}, p^{gt}_{i,t+1}\right).
+\end{equation}
+This loss term ensures that the model's predicted velocities are consistent
+with the subsequent positions, reinforcing the temporal coherence of the
+predictions.
+
+\subsubsection*{Total Loss}
+\noindent The total loss used for model training is the sum of all the individual losses:
+
+\begin{equation}
+    \mathcal{L}_{\text{total}} = \mathcal{L}_{\text{size}} + \mathcal{L}_{\text{position}} + \mathcal{L}_{\text{bbox}} + \mathcal{L}_{\text{vel-to-pos}}.
+\end{equation}
 
 \subsection{Data Postprocessing}
+Post-processing is a crucial step in the proposed prediction pipeline that
+refines the raw predictions generated by the model. The main objective is to
+enhance the accuracy and smoothness of the predicted bounding box trajectories
+of the aircraft refueling port. Several smoothing techniques are applied to
+reduce noise and eliminate unrealistic variations in the predicted
+trajectories. These techniques ensure that the final output is both accurate
+and visually coherent. 
 
-\subsection{Data Augmentation Strategy}
-The data augmentation strategy is designed to enhance the robustness and
-generalization capability of the model. This strategy simulates various camera
-movements and imperfections that might occur in real-world scenarios. The
-augmentation approach consists of the following key components:
+\subsubsection*{Savitzky-Golay Filter}
 
-\subsubsection*{Sequence Reversal}
+\noindent The Savitzky-Golay filter is a digital filter used to smooth data while
+preserving its shape and features. It works by fitting successive subsets of
+data points with a low-degree polynomial. The filter is particularly effective
+in reducing noise without significantly distorting the signal. Given a
+trajectory $\mathbf{y} = \{y_1, y_2, \ldots, y_n\}$, the smoothed value at
+point $i$ is obtained by fitting a polynomial of degree $k$ over a window of
+size $2m + 1$ centered at $i$:
 
-For the training stage, the size of the dataset is doubled by including
-reversed sequences:
+\begin{equation}
+    \hat{y}_i = \sum_{j=-m}^{m} c_j y_{i+j},
+\end{equation}
+where $c_j$ are the coefficients determined by the polynomial fit.
 
-\begin{itemize}
-    \item For each original sequence $(S_1, S_2, ..., S_n)$, a reversed sequence $(S_n,
-              S_{n-1}, ..., S_1)$ is added.
-    \item This augmentation helps the model learn to predict both forward and backward
-          movements of the camera relative to the aircraft refueling port.
-\end{itemize}
+\subsubsection*{Moving Average Smoothing}
 
-\subsubsection*{Camera Movement Simulation}
+\noindent Moving average smoothing is a simple technique that calculates the average of a
+sliding window of data points, effectively reducing short-term fluctuations and
+highlighting longer-term trends. For a given trajectory $\mathbf{y}$, the
+smoothed value at point $i$ using a window of size $w$ is computed as:
 
-Subtle camera movements are simulated to make the model more robust to varying
-camera positions:
+\begin{equation}
+    \hat{y}_i = \frac{1}{w} \sum_{j=0}^{w-1} y_{i-j}.
+\end{equation}
+This method is straightforward and helps to smooth out irregularities in the
+trajectory.
 
-\begin{itemize}
-    \item \textbf{Panning}: A smooth, cumulative random offset is applied to the x and y coordinates of the bounding boxes. This simulates the effect of the camera panning horizontally or vertically.
-    \item The panning effect is modeled as:
-          \begin{equation}
-              \text{pan}_t = \sum_{i=1}^t \frac{N(0, \sigma^2)}{5}
-          \end{equation}
-          where $N(0, \sigma^2)$ is a normal distribution with mean 0 and variance $\sigma^2$.
-\end{itemize}
+\subsubsection*{Exponential Smoothing}
 
-\subsubsection*{Zoom Simulation}
+\noindent Exponential smoothing assigns exponentially decreasing weights to past
+observations, making it suitable for time-series data where recent data points
+are more relevant. The smoothed value at time $t$ is given by:
 
-To account for changes in the apparent size of the refueling port due to camera
-zoom or aircraft movement:
+\begin{equation}
+    \hat{y}_t = \alpha y_t + (1 - \alpha) \hat{y}_{t-1},
+\end{equation}
+where $\alpha$ is the smoothing factor, $0 < \alpha \leq 1$, and
+$\hat{y}_{t-1}$ is the previously smoothed value.
 
-\begin{itemize}
-    \item A smooth, cumulative scaling factor is applied to the width and height of the
-          bounding boxes.
-    \item The zoom effect is modeled as:
-          \begin{equation}
-              \text{zoom}_t = \prod_{i=1}^t U(0.98, 1.02)
-          \end{equation}
-          where $U(0.98, 1.02)$ is a uniform distribution between 0.98 and 1.02.
-\end{itemize}
+\subsubsection*{Adaptive Smoothing}
 
-\subsubsection*{Detection Inaccuracy Simulation}
+\noindent Adaptive smoothing adjusts the degree of smoothing based on the variation
+observed in the data. If a significant change is detected between consecutive
+data points, more aggressive smoothing is applied. Given a trajectory
+$\mathbf{y}$, the adaptive smoothing is defined as:
 
-To make the model more robust to slight inaccuracies in object detection:
+\begin{equation}
+    \hat{y}_t = 
+    \begin{cases} 
+        \text{Smooth}(\mathbf{y}_{t-k:t}) & \text{if } |y_t - y_{t-1}| > \text{threshold}, \\
+        y_t                               & \text{otherwise},
+    \end{cases}
+\end{equation}
+where $\text{Smooth}(\mathbf{y}_{t-k:t})$ applies a smoothing filter over the
+recent $k$ data points.
 
-\begin{itemize}
-    \item Small Gaussian noise is added to all bounding box coordinates.
-    \item The noise is sampled from $N(0, 0.002^2)$ for each coordinate.
-\end{itemize}
+\subsubsection*{Hybrid Smoothing}
 
-\subsection{Implementation Details}
+\noindent Hybrid smoothing combines multiple smoothing techniques to leverage their
+strengths. Typically, a Savitzky-Golay filter is applied first, followed by a
+moving average smoothing on the already smoothed trajectory. Let
+$\hat{\mathbf{y}}^{(1)}$ be the output of the Savitzky-Golay filter applied to
+$\mathbf{y}$. The final smoothed trajectory $\hat{\mathbf{y}}^{(2)}$ is
+obtained by applying a moving average:
 
-The augmentation strategy is applied with the following considerations:
+\begin{equation}
+    \hat{\mathbf{y}}^{(2)} = \frac{1}{w} \sum_{j=0}^{w-1} \hat{y}^{(1)}_{i-j},
+\end{equation}
+where $w$ is the window size for the moving average.
 
-\begin{itemize}
-    \item Augmentations are only applied during the training stage.
-    \item Each sequence has a 50\% chance of being augmented.
-    \item When applied, augmentations affect both input and output sequences consistently
-          to maintain temporal coherence.
-    \item All augmented values are clipped to the range [0, 1] to ensure they remain
-          valid normalised coordinates in the YOLO format.
-\end{itemize}
+\subsubsection*{Kalman Filter Smoothing}
 
-This comprehensive augmentation strategy enhances the diversity of the training
-data, helping the model generalise better to various real-world scenarios
-involving camera movements and detection variations.
+\noindent The Kalman Filter is a statistical method used to estimate the state of a
+dynamic system from a series of noisy measurements. In our context, it is used
+to smooth the predicted bounding box trajectories by estimating the underlying
+motion parameters. The Kalman Filter operates in two main steps: prediction and
+update.The predicted state $\mathbf{x}_{t|t-1}$ and its covariance
+$\mathbf{P}_{t|t-1}$ are computed as:
+
+\begin{equation}
+    \mathbf{x}_{t|t-1} = \mathbf{F} \mathbf{x}_{t-1|t-1},
+\end{equation}
+
+\begin{equation}
+    \mathbf{P}_{t|t-1} = \mathbf{F} \mathbf{P}_{t-1|t-1} \mathbf{F}^T + \mathbf{Q},
+\end{equation}
+where $\mathbf{F}$ is the state transition matrix, and $\mathbf{Q}$ is the
+process noise covariance matrix. The update step corrects the prediction using the actual measurement
+$\mathbf{z}_t$:
+
+\begin{equation}
+    \mathbf{K}_t = \mathbf{P}_{t|t-1} \mathbf{H}^T (\mathbf{H} \mathbf{P}_{t|t-1} \mathbf{H}^T + \mathbf{R})^{-1},
+\end{equation}
+
+\begin{equation}
+    \mathbf{x}_{t|t} = \mathbf{x}_{t|t-1} + \mathbf{K}_t (\mathbf{z}_t - \mathbf{H} \mathbf{x}_{t|t-1}),
+\end{equation}
+
+\begin{equation}
+    \mathbf{P}_{t|t} = (\mathbf{I} - \mathbf{K}_t \mathbf{H}) \mathbf{P}_{t|t-1},
+\end{equation}
+where $\mathbf{K}_t$ is the Kalman gain, $\mathbf{H}$ is the measurement
+matrix, and $\mathbf{R}$ is the measurement noise covariance.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% EXPERIMENT DESIGN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Experiment Design}\label{chap:experiment_design}
 \section{Experiment Environment}
+The experiments were conducted using a high-performance computing environment
+optimised for deep learning tasks. The hardware configuration included an
+NVIDIA A40 GPU with 48 GB of VRAM, 9 virtual CPUs (vCPUs), and 50 GB of RAM,
+ensuring efficient handling of large-scale models and data processing tasks.
+The software environment was based on a Linux operating system, utilising
+PyTorch Lightning~\cite{Falcon_PyTorch_Lightning_2019} for sequence model
+implementation. PyTorch Lightning provided a streamlined and modular framework,
+improving experimentation and reproducibility. Data loading was managed using
+PyTorch's \texttt{DataLoader}~\cite{Ansel_PyTorch_2_Faster_2024} with 8 worker
+threads to maximise I/O efficiency. 
 
+\section{Model Training and Optimization}
+\subsection*{Model Parameters}
+\noindent The SizPos-GRU model was trained using the Adam optimizer, which is known for
+its ability to adapt learning rates for each parameter, enhancing the
+convergence speed and stability of the training process. Adam computes adaptive
+learning rates for each parameter by keeping track of both the first and second
+moments of the gradients. This optimizer was selected due to its proven
+efficiency in handling non-stationary objectives and noisy gradients, which are
+common in deep learning models. The learning rate was dynamically adjusted
+using a \textit{ReduceLROnPlateau} scheduler. This scheduler is particularly
+effective in preventing the model from getting stuck in local minima by
+reducing the learning rate when the validation loss stops improving. The
+learning rate \(\text{LR}_{\text{new}}\) is updated according to the following
+rule:
+
+\begin{equation}
+    \text{LR}_{\text{new}} = \text{LR}_{\text{current}} \times \text{scheduler\_factor},
+\end{equation}
+where \(\text{scheduler\_factor}\) is a predefined factor, typically set to a
+value less than 1, which controls how significantly the learning rate is
+reduced. This approach allows the model to make finer updates as it converges,
+thereby improving the chances of finding a better local minimum. The training
+was conducted with close monitoring of validation performance to ensure the
+model's ability to generalise to unseen data. By using early stopping based on
+validation metrics, the training process was made more efficient, preventing
+overfitting and ensuring that the model retained its ability to perform well on
+new data. Table~\ref{tab:training_parameters} provides an overview of the
+training configuration parameters used for the SizPos-GRU model. These
+parameters were selected based on the optimal results obtained from extensive
+hyperparameter tuning.
+
+\begin{table}[H]
+    \centering
+    \caption{Training Configuration Parameters for the SizPos-GRU Model. The values were selected based on optimal results from hyperparameter tuning.}
+    \label{tab:training_parameters}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lccc}
+            \toprule
+            \textbf{Parameter} & \textbf{Description}                                       & \textbf{Value}                            \\ 
+            \midrule
+            Random Seed        & Seed value for reproducibility                             & 42                                        \\ 
+            Number of Workers  & Number of CPU cores used for data loading                  & 8                                         \\ 
+            Batch Size         & Number of samples per batch during training                & 64                                        \\ 
+            Input Frames       & Number of input frames fed into the model                  & 15, 30                                    \\ 
+            Output Frames      & Number of frames predicted by the model                    & 30, 60                                    \\ 
+            Hidden Layer Size  & Size of the hidden layers in the GRU network               & 128, 256                                  \\ 
+            Number of Layers   & Number of GRU layers stacked in the network                & 8                                         \\ 
+            Learning Rate      & Initial learning rate for the optimizer                    & $5 \times 10^{-4}$                        \\ 
+            Scheduler Patience & Number of epochs to wait before reducing the learning rate & 10 epochs                                 \\ 
+            Scheduler Factor   & Factor by which the learning rate is reduced               & 0.9                                       \\ 
+            Max Epochs         & Maximum number of epochs for training                      & 100                                       \\ 
+            Dropout Rate       & Probability of dropping a neuron during training           & 0.2                                       \\ 
+            Optimizer          & Optimization algorithm used for training                   & Adam                                      \\ 
+            Scheduler          & Learning rate scheduler used for dynamic adjustment        & ReduceLROnPlateau                         \\ 
+            Checkpoint Metric  & Metric used to save the best model checkpoint              & Best Final Intersection over Union (FIOU) \\ 
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+\end{table}
+
+\subsection*{Hyperparameter Tuning}
+\noindent Extensive hyperparameter tuning was conducted to determine the most effective
+configurations for the SizPos-GRU model. This process involved systematically
+varying key parameters to assess their impact on model performance. The goal
+was to strike a balance between model complexity and computational efficiency
+while ensuring that the model could learn effectively from the available data.
+Table~\ref{tab:hp_tuning} summarises the hyperparameter tuning configuration,
+listing the range of values tested for each parameter. The tuning process
+included exploring different sizes and numbers of hidden layers, varying the
+number of input and output frames, and adjusting the learning rate, among other
+factors.
+
+\begin{table}[H]
+    \centering
+    \caption{Hyperparameter Tuning Configuration}
+    \label{tab:hp_tuning}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lcc}
+            \toprule
+            \textbf{Parameter}      & \textbf{Description}                                       & \textbf{Values Tested} \\ 
+            \midrule
+            Input Frames            & Number of input frames fed into the model                  & 15, 30                 \\ 
+            Output Frames           & Number of frames predicted by the model                    & 30, 60                 \\ 
+            Hidden Layer Sizes      & Size of the hidden layers in the GRU network               & 32, 64, 128, 256, 512  \\ 
+            Number of Hidden Layers & Number of GRU layers stacked in the network                & 1, 2, 4, 8             \\ 
+            Learning Rate           & Initial learning rate for the optimizer                    & $5 \times 10^{-4}$     \\ 
+            Scheduler Patience      & Number of epochs to wait before reducing the learning rate & 10 epochs              \\ 
+            Scheduler Factor        & Factor by which the learning rate is reduced               & 0.9                    \\ 
+            Max Epochs              & Maximum number of epochs for training                      & 100                    \\ 
+            Dropout Rate            & Probability of dropping a neuron during training           & 0.2                    \\ 
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+\end{table}
+
+\noindent The final selection of hyperparameters, informed by the tuning results, was
+critical in ensuring the SizPos-GRU model's effectiveness. The chosen
+parameters provided a balance that allowed the model to perform well across
+different scenarios while maintaining computational efficiency. This careful
+calibration was essential for achieving the desired model accuracy and
+robustness during the training process.
+
+\subsection*{Data Augmentation Strategy}
+\noindent The data augmentation strategy is designed to enhance the model's robustness
+and generalization capability by simulating various camera movements and
+imperfections that might occur in real-world scenarios. This approach ensures
+the model is well-prepared to handle diverse and unpredictable situations. The augmentation strategy is applied with several considerations to maintain
+data integrity and ensure realistic training conditions. Augmentations are
+exclusively applied during the training stage to avoid influencing evaluation
+results, ensuring that the model's performance is assessed on clean,
+unaugmented data. Each sequence has a 50\% probability of being augmented,
+which ensures a balanced mix of original and augmented data. This probabilistic
+approach prevents overfitting to any single type of augmentation. When
+augmentations are applied, they affect both input and output sequences
+consistently, maintaining temporal coherence and realism across the sequence,
+which is crucial for models learning from sequential data. All augmented values
+are clipped to the range [0, 1], ensuring they remain valid normalized
+coordinates in the YOLO format. This clipping ensures that the augmented
+bounding boxes are usable within the model's expected input format. The data
+loading process also includes error handling mechanisms to manage any
+inconsistencies in the data, ensuring that training can continue even if
+individual samples are problematic.
+
+\subsubsection*{Sequence Reversal}
+\noindent To effectively double the size of the training dataset, reversed sequences are
+included. For each original sequence $(S_1, S_2, \ldots, S_n)$, a corresponding
+reversed sequence $(S_n, S_{n-1}, \ldots, S_1)$ is added. This augmentation
+enables the model to learn to predict both forward and backward camera
+movements relative to the aircraft refueling port, thereby enhancing its
+adaptability.
+
+\subsubsection*{Camera Movement Simulation}
+\noindent Subtle camera movements are simulated to improve the model's robustness to
+varying camera positions. Panning is applied by introducing a smooth,
+cumulative random offset to the x and y coordinates of the bounding boxes,
+simulating the effect of the camera panning horizontally or vertically. The
+panning effect is modeled as:
+\[
+    \text{pan}_t = \sum_{i=1}^t \frac{N(0, \sigma^2)}{5}
+\]
+where $N(0, \sigma^2)$ represents a normal distribution with a mean of 0 and
+variance $\sigma^2$. This simulation ensures the model can effectively handle
+gradual shifts in the camera's viewpoint.
+
+\subsubsection*{Zoom Simulation}
+
+\noindent To account for changes in the apparent size of the refueling port due to camera
+zoom or aircraft movement, a smooth, cumulative scaling factor is applied to
+the width and height of the bounding boxes. The zoom effect is modeled as:
+\[
+    \text{zoom}_t = \prod_{i=1}^t U(0.98, 1.02)
+\]
+where $U(0.98, 1.02)$ is a uniform distribution between 0.98 and 1.02. This
+augmentation prepares the model to adapt to scenarios where the distance
+between the camera and the refueling port changes dynamically.
+
+\subsubsection*{Detection Inaccuracy Simulation}
+
+\noindent To enhance the model's resilience to slight inaccuracies in object detection,
+small Gaussian noise is added to all bounding box coordinates. This noise is
+sampled from $N(0, 0.002^2)$ for each coordinate, introducing minor variations
+that simulate real-world detection imperfections. Such noise mimics the slight
+inaccuracies that can occur in detection algorithms due to environmental
+factors or sensor noise.
+
+\newpage
 \section{Comparison Experiments}
-To evaluate the performance of the proposed \textit{SizPos-GRU} model, a series
-of comparison experiments are conducted using various baseline models. These
-models are designed to predict the future positions and sizes of the refueling
-port in video sequences, providing a reference point for assessing the
-effectiveness of the \textit{SizPos-GRU} model. 
+To evaluate the performance of the proposed SizPos-GRU model, a series of
+comparison experiments were conducted using several baseline models. These
+experiments are designed to assess the model's capability in predicting the
+future positions and sizes of the refueling port in video sequences. The
+baseline models considered include the Linear Kalman Filter (LKF), Constant
+Velocity (CV) model, and variants of Recurrent Neural Networks (RNNs) such as
+Long Short-Term Memory (LSTM) and Gated Recurrent Unit (GRU).
 
 \subsection*{Linear Kalman Filter (LKF)}
-The Linear Kalman Filter (LKF) is a powerful tool for predicting the future
-positions of objects based on their observed trajectories. This model is
-particularly useful in scenarios where the motion of objects follows a linear
-pattern with Gaussian noise. In this implementation, the LKF is applied to
-predict future bounding box positions in a video stream. The LKF operates on
-sequences of past bounding box positions. The state vector \(\mathbf{x} \in
-\mathbb{R}^4\) includes the position and velocity components, and the state
-transition matrix \(\mathbf{F}\) governs the linear motion model:
+\noindent The Linear Kalman Filter (LKF) is a recursive filter that estimates the state
+of a linear dynamic system from a series of incomplete and noisy measurements.
+In the context of predicting the position of the refueling port, the state
+vector $\mathbf{x}_t$ includes the position and velocity of the object, while
+the state transition model assumes constant velocity:
 
-\[
-    \mathbf{F} = \begin{bmatrix} 1 & 0 & \Delta t & 0 \\ 0 & 1 & 0 & \Delta t \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix},
-\]
+\begin{equation}
+    \mathbf{x}_t = \mathbf{F} \mathbf{x}_{t-1} + \mathbf{w}_{t-1},
+\end{equation}
 
-where \(\Delta t\) is the time step between frames.
+\begin{equation}
+    \mathbf{z}_t = \mathbf{H} \mathbf{x}_t + \mathbf{v}_t,
+\end{equation}
+where $\mathbf{F}$ is the state transition matrix, $\mathbf{H}$ is the
+observation matrix, $\mathbf{w}_{t-1}$ is the process noise, and $\mathbf{v}_t$
+is the measurement noise. The Kalman filter recursively updates the state
+estimate $\hat{\mathbf{x}}_t$ and its covariance $\mathbf{P}_t$ through the
+prediction and update steps:
 
-Given a sequence of past positions \(\mathbf{P} \in \mathbb{R}^{T \times 4}\),
-where \(T\) is the number of observed frames, the LKF iteratively predicts and
-updates the state estimate \(\mathbf{x}\) using the following steps:
-
-\begin{enumerate}
-    \item \textbf{Prediction Step:} The state and error covariance matrices are predicted using the state transition matrix \(\mathbf{F}\) and process noise covariance \(\mathbf{Q}\).
-    \item \textbf{Update Step:} The Kalman Gain \(\mathbf{K}\) is computed, and the state estimate is updated using the latest measurement.
-\end{enumerate}
-
-This process continues for the length of the observed sequence, and the final
-state is used to predict the future positions for up to \(K\) frames.
-
+\begin{align}
+    \text{Prediction step:} & \quad \hat{\mathbf{x}}_{t|t-1} = \mathbf{F} \hat{\mathbf{x}}_{t-1|t-1},                                                                 \\
+                            & \quad \mathbf{P}_{t|t-1} = \mathbf{F} \mathbf{P}_{t-1|t-1} \mathbf{F}^\top + \mathbf{Q},                                                \\
+    \text{Update step:}     & \quad \mathbf{K}_t = \mathbf{P}_{t|t-1} \mathbf{H}^\top \left(\mathbf{H} \mathbf{P}_{t|t-1} \mathbf{H}^\top + \mathbf{R}\right)^{-1},   \\
+                            & \quad \hat{\mathbf{x}}_{t|t} = \hat{\mathbf{x}}_{t|t-1} + \mathbf{K}_t \left(\mathbf{z}_t - \mathbf{H} \hat{\mathbf{x}}_{t|t-1}\right), \\
+                            & \quad \mathbf{P}_{t|t} = \left(\mathbf{I} - \mathbf{K}_t \mathbf{H}\right) \mathbf{P}_{t|t-1}.
+\end{align}
+The Kalman gain $\mathbf{K}_t$ optimally balances the prediction and
+measurement uncertainties.
 \subsection*{Constant Velocity (CV)}
-The Constant Velocity Trajectory Prediction Model assumes that an object's
-future trajectory can be extrapolated from its recent motion, with constant
-speed and direction. Given a sequence of past bounding boxes \(\mathbf{P} \in
-\mathbb{R}^{T \times 4}\), where \(T\) is the number of past time steps, the
-model first computes the velocities between consecutive frames:
+\noindent The Constant Velocity (CV) model assumes that the object continues to move at a
+constant speed and direction. Given a sequence of past positions $\mathbf{P} =
+    \{(x_1, y_1), \dots, (x_T, y_T)\}$, the velocity is estimated as:
 
-\[
-    \text{velocities} = \mathbf{P}[:, 1:] - \mathbf{P}[:, :-1].
-\]
+\begin{equation}
+    \mathbf{v} = \frac{1}{T-1} \sum_{t=2}^{T} \left(\mathbf{P}_t - \mathbf{P}_{t-1}\right),
+\end{equation}
+The future positions $\mathbf{F}_{k}$ for $k$ future steps are predicted by:
 
-The average velocity \(\bar{\mathbf{V}}\) is then calculated across all time
-steps:
+\begin{equation}
+    \mathbf{F}_k = \mathbf{P}_T + k \cdot \mathbf{v}.
+\end{equation}
+This approach is simple and fast but may be limited in its ability to handle
+dynamic or non-linear motions.
 
-\[
-    \bar{\mathbf{V}} = \text{mean}(\text{velocities}, \text{dim}=1, \text{keepdim=True}).
-\]
-
-Using the last observed position \(\mathbf{P}_T\) and the average velocity
-\(\bar{\mathbf{V}}\), the future positions for \(k = 1, 2, \dots, K\) frames
-are predicted as:
-
-\[
-    \mathbf{F}_k = \mathbf{P}_T + k \cdot \bar{\mathbf{V}},
-\]
-
-where \(K\) represents the number of future frames to predict. This prediction
-assumes that the object will continue to move with a constant velocity.
-
-\subsection*{LSTM PosVelAcc}
-The LSTM PosVelAcc model employs a Long Short-Term Memory (LSTM) network to
+\subsection*{LSTM Model (PosVelAcc-LSTM)}
+\noindent The PosVelAcc-LSTM model leverages Long Short-Term Memory (LSTM) networks to
 predict future bounding box positions by encoding past positions, velocities,
-and accelerations. The model is designed to capture the temporal dependencies
-in the movement of the refueling port. The input features include positional
-data, velocities, and accelerations, and the LSTM architecture is configured
-with multiple layers and hidden units. This model was inspired by the PV-LSTM
-model from~\citet{DBLP:journals/corr/abs-2010-10270}.
+and accelerations. The architecture includes separate LSTM encoders for each
+input sequence and decoders for generating the predicted positions and
+velocities. This model was inspired by the PV-LSTM model
+from~\citet{DBLP:journals/corr/abs-2010-10270}.
 
-\subsection*{LSTM SizPos}
-The LSTM SizPos model is a variant of the LSTM architecture that focuses on
-predicting future bounding box sizes and positions. This model encodes both the
-size (width and height) and positional data of the bounding boxes to provide a
-comprehensive prediction. The LSTM SizPos model differs from the LSTM PosVelAcc
-model in its input representation and architecture, specifically designed to
-handle changes in both size and position over time. The predictions of size and
-position are combined to produce the final bounding box predictions for future
-frames.
+\begin{algorithm}
+    \caption{PosVelAcc-LSTM Model}\label{alg:lstm_posvelacc}
+    \begin{algorithmic}[1]
+        \Require $\mathbf{P}$ (position sequence), $\mathbf{V}$ (velocity sequence), $\mathbf{A}$ (acceleration sequence)
+        \State Encode past positiosn, velocities, and accelerations using LSTM encoders
+        \State Combine encoded states: $\mathbf{h}_{\text{combined}} = \mathbf{h}_P + \mathbf{h}_V + \mathbf{h}_A$
+        \State Initialise decoder inputs with the last observed position and velocity
+        \For{$t = 1$ to $k$} \Comment{Predict for $k$ future steps}
+        \State Predict future position: $\hat{\mathbf{P}}_{t+1} = \text{LSTMDecoder}(\mathbf{h}_{\text{combined}})$
+        \State Predict future velocity: $\hat{\mathbf{V}}_{t+1} = \text{LSTMDecoder}(\mathbf{h}_{\text{combined}})$
+        \EndFor
+        \State \Return Predicted positions and velocities
+    \end{algorithmic}
+\end{algorithm}
 
-\subsection*{GRU PosVelAcc}
-The GRU PosVelAcc model is similar to the LSTM PosVelAcc model but uses a Gated
-Recurrent Unit (GRU) network instead of an LSTM. GRU networks are known for
-their computational efficiency and are used here to predict future positions by
-leveraging past positional, velocity, and acceleration data. The GRU
-architecture is configured to capture the temporal dynamics of the bounding
-box, and its simplicity offers an efficient alternative to the LSTM-based
-models. This model was inspired by the Fusion-GRU model from~\citet{FusionGRU}.
+\noindent The model is trained to minimise the smooth L1 loss between predicted and true
+positions and velocities:
 
+\begin{equation}
+    \mathcal{L}_{\text{total}} = \text{SmoothL1}(\hat{\mathbf{P}}, \mathbf{P}_{\text{true}}) + \text{SmoothL1}(\hat{\mathbf{V}}, \mathbf{V}_{\text{true}}).
+\end{equation}
+
+\subsection*{LSTM Model (SizPos-LSTM)}
+\noindent The SizPos-LSTM model extends the LSTM architecture to predict both the future
+bounding box positions and sizes. The model architecture includes separate LSTM
+encoders for the position and size sequences and decoders to predict future
+positions and sizes.
+
+\begin{algorithm}
+    \caption{SizPos-LSTM Model}\label{alg:lstm_sizpos}
+    \begin{algorithmic}[1]
+        \Require $\mathbf{P}$ (position sequence), $\mathbf{S}$ (size sequence)
+        \State Encode position and size using LSTM encoders
+        \State Combine encoded states: $\mathbf{h}_{\text{combined}} = \text{Combine}(\mathbf{h}_P, \mathbf{h}_S)$
+        \State Initialise decoder inputs with the last observed position and size
+        \For{$t = 1$ to $k$} \Comment{Predict for $k$ future steps}
+        \State Predict future position: $\hat{\mathbf{P}}_{t+1} = \text{LSTMDecoder}(\mathbf{h}_{\text{combined}})$
+        \State Predict future size: $\hat{\mathbf{S}}_{t+1} = \text{LSTMDecoder}(\mathbf{h}_{\text{combined}})$
+        \EndFor
+        \State \Return Predicted positions and sizes
+    \end{algorithmic}
+\end{algorithm}
+
+The loss function for training includes terms for both position and size
+predictions:
+
+\begin{equation}
+    \mathcal{L}_{\text{total}} = \text{SmoothL1}(\hat{\mathbf{P}}, \mathbf{P}_{\text{true}}) + \text{SmoothL1}(\hat{\mathbf{S}}, \mathbf{S}_{\text{true}}).
+\end{equation}
+
+\newpage
+\subsection*{GRU Model (PosVelAcc)}
+\noindent The PosVelAcc-GRU model is similar to the PosVelAcc-LSTM model but uses a Gated
+Recurrent Unit (GRU) network instead of LSTM for encoding and decoding. GRUs
+offer computational efficiency while maintaining the ability to capture
+temporal dependencies. This model was inspired by the Fusion-GRU model
+from~\citet{FusionGRU}.
+
+\begin{align}
+    \mathbf{z}_t         & = \sigma(\mathbf{W}_z \mathbf{x}_t + \mathbf{U}_z \mathbf{h}_{t-1}),                         \\
+    \mathbf{r}_t         & = \sigma(\mathbf{W}_r \mathbf{x}_t + \mathbf{U}_r \mathbf{h}_{t-1}),                         \\
+    \mathbf{\tilde{h}}_t & = \text{tanh}(\mathbf{W}_h \mathbf{x}_t + \mathbf{r}_t \odot \mathbf{U}_h \mathbf{h}_{t-1}), \\
+    \mathbf{h}_t         & = (1 - \mathbf{z}_t) \odot \mathbf{h}_{t-1} + \mathbf{z}_t \odot \mathbf{\tilde{h}}_t,
+\end{align}
+
+where $\mathbf{z}_t$ is the update gate, $\mathbf{r}_t$ is the reset gate, and
+$\mathbf{\tilde{h}}_t$ is the candidate hidden state.
+
+\newpage
 \section{Evaluation Metrics}
 In order to assess the performance of the proposed framework for predicting the
 future position of aircraft refueling ports, it is imperative to utilise
@@ -1537,7 +2059,7 @@ evaluation by measuring different aspects of the predicted trajectories and
 bounding boxes.
 
 \subsection*{Average Displacement Error (ADE)}
-The Average Displacement Error (ADE) measures the average Euclidean distance
+\noindent The Average Displacement Error (ADE) measures the average Euclidean distance
 between the predicted bounding box centers and the ground truth bounding box
 centers over all predicted frames. The ADE provides an overall measure of the
 spatial accuracy of the prediction model over time. It captures how closely the
@@ -1549,26 +2071,25 @@ are essential. It is defined as:
 \begin{equation}
     \text{ADE} = \frac{1}{m} \sum_{t=1}^{m} \sqrt{(x_t^{\text{pred}} - x_t^{\text{gt}})^2 + (y_t^{\text{pred}} - y_t^{\text{gt}})^2},
 \end{equation}
-where \(m\) is the number of predicted frames, \((x_t^{\text{pred}}, y_t^{\text{pred}})\) represents the center of the predicted bounding box at the \(t\)-th frame, and \((x_t^{\text{gt}}, y_t^{\text{gt}})\) represents the center of the ground truth bounding box at the same frame.
+where \(m\) is the number of predicted frames, \((x_t^{\text{pred}}, y_t^{\text{pred}})\) represents the center of the predicted bounding box at the \(t\)-th frame, and \((x_t^{\text{gt}}, y_t^{\text{gt}})\) represents the center of the ground truth bounding box at the same frame. \(x_t^{\text{pred}}\), \(y_t^{\text{pred}}\), \(x_t^{\text{gt}}\), \(y_t^{\text{gt}}\), and \(ADE\) are expressed in pixels.
 
 \subsection*{Final Displacement Error (FDE)}
-The Final Displacement Error (FDE) focuses on the accuracy of the predicted
+\noindent The Final Displacement Error (FDE) focuses on the accuracy of the predicted
 bounding box center in the final frame of the prediction horizon. The FDE is
 crucial for evaluating the model’s performance at the end of the prediction
 sequence. It focuses on the model’s ability to accurately predict the final
-position of the refueling port, which is particularly important in scenarios
-where the terminal accuracy of the object’s position is critical. A lower FDE
-indicates a high level of precision in predicting the final position. It is
-defined as the Euclidean distance between the predicted and ground truth
-bounding box centers at the final frame \(T\):
+position of the refueling port. A lower FDE indicates a high level of precision
+in predicting the final position. It is defined as the Euclidean distance
+between the predicted and ground truth bounding box centers at the final frame
+\(T\):
 \begin{equation}
     \text{FDE} = \sqrt{(x_T^{\text{pred}} - x_T^{\text{gt}})^2 + (y_T^{\text{pred}} - y_T^{\text{gt}})^2}.
 \end{equation}
-where \((x_T^{\text{pred}}, y_T^{\text{pred}})\) represents the center of the predicted bounding box at the final frame, and \((x_T^{\text{gt}}, y_T^{\text{gt}})\) represents the center of the ground truth bounding box at the same frame.
+where \((x_T^{\text{pred}}, y_T^{\text{pred}})\) represents the center of the predicted bounding box at the final frame, and \((x_T^{\text{gt}}, y_T^{\text{gt}})\) represents the center of the ground truth bounding box at the same frame.  \(x_t^{\text{pred}}\), \(y_t^{\text{pred}}\), \(x_t^{\text{gt}}\), \(y_t^{\text{gt}}\), and \(ADE\) are expressed in pixels.
 
 \newpage
 \subsection*{Average Intersection over Union (AIoU)}
-The Average Intersection over Union (AIoU) evaluates the overlap between the
+\noindent The Average Intersection over Union (AIoU) evaluates the overlap between the
 predicted bounding boxes and the ground truth bounding boxes, averaged over all
 predicted frames. AIoU provides an integrated measure of both the spatial
 accuracy and the dimensional consistency of the predicted bounding boxes over
@@ -1585,7 +2106,7 @@ physical interaction with the object. It is computed as:
 where \(A(\mathbf{b}_t^{\text{pred}} \cap \mathbf{b}_t^{\text{gt}})\) denotes the area of the intersection between the predicted bounding box \(\mathbf{b}_t^{\text{pred}}\) and the ground truth bounding box \(\mathbf{b}_t^{\text{gt}}\) at the \(t\)-th frame, and \(A(\mathbf{b}_t^{\text{pred}} \cup \mathbf{b}_t^{\text{gt}})\) denotes the area of their union.
 
 \subsection*{Final Intersection over Union (FIoU)}
-The Final Intersection over Union (FIoU) assesses the overlap between the
+\noindent The Final Intersection over Union (FIoU) assesses the overlap between the
 predicted bounding box and the ground truth bounding box at the final frame of
 the prediction horizon. FIoU is a critical metric when the final prediction
 accuracy is more important than the performance across all frames. It measures
@@ -1602,6 +2123,68 @@ is paramount. It is defined as:
 \end{equation}
 where \(A(\mathbf{b}_T^{\text{pred}} \cap \mathbf{b}_T^{\text{gt}})\) and \(A(\mathbf{b}_T^{\text{pred}} \cup \mathbf{b}_T^{\text{gt}})\) denote the intersection and union areas at the final frame \(m\), respectively.
 
+\newpage
+\section{Framework Evaluation}
+This framework integrates YOLOv10 for object detection and a GRU-based model
+for future position prediction. The process begins by performing object
+detection across all frames of a video to establish ground truth for each
+frame. This pre-obtained ground truth simplifies the subsequent evaluation of
+prediction accuracy. The framework operates in a loop, where it first detects
+objects in 15 frames, then predicts their positions over the next 30 frames
+using the GRU model. After each prediction phase, the next 15 frames are
+analysed for new detections, and this cycle repeats. By having the ground truth
+available from the outset, the framework allows for efficient evaluation of
+predictions, directly comparing predicted positions with known ground truth.
+The following pseudocode outlines the key steps of the framework:
+
+\begin{algorithm}[H]
+    \caption{Object Detection and Future Position Prediction Framework}
+    \label{alg:framework}
+    \begin{algorithmic}[1]
+        \Procedure{RunFramework}{$input\_video\_path$, $yolo\_weights\_path$, $gru\_model\_path$, $hparams\_file$, $output\_video\_path$, $output\_json\_path$, $smoothing\_filter$, $lkf$, $input\_frames$, $future\_frames$}
+
+        \State Load YOLOv10 model with $yolo\_weights\_path$
+        \State Open video file at $input\_video\_path$
+
+        \State $detections \gets []$
+        \While{frames in video}
+        \State $frame \gets $ Read next frame
+        \State $results \gets $ YOLOv10.detect($frame$)
+        \State $detections \gets $ Extract bounding boxes from $results$
+        \EndWhile
+
+        \State Store $detections$ as ground truth for all frames
+
+        \State Initialise loop to process detections in segments
+
+        \While{more detections to process}
+        \State $segment\_detections \gets $ Take next $input\_frames$ from $detections$
+        \State $track\_history\_bbox \gets $ Update with $segment\_detections$
+
+        \If{$track\_history\_bbox$ is full}
+        \State $predicted\_positions \gets $ GRU.predict($track\_history\_bbox$)
+        \If{$lkf$ is True}
+        \State $predicted\_positions \gets $ Apply Kalman Filter to $predicted\_positions$
+        \EndIf
+
+        \State $smoothed\_combined\_bboxes \gets $ Apply chosen $smoothing\_filter$ to $predicted\_positions$
+
+        \For{each future frame in $future\_frames$}
+        \State Calculate prediction metrics (e.g., ADE, FDE, IoU)
+        \State Annotate frame with current, predicted, and ground-truth bounding boxes
+        \EndFor
+        \EndIf
+
+        \State Continue to next $input\_frames$ in $detections$
+        \EndWhile
+
+        \State Save annotated video to $output\_video\_path$
+        \State Save prediction metrics and smoothed detections to $output\_json\_path$
+
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% RESULTS & DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Results and Discussion}\label{chap:results}
@@ -1609,12 +2192,12 @@ where \(A(\mathbf{b}_T^{\text{pred}} \cap \mathbf{b}_T^{\text{gt}})\) and \(A(\m
 \section{Object Detection Training Results}
 
 This section presents the final testing results of three different YOLO models
-(yolov10n.pt, yolov10s.pt, yolov10m.pt) on a dataset involving the
+(YOLOv10n.pt, YOLOv10s.pt, YOLOv10m.pt) on a dataset involving the
 classification of fuel port states (CLOSED, SEMI-OPEN, OPEN).
 
 \begin{table}[h!]
     \centering
-    \caption{Comparison of YOLO Models}
+    \caption{Performance comparison of YOLO models (YOLOv10n.pt, YOLOv10s.pt, YOLOv10m.pt) on the classification of fuel port states (CLOSED, SEMI-OPEN, OPEN). The table reports Precision (P), Recall (R), mean Average Precision at IoU=0.5 (mAP50), and mean Average Precision across IoU thresholds from 0.5 to 0.95 (mAP50-95) for each state.}
     \begin{adjustbox}{max width=\textwidth}
         \begin{tabular}{lcccccc}
             \toprule
@@ -1640,60 +2223,436 @@ classification of fuel port states (CLOSED, SEMI-OPEN, OPEN).
     \label{tab:comparison}
 \end{table}
 
-\subsection{Summary}
-
-Each model demonstrates strengths in different aspects of performance metrics.
-The YOLOv10s.pt model exhibits the highest precision at 0.997, while the
-YOLOv10m.pt model shows the highest recall at 0.888. The YOLOv10n.pt and
-YOLOv10m.pt models have the highest mAP50-95 at 0.852. The selection of an
-optimal model should consider the specific requirements of precision, recall,
-and mAP for the intended application.
-
-\section{Data Description}
-\:section{Example Images from the Dataset}
-The following figures show annotated examples of the refueling port in
-different states:
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.45\textwidth]{figures/grid\_closed\_images.png}
-    \caption{Annotated images of the refueling port in the CLOSED state.}~\label{fig:grid-closed-images}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.45\textwidth]{figures/grid\_open\_images.png}
-    \caption{Annotated images of the refueling port in the OPEN state.}~\label{fig:grid-open-images}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.45\textwidth]{figures/grid\_semiopen\_images.png}
-    \caption{Annotated images of the refueling port in the SEMI-OPEN state.}~\label{fig:grid-semi-open-images}
-\end{figure}
+Initially, the object detection performance of three YOLO models (YOLOv10n.pt,
+YOLOv10s.pt, YOLOv10m.pt) was evaluated in detecting the aircraft refueling
+port under different states: CLOSED, SEMI-OPEN, and OPEN. The performance
+metrics considered include Precision (P), Recall (R), mean Average Precision
+(mAP) at different Intersection over Union (IoU) thresholds, and mAP50-95. As
+summarized in Table \ref{tab:comparison}, YOLOv10s.pt achieved the highest
+precision at 0.997, indicating its superior ability to correctly identify true
+positives across all classes. In contrast, YOLOv10m.pt demonstrated the highest
+recall at 0.888, suggesting it was more effective in capturing true positives
+across various scenarios. Additionally, both YOLOv10n.pt and YOLOv10m.pt
+yielded the highest mAP50-95 scores at 0.852, reflecting their balanced
+performance across different IoU thresholds. These results underscore the
+importance of selecting a model that aligns with specific application
+requirements. For instance, YOLOv10s.pt may be preferred in environments where
+precision is paramount, while YOLOv10m.pt could be more suitable in scenarios
+demanding higher recall.
 
 \section{Experiment Results}
+This section details the outcomes of the experiments conducted to evaluate the
+performance of various models in predicting the future position of the aircraft
+refueling port. The analysis covers evaluation metrics, hyperparameter tuning
+outcomes, and model comparisons, highlighting the effectiveness and robustness
+of the proposed methods.
+
+\subsection{Hyperparameter Tuning}
+
+Hyperparameter tuning was performed to optimise the performance of the
+SizPos-GRU model. The experiments evaluated combinations of hidden sizes and
+hidden depths to determine their impact on Average Displacement Error (ADE),
+Final Displacement Error (FDE), Average Intersection over Union (AIoU), and
+Final Intersection over Union (FIoU). As presented in Tables
+\ref{tab:vel-metrics-rounded} and \ref{tab:new-dataset-adjusted-header}, the
+best performance was achieved with a hidden size of 128 and a hidden depth of
+8, resulting in an ADE of 32.7 pixels and an FDE of 73.3 pixels when predicting
+60 frames into the future using data from the previous 30 frames. This
+configuration also yielded high AIoU and FIoU scores, indicating a strong
+overlap with ground truth data. For the scenario involving predictions 30
+frames into the future using 15 past frames, a hidden size of 256 and a hidden
+depth of 8 produced the lowest ADE (17.2 pixels) and FDE (38.6 pixels), with
+corresponding AIoU and FIoU values that further validate the model’s accuracy.
+These findings highlight the effectiveness of the chosen hyperparameters in
+enhancing the model’s predictive capabilities. The variation in performance
+across different temporal windows suggests that the model is sensitive to the
+length of the prediction horizon, which should be considered in future
+applications.
 
 \begin{table}[H]
     \centering
-    \caption{Performance comparison of various models on trajectory prediction tasks from 30 to 60 frames. The table reports the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) for each model. Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The GRUSizPos model achieves the best performance across all metrics.}
-    \begin{adjustbox}{max width=\textwidth}
-        \begin{tabular}{lcccc}
+    \caption{Hyperparameter tuning results for trajectory prediction using SizPos-GRU model that leverages 30 past frames (1 sec) to predict the position 60 frames (2 sec) into the future. The table presents the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) across different configurations of hidden sizes and hidden depths. These metrics help to evaluate the accuracy and spatial consistency of the model’s predictions}
+    \begin{adjustbox}{width=0.6\textwidth}
+        \begin{tabular}{rrrrrr}
             \toprule
-            \textbf{Model}       & \textbf{ADE (pxl)} & \textbf{FDE (pxl)} & \textbf{AIoU (\%)} & \textbf{FIoU (\%)} \\ 
+            \textbf{Hidden Size} & \textbf{Hidden Depth} & \textbf{ADE (pxl)} & \textbf{FDE (pxl)} & \textbf{AIoU (\%)} & \textbf{FIoU (\%)} \\ 
             \midrule
-            CV                   & 131.5              & 271.0              & 25.4               & 8.7                \\
-            LKF                  & 121.1              & 270.3              & 29.3               & 6.4                \\
-            LSTMPosVelAcc (ours) & 69.1               & 115.0              & 26.6               & 11.2               \\
-            LSTMSizPos (ours)    & 49.7               & 95.7               & 41.3               & 15.7               \\
-            GRUPosVelAcc (ours)  & 81.5               & 121.3              & 23.3               & 10.7               \\
-            GRUSizPos (ours)     & \textbf{34.2}      & \textbf{73.4}      & \textbf{46.5}      & \textbf{22.1}      \\
+            32                   & 1                     & 43.3               & 90.1               & 39.4               & 11.5               \\
+            32                   & 3                     & 44.6               & 88.5               & 36.5               & 13.2               \\
+            32                   & 6                     & 44.0               & 79.9               & 36.9               & 18.7               \\
+            32                   & 8                     & 39.2               & 81.8               & 40.0               & 16.1               \\
+            64                   & 1                     & 53.4               & 98.6               & 35.1               & 13.9               \\
+            64                   & 3                     & 42.8               & 87.1               & 41.2               & 17.7               \\
+            64                   & 6                     & 37.0               & 82.1               & 44.9               & 18.5               \\
+            64                   & 8                     & 35.8               & 78.8               & 44.0               & 18.8               \\
+            128                  & 1                     & 56.7               & 96.5               & 33.3               & 13.7               \\
+            128                  & 3                     & 40.9               & 92.0               & 43.6               & 17.5               \\
+            128                  & 6                     & 32.4               & 80.9               & 47.7               & 16.0               \\
+            \textbf{128}         & \textbf{8}            & \textbf{32.7}      & \textbf{73.3}      & \textbf{47.6}      & \textbf{20.6}      \\
+            256                  & 1                     & 41.2               & 86.8               & 41.5               & 19.6               \\
+            256                  & 3                     & 34.0               & 79.0               & 47.0               & 17.5               \\
+            256                  & 6                     & 35.7               & 85.0               & 47.1               & 17.6               \\
+            256                  & 8                     & 34.5               & 82.6               & 46.2               & 17.7               \\
+            512                  & 1                     & 38.3               & 79.8               & 44.0               & 17.3               \\
+            512                  & 6                     & 35.9               & 82.7               & 44.7               & 18.1               \\
+            512                  & 8                     & 39.0               & 81.5               & 42.5               & 15.9               \\
             \bottomrule
         \end{tabular}
     \end{adjustbox}
-    \label{tab:fusion-gru-results}
+    \label{tab:vel-metrics-rounded}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Hyperparameter tuning results for trajectory prediction using SizPos-GRU model that leverages 15 past frames (0.5 sec) to predict the position 30 frames (1 sec) into the future. The table presents the Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) across different configurations of hidden sizes and hidden depths. These metrics help to evaluate the accuracy and spatial consistency of the model’s predictions}
+    \begin{adjustbox}{width=0.6\textwidth}
+        \begin{tabular}{rrrrrr}
+            \toprule
+            \textbf{Hidden Size} & \textbf{Hidden Depth} & \textbf{ADE (pxl)} & \textbf{FDE (pxl)} & \textbf{AIoU (\%)} & \textbf{FIoU (\%)} \\ 
+            \midrule
+            32                   & 1                     & 23.0               & 45.6               & 58.3               & 35.9               \\
+            32                   & 2                     & 23.5               & 46.3               & 58.2               & 34.0               \\
+            32                   & 4                     & 28.0               & 59.7               & 58.5               & 33.9               \\
+            32                   & 8                     & 23.3               & 45.1               & 56.9               & 36.3               \\
+            64                   & 1                     & 29.8               & 55.2               & 58.4               & 35.8               \\
+            64                   & 2                     & 31.0               & 56.9               & 57.1               & 33.5               \\
+            64                   & 4                     & 21.2               & 45.1               & 61.4               & 37.4               \\
+            64                   & 8                     & 20.1               & 44.1               & 62.1               & 39.6               \\
+            128                  & 1                     & 25.1               & 48.4               & 58.6               & 37.9               \\
+            128                  & 2                     & 26.6               & 49.2               & 50.6               & 31.4               \\
+            128                  & 4                     & 25.4               & 53.6               & 60.1               & 33.8               \\
+            128                  & 8                     & 18.7               & 42.4               & 62.5               & 37.3               \\
+            256                  & 1                     & 28.0               & 55.9               & 58.1               & 36.5               \\
+            256                  & 2                     & 22.2               & 52.0               & 62.6               & 35.6               \\
+            256                  & 4                     & 20.3               & 50.6               & 62.8               & 33.3               \\
+            \textbf{256}         & \textbf{8}            & \textbf{17.2}      & \textbf{38.6}      & \textbf{62.4}      & \textbf{39.4}      \\
+            512                  & 1                     & 22.8               & 45.1               & 58.8               & 35.3               \\
+            512                  & 2                     & 27.8               & 52.0               & 54.7               & 34.6               \\
+            512                  & 4                     & 19.4               & 43.0               & 60.2               & 36.8               \\
+            512                  & 8                     & 19.3               & 44.2               & 60.7               & 34.0               \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:new-dataset-adjusted-header}
+\end{table}
+
+\subsection{SizPos-GRU Model Evaluation}
+The SizPos-GRU model's performance was evaluated against various baseline
+models in two scenarios: predicting 60 frames into the future using data from
+the previous 30 frames, and predicting 30 frames into the future using data
+from the previous 15 frames. The models were assessed based on Average
+Displacement Error (ADE) and Final Displacement Error (FDE), both in pixels and
+as a percentage of the maximum possible error, as well as Average Intersection
+over Union (AIoU) and Final Intersection over Union (FIoU). In the 60-frame
+prediction task (Table \ref{tab:fusion-gru-results-60frames}), the SizPos-GRU
+model achieved the lowest ADE (34.2 pixels, 4.28\%) and FDE (73.4 pixels,
+9.18\%), demonstrating superior accuracy in predicting future positions. While
+the FIoU value of 22.1\% indicates moderate spatial overlap, the low
+displacement errors highlight the model's strength in minimising prediction
+deviations. For the 30-frame prediction task (Table
+\ref{tab:fusion-gru-results-30frames}), the SizPos-GRU model similarly
+excelled, with an ADE of 17.2 pixels (2.15\%) and an FDE of 38.6 pixels
+(4.83\%). Despite the FIoU being a less critical metric in some applications,
+the low displacement errors confirm the model's reliability in short-term
+predictions. These results suggest that the SizPos-GRU model is particularly
+effective in minimising displacement errors, making it a strong candidate for
+applications where precise trajectory prediction is crucial.
+
+\begin{table}[H]
+    \centering
+    \caption{Performance comparison of various models on trajectory prediction tasks using 30 past frames to predict 60 future frames. The table reports the Average Displacement Error (ADE) and Final Displacement Error (FDE) in both pixels and percentage, as well as Average Intersection over Union (AIoU) and Final Intersection over Union (FIoU). Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The SizPos-GRU model demonstrates superior performance across all metrics.}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lcccccc}
+            \toprule
+            \textbf{Model}        & \textbf{ADE (pxl)} & \textbf{ADE (\%)} & \textbf{FDE (pxl)} & \textbf{FDE (\%)} & \textbf{AIoU (\%)} & \textbf{FIoU (\%)} \\ 
+            \midrule
+            CV                    & 131.5              & 16.44\%           & 271.0              & 33.88\%           & 25.4               & 8.7                \\
+            LKF                   & 121.1              & 15.14\%           & 270.3              & 33.79\%           & 29.3               & 6.4                \\
+            PosVelAcc-LSTM (ours) & 69.1               & 8.64\%            & 115.0              & 14.38\%           & 26.6               & 11.2               \\
+            SizPos-LSTM (ours)    & 49.7               & 6.21\%            & 95.7               & 11.96\%           & 41.3               & 15.7               \\
+            PosVelAcc-GRU (ours)  & 81.5               & 10.19\%           & 121.3              & 15.16\%           & 23.3               & 10.7               \\
+            SizPos-GRU (ours)     & \textbf{34.2}      & \textbf{4.28\%}   & \textbf{73.4}      & \textbf{9.18\%}   & \textbf{46.5}      & \textbf{22.1}      \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:fusion-gru-results-60frames}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Performance comparison of various models on trajectory prediction tasks using 15 past frames to predict 30 future frames. The table reports the Average Displacement Error (ADE) and Final Displacement Error (FDE) in both pixels and percentage, as well as Average Intersection over Union (AIoU) and Final Intersection over Union (FIoU). Lower ADE and FDE values indicate better accuracy, while higher AIoU and FIoU values indicate better overlap with ground truth. The SizPos-GRU model consistently outperforms the other models across all evaluation metrics.}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lcccccc}
+            \toprule
+            \textbf{Model}        & \textbf{ADE (pxl)} & \textbf{ADE (\%)} & \textbf{FDE (pxl)} & \textbf{FDE (\%)} & \textbf{AIoU (\%)} & \textbf{FIoU (\%)} \\ 
+            \midrule
+            CV                    & 51.7               & 6.46\%            & 110.2              & 13.78\%           & 45.2               & 20.3               \\
+            LKF                   & 47.7               & 5.96\%            & 105.8              & 13.23\%           & 48.6               & 21.5               \\
+            PosVelAcc-LSTM (ours) & 41.8               & 5.23\%            & 79.0               & 9.88\%            & 42.4               & 20.0               \\
+            SizPos-LSTM (ours)    & 25.3               & 3.16\%            & 49.9               & 6.24\%            & 58.8               & 36.1               \\
+            PosVelAcc-GRU (ours)  & 39.2               & 4.90\%            & 77.1               & 9.64\%            & 46.3               & 23.1               \\
+            SizPos-GRU (ours)     & \textbf{17.2}      & \textbf{2.15\%}   & \textbf{38.6}      & \textbf{4.83\%}   & \textbf{62.4}      & \textbf{39.4}      \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:fusion-gru-results-30frames}
+\end{table}
+
+\subsection{Framework Evaluation}
+
+To thoroughly evaluate the overall performance of the trajectory prediction
+framework, different smoothing filters and Linear Kalman Filter (LKF)
+configurations were tested to determine their impact on prediction accuracy.
+Table \ref{tab:performance_metrics} presents a comprehensive comparison of the
+results obtained using various smoothing techniques. The analysis reveals that
+the Savitzky-Golay filter, when used in conjunction with LKF, provided the most
+accurate predictions. This configuration achieved the lowest Average
+Displacement Error (ADE) of 32.98 pixels and a Final Displacement Error (FDE)
+of 57.11 pixels. Additionally, the combination resulted in relatively high
+Average Intersection over Union (AIoU) and Final Intersection over Union (FIoU)
+values, indicating better spatial overlap between the predicted and actual
+positions. These results suggest that the Savitzky-Golay filter, due to its
+capability to preserve important trajectory trends while filtering out noise,
+works synergistically with LKF to enhance the predictive performance of the
+model. In contrast, other smoothing techniques, such as Moving Average and
+Exponential Smoothing, showed less favorable outcomes. For instance, the Moving
+Average filter, despite being effective in some scenarios, led to significantly
+higher FDE values, reflecting a lag effect in the predictions, particularly in
+dynamic environments. Exponential Smoothing, while slightly better, still did
+not match the performance of the Savitzky-Golay filter in terms of overall
+accuracy. Table \ref{tab:framework-test} extends the evaluation to different
+video datasets, further illustrating the framework’s performance across varied
+test scenarios. While the Savitzky-Golay filter with LKF configuration
+continued to outperform other setups in certain videos, such as
+\textit{video\_lab\_platform\_6}, the results across other datasets, like
+\textit{test\_indoor1}, showed a noticeable decline in predictive accuracy,
+with ADE and FDE values increasing significantly. This variance underscores the
+importance of considering the specific characteristics of the application
+environment when choosing the appropriate smoothing and filtering techniques.
+
+\begin{table}[H]
+    \centering
+    \caption{Performance metrics using different smoothing filters and Linear Kalman Filter (LKF) configurations for the video \textit{video\_lab\_platform\_6}. The table presents Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU). The results demonstrate the impact of various filtering techniques on the model’s predictive accuracy.}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{llrrrrrr}
+            \toprule
+            \textbf{Smooth Filter}       & \textbf{LKF}  & \textbf{ADE (px)} & \textbf{ADE (\%)} & \textbf{FDE (px)} & \textbf{FDE (\%)} & \textbf{AIoU (\%)} & \textbf{FIoU (\%)} \\
+            \midrule
+            \textbf{Savitzky-Golay (sa)} & \textbf{True} & \textbf{32.98}    & \textbf{4.12}     & \textbf{57.11}    & \textbf{7.14}     & \textbf{49.16}     & \textbf{33.67}     \\
+            Moving Average (ma)          & True          & 36.95             & 4.62              & 151.76            & 18.97             & 47.42              & 0.27               \\
+            Exponential Smoothing (es)   & True          & 37.05             & 4.63              & 57.61             & 7.20              & 43.81              & 32.86              \\
+            Hybrid                       & True          & 35.31             & 4.41              & 126.92            & 15.86             & 48.15              & 2.42               \\
+            Adaptive                     & True          & 33.33             & 4.17              & 57.66             & 7.21              & 48.48              & 32.90              \\
+            No Smoothing                 & True          & 33.33             & 4.17              & 57.66             & 7.21              & 48.48              & 32.90              \\
+            Savitzky-Golay (sa)          & False         & 32.47             & 4.06              & 60.58             & 7.57              & 49.69              & 31.55              \\
+            Moving Average (ma)          & False         & 36.06             & 4.51              & 148.99            & 18.62             & 48.19              & 0.46               \\
+            Exponential Smoothing (es)   & False         & 36.98             & 4.62              & 59.49             & 7.44              & 43.10              & 32.30              \\
+            Hybrid                       & False         & 34.61             & 4.33              & 124.50            & 15.56             & 48.72              & 2.88               \\
+            Adaptive                     & False         & 32.53             & 4.07              & 60.58             & 7.57              & 49.63              & 31.90              \\
+            No Smoothing                 & False         & 32.53             & 4.07              & 60.58             & 7.57              & 49.63              & 31.90              \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:performance_metrics}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Framework Test with LKF and Savitzky-Golay filter for the videos \textit{video\_lab\_platform\_6}, \textit{test\_indoor1}, and \textit{video\_lab\_semiopen\_1\_\_\_\_\_\_3}. The table presents Average Displacement Error (ADE), Final Displacement Error (FDE), Average Intersection over Union (AIoU), and Final Intersection over Union (FIoU) for each video. The results demonstrate the model’s predictive accuracy across different scenarios.}
+    \begin{adjustbox}{max width=\textwidth}
+        \begin{tabular}{lrrrrrr}
+            \toprule
+            \textbf{Video}                       & \textbf{ADE (px)} & \textbf{ADE (\%)} & \textbf{FDE (px)} & \textbf{FDE (\%)} & \textbf{AIoU (\%)} & \textbf{FIoU (\%)} \\
+            \midrule
+            video\_lab\_platform\_6              & \textbf{32.98}    & \textbf{4.12}     & \textbf{57.11}    & \textbf{7.14}     & \textbf{49.16}     & \textbf{33.67}     \\
+            test\_indoor1                        & 97.10             & 12.14             & 125.35            & 15.67             & 21.92              & 11.41              \\
+            video\_lab\_semiopen\_1\_\_\_\_\_\_3 & 79.50             & 9.94              & 124.75            & 15.59             & 18.09              & 4.57               \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:framework-test}
 \end{table}
 
 \section{Testing Visualisation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/Framework_Output.png}
+    \caption{Visualisation of the trajectory prediction framework output for the \textit{video\_lab\_platform\_6} and \textit{test\_indoor1} videos. The figure shows the ground truth trajectory (blue) and the predicted trajectory (red) for the refueling port. The close alignment between the predicted and actual trajectories demonstrates the model’s accuracy in predicting the object’s future positions.}
+    \label{fig:trajectory-prediction-test-indoor1}
+\end{figure}
+
+This section provides a detailed analysis of the trajectory prediction
+framework's performance using two distinct video datasets:
+\textit{video\_lab\_platform\_6} and \textit{test\_indoor1}. The figures
+illustrate the predicted and ground truth central positions of the refueling
+port across various sequences of frames. The analysis compares the results
+obtained without smoothing (raw data) and with the application of the
+Savitzky-Golay filter combined with a Linear Kalman Filter (LKF), highlighting
+the impact of these smoothing techniques on prediction accuracy. Figure
+\ref{fig:trajectory-prediction-test-indoor1} presents an initial visualization
+of the trajectory prediction framework’s output. In both the
+\textit{video\_lab\_platform\_6} and \textit{test\_indoor1} datasets, the
+predicted trajectory (red) closely follows the ground truth trajectory (blue).
+This visual alignment indicates that the model is generally effective in
+predicting the object's future positions, demonstrating its robustness across
+different video scenarios. In Figure \ref{fig:framework-video_lab_platform_6},
+the predicted and ground truth central positions are plotted for the
+\textit{video\_lab\_platform\_6} dataset without any smoothing applied. The
+results show that the model's predictions initially align with the ground
+truth; however, as the frames progress, particularly in the later sequences
+(frames 151 to 180), the deviations become more pronounced. This suggests that
+the model's raw predictions are sensitive to noise and may accumulate errors
+over time, leading to a drift from the actual trajectory. The application of
+the Savitzky-Golay filter combined with LKF, as shown in Figure
+\ref{fig:framework-video_lab_platform_6-savgol}, significantly improves the
+prediction accuracy for the same dataset. The smoothed predictions exhibit a
+closer alignment with the ground truth across all frame sequences. The filter
+effectively reduces the fluctuations and erratic deviations observed in the raw
+predictions, particularly in the later sequences where the model previously
+struggled. The smoothed data indicates that the filters help the model maintain
+stability and accuracy over extended sequences, mitigating the effects of
+cumulative prediction errors. Figure \ref{fig:framework-test_indoor1} depicts
+the performance of the model on the \textit{test\_indoor1} dataset without
+smoothing. The model's predictions show significant deviations from the ground
+truth, especially in the final sequence of frames (196 to 225), where abrupt
+changes in the trajectory are not well captured by the model. The lack of
+smoothing results in predictions that are highly sensitive to noise, leading to
+large prediction errors and a noticeable drift from the actual trajectory. In
+contrast, Figure \ref{fig:framework-test_indoor1-savgol} shows the predictions
+for the \textit{test\_indoor1} dataset with the Savitzky-Golay filter and LKF
+applied. The filtered predictions demonstrate a marked improvement in accuracy,
+with the trajectories closely following the ground truth across all frame
+sequences. The smoothing techniques significantly reduce the impact of noise
+and sudden changes in the object's movement, resulting in more reliable and
+consistent predictions. The final sequence, which previously showed large
+deviations, now exhibits a stable and accurate trajectory, underscoring the
+effectiveness of the filtering approach in enhancing the model's performance.
+Overall, the comparison between the unsmoothed and smoothed data highlights the
+importance of applying smoothing techniques in trajectory prediction tasks. The
+raw predictions, while initially accurate, tend to degrade over time due to
+noise and error accumulation. However, the application of the Savitzky-Golay
+filter and LKF successfully mitigates these issues, providing a stable and
+accurate prediction across different video scenarios. These findings emphasize
+the necessity of such techniques in real-world applications where data
+variability and noise are common, ensuring that the model can reliably predict
+future positions with high precision.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 Raw Data - 0.png}
+        \caption{Predictions from frame 16 to 45.}
+        \label{fig:framework-video_lab_platform_6-0}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 Raw Data - 1.png}
+        \caption{Predictions from frame 61 to 90.}
+        \label{fig:framework-video_lab_platform_6-1}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 Raw Data - 2.png}
+        \caption{Predictions from frame 106 to 135.}
+        \label{fig:framework-video_lab_platform_6-2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 Raw Data - 3.png}
+        \caption{Predictions from frame 151 to 180.}
+        \label{fig:framework-video_lab_platform_6-3}
+    \end{subfigure}
+    \caption{Predicted vs Ground Truth Central Position for video \textit{video\_lab\_platform\_6} (No Smoothing). }
+    \label{fig:framework-video_lab_platform_6}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 LKF SA Filter - 0.png}
+        \caption{Predictions from frame 16 to 45.}
+        \label{fig:framework-video_lab_platform_6-savgol-0}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 LKF SA Filter - 1.png}
+        \caption{Predictions from frame 61 to 90.}
+        \label{fig:framework-video_lab_platform_6-savgol-1}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 LKF SA Filter - 2.png}
+        \caption{Predictions from frame 106 to 135.}
+        \label{fig:framework-video_lab_platform_6-savgol-2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 LKF SA Filter - 3.png}
+        \caption{Predictions from frame 151 to 180.}
+        \label{fig:framework-video_lab_platform_6-savgol-3}
+    \end{subfigure}
+    \caption{Predicted vs Ground Truth Central Position for video \textit{video\_lab\_platform\_6} (Savitzky-Golay \& LKF filter). }
+    \label{fig:framework-video_lab_platform_6-savgol}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 Raw Data - 0.png}
+        \caption{Predictions from frame 16 to 45.}
+        \label{fig:framework-test_indoor1-0}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 Raw Data - 1.png}
+        \caption{Predictions from frame 61 to 90.}
+        \label{fig:framework-test_indoor1-1}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 Raw Data - 3.png}
+        \caption{Predictions from frame 151 to 180.}
+        \label{fig:framework-test_indoor1-3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 Raw Data - 4.png}
+        \caption{Predictions from frame 196 to 225.}
+        \label{fig:framework-test_indoor1-4}
+    \end{subfigure}
+    \caption{Predicted vs Ground Truth Central Position for video \textit{test\_indoor1} (No Smoothing). }
+    \label{fig:framework-test_indoor1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 LKF SA Filter - 0.png}
+        \caption{Predictions from frame 16 to 45.}
+        \label{fig:framework-test_indoor1-savgol-0}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 LKF SA Filter - 1.png}
+        \caption{Predictions from frame 61 to 90.}
+        \label{fig:framework-test_indoor1-savgol-1}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 LKF SA Filter - 3.png}
+        \caption{Predictions from frame 151 to 180.}
+        \label{fig:framework-test_indoor1-savgol-3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 LKF SA Filter - 4.png}
+        \caption{Predictions from frame 196 to 225.}
+        \label{fig:framework-test_indoor1-savgol-4}
+    \end{subfigure}
+    \caption{Predicted vs Ground Truth Central Position for video \textit{test\_indoor1} (Savitzky-Golay \& LKF filter). }
+    \label{fig:framework-test_indoor1-savgol}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONCLUSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1701,181 +2660,6 @@ different states:
 
 %TC:ignore 
 \appendix
-\chapter{Analysis of Bounding Box Metrics}\label{chap:appendix}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-indoor1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-indoor1}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-indoor1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-indoor1}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-indoor1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-indoor1-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-indoor1-savgol}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-indoor1-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-indoor1-savgol}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_indoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-indoor1-savgol}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-outdoor1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-outdoor1}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-outdoor1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Raw Data)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-outdoor1}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-outdoor1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-outdoor1-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-outdoor1-savgol}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-outdoor1-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/test_outdoor1 (Savgol Filter)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-outdoor1-savgol}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_outdoor1} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-outdoor1-savgol}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-video_lab_platform_6}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-video_lab_platform_6}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-video_lab_platform_6}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Raw Data)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-video_lab_platform_6}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-video_lab_platform_6}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_central_position.png}
-        \caption{Central position of the refueling port over time.}
-        \label{fig:central-position-test-video_lab_platform_6-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_velocity.png}
-        \caption{Velocity of the refueling port over time.}
-        \label{fig:velocity-test-video_lab_platform_6-savgol}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_acceleration.png}
-        \caption{Acceleration of the refueling port over time.}
-        \label{fig:acceleration-test-video_lab_platform_6-savgol}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/bbox_metrics/video_lab_platform_6 (Savgol Filter)_area.png}
-        \caption{Area of the refueling port over time.}
-        \label{fig:size-test-video_lab_platform_6-savgol}
-    \end{subfigure}
-    \caption{Temporal analysis of different metrics for the refueling port in the \textit{test\_video\_lab\_platform\_6} video. The metrics include (a) central position, (b) velocity, (c) acceleration, and (d) area, providing a comprehensive overview of the object's dynamics over time.}
-    \label{fig:bbox-metrics-test-video_lab_platform_6-savgol}
-\end{figure}
 
 %TC:endignore 
 

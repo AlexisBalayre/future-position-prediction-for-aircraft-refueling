@@ -1,4 +1,4 @@
-\begin{thebibliography}{54}
+\begin{thebibliography}{57}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -10,6 +10,13 @@ A.~Alahi, K.~Goel, V.~Ramanathan, A.~Robicquet, L.~Fei-Fei, and S.~Savarese.
 \newblock Social lstm: Human trajectory prediction in crowded spaces.
 \newblock volume 2016-December, 2016.
 \newblock \doi{10.1109/CVPR.2016.110}.
+
+\bibitem[Ansel et~al.(2024)Ansel, Yang, He, Gimelshein, Jain, Voznesensky, Bao, Bell, Berard, Burovski, Chauhan, Chourdia, Constable, Desmaison, DeVito, Ellison, Feng, Gong, Gschwind, Hirsh, Huang, Kalambarkar, Kirsch, Lazos, Lezcano, Liang, Liang, Lu, Luk, Maher, Pan, Puhrsch, Reso, Saroufim, Siraichi, Suk, Suo, Tillet, Wang, Wang, Wen, Zhang, Zhao, Zhou, Zou, Mathews, Chanan, Wu, and Chintala]{Ansel_PyTorch_2_Faster_2024}
+J.~Ansel, E.~Yang, H.~He, N.~Gimelshein, A.~Jain, M.~Voznesensky, B.~Bao, P.~Bell, D.~Berard, E.~Burovski, G.~Chauhan, A.~Chourdia, W.~Constable, A.~Desmaison, Z.~DeVito, E.~Ellison, W.~Feng, J.~Gong, M.~Gschwind, B.~Hirsh, S.~Huang, K.~Kalambarkar, L.~Kirsch, M.~Lazos, M.~Lezcano, Y.~Liang, J.~Liang, Y.~Lu, C.~Luk, B.~Maher, Y.~Pan, C.~Puhrsch, M.~Reso, M.~Saroufim, M.~Y. Siraichi, H.~Suk, M.~Suo, P.~Tillet, E.~Wang, X.~Wang, W.~Wen, S.~Zhang, X.~Zhao, K.~Zhou, R.~Zou, A.~Mathews, G.~Chanan, P.~Wu, and S.~Chintala.
+\newblock {PyTorch 2: Faster Machine Learning Through Dynamic Python Bytecode Transformation and Graph Compilation}.
+\newblock In \emph{29th ACM International Conference on Architectural Support for Programming Languages and Operating Systems, Volume 2 (ASPLOS '24)}. ACM, Apr. 2024.
+\newblock \doi{10.1145/3620665.3640366}.
+\newblock URL \url{https://pytorch.org/assets/pytorch2-2.pdf}.
 
 \bibitem[(AvMC)(2020)]{AR3P2020}
 A.~F. C. A. C. A. . M.~C. (AvMC).
@@ -89,6 +96,11 @@ H.~Face.
 \newblock URL \url{https://huggingface.co/blog/object-detection-leaderboard}.
 \newblock Accessed: 2024-06-17.
 
+\bibitem[Falcon and {The PyTorch Lightning team}(2019)]{Falcon_PyTorch_Lightning_2019}
+W.~Falcon and {The PyTorch Lightning team}.
+\newblock {PyTorch Lightning}, Mar. 2019.
+\newblock URL \url{https://github.com/Lightning-AI/lightning}.
+
 \bibitem[Ficken(2017)]{Ficken2017}
 N.~Ficken.
 \newblock Concept demonstration explores robotic aviation refueling system, July 18 2017.
@@ -141,6 +153,11 @@ G.~Jocher.
 G.~Jocher.
 \newblock Yolov8, 2023.
 \newblock URL \url{https://github.com/ultralytics/ultralytics/tree/main}.
+
+\bibitem[Jocher et~al.(2023)Jocher, Chaurasia, and Qiu]{Jocher_Ultralytics_YOLO_2023}
+G.~Jocher, A.~Chaurasia, and J.~Qiu.
+\newblock {Ultralytics YOLO}, Jan. 2023.
+\newblock URL \url{https://github.com/ultralytics/ultralytics}.
 
 \bibitem[Kang et~al.(2022)Kang, Tariq, Oh, and Woo]{SurveyDLOD}
 J.~Kang, S.~Tariq, H.~Oh, and S.~Woo.

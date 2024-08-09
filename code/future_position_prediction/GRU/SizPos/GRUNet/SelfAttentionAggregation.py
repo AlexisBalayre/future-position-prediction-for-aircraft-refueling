@@ -8,7 +8,6 @@ class SelfAttentionAggregation(nn.Module):
         super(SelfAttentionAggregation, self).__init__()
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
-        self.fc = nn.Linear(input_dim, hidden_dim)
         self.attention = nn.Linear(hidden_dim, 1)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -21,12 +20,9 @@ class SelfAttentionAggregation(nn.Module):
         Returns:
             torch.Tensor: Aggregated tensor of shape (batch_size, hidden_dim)
         """
-        # Project input to hidden dimension
-        hidden = self.fc(x)
-
         # Compute attention weights
-        attention_weights = F.softmax(self.attention(hidden), dim=1)
+        attention_weights = F.softmax(self.attention(x), dim=1)
 
         # Apply attention and sum
-        attended = torch.sum(attention_weights * hidden, dim=1)
+        attended = torch.sum(attention_weights * x, dim=1)
         return attended

@@ -2,7 +2,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from future_position_prediction.GRU.SizPos.GRUNet.SelfAttentionAggregation import SelfAttentionAggregation
+from future_position_prediction.GRU.SizPos.GRUNet.SelfAttentionAggregation import (
+    SelfAttentionAggregation,
+)
 
 
 class DecoderGRU(nn.Module):
