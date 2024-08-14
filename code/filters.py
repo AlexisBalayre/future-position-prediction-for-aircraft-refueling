@@ -1,20 +1,58 @@
 import numpy as np
 from scipy.signal import savgol_filter
+from scipy.ndimage import gaussian_filter
 from filterpy.kalman import KalmanFilter
 
 
 def smooth_trajectory(trajectory, window_length=5, polyorder=2):
-    trajectory = trajectory.squeeze(0)  # Remove the batch dimension
-    if len(trajectory) < window_length:
-        return trajectory[np.newaxis, ...]
+    # Remove the batch dimension
+    if trajectory.ndim == 3:
+        trajectory = trajectory.squeeze(0)
 
-    # Apply smoothing only to the x and y coordinates (first two columns)
-    smoothed_xy = savgol_filter(trajectory[:, :2], window_length, polyorder, axis=0)
+        if len(trajectory) < window_length:
+            return trajectory[np.newaxis, ...]
 
-    # Combine smoothed x, y with original w, h
-    smoothed_trajectory = np.hstack((smoothed_xy, trajectory[:, 2:]))
+        # Apply smoothing to all components (x, y, width, height)
+        smoothed_trajectory = savgol_filter(
+            trajectory, window_length, polyorder, axis=0
+        )
 
-    return smoothed_trajectory[np.newaxis, ...]
+        return smoothed_trajectory[np.newaxis, ...]
+    else:
+        # Apply smoothing to all components (x, y, width, height)
+        smoothed_trajectory = savgol_filter(
+            trajectory, window_length, polyorder, axis=0
+        )
+
+        return smoothed_trajectory
+
+
+def gaussian_filter_smoothing(trajectory, sigma=2):
+    if trajectory.ndim == 3:
+        trajectory = trajectory.squeeze(0)  # Remove the batch dimension if it exists
+         
+        # Apply Gaussian filter separately to each column (x, y, width, height)
+        smoothed_x = gaussian_filter(trajectory[:, 0], sigma=sigma)
+        smoothed_y = gaussian_filter(trajectory[:, 1], sigma=sigma)
+        smoothed_width = gaussian_filter(trajectory[:, 2], sigma=sigma)
+        smoothed_height = gaussian_filter(trajectory[:, 3], sigma=sigma)
+
+        # Stack the smoothed components back into a single array
+        smoothed_trajectory = np.column_stack((smoothed_x, smoothed_y, smoothed_width, smoothed_height))
+
+        return smoothed_trajectory[np.newaxis, ...]
+    else:
+        # Apply Gaussian filter separately to each column (x, y, width, height)
+        smoothed_x = gaussian_filter(trajectory[:, 0], sigma=sigma)
+        smoothed_y = gaussian_filter(trajectory[:, 1], sigma=sigma)
+        smoothed_width = gaussian_filter(trajectory[:, 2], sigma=sigma)
+        smoothed_height = gaussian_filter(trajectory[:, 3], sigma=sigma)
+
+        # Stack the smoothed components back into a single array
+        smoothed_trajectory = np.column_stack((smoothed_x, smoothed_y, smoothed_width, smoothed_height))
+
+        # Stack the smoothed components back into a single array
+        return smoothed_trajectory
 
 
 def moving_average_smoothing(trajectory, window_size=20):
@@ -22,19 +60,16 @@ def moving_average_smoothing(trajectory, window_size=20):
     if len(trajectory) < window_size:
         return trajectory[np.newaxis, ...]
 
-    # Apply moving average only to x and y coordinates (first two columns)
-    smoothed_xy = np.stack(
+    # Apply moving average to all components (x, y, width, height)
+    smoothed_trajectory = np.stack(
         [
             np.convolve(
                 trajectory[:, i], np.ones(window_size) / window_size, mode="same"
             )
-            for i in range(2)
+            for i in range(trajectory.shape[1])
         ],
         axis=1,
     )
-
-    # Combine smoothed x, y with original w, h
-    smoothed_trajectory = np.hstack((smoothed_xy, trajectory[:, 2:]))
 
     return smoothed_trajectory[np.newaxis, ...]
 
@@ -42,16 +77,13 @@ def moving_average_smoothing(trajectory, window_size=20):
 def exponential_smoothing(trajectory, alpha=0.1):
     trajectory = trajectory.squeeze(0)  # Remove the batch dimension
     smoothed_trajectory = np.zeros_like(trajectory)
-    smoothed_trajectory[0, :2] = trajectory[0, :2]
+    smoothed_trajectory[0] = trajectory[0]
 
-    # Apply exponential smoothing only to x and y coordinates (first two columns)
+    # Apply exponential smoothing to all components (x, y, width, height)
     for t in range(1, len(trajectory)):
-        smoothed_trajectory[t, :2] = (
-            alpha * trajectory[t, :2] + (1 - alpha) * smoothed_trajectory[t - 1, :2]
+        smoothed_trajectory[t] = (
+            alpha * trajectory[t] + (1 - alpha) * smoothed_trajectory[t - 1]
         )
-
-    # Retain original w and h columns
-    smoothed_trajectory[:, 2:] = trajectory[:, 2:]
 
     return smoothed_trajectory[np.newaxis, ...]
 
@@ -59,16 +91,13 @@ def exponential_smoothing(trajectory, alpha=0.1):
 def modified_exponential_smoothing(trajectory, alpha=0.1, beta=0.9):
     trajectory = trajectory.squeeze(0)  # Remove the batch dimension
     smoothed_trajectory = np.zeros_like(trajectory)
-    smoothed_trajectory[0, :2] = trajectory[0, :2]
+    smoothed_trajectory[0] = trajectory[0]
 
-    # Apply modified exponential smoothing only to x and y coordinates (first two columns)
+    # Apply modified exponential smoothing to all components (x, y, width, height)
     for t in range(1, len(trajectory)):
-        smoothed_trajectory[t, :2] = (
-            alpha * trajectory[t, :2] + beta * smoothed_trajectory[t - 1, :2]
+        smoothed_trajectory[t] = (
+            alpha * trajectory[t] + beta * smoothed_trajectory[t - 1]
         )
-
-    # Retain original w and h columns
-    smoothed_trajectory[:, 2:] = trajectory[:, 2:]
 
     return smoothed_trajectory[np.newaxis, ...]
 
@@ -77,21 +106,21 @@ def adaptive_smoothing(trajectory, initial_window=10, polyorder=2, threshold=0.1
     trajectory = trajectory.squeeze(0)  # Remove the batch dimension
     smoothed_trajectory = np.copy(trajectory)
 
-    # Apply adaptive smoothing only to x and y coordinates (first two columns)
+    # Apply adaptive smoothing to all components (x, y, width, height)
     for i in range(1, len(trajectory)):
-        diff = np.abs(trajectory[i, :2] - trajectory[i - 1, :2])
+        diff = np.abs(trajectory[i] - trajectory[i - 1])
         if np.any(diff > threshold):
-            smoothed_xy = savgol_filter(
-                trajectory[max(0, i - initial_window) : i + 1, :2],
+            smoothed_traj = savgol_filter(
+                trajectory[max(0, i - initial_window) : i + 1],
                 min(
                     initial_window, len(trajectory[max(0, i - initial_window) : i + 1])
                 ),
                 polyorder,
                 axis=0,
             )[-1]
-            smoothed_trajectory[i, :2] = smoothed_xy
+            smoothed_trajectory[i] = smoothed_traj
         else:
-            smoothed_trajectory[i, :2] = trajectory[i, :2]
+            smoothed_trajectory[i] = trajectory[i]
 
     return smoothed_trajectory[np.newaxis, ...]
 
@@ -103,20 +132,17 @@ def hybrid_smoothing(
     if len(trajectory) < savgol_window_length:
         return trajectory[np.newaxis, ...]
 
-    # Apply Savitzky-Golay smoothing only to x and y coordinates (first two columns)
+    # Apply Savitzky-Golay smoothing to all components (x, y, width, height)
     savgol_smoothed = savgol_filter(
-        trajectory[:, :2], savgol_window_length, savgol_polyorder, axis=0
+        trajectory, savgol_window_length, savgol_polyorder, axis=0
     )
 
     # Apply moving average smoothing on top of Savitzky-Golay smoothing
-    ma_smoothed_xy = moving_average_smoothing(
+    ma_smoothed = moving_average_smoothing(
         savgol_smoothed[np.newaxis, ...], window_size=ma_window_size
     ).squeeze(0)
 
-    # Combine smoothed x, y with original w, h
-    smoothed_trajectory = np.hstack((ma_smoothed_xy, trajectory[:, 2:]))
-
-    return smoothed_trajectory[np.newaxis, ...]
+    return ma_smoothed[np.newaxis, ...]
 
 
 def kalman_filter_smoothing(trajectory):

@@ -1,0 +1,54 @@
+\contentsline {chapter}{Academic Integrity Declaration}{i}{Doc-Start}%
+\contentsline {chapter}{Abstract}{ii}{chapter*.1}%
+\contentsline {chapter}{Acknowledgements}{iii}{chapter*.2}%
+\contentsline {chapter}{Table of Contents}{iv}{chapter*.3}%
+\contentsline {chapter}{List of Figures}{vi}{chapter*.4}%
+\contentsline {chapter}{List of Tables}{viii}{chapter*.5}%
+\contentsline {chapter}{List of Abbreviations}{ix}{chapter*.6}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background and Motivation}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Research Gap}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Aim and Objectives}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Technological Contributions}{3}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Thesis Layout}{3}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Literature Review}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Automated Refulling Systems in the Aviation Industry}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Object Detection and Tracking in Computer Vision}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Deep Learning for Spacio-Temporal Prediction}{12}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Methodology}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Dataset Configuration}{17}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Dataset Description}{17}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Data Annotation}{18}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Summary of Available Videos}{19}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Data Distribution}{20}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Data Balancing}{20}{subsection.3.1.5}%
+\contentsline {subsection}{\numberline {3.1.6}Example Images from the Datase}{21}{subsection.3.1.6}%
+\contentsline {subsection}{\numberline {3.1.7}Temporal Dynamics Analysis of the Refuelling Port}{22}{subsection.3.1.7}%
+\contentsline {section}{\numberline {3.2}Framework Design}{27}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Object Detection Model Fine-tuning}{28}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Sequence Model Design}{28}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Input Representation}{29}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Encoders}{30}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Hidden State Fusion}{31}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Decoders}{31}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Algorithm Design}{33}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Calculation of Key Values for Loss Functions}{33}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Loss Function Formulation}{35}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Data Postprocessing}{36}{subsection.3.5.3}%
+\contentsline {chapter}{\numberline {4}Experiment Design}{38}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Experiment Environment}{38}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Evaluation Metrics}{38}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Model Training and Optimisation}{40}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Comparison Experiments}{44}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Framework Evaluation}{49}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Results and Discussion}{50}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Object Detection Training Results}{50}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Experiment Results}{51}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Hyperparameter Tuning}{51}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Framework Evaluation}{54}{subsection.5.2.2}%
+\contentsline {section}{\numberline {5.3}Testing Visualisation}{56}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{64}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Summary}{64}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Technological Contributions}{64}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Future Work}{64}{section.6.3}%
+\contentsline {chapter}{References}{66}{appendix*.64}%

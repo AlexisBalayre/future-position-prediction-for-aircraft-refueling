@@ -158,9 +158,9 @@ if __name__ == "__main__":
     train_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/train.json"
     val_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/val.json"
     test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test_filter_savgol.json"
-
-    input_seq_sizes = [15]
-    output_seq_sizes = [30]
+    
+    input_seq_sizes = [15, 30]
+    output_seq_sizes = [30, 60]
 
     img_width = 640  
     img_height = 480 

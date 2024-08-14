@@ -8,6 +8,7 @@ from ultralytics.utils.plotting import Annotator
 from collections import deque
 from scipy.signal import savgol_filter
 from filterpy.kalman import KalmanFilter
+import pandas as pd
 
 from future_position_prediction.GRU.SizPos.GRULightningModelConcat import (
     GRULightningModelConcat,
@@ -25,21 +26,37 @@ from filters import (
     hybrid_smoothing,
     kalman_filter_smoothing,
     modified_exponential_smoothing,
+    gaussian_filter_smoothing
 )
 
+
+def handle_null_values(trajectory):
+    # Convert to DataFrame for easier manipulation
+    df = pd.DataFrame(trajectory, columns=["x_center", "y_center", "width", "height"])
+    
+    # Set types
+    df['x_center'] = df['x_center'].astype(np.float64)
+    df['y_center'] = df['y_center'].astype(np.float64)
+    df["width"] = df['width'].astype(np.float64)
+    df["height"] = df['height'].astype(np.float64)
+    
+    # Interpolate missing values
+    df.interpolate(method="linear", limit_direction="both", inplace=True)
+    return df.values
 
 def run_detections(
     input_video_path,
     output_json_path,
     yolo_weights_path,
     output_frame=30,
-    smooth_filter="",
+    smooth_filter=True,
 ):
     model = YOLOv10(yolo_weights_path)
     cap = cv2.VideoCapture(input_video_path)
     assert cap.isOpened(), "Error reading video file"
 
     frame_count = 0
+    object_id = None
     detections = []
 
     while cap.isOpened():
@@ -65,75 +82,69 @@ def run_detections(
             else:
                 current_detection = {
                     "frame_id": frame_count,
-                    "x_center": 0,
-                    "y_center": 0,
-                    "w": 0,
-                    "h": 0,
+                    "x_center": None,
+                    "y_center": None,
+                    "w": None,
+                    "h": None,
                 }
         else:
             current_detection = {
                 "frame_id": frame_count,
-                "x_center": 0,
-                "y_center": 0,
-                "w": 0,
-                "h": 0,
+                "x_center": None,
+                "y_center": None,
+                "w": None, 
+                "h": None,
             }
         detections.append(current_detection)
 
     cap.release()
 
-    # Convert detections to numpy array for smoothing
+    detections.sort(key=lambda x: x["frame_id"])
+
+    # Convert detections to numpy array for processing
     detection_array = np.array(
         [[d["x_center"], d["y_center"], d["w"], d["h"]] for d in detections]
     )
 
-    # Apply smoothing
-    smoothing_functions = {
-        "sa": smooth_trajectory,
-        "ma": moving_average_smoothing,
-        "es": exponential_smoothing,
-        "hybrid": hybrid_smoothing,
-        "adaptive": adaptive_smoothing,
-    }
-
-    if smooth_filter in smoothing_functions:
-        smoothed_detections = smoothing_functions[smooth_filter](
-            detection_array[np.newaxis, ...]
-        )[0]
+    # Handle null values and smoothing
+    detection_array = handle_null_values(detection_array)
+    if smooth_filter:
+        smoothed_detections = smooth_trajectory(detection_array, window_length=20)
     else:
-        print(
-            f"Warning: Unknown smoothing filter '{smooth_filter}'. No smoothing applied."
-        )
         smoothed_detections = detection_array
+        
+    # Clip values to [0, 1]
+    smoothed_detections = np.clip(smoothed_detections, 0, 1)
 
     output_detections = []
     for i, detection in enumerate(smoothed_detections):
         future_frame_index = i + output_frame  # Look 'output_frame' frames ahead
 
         if future_frame_index < len(smoothed_detections):
-            future_bbox_gt = smoothed_detections[future_frame_index]
+            future_bbox_gt = np.array(smoothed_detections[future_frame_index])
         else:
             future_bbox_gt = np.array([0, 0, 0, 0])
 
-        output_detections.append(
-            {
-                "frame_id": int(detections[i]["frame_id"]),  # Convert to int
-                "current_bbox": {
-                    "x_center": float(detection[0]),  # Convert to float
-                    "y_center": float(detection[1]),
-                    "w": float(detection[2]),
-                    "h": float(detection[3]),
-                },
-                "future_bbox_gt": {
-                    "x_center": float(future_bbox_gt[0]),  # Convert to float
-                    "y_center": float(future_bbox_gt[1]),
-                    "w": float(future_bbox_gt[2]),
-                    "h": float(future_bbox_gt[3]),
-                },
-            }
-        )
-
-    output_detections.sort(key=lambda x: x["frame_id"])
+        try:
+            output_detections.append(
+                {
+                    "frame_id": int(detections[i]["frame_id"]),  # Convert to int
+                    "current_bbox": {
+                        "x_center": float(detection[0]),  # Convert to float
+                        "y_center": float(detection[1]),
+                        "w": float(detection[2]),
+                        "h": float(detection[3]),
+                    },
+                    "future_bbox_gt": {
+                        "x_center": float(future_bbox_gt[0]),  # Convert to float
+                        "y_center": float(future_bbox_gt[1]),
+                        "w": float(future_bbox_gt[2]),
+                        "h": float(future_bbox_gt[3]),
+                    },
+                }
+            )
+        except Exception as e:
+            print(detection)
 
     with open(output_json_path, "w") as f:
         json.dump(output_detections, f, indent=2)
@@ -358,6 +369,7 @@ def run_future_positions_pred(
                     smoothing_functions = {
                         "sa": smooth_trajectory,
                         "ma": moving_average_smoothing,
+                        "gaussian": gaussian_filter_smoothing,
                         "es": exponential_smoothing,
                         "mes": modified_exponential_smoothing,
                         "hybrid": hybrid_smoothing,
@@ -527,21 +539,22 @@ if __name__ == "__main__":
 
     # Load the trained GRU model
     yolo_weights_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/code/object_detection/YOLOv10/runs/detect/train15/weights/best_yolov10s.pt"
-    gru_model_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/code/future_position_prediction/GRU/SizPos/version_153/checkpoints/epoch=58-step=5546.ckpt"
-    hparams_file = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/code/future_position_prediction/GRU/SizPos/version_153/hparams.yaml"
+    gru_model_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/code/future_position_prediction/GRU/SizPos/logs/concat/version_158/checkpoints/epoch=67-step=6392.ckpt"
+    hparams_file = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/code/future_position_prediction/GRU/SizPos/logs/concat/version_158/hparams.yaml"
     input_frames = 15
     output_frames = 30
-    input_video_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/videos/test/test_indoor1.avi"
-    video_name = "test_indoor1"
+    input_video_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/videos/video_lab_semiopen/video_lab_semiopen_1______3.avi"
+    video_name = "video_lab_semiopen_1______3"
 
-    smooth_filters = ["sa", "ma", "mes", "es", "hybrid", "adaptive", ""]
+    smooth_filters = ["sa", "ma", "mes", "es", "hybrid", "adaptive", "gaussian", ""]
     smoothing_params = {
-        "sa": {"window_length": 15},
-        "ma": {"window_size": 5},
+        "sa": {"window_length": 20},
+        "ma": {"window_size": 2},
         "mes": {},
         "es": {},
-        "hybrid": {"savgol_window_length": 15},
+        "hybrid": {"savgol_window_length": 20},
         "adaptive": {"initial_window": 10},
+        "gaussian": {"sigma": 2},
     }
     lkfs = [True, False]
 
@@ -565,14 +578,14 @@ if __name__ == "__main__":
             )
 
             # Step 1: Perform object detection and save detections with future bbox GT
-            run_detections(
+            """ run_detections(
                 input_video_path,
                 output_json_file,
                 yolo_weights_path,
                 output_frame=output_frames,
-                smooth_filter="sa"
-            ) 
-
+                smooth_filter=False,
+            ) """ 
+       
             # Step 2: Load detections
             detections = load_detections(output_json_file)
 
