@@ -1,4 +1,4 @@
-\begin{thebibliography}{72}
+\begin{thebibliography}{80}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -73,6 +73,25 @@ H.~Burnette.
 \newblock URL \url{https://www.wpafb.af.mil/News/Article-Display/Article/400022/lab-demonstrates-robotic-ground-refueling-of-aircraft/}.
 \newblock Accessed: 2024-06-24.
 
+\bibitem[Cai(2023)]{Cai2023}
+X.~Cai.
+\newblock The application of extended kalman filtering based on slam.
+\newblock \emph{Applied and Computational Engineering}, 12, 2023.
+\newblock ISSN 2755-2721.
+\newblock \doi{10.54254/2755-2721/12/20230293}.
+
+\bibitem[Carion et~al.(2020)Carion, Massa, Synnaeve, Usunier, Kirillov, and Zagoruyko]{Carion2020}
+N.~Carion, F.~Massa, G.~Synnaeve, N.~Usunier, A.~Kirillov, and S.~Zagoruyko.
+\newblock End-to-end object detection with transformers.
+\newblock volume 12346 LNCS, 2020.
+\newblock \doi{10.1007/978-3-030-58452-8_13}.
+
+\bibitem[Chen and Stettner(2011)]{Chen2011}
+C.-I. Chen and R.~Stettner.
+\newblock Drogue tracking using 3d flash lidar for autonomous aerial refueling.
+\newblock volume 8037, 2011.
+\newblock \doi{10.1117/12.886572}.
+
 \bibitem[Chen et~al.(2022)Chen, Wang, Zhao, Lv, and Niu]{SurveyVisualOT}
 F.~Chen, X.~Wang, Y.~Zhao, S.~Lv, and X.~Niu.
 \newblock Visual object tracking: A survey.
@@ -97,11 +116,24 @@ O.~Cokorilo, S.~Gvozdenovic, L.~Vasov, and P.~Mirosavljevic.
 \newblock \emph{Technological and Economic Development of Economy - TECHNOL ECON DEV ECON}, 16:\penalty0 188--201, 06 2010.
 \newblock \doi{10.3846/tede.2010.12}.
 
+\bibitem[Cummins(2020)]{Cummins2020}
+N.~Cummins.
+\newblock How is an aircraft refueled?
+\newblock 9 2020.
+\newblock URL \url{https://simpleflying.com/how-is-an-aircraft-refuled/}.
+
 \bibitem[Dai et~al.(2016)Dai, Li, He, and Sun]{DBLP:journals/corr/DaiLHS16}
 J.~Dai, Y.~Li, K.~He, and J.~Sun.
 \newblock {R-FCN:} object detection via region-based fully convolutional networks.
 \newblock \emph{CoRR}, abs/1605.06409, 2016.
 \newblock URL \url{http://arxiv.org/abs/1605.06409}.
+
+\bibitem[Diwan et~al.(2023)Diwan, Anirudh, and Tembhurne]{Diwan2023}
+T.~Diwan, G.~Anirudh, and J.~V. Tembhurne.
+\newblock Object detection using yolo: challenges, architectural successors, datasets and applications.
+\newblock \emph{Multimedia Tools and Applications}, 82, 2023.
+\newblock ISSN 15737721.
+\newblock \doi{10.1007/s11042-022-13644-y}.
 
 \bibitem[Face(2023)]{huggingface2023objectdetection}
 H.~Face.
@@ -120,6 +152,12 @@ H.~Fan, L.~Zhu, and Y.~Yang.
 \newblock page 8263 – 8270, 2019.
 \newblock URL \url{https://www.scopus.com/inward/record.uri?eid=2-s2.0-85085021761&partnerID=40&md5=5ef1e8834ec46834bbb53bbcf11720c9}.
 \newblock Cited by: 41.
+
+\bibitem[Feng et~al.(2018)Feng, Li, Zhang, Sun, Meng, Guo, and Jin]{Feng2018}
+J.~Feng, Y.~Li, C.~Zhang, F.~Sun, F.~Meng, A.~Guo, and D.~Jin.
+\newblock Deepmove: Predicting human mobility with attentional recurrent networks.
+\newblock 2018.
+\newblock \doi{10.1145/3178876.3186058}.
 
 \bibitem[Ficken(2017)]{Ficken2017}
 N.~Ficken.
@@ -274,6 +312,13 @@ M.~D.~L. Olja~Čokorilo and G.~Dell’Acqua.
 \newblock \doi{10.1080/13669877.2013.879493}.
 \newblock URL \url{https://doi.org/10.1080/13669877.2013.879493}.
 
+\bibitem[Oueslati et~al.(2021)Oueslati, Tahri, Limam, and Akaichi]{HurricanesFPP}
+W.~Oueslati, S.~Tahri, H.~Limam, and J.~Akaichi.
+\newblock A new approach for predicting the future position of a moving object: Hurricanes’ case study.
+\newblock \emph{Applied Artificial Intelligence}, 35, 2021.
+\newblock ISSN 10876545.
+\newblock \doi{10.1080/08839514.2021.1998299}.
+
 \bibitem[Plaza and Santos(2021)]{ExpertSystemsAGR}
 E.~Plaza and M.~Santos.
 \newblock Knowledge based approach to ground refuelling optimization of commercial airplanes.
@@ -349,9 +394,7 @@ N.~Srivastava, E.~Mansimov, and R.~Salakhutdinov.
 
 \bibitem[Styles et~al.(2020)Styles, Guha, and Sanchez]{MultipleObjectForecasting}
 O.~Styles, T.~Guha, and V.~Sanchez.
-\newblock Multiple object forecasting: Predicting future object locations in diverse environments.
-\newblock 2020.
-\newblock \doi{10.1109/WACV45572.2020.9093446}.
+\newblock Multiple object forecasting: Predicting future object locations in diverse environments, 2020.
 
 \bibitem[Wang et~al.(2024{\natexlab{a}})Wang, Chen, Liu, Chen, Lin, Han, and Ding]{wang2024yolov10}
 A.~Wang, H.~Chen, L.~Liu, K.~Chen, Z.~Lin, J.~Han, and G.~Ding.
@@ -398,6 +441,13 @@ T.~Ye, W.~Qin, Z.~Zhao, X.~Gao, X.~Deng, and Y.~Ouyang.
 \newblock \emph{IEEE Transactions on Instrumentation and Measurement}, 72, 2023.
 \newblock ISSN 15579662.
 \newblock \doi{10.1109/TIM.2023.3241825}.
+
+\bibitem[Yildirim and Rana(2023)]{HybridDatasetAGRV2}
+S.~Yildirim and Z.~A. Rana.
+\newblock Reducing the reality gap using hybrid data for real-time autonomous operations.
+\newblock \emph{Mathematics}, 11, 2023.
+\newblock ISSN 22277390.
+\newblock \doi{10.3390/math11071696}.
 
 \bibitem[Yildirim et~al.(2021)Yildirim, Rana, and Tang]{AGRPoseEstimation}
 S.~Yildirim, Z.~Rana, and G.~Tang.

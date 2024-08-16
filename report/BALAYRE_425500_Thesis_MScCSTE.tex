@@ -68,7 +68,7 @@
 \degree{MSc}
 \academicyear{2023--2024}
 \setCUPartnerLogo{logo-airbus.png}
-\supervisors{Dr Boyu Kuang and Dr Stuart Barnes}
+\supervisors{Dr. Boyu Kuang and Dr. Stuart Barnes}
 \copyrightyear{2024}
 
 % References
@@ -98,14 +98,14 @@
     aircraft refuelling systems, where accurate detection and prediction of the
     refuelling port's position are essential for operational efficiency and safety.
     Leveraging deep learning techniques, the framework integrates a fine-tuned
-    YOLOv10 object detection model with a proposed sequence model, termed
-    SizPos-GRU. This sequence model utilises an encoder-attention-decoder
+    \textit{YOLOv10} object detection model with a proposed sequence model, termed
+    \textit{SizPos-GRU}. This sequence model utilises an encoder-attention-decoder
     architecture to effectively capture temporal dependencies and spatial
     relationships from video frames. The methodology includes meticulous dataset
     configuration and annotation, followed by hyperparameter tuning to optimise
-    model performance. Experimental results demonstrate the SizPos-GRU model's
+    model performance. Experimental results demonstrate the \textit{SizPos-GRU} model's
     superior predictive accuracy across different scenarios. Specifically, the
-    Savitzky-Golay filter combined with a Linear Kalman Filter (LKF) yielded the
+    \textit{Savitzky-Golay} filter combined with a \textit{Linear Kalman Filter} (LKF) yielded the
     best performance, achieving an Average Displacement Error (ADE) of 32.45 pixels
     and a Final Displacement Error (FDE) of 57.98 pixels in the
     \textit{video\_lab\_platform\_6} dataset. Additionally, the model achieved a
@@ -223,7 +223,7 @@ aircraft safely and efficiently. This process involves using a system of
 underground fuel pipelines and hydrants at aircraft parking
 spots~\cite{blakey2011aviation}. When an aircraft is ready for refuelling, a
 hydrant dispenser vehicle connects to the hydrant pit and delivers fuel to the
-aircraft through a flexible hose~\cite{sati2019aircraft} (see
+aircraft through a flexible hose~\cite{sati2019aircraft, Cummins2020} (see
 Figure~\ref{fig:pressure-refuelling}). This method allows for high fuel flow
 rates and significantly reduces aircraft turnaround
 times~\cite{blakey2011aviation}. However, this process also presents several
@@ -329,7 +329,7 @@ model employs an encoder-attention-decoder architecture that effectively
 captures temporal dependencies and spatial relationships from video frames,
 resulting in superior predictive accuracy when compared to existing models. In
 addition to this, the integration of a fine-tuned YOLOv10 object detection
-model with the SizPos-GRU framework provides a comprehensive solution for
+model with the \textit{SizPos-GRU} framework provides a comprehensive solution for
 detecting, tracking, and predicting the future trajectory of the refuelling
 port. This integration not only enhances detection accuracy but also ensures
 robust trajectory prediction, which is critical for improving operational
@@ -454,12 +454,12 @@ landing. AAR systems are particularly challenging due to the high speeds and
 altitudes involved, as well as the need for precise measurement and tracking of
 the relative position between the receiver aircraft and the tanker aircraft are
 critical, particularly during the docking phase (see
-figure~\ref{fig:aerial-refuelling})~\cite{AARBinocularVision,
-    AARCNN}.~\citet{AAREKF} propose a robust solution that utilises monocular
-vision combined with an extended Kalman filter (EKF) to address this challenge.
-By implementing EKF, the system can provide reliable position estimations and
-track the drogue within a specified region of interest (ROI), even in the
-presence of disturbances such as air turbulence. As shown in
+figure~\ref{fig:aerial-refuelling})~\cite{AARBinocularVision, AARCNN,
+    Chen2011}.~\citet{AAREKF} propose a robust solution that utilises monocular
+vision combined with an extended Kalman filter (EKF)~\cite{Cai2023} to address
+this challenge. By implementing EKF, the system can provide reliable position
+estimations and track the drogue within a specified region of interest (ROI),
+even in the presence of disturbances such as air turbulence. As shown in
 figure~\ref{fig:detection-system-aarekf}, this system initialises the state and
 covariance matrices, predicts the drogue's position, updates the state based on
 new measurements, and continuously refines the ROI for subsequent image
@@ -508,10 +508,11 @@ The dataset comprises over 26,000 labeled images collected through image
 crawling from 13 different databases, followed by augmentation to ensure
 diversity (see Figure~\ref{fig:agr-dataset}). Additionally, recent innovations
 have introduced hybrid datasets combining real and synthetic data for training
-and validating systems \cite{HybridDatasetAGRV1}. This approach offers a wide
-range of scenarios and conditions, improving the robustness and accuracy of
-automated refuelling systems. The development of high-quality datasets is
-pivotal in improving the robustness and reliability of AAGR systems.
+and validating systems \cite{HybridDatasetAGRV1, HybridDatasetAGRV2}. This
+approach offers a wide range of scenarios and conditions, improving the
+robustness and accuracy of automated refuelling systems. The development of
+high-quality datasets is pivotal in improving the robustness and reliability of
+AAGR systems.
 
 \begin{figure}[H]
     \centering
@@ -551,12 +552,13 @@ Over the last few decades, Object Detection models based on Deep Learning have
 enjoyed remarkable success. These models fall into two main categories:
 two-stage detectors and single-stage detectors. On the one hand, two-stage
 detectors, such as R-CNN~\cite{DBLP:journals/corr/GirshickDDM13}, Fast
-R-CNN~\cite{DBLP:journals/corr/Girshick15}, Faster R-CNN~\cite{Ren2017} and
-R-FCN~\cite{DBLP:journals/corr/DaiLHS16}, first generate region proposals and
-then refine these proposals into precise anchor boxes. While these models excel
-in detection accuracy, they typically suffer from large model sizes and slower
-detection speeds~\cite{SurveyDLOD, ODNetworkUAVCNNTransformer}. On the other
-hand, single-stage detectors, including the SSD (Single Shot Multibox
+R-CNN~\cite{DBLP:journals/corr/Girshick15}, Faster R-CNN~\cite{Ren2017},
+R-FCN~\cite{DBLP:journals/corr/DaiLHS16}, and DETR~\cite{Carion2020}, first
+generate region proposals and then refine these proposals into precise anchor
+boxes. While these models excel in detection accuracy, they typically suffer
+from large model sizes and slower detection speeds~\cite{SurveyDLOD,
+    ODNetworkUAVCNNTransformer}. On the other hand, single-stage detectors,
+including the SSD (Single Shot Multibox
 Detector)~\cite{DBLP:journals/corr/LiuAESR15}, YOLO (You Only Look Once)
 series~\cite{DBLP:journals/corr/RedmonDGF15, DBLP:journals/corr/RedmonF16,
     DBLP:journals/corr/abs-2004-10934, chen2023yoloms,
@@ -565,7 +567,7 @@ series~\cite{DBLP:journals/corr/RedmonDGF15, DBLP:journals/corr/RedmonF16,
     wang2024yolov10}, and RetinaNet~\cite{lin2018focal} directly predict object
 locations and categories in a single network pass. These models are known for
 their high detection speeds but sometimes compromise accuracy~\cite{SurveyDLOD,
-    ODNetworkUAVCNNTransformer}.
+    ODNetworkUAVCNNTransformer, Diwan2023}.
 
 \begin{figure}[H]
     \centering
@@ -729,13 +731,13 @@ research, particularly in autonomous driving and surveillance applications.
 Early approaches to this problem primarily utilised Recurrent Neural Networks
 (RNNs), which include Long Short-Term Memory networks (LSTMs) and Gated
 Recurrent Units (GRUs)~\cite{Alemany2019, Bemporad2023,
-    PredictionHeadMovement360Degrees}. These models employ an encoder-decoder
-architecture to encode sequences of past observations and decode future
-locations. The encoder processes the input sequence to capture temporal
-dependencies, while the decoder predicts the future sequence based on the
-encoded information. RNNs, especially LSTMs and GRUs, have shown significant
-potential in sequence prediction tasks due to their ability to model long-term
-dependencies~\cite{CubicLSTMsVideoPrediction, ConvLSTM,
+    PredictionHeadMovement360Degrees, Feng2018, HurricanesFPP}. These models employ
+an encoder-decoder architecture to encode sequences of past observations and
+decode future locations. The encoder processes the input sequence to capture
+temporal dependencies, while the decoder predicts the future sequence based on
+the encoded information. RNNs, especially LSTMs and GRUs, have shown
+significant potential in sequence prediction tasks due to their ability to
+model long-term dependencies~\cite{CubicLSTMsVideoPrediction, ConvLSTM,
     DBLP:journals/corr/SrivastavaMS15}. However, these models often suffer from
 performance degradation over time, primarily because they recursively predict
 future bounding boxes based on the previous outputs, which can lead to error
@@ -1147,25 +1149,25 @@ in the CLOSED, SEMI-OPEN, and OPEN states, respectively.
 \subsection{Temporal Dynamics Analysis of the Refuelling Port}
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.65\textwidth}
+    \begin{subfigure}[t]{0.60\textwidth}
         \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Raw Data)_central_position.png}
         \caption{Central Position over Time without Filter.}
         \label{fig:central-position-test-indoor1-raw}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.65\textwidth}
+    \begin{subfigure}[t]{0.60\textwidth}
         \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Savgol Filter)_central_position.png}
         \caption{Central Position over Time with Savitzky-Golay Filter.}
         \label{fig:central-position-test-indoor1-savgol}
     \end{subfigure}
     \vfill
-    \begin{subfigure}[t]{0.65\textwidth}
+    \begin{subfigure}[t]{0.60\textwidth}
         \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Gaussian Filter)_central_position.png}
         \caption{Central Position over Time with Gaussian Filter.}
         \label{fig:central-position-test-indoor1-gaussian}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.65\textwidth}
+    \begin{subfigure}[t]{0.60\textwidth}
         \includegraphics[width=\textwidth]{figures/bbox_metrics/test_indoor1 (Rolling Mean Filter)_central_position.png}
         \caption{Central Position over Time with Rolling Mean Filter.}
         \label{fig:central-position-test-indoor1-rolling}
@@ -1319,16 +1321,17 @@ exhibited extreme spikes, which were effectively smoothed by the Savitzky-Golay
 filter, resulting in a clearer signal that still captured essential trends. The
 Gaussian filter also provided a comparable smoothing effect, but the Rolling
 Mean filter’s tendency to oversmooth could obscure real changes in acceleration
-that are critical for the model to learn. Finally, the area of the refuelling port, representing its size over time, was
-analysed in Figure~\ref{fig:size-test-indoor1}. The raw area data fluctuated
-considerably, with abrupt changes likely due to noise or occlusions in the
-video data (Figure~\ref{fig:size-test-indoor1-raw}). Smoothing was necessary to
-understand the true size changes, with the Savitzky-Golay filter proving
-effective in reducing noise while preserving key trends, making the data more
-reliable for training the sequence model. The Gaussian filter also performed
-well, particularly in moderately noisy data, but the Rolling Mean filter’s
-tendency to oversmooth suggests it may not be suitable when detailed temporal
-patterns are important.
+that are critical for the model to learn. Finally, the area of the refuelling
+port, representing its size over time, was analysed in
+Figure~\ref{fig:size-test-indoor1}. The raw area data fluctuated considerably,
+with abrupt changes likely due to noise or occlusions in the video data
+(Figure~\ref{fig:size-test-indoor1-raw}). Smoothing was necessary to understand
+the true size changes, with the Savitzky-Golay filter proving effective in
+reducing noise while preserving key trends, making the data more reliable for
+training the sequence model. The Gaussian filter also performed well,
+particularly in moderately noisy data, but the Rolling Mean filter’s tendency
+to oversmooth suggests it may not be suitable when detailed temporal patterns
+are important.
 
 In conclusion, the Savitzky-Golay filter consistently balanced noise reduction
 with the preservation of critical temporal dynamics, making it the recommended
@@ -1453,7 +1456,7 @@ predict future bounding box positions and sizes.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{figures/GRUSizPosEncoder.drawio.pdf}
-    \caption{SizPos-GRU Encoder Architecture.}
+    \caption{\textit{SizPos-GRU} Encoder Architecture.}
     \label{fig:sizpos-gru-encoder}
 \end{figure}
 
@@ -1495,7 +1498,7 @@ enabling the model to generate context-aware predictions.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{figures/GRUSizPosDecoder.drawio.pdf}
-    \caption{SizPos-GRU Decoder Architecture.}
+    \caption{\textit{SizPos-GRU} Decoder Architecture.}
     \label{fig:sizpos-gru-decoder}
 \end{figure}
 
@@ -1632,7 +1635,6 @@ As indicated in Equations \eqref{eq:position_x} to \eqref{eq:position_h}, these
 equations are used iteratively to predict the positions and sizes at each
 future time step, integrating the model's output over time.
 
-\newpage
 \subsection{Loss Function Formulation}
 To train the \textit{SizPos-GRU} model, Smooth L1 Loss, also known as Huber
 Loss, a composite loss function is employed, which takes into account various
@@ -2052,7 +2054,7 @@ Velocity (CV) model, and variants of Recurrent Neural Networks (RNNs) such as
 Long Short-Term Memory (LSTM) and Gated Recurrent Unit (GRU).
 
 \subsection*{Linear Kalman Filter (LKF)}
-\noindent The Linear Kalman Filter (LKF) is a recursive filter that estimates the state of a linear dynamic system from a series of incomplete and noisy measurements. In the context of predicting the position of the refuelling port, the state vector $\mathbf{x}_t$ includes the position and velocity of the object. The model assumes constant velocity in the state transition, which is represented mathematically by the following equation:
+\noindent The Linear Kalman Filter (LKF) is a recursive filter that estimates the state of a linear dynamic system from a series of incomplete and noisy measurements~\cite{kalman1960new}. In the context of predicting the position of the refuelling port, the state vector $\mathbf{x}_t$ includes the position and velocity of the object. The model assumes constant velocity in the state transition, which is represented mathematically by the following equation:
 
 \begin{equation}
     \mathbf{x}_t = \mathbf{F} \mathbf{x}_{t-1} + \mathbf{w}_{t-1}, \label{eq:kalman_state_transition}
@@ -2064,7 +2066,7 @@ relationship is expressed as:
 \begin{equation}
     \mathbf{z}_t = \mathbf{H} \mathbf{x}_t + \mathbf{v}_t, \label{eq:kalman_observation}
 \end{equation}
-Here, in Equation \eqref{kalman_observation}, $\mathbf{H}$ is the observation matrix, which maps the true state space into the observed space, and $\mathbf{v}_t$ represents the measurement noise, capturing the inaccuracies in the sensor data.
+Here, in Equation \eqref{eq:kalman_observation}, $\mathbf{H}$ is the observation matrix, which maps the true state space into the observed space, and $\mathbf{v}_t$ represents the measurement noise, capturing the inaccuracies in the sensor data.
 The Kalman Filter proceeds with two main steps: prediction and update. During
 the prediction step, the filter estimates the current state and its covariance
 based on the previous state:
@@ -2088,7 +2090,7 @@ optimally combining prior knowledge and new measurements to provide a refined
 estimate of the refuelling port's position and velocity over time.
 
 \subsection*{Constant Velocity (CV)}
-\noindent The Constant Velocity (CV) model assumes that the object continues to move at a constant speed and direction. This model is based on the principle that the object's motion remains uniform over time. Given a sequence of past positions $\mathbf{P} = \{(x_1, y_1), \dots, (x_T, y_T)\}$, the model first estimates the velocity $\mathbf{v}$ of the object. This velocity is computed by averaging the differences between consecutive positions:
+\noindent The Constant Velocity (CV) model assumes that the object continues to move at a constant speed and direction. This model is based on the principle that the object's motion remains uniform over time~\cite{MultipleObjectForecasting}. Given a sequence of past positions $\mathbf{P} = \{(x_1, y_1), \dots, (x_T, y_T)\}$, the model first estimates the velocity $\mathbf{v}$ of the object. This velocity is computed by averaging the differences between consecutive positions:
 
 \begin{equation}
     \mathbf{v} = \frac{1}{T-1} \sum_{t=2}^{T} \left(\mathbf{P}_t - \mathbf{P}_{t-1}\right), \label{eq:cv_velocity}
@@ -2264,7 +2266,7 @@ multiple IoU thresholds (mAP50-95).
 
 \begin{table}[H]
     \centering
-    \caption{Performance comparison of finetuned YOLO models on the detection of Refueling Port.}
+    \caption{Performance comparison of finetuned YOLO models on the detection of Refuelling Port.}
     \begin{adjustbox}{max width=\textwidth}
         \begin{tabular}{lcccccc}
             \toprule
@@ -2442,22 +2444,24 @@ and FDE (73.4 pixels, 9.18\%) among the tested models. These results indicate
 the model’s strong capability in predicting future positions with minimal
 deviation from the ground truth. Although the FIoU value of 22.1\% reflects
 moderate spatial overlap, the low displacement errors underscore the model’s
-effectiveness in minimising prediction deviations. The tables present a
-comparison of traditional baseline models (CV and LKF) and various customised
-models that were developed in this study, separated by a dashed line. The
-models below the dashed line represent customised versions that use different
-selections of model architectures and hyperparameters. These include variations
-of Long Short-Term Memory (LSTM) networks and Gated Recurrent Units (GRU), each
-designed to enhance the trajectory prediction capabilities. The
-\textit{SizPos-GRU} model, in particular, was trained to achieve the best
-performance among these custom models. Similarly, in the 30-frame prediction
-task (Table \ref{tab:fusion-gru-results-30frames}), the \textit{SizPos-GRU}
-model excelled with an ADE of 17.2 pixels (2.15\%) and an FDE of 38.6 pixels
-(4.83\%). These results, particularly the low ADE and FDE, confirm the model’s
-reliability in short-term predictions. While the FIoU metric may be less
-critical depending on the application, the low displacement errors validate the
-model’s performance, making it a robust choice for tasks that require precise
-trajectory prediction..
+effectiveness in minimising prediction deviations.
+Tables~\ref{tab:fusion-gru-results-30frames}
+and~\ref{tab:fusion-gru-results-60frames} present a comparison of traditional
+baseline models (CV and LKF) and various customised models that were developed
+in this study, separated by a dashed line. The models below the dashed line
+represent customised versions that use different selections of model
+architectures and hyperparameters. These include variations of Long Short-Term
+Memory (LSTM) networks and Gated Recurrent Units (GRU), each designed to
+enhance the trajectory prediction capabilities. The \textit{SizPos-GRU} model,
+in particular, was trained to achieve the best performance among these custom
+models. Similarly, in the 30-frame prediction task (Table
+\ref{tab:fusion-gru-results-30frames}), the \textit{SizPos-GRU} model excelled
+with an ADE of 17.2 pixels (2.15\%) and an FDE of 38.6 pixels (4.83\%). These
+results, particularly the low ADE and FDE, confirm the model’s reliability in
+short-term predictions. While the FIoU metric may be less critical for the
+application of this thesis, the low displacement errors validate the model’s
+performance, making it a robust choice for tasks that require precise
+trajectory prediction. 
 
 \begin{table}[H]
     \centering
@@ -2509,7 +2513,7 @@ various smoothing filters and Linear Kalman Filter (LKF) configurations were
 tested across three different video datasets: \textit{test\_indoor1} (Table
 \ref{tab:performance_metrics_json}) \textit{video\_lab\_semiopen\_1\_3} (Table
 \ref{tab:performance_metrics_video_lab_semiopen_1_3}), and
-\textit{video\_lab\_platform\_6} (Table
+\textit{video\_lab\_-platform\_6} (Table
 \ref{tab:performance_metrics_video_lab_platform_6}). The primary metrics
 evaluated include Average Displacement Error (ADE), Final Displacement Error
 (FDE), Average Intersection over Union (AIoU), and Final Intersection over
@@ -2556,9 +2560,9 @@ performance of other filters, particularly in varying environmental conditions,
 underscores the importance of selecting the appropriate smoothing technique
 based on the specific characteristics of the application environment. The
 combination of these findings suggests that the Savitzky-Golay filter,
-especially when fine-tuned and applied in conjunction with LKF in dynamic or
-semi-open environments, offers a robust solution for enhancing the predictive
-performance of trajectory models in automated aircraft refuelling systems.
+especially when applied in conjunction with LKF in dynamic environments, offers
+a robust solution for enhancing the predictive performance of trajectory models
+in automated aircraft refuelling systems.
 
 \begin{table}[H]
     \centering
@@ -2641,264 +2645,243 @@ performance of trajectory models in automated aircraft refuelling systems.
 \newpage
 \section{Testing Visualisation}
 This section analyses the trajectory prediction framework’s performance using
-three video datasets: \textit{video\_lab\_platform\_6},
-\textit{video\_lab\_semiopen\_1\_\_\_\_\_\_3}, and \textit{test\_indoor1}.
+three distinct video datasets: \textit{video\_lab\_platform\_6},
+\textit{video\_lab\_semiopen\_1\_\_\_\_\_\_3}, and \textit{test\_indoor1}. The
+objective is to assess the accuracy and reliability of the framework’s
+predictions under varying motion scenarios.
+
+\subsection{Framework Output Visualisation}
 Figure~\ref{fig:trajectory-prediction-test-indoor1} illustrates the predicted
-and ground truth central positions of the refuelling port across various
-sequences of frames. In the figure, the red bounding box represents the current
-position, the green bounding box indicates the predicted future position, and
-the blue bounding box shows the ground truth future position. Accurate
-predictions are characterised by the close alignment of the blue and green
-boxes, indicating that the model effectively forecasts the future trajectory of
-the refuelling port. Misalignments between these boxes highlight prediction
-errors, which can be attributed to model limitations or environmental factors.
-The figure is organised into rows and columns to showcase different outputs
-across time or varying video frames. Each row corresponds to a different video,
-enabling a comparative analysis of the model’s performance in diverse
-conditions. The consistent overlap of predicted and ground truth positions
-across all videos suggests that the framework is robust and adaptable,
-providing reliable trajectory predictions in different scenarios.
+and ground truth central positions of the refuelling port across different
+frame sequences. The visualisation employs bounding boxes to represent current,
+predicted, and ground truth positions, where the red, green, and blue boxes
+correspond to the current position, predicted future position, and ground truth
+future position, respectively. The alignment between the green and blue boxes
+serves as an indicator of the model’s prediction accuracy. Misalignments, where
+the boxes diverge, highlight instances of prediction error, which may stem from
+model limitations or complexities in the motion dynamics. The figure is
+organised into rows and columns to facilitate comparative analysis across
+different videos and frame sequences, enabling an assessment of the model's
+robustness and adaptability across varied conditions.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{figures/Framework_Output.png}
-    \caption{Visualisation of the trajectory prediction framework output for videos \textit{video\_lab\_platform\_6}, \textit{video\_lab\_semiopen\_1\_\_\_\_\_\_3}, and \textit{test\_indoor1}. }
+    \caption{Visualisation of the trajectory prediction framework output for videos \textit{video\_lab\_platform\_6}, \textit{video\_lab\_semiopen\_1\_\_\_\_\_\_3}, and \textit{test\_indoor1}.}
     \label{fig:trajectory-prediction-test-indoor1}
 \end{figure}
 
+\newpage
+\subsection{Framework Output Analysis}
+Figures~\ref{fig:framework-video_lab_platform_6},
+\ref{fig:framework-video_lab_semiopen_1_3}, and
+\ref{fig:framework-test_indoor1} compare the predicted motion trajectories
+against the ground truth, providing insight into the model’s predictive
+performance. The ground truth X and Y coordinates are depicted by black
+dash-dot and dotted lines, respectively, serving as reference benchmarks. The
+predictions are presented using various filtering methods: raw data predictions
+(blue), Savitzky-Golay (SG) filtered predictions (green), and predictions
+filtered with a combination of Linear Kalman Filter (LKF) and SG (orange). In
+Figure~\ref{fig:framework-video_lab_platform_6}, predictions for
+\textit{video\_lab\_platform\_6} across three frame intervals (61 to 90, 106 to
+135, and 151 to 180) reveal that the framework closely tracks the ground truth
+when filters are applied. The SG and LKF-SG filters significantly reduce noise,
+resulting in smoother trajectories that align closely with the actual motion
+path. However, the raw predictions exhibit considerable variability,
+particularly in the latter frames, indicating the model's sensitivity to noise
+and its limitations in unfiltered scenarios. Despite the enhanced accuracy from
+filtering, a slight lag in prediction responsiveness is observed, which could
+affect the framework’s performance in tracking rapid motion changes.
+Figure~\ref{fig:framework-video_lab_semiopen_1_3} extends this analysis to
+\textit{video\_lab\_semiopen\_1\_\_\_\_\_\_3}. Here, the framework demonstrates
+robustness in maintaining prediction accuracy across various motion dynamics.
+Filtered predictions consistently align with the ground truth, particularly
+under stable motion conditions. However, the raw predictions show greater
+variability, indicating challenges in accurately predicting abrupt or irregular
+motion without the support of filters. This suggests that while the framework
+is effective in stable conditions, its performance may diminish in more dynamic
+environments. Finally, Figure~\ref{fig:framework-test_indoor1} evaluates the
+framework's performance on the \textit{test\_indoor1} dataset. Even in a more
+constrained and complex environment, the filtered predictions maintain close
+alignment with the ground truth, especially with the LKF-SG filter. However,
+discrepancies are observed during rapid motion transitions, indicating that
+while filtering enhances prediction accuracy, the framework may struggle to
+capture sudden changes in motion fully. Overall, the analysis highlights that
+the trajectory prediction framework performs well under certain conditions,
+particularly when filtering techniques are employed to mitigate noise and
+improve accuracy. However, the model's dependence on filtering also reveals its
+sensitivity to noise and its limitations in predicting rapid or irregular
+motion patterns. 
+
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 Raw Data - 1.png}
-        \caption{Predictions from frame 61 to 90 without smoothing.}
-        \label{fig:framework-video_lab_platform_6-1-raw}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{figures/video_lab_platform_6_Group_1_Trajectories.png}
+        \caption{Predictions from frame 61 to 90.}
+        \label{fig:framework-video_lab_platform_6-1}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 LKF SA Filter - 1.png}
-        \caption{Predictions from frame 61 to 90 with Savitzky-Golay filter and Linear Kalman Filter.}
-        \label{fig:framework-video_lab_platform_6-1-sa-lkf}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{figures/video_lab_platform_6_Group_2_Trajectories.png}
+        \caption{Predictions from frame 106 to 135.}
+        \label{fig:framework-video_lab_platform_6-2}
     \end{subfigure}
     \vfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 SA Filter - 1.png}
-        \caption{Predictions from frame 61 to 90 with Savitzky-Golay filter.}
-        \label{fig:framework-video_lab_platform_6-1-sa}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{figures/video_lab_platform_6_Group_3_Trajectories.png}
+        \caption{Predictions from frame 151 to 180.}
+        \label{fig:framework-video_lab_platform_6-3}
     \end{subfigure}
     \caption{Framework outputs from frame 61 to 90 for video \textit{video\_lab\_platform\_6}.}
-    \label{fig:framework-video_lab_platform_6-1}
+    \label{fig:framework-video_lab_platform_6}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 Raw Data - 2.png}
-        \caption{Predictions from frame 106 to 135 without smoothing.}
-        \label{fig:framework-video_lab_platform_6-2-raw}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{figures/video_lab_semiopen_1______3_Group_1_Trajectories.png}
+        \caption{Predictions from frame 61 to 90.}
+        \label{fig:framework-video_lab_semiopen_1_3-1}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 LKF SA Filter - 2.png}
-        \caption{Predictions from frame 106 to 135 with Savitzky-Golay filter and Linear Kalman Filter.}
-        \label{fig:framework-video_lab_platform_6-2-sa-lkf}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{figures/video_lab_semiopen_1______3_Group_2_Trajectories.png}
+        \caption{Predictions from frame 106 to 135.}
+        \label{fig:framework-video_lab_semiopen_1_3-2}
     \end{subfigure}
     \vfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 SA Filter - 2.png}
-        \caption{Predictions from frame 106 to 135 with Savitzky-Golay filter.}
-        \label{fig:framework-video_lab_platform_6-2-sa}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{figures/video_lab_semiopen_1______3_Group_3_Trajectories.png}
+        \caption{Predictions from frame 151 to 180.}
+        \label{fig:framework-video_lab_semiopen_1_3-3}
     \end{subfigure}
-    \caption{Framework outputs from frame 106 to 135 for video \textit{video\_lab\_platform\_6}.}
-    \label{fig:framework-video_lab_platform_6-2}
+    \caption{Framework outputs from frame 61 to 180 for video \textit{video\_lab\_semiopen\_1\_\_\_\_\_\_3}.}
+    \label{fig:framework-video_lab_semiopen_1_3}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 Raw Data - 3.png}
-        \caption{Predictions from frame 151 to 180 without smoothing.}
-        \label{fig:framework-video_lab_platform_6-3-raw}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{figures/test_indoor1_Group_1_Trajectories.png}
+        \caption{Predictions from frame 61 to 90.}
+        \label{fig:framework-test_indoor1-1}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 LKF SA Filter - 3.png}
-        \caption{Predictions from frame 151 to 180 with Savitzky-Golay filter and Linear Kalman Filter.}
-        \label{fig:framework-video_lab_platform_6-3-sa-lkf}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{figures/test_indoor1_Group_2_Trajectories.png}
+        \caption{Predictions from frame 106 to 135.}
+        \label{fig:framework-test_indoor1-2}
     \end{subfigure}
     \vfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/video_lab_platform_6 SA Filter - 3.png}
-        \caption{Predictions from frame 151 to 180 with Savitzky-Golay filter.}
-        \label{fig:framework-video_lab_platform_6-3-sa}
+    \begin{subfigure}[t]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{figures/test_indoor1_Group_3_Trajectories.png}
+        \caption{Predictions from frame 151 to 180.}
+        \label{fig:framework-test_indoor1-3}
     \end{subfigure}
-    \caption{Framework outputs from frame 151 to 180 for video \textit{video\_lab\_platform\_6}.}
-    \label{fig:framework-video_lab_platform_6-3}
+    \caption{Framework outputs from frame 61 to 180 for video \textit{test\_indoor1}.}
+    \label{fig:framework-test_indoor1}
 \end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 Raw Data - 1.png}
-        \caption{Predictions from frame 61 to 90 without smoothing.}
-        \label{fig:framework-test_indoor1-1-raw}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 LKF SA Filter - 1.png}
-        \caption{Predictions from frame 61 to 90 with Savitzky-Golay filter and Linear Kalman Filter.}
-        \label{fig:framework-test_indoor1-1-sa-lkf}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 SA Filter - 1.png}
-        \caption{Predictions from frame 61 to 90 with Savitzky-Golay filter.}
-        \label{fig:framework-test_indoor1-1-sa}
-    \end{subfigure}
-    \caption{Framework outputs from frame 61 to 90 for video \textit{test\_indoor1}.}
-    \label{fig:framework-test_indoor1-1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 Raw Data - 2.png}
-        \caption{Predictions from frame 106 to 135 without smoothing.}
-        \label{fig:framework-test_indoor1-2-raw}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 LKF SA Filter - 2.png}
-        \caption{Predictions from frame 106 to 135 with Savitzky-Golay filter and Linear Kalman Filter.}
-        \label{fig:framework-test_indoor1-2-sa-lkf}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 SA Filter - 2.png}
-        \caption{Predictions from frame 106 to 135 with Savitzky-Golay filter.}
-        \label{fig:framework-test_indoor1-2-sa}
-    \end{subfigure}
-    \caption{Framework outputs from frame 106 to 135 for video \textit{test\_indoor1}.}
-    \label{fig:framework-test_indoor1-2}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 Raw Data - 3.png}
-        \caption{Predictions from frame 151 to 180 without smoothing.}
-        \label{fig:framework-test_indoor1-3-raw}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 LKF SA Filter - 3.png}
-        \caption{Predictions from frame 151 to 180 with Savitzky-Golay filter and Linear Kalman Filter.}
-        \label{fig:framework-test_indoor1-3-sa-lkf}
-    \end{subfigure}
-    \vfill
-    \begin{subfigure}[t]{0.9\textwidth}
-        \includegraphics[width=\textwidth]{figures/framework/test_indoor1 SA Filter - 3.png}
-        \caption{Predictions from frame 151 to 180 with Savitzky-Golay filter.}
-        \label{fig:framework-test_indoor1-3-sa}
-    \end{subfigure}
-    \caption{Framework outputs from frame 151 to 180 for video \textit{test\_indoor1}.}
-    \label{fig:framework-test_indoor1-3}
-\end{figure}
-
-\newpage
-
-Figures~\ref{fig:framework-video_lab_platform_6-1},
-\ref{fig:framework-video_lab_platform_6-2},
-\ref{fig:framework-video_lab_platform_6-3}, \ref{fig:framework-test_indoor1-1},
-\ref{fig:framework-test_indoor1-2}, and \ref{fig:framework-test_indoor1-3}
-illustrate the predicted and ground truth central positions of the refuelling
-port across multiple frame sequences, comparing raw predictions with those
-processed using the Savitzky-Golay filter and Linear Kalman Filter (LKF). The
-model shows an initial alignment with the ground truth trajectories. However,
-as the frame sequences progress, particularly in later frames, the predictions
-begin to diverge significantly from the ground truth. This divergence is more
-pronounced in the X center coordinate, suggesting that the model is
-particularly sensitive to horizontal deviations and noise accumulation over
-time. This trend is evident in both videos but is especially marked in the
-\textit{test\_indoor1} dataset, where the model struggles to accurately track
-abrupt changes in trajectory. These deviations highlight a critical limitation
-in the model's ability to maintain accuracy over extended sequences, as errors
-accumulate and cause a noticeable drift from the actual trajectory. The
-application of the Savitzky-Golay filter and LKF, shown in subfigures (b),
-significantly mitigates these issues by smoothing the trajectory and aligning
-the predictions more closely with the ground truth, thereby reducing noise and
-limiting the impact of cumulative errors. Although the Savitzky-Golay filter
-alone, illustrated in subfigures (c), also improves prediction accuracy, the
-combined approach with LKF proves more effective in maintaining stability and
-accuracy, particularly in later frames where the impact of recursive error
-propagation is most pronounced. This analysis underscores the importance of
-advanced filtering techniques in enhancing the reliability of trajectory
-predictions, particularly in recursive models where error accumulation is a
-critical challenge. For instance, in the \textit{video\_lab\_platform\_6}
-dataset, the smoothing techniques help to maintain a consistent trajectory,
-even in the more challenging later frames where the unsmoothed predictions
-exhibited significant drift. Similarly, in the \textit{test\_indoor1} dataset,
-the filters help to manage abrupt trajectory changes more effectively, reducing
-the sharp deviations that were prominent in the raw predictions. However, while
-the application of these filters significantly enhances the model's
-performance, it is important to recognise that they do not entirely eliminate
-prediction errors. In both videos, some discrepancies between the predicted and
-actual positions remain, particularly during complex or abrupt movements. This
-suggests that while smoothing techniques are effective in improving overall
-prediction stability, they cannot fully compensate for the model's inherent
-limitations in handling dynamic and unpredictable changes in trajectory. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONCLUSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusion and Future Work}
+\chapter{Conclusion and Future Work}\label{chap:conclusion}
 
 \section{Summary}
-This thesis has developed a comprehensive framework for predicting the future
-positions of aircraft refuelling ports using advanced deep learning techniques.
-The primary accomplishment of this project is the integration of the SizPos-GRU
-model with a fine-tuned YOLOv10 object detection system. The framework
-effectively captures temporal dependencies and spatial relationships within
-video sequences, leading to accurate and reliable predictions of refuelling
-port positions. The use of smoothing techniques, such as the Savitzky-Golay
-filter combined with Linear Kalman Filter (LKF), significantly enhanced the
-model’s performance, particularly in noisy and dynamic environments. The
-results demonstrate that the proposed framework achieves superior predictive
-accuracy compared to existing models, particularly in terms of reducing Average
-Displacement Error (ADE) and Final Displacement Error (FDE), while maintaining
-high spatial consistency. These outcomes underscore the potential of the
-developed framework to improve the automation and safety of aircraft refuelling
-operations.
+This thesis has developed and evaluated a future position prediction framework
+specifically designed for the automated refuelling of commercial aircraft. The
+research has addressed critical challenges in detecting and predicting the
+position of refuelling ports, which are often obscured by factors such as
+motion blur, occlusion, or complex environmental conditions. By leveraging
+advanced deep learning techniques, including the \textit{SizPos-GRU} model combined with
+a fine-tuned YOLOv10 object detection system, the framework demonstrates
+significant improvements in predictive accuracy and reliability across various
+scenarios. The experimental results highlight the efficacy of integrating
+temporal and spatial data for robust object tracking and motion prediction,
+thus contributing to the advancement of automated aircraft ground operations.
 
 \section{Technological Contributions}
-This research presents several key technological contributions to the field of
-automated aircraft refuelling and predictive modelling. The primary
-contribution is the development of the SizPos-GRU model, which incorporates an
-encoder-attention-decoder architecture tailored for capturing the complex
-temporal and spatial relationships in video sequences. The integration of this
-model with a fine-tuned YOLOv10 object detection system provides a robust
-solution for detecting, tracking, and predicting the trajectory of refuelling
-ports. Additionally, the implementation of advanced smoothing techniques, such
-as the Savitzky-Golay filter in conjunction with Linear Kalman Filtering,
-contributes to more stable and accurate predictions, even in challenging
-environments. These technological advancements significantly enhance the
-predictive capabilities of automated systems in dynamic environments, offering
-practical applications in the aviation industry.
+The thesis makes several technological contributions. The design and
+implementation of the \textit{SizPos-GRU} model represents a novel approach to capturing
+temporal dependencies and spatial relationships within video streams. This
+model's encoder-attention-decoder architecture has been shown to ensure
+accurate predictions of future positions and sizes of aircraft refuelling
+ports. Furthermore, the integration of the \textit{SizPos-GRU} model with a fine-tuned
+YOLOv10 object detection system provides a comprehensive solution for
+detecting, tracking, and predicting the trajectory of refuelling ports in
+dynamic environments. Advanced filtering techniques, including the
+Savitzky-Golay filter combined with Kalman Filters, have been implemented to
+significantly enhance the stability and reliability of the model's predictions
+by reducing noise and smoothing the trajectories. Additionally, a specialised
+dataset has been created and annotated, capturing various states of the
+refuelling port under different lighting and environmental conditions. This
+dataset serves as a valuable resource for training and evaluating deep learning
+models in this domain.
 
 \section{Future Work}
-There are several avenues for future research that could extend the findings of
-this thesis. One potential direction is the exploration of more advanced deep
-learning architectures, such as Transformers or hybrid models that combine the
-strengths of recurrent neural networks and convolutional neural networks, to
-further enhance predictive accuracy. Expanding the dataset to include a broader
-range of scenarios, aircraft types, and environmental conditions could also
-improve model generalization and robustness. Additionally, incorporating
-multi-modal data, such as infrared or radar signals, could further enhance the
-model’s performance under different environmental conditions, such as low
-visibility or harsh weather. Finally, integrating this prediction framework
-into a real-time system and conducting live operational testing would be
-crucial steps towards practical deployment, addressing real-world challenges
-such as latency, computational efficiency, and system integration.
+While the proposed framework has demonstrated promising results, several areas
+warrant further exploration and development. Future research should focus on
+optimising the model's processing speed to enable real-time implementation in
+operational environments, which would involve reducing the computational
+complexity of the framework while maintaining accuracy. Expanding the
+framework's applicability by training and testing it in a wider range of
+environmental conditions and aircraft models is also crucial. This could
+involve collecting more diverse datasets to improve the model's generalisation
+capabilities. Moreover, enhancing the model's robustness in handling abrupt
+motion changes and irregular patterns is necessary. This could be achieved by
+integrating more sophisticated recurrent architectures or exploring hybrid
+models that combine deep learning with traditional computer vision techniques.
+Investigating methods to extend the prediction horizon while maintaining
+accuracy is another important direction for future work, as this is crucial for
+improving the anticipation of future positions in dynamic and unpredictable
+environments. 
+
+% \section{Summary}
+% This thesis has developed a comprehensive framework for predicting the future
+% positions of aircraft refuelling ports using advanced deep learning techniques.
+% The primary accomplishment of this project is the integration of the SizPos-GRU
+% model with a fine-tuned YOLOv10 object detection system. The framework
+% effectively captures temporal dependencies and spatial relationships within
+% video sequences, leading to accurate and reliable predictions of refuelling
+% port positions. The use of smoothing techniques, such as the Savitzky-Golay
+% filter combined with Linear Kalman Filter (LKF), significantly enhanced the
+% model’s performance, particularly in noisy and dynamic environments. The
+% results demonstrate that the proposed framework achieves superior predictive
+% accuracy compared to existing models, particularly in terms of reducing Average
+% Displacement Error (ADE) and Final Displacement Error (FDE), while maintaining
+% high spatial consistency. These outcomes underscore the potential of the
+% developed framework to improve the automation and safety of aircraft refuelling
+% operations.
+
+% \section{Technological Contributions}
+% This research presents several key technological contributions to the field of
+% automated aircraft refuelling and predictive modelling. The primary
+% contribution is the development of the SizPos-GRU model, which incorporates an
+% encoder-attention-decoder architecture tailored for capturing the complex
+% temporal and spatial relationships in video sequences. The integration of this
+% model with a fine-tuned YOLOv10 object detection system provides a robust
+% solution for detecting, tracking, and predicting the trajectory of refuelling
+% ports. Additionally, the implementation of advanced smoothing techniques, such
+% as the Savitzky-Golay filter in conjunction with Linear Kalman Filtering,
+% contributes to more stable and accurate predictions, even in challenging
+% environments. These technological advancements significantly enhance the
+% predictive capabilities of automated systems in dynamic environments, offering
+% practical applications in the aviation industry.
+
+% \section{Future Work}
+% There are several avenues for future research that could extend the findings of
+% this thesis. One potential direction is the exploration of more advanced deep
+% learning architectures, such as Transformers or hybrid models that combine the
+% strengths of recurrent neural networks and convolutional neural networks, to
+% further enhance predictive accuracy. Expanding the dataset to include a broader
+% range of scenarios, aircraft types, and environmental conditions could also
+% improve model generalization and robustness. Additionally, incorporating
+% multi-modal data, such as infrared or radar signals, could further enhance the
+% model’s performance under different environmental conditions, such as low
+% visibility or harsh weather. Finally, integrating this prediction framework
+% into a real-time system and conducting live operational testing would be
+% crucial steps towards practical deployment, addressing real-world challenges
+% such as latency, computational efficiency, and system integration.
 %TC:ignore 
-\appendix
 
 %TC:endignore 
 
