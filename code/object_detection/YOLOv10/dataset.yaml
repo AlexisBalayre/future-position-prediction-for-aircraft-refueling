@@ -1,0 +1,9 @@
+names:
+  0: Fuel Port [CLOSED]
+  1: Fuel Port [SEMI-OPEN]
+  2: Fuel Port [OPEN]
+
+nc: 3
+
+train: /mnt/beegfs/home/s425500/balanced_dataset/train
+val: /mnt/beegfs/home/s425500/balanced_dataset/val

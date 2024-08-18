@@ -1,0 +1,28 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Performance Comparison of YOLO Models with State-of-the-Art Techniques\nobreakspace {}\cite {wang2024yolov10}.\relax }}{11}{table.caption.22}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Comparison of the performance of STED with baseline models on the Citywalks dataset. \relax }}{14}{table.caption.25}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Comparison of the performance of PV-LSTM with baseline models on the Citywalks dataset. \relax }}{15}{table.caption.27}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Comparison of the performance of Fusion-GRU with baseline models on the ROL and HEV-I datasets.\relax }}{16}{table.caption.29}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces \centering Summary of available videos in the AARP dataset with their assignment.\relax }}{19}{table.caption.31}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the AARP dataset before balancing.\relax }}{20}{table.caption.32}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces \centering Distribution of frames across train, test, and validation sets for each state in the AARP dataset after balancing.\relax }}{20}{table.caption.33}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Training Configuration Parameters for the \textit {SizPos-GRU} model - Descriptions.\relax }}{41}{table.caption.45}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Training Configuration Parameters for the \textit {SizPos-GRU} model - Values.\relax }}{41}{table.caption.46}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Hyperparameter Tuning Configuration - Descriptions\relax }}{42}{table.caption.47}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Hyperparameter Tuning Configuration - Values Tested\relax }}{42}{table.caption.48}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Performance comparison of finetuned YOLO models on the detection of Refuelling Port.\relax }}{50}{table.caption.49}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Hyperparameter tuning results for trajectory prediction using \textit {SizPos-GRU} model that leverages 30 past frames (1 sec) to predict the position 60 frames (2 sec) into the future.\relax }}{52}{table.caption.50}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Hyperparameter tuning results for trajectory prediction using \textit {SizPos-GRU} model that leverages 15 past frames (0.5 sec) to predict the position 30 frames (1 sec) into the future.\relax }}{52}{table.caption.51}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Performance comparison of various models on trajectory prediction tasks using 30 past frames to predict 60 future frames.\relax }}{53}{table.caption.52}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Performance comparison of various models on trajectory prediction tasks using 15 past frames to predict 30 future frames.\relax }}{53}{table.caption.53}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Performance metrics using different smoothing filters and Linear Kalman Filter (LKF) configurations for video test\_indoor1.\relax }}{55}{table.caption.54}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Performance metrics using different smoothing filters and Linear Kalman Filter (LKF) configurations for video \textit {video\_lab\_semiopen\_1\_\_\_\_\_\_3}.\relax }}{55}{table.caption.55}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Performance metrics using different smoothing filters and Linear Kalman Filter (LKF) configurations for video \textit {video\_lab\_platform\_6}.\relax }}{55}{table.caption.56}%
+\addvspace {10\p@ }

@@ -4,11 +4,23 @@ import torch.nn.functional as F
 
 
 class SelfAttentionAggregation(nn.Module):
+    """
+    A self-attention mechanism for aggregating information across time steps in a sequence.
+
+    Args:
+        input_dim (int): Dimensionality of the input features.
+        hidden_dim (int): Dimensionality of the hidden layer.
+    """
+
     def __init__(self, input_dim: int, hidden_dim: int):
         super(SelfAttentionAggregation, self).__init__()
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
+
+        # Fully connected layer to project input to hidden dimension
         self.fc = nn.Linear(input_dim, hidden_dim)
+
+        # Attention mechanism layer to compute attention weights
         self.attention = nn.Linear(hidden_dim, 1)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -16,10 +28,10 @@ class SelfAttentionAggregation(nn.Module):
         Apply self-attention aggregation to the input tensor.
 
         Args:
-            x (torch.Tensor): Input tensor of shape (batch_size, time_steps, input_dim)
+            x (torch.Tensor): Input tensor of shape (batch_size, time_steps, input_dim).
 
         Returns:
-            torch.Tensor: Aggregated tensor of shape (batch_size, hidden_dim)
+            torch.Tensor: Aggregated tensor of shape (batch_size, hidden_dim).
         """
         # Project input to hidden dimension
         hidden = self.fc(x)
@@ -27,6 +39,7 @@ class SelfAttentionAggregation(nn.Module):
         # Compute attention weights
         attention_weights = F.softmax(self.attention(hidden), dim=1)
 
-        # Apply attention and sum
+        # Apply attention and sum across time steps
         attended = torch.sum(attention_weights * hidden, dim=1)
+
         return attended
