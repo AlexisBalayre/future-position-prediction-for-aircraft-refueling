@@ -4,7 +4,7 @@ from scipy.ndimage import gaussian_filter
 from filterpy.kalman import KalmanFilter
 
 
-def smooth_trajectory(trajectory, window_length=5, polyorder=2):
+def sg_filter_smoothing(trajectory, window_length=5, polyorder=2):
     """
     Apply Savitzky-Golay filter to smooth the trajectory data.
 
