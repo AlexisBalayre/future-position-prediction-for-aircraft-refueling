@@ -9,15 +9,15 @@ from code.framework.filters import (
 )
 
 
-def handle_null_values(trajectory):
+def handle_null_values(trajectory: np.ndarray) -> np.ndarray:
     """
     Handle null values in a trajectory by linear interpolation.
 
     Args:
-        trajectory (numpy.ndarray): A trajectory with potential null values in x, y, width, and height columns.
+        trajectory (np.ndarray): A trajectory with potential null values in x, y, width, and height columns.
 
     Returns:
-        numpy.ndarray: The trajectory with null values interpolated.
+        np.ndarray: The trajectory with null values interpolated.
     """
     # Convert to DataFrame for easier manipulation
     df = pd.DataFrame(trajectory, columns=["x_center", "y_center", "width", "height"])
@@ -34,12 +34,12 @@ def handle_null_values(trajectory):
 
 
 def run_detections(
-    input_video_path,
-    output_json_path,
-    yolo_weights_path,
-    output_frame=30,
-    smooth_filter=True,
-):
+    input_video_path: str,
+    output_json_path: str,
+    yolo_weights_path: str,
+    output_frame: int = 30,
+    smooth_filter: bool = True,
+) -> None:
     """
     Run object detection on a video using YOLOv10 and save the results to a JSON file.
 
@@ -154,7 +154,9 @@ def run_detections(
     print(f"Saved smoothed detections to {output_json_path}")
 
 
-def load_detections(input_json_path):
+def load_detections(
+    input_json_path: str,
+) -> List[Dict[str, Union[int, Dict[str, float]]]]:
     """
     Load detection results from a JSON file.
 
@@ -162,7 +164,7 @@ def load_detections(input_json_path):
         input_json_path (str): Path to the input JSON file with detection results.
 
     Returns:
-        list: A list of detections loaded from the JSON file.
+        List[Dict[str, Union[int, Dict[str, float]]]]: A list of detections loaded from the JSON file.
     """
     with open(input_json_path, "r") as f:
         return json.load(f)

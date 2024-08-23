@@ -27,7 +27,7 @@ from code.framework.filters import (
 )
 
 
-def calculate_iou(boxA, boxB):
+def calculate_iou(boxA: List[float], boxB: List[float]) -> float:
     """
     Calculate the Intersection over Union (IoU) between two bounding boxes.
 
@@ -71,7 +71,7 @@ def calculate_iou(boxA, boxB):
     return iou
 
 
-def set_fixed_seed(seed=42):
+def set_fixed_seed(seed: int = 42) -> None:
     """
     Set a fixed seed for reproducibility.
 
@@ -91,17 +91,17 @@ def set_fixed_seed(seed=42):
 
 
 def run_future_positions_pred(
-    detections,
-    gru_model_path,
-    hparams_file,
-    input_video_path,
-    output_video_path,
-    input_frames=30,
-    future_frames=60,
-    smooth_filter="sa",
-    lkf=False,
-    smoothing_params=None,
-):
+    detections: List[Dict[str, Dict[str, float]]],
+    gru_model_path: str,
+    hparams_file: str,
+    input_video_path: str,
+    output_video_path: str,
+    input_frames: int = 30,
+    future_frames: int = 60,
+    smooth_filter: str = "sa",
+    lkf: bool = False,
+    smoothing_params: Optional[Dict[str, float]] = None,
+) -> Tuple[List[Dict[str, float]], Dict[str, float]]:
     """
     Predict future object positions in a video using a GRU model and visualize the predictions.
 
@@ -126,6 +126,7 @@ def run_future_positions_pred(
     set_fixed_seed(42)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+    # Load GRU model
     gru_model = (
         GRULightningModelConcat.load_from_checkpoint(
             gru_model_path, hparams_file=hparams_file
@@ -134,6 +135,7 @@ def run_future_positions_pred(
         .eval()
     )
 
+    # Load video and initialise output video writer
     cap = cv2.VideoCapture(input_video_path)
     if not cap.isOpened():
         raise ValueError("Error reading video file")
