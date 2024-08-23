@@ -8,14 +8,16 @@ import random
 from ultralytics.utils.plotting import Annotator
 from collections import deque
 
-from code.future_position_prediction.GRU.SizPos.GRULightningModelConcat import (
-    GRULightningModelConcat,
+from typing import List, Dict, Tuple, Optional
+
+from ..future_position_prediction.GRU.SizPos.SizPosGRULightningModelConcat import (
+    SizPosGRULightningModelConcat
 )
-from code.future_position_prediction.GRU.SizPos.utils import (
+from ..future_position_prediction.GRU.SizPos.utils import (
     convert_velocity_to_positions,
     convert_PosSize_to_PosVel,
 )
-from code.framework.filters import (
+from .filters import (
     sg_filter_smoothing,
     moving_average_smoothing,
     exponential_smoothing,
@@ -128,7 +130,7 @@ def run_future_positions_pred(
 
     # Load GRU model
     gru_model = (
-        GRULightningModelConcat.load_from_checkpoint(
+        SizPosGRULightningModelConcat.load_from_checkpoint(
             gru_model_path, hparams_file=hparams_file
         )
         .to(device)

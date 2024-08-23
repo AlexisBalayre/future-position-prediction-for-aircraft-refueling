@@ -4,6 +4,8 @@ import pandas as pd
 import cv2
 from ultralytics import YOLOv10
 
+from typing import List, Dict, Union
+
 from code.framework.filters import (
     sg_filter_smoothing,
 )
