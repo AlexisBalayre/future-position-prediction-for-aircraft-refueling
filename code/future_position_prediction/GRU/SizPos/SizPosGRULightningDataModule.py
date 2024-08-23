@@ -1,7 +1,7 @@
 import lightning as L
 from torch.utils.data import DataLoader
 from torch.utils.data.dataloader import default_collate
-from typing import Optional
+from typing import Optional, Tuple, Dict
 
 from .SizPosGRULightningDataset import SizPosGRULightningDataset
 

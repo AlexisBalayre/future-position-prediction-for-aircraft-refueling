@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from typing import Tuple
+from typing import Optional, Tuple, Dict
 
 
 from .SelfAttention import SelfAttention

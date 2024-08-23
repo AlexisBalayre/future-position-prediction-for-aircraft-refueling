@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from typing import Tuple, Dict
+
 from .SelfAttention import SelfAttention
 
 
@@ -43,7 +45,7 @@ class DecoderGRU(nn.Module):
         self.relu = nn.ReLU()
 
         # Attention mechanism
-        self.attention = SelfAttentionAggregation(hidden_dim, hidden_dim)
+        self.attention = SelfAttention(hidden_dim, hidden_dim)
 
         # Initialize weights
         self.init_weights()

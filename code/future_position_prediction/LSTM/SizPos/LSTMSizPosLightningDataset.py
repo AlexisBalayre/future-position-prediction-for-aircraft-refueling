@@ -3,6 +3,8 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
+from typing import Optional, Tuple, Dict
+
 
 class LSTMSizPosLightningDataset(Dataset):
     """
@@ -274,4 +276,4 @@ class LSTMSizPosLightningDataset(Dataset):
                 bbox_position[4] = accx
                 bbox_position[5] = accy
 
-    return bbox_position, bbox_size
+        return bbox_position, bbox_size

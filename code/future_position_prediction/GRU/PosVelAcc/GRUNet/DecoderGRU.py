@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from typing import Tuple, List
 
-from .SelfAttentionAggregation import SelfAttentionAggregation
+from .SelfAttention import SelfAttention
 
 
 class DecoderGRU(nn.Module):
@@ -40,7 +40,7 @@ class DecoderGRU(nn.Module):
         self.relu = nn.ReLU()
 
         # Self-attention layer
-        self.attention = SelfAttentionAggregation(hidden_dim, hidden_dim)
+        self.attention = SelfAttention(hidden_dim, hidden_dim)
 
         # Initialise GRU weights
         self.init_weights()

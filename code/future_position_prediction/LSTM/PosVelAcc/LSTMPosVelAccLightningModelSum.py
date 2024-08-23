@@ -277,6 +277,14 @@ class LSTMPosVelAccLightningModelSum(L.LightningModule):
         Returns:
             torch.Tensor: Total loss computed for the batch.
         """
+        (
+            _,
+            input_bboxes,
+            input_velocities,
+            input_accelerations,
+            output_bboxes,
+            output_velocities,
+        ) = batch
 
         # Predict future velocities
         if stage == "train":
