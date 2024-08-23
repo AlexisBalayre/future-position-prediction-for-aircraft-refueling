@@ -56,7 +56,7 @@ class SizPosGRULightningModelAverage(L.LightningModule):
         super(SizPosGRULightningModelAverage, self).__init__()
         self.save_hyperparameters()
 
-        # Initialize the GRU-based encoders
+        # Initialise the GRU-based encoders
         self.position_encoder = EncoderGRU(
             input_dim=position_dim,
             hidden_dim=hidden_dim,
@@ -72,7 +72,7 @@ class SizPosGRULightningModelAverage(L.LightningModule):
             dropout=dropout,
         )
 
-        # Initialize the GRU-based decoders
+        # Initialise the GRU-based decoders
         self.pos_decoder = DecoderGRU(
             position_dim,
             hidden_dim,
@@ -88,7 +88,7 @@ class SizPosGRULightningModelAverage(L.LightningModule):
             dropout=[dropout, dropout],
         )
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -110,7 +110,7 @@ class SizPosGRULightningModelAverage(L.LightningModule):
         """
         batch_size = position_seq.size(0)
 
-        # Initialize hidden states for the GRU encoders
+        # Initialise hidden states for the GRU encoders
         h_pos = torch.zeros(
             self.position_encoder.n_layers,
             batch_size,
@@ -135,7 +135,7 @@ class SizPosGRULightningModelAverage(L.LightningModule):
         # Combine the hidden states (average)
         h_pos = h_size = (encoder_hidden_states_pos + encoder_hidden_states_size) / 2
 
-        # Initialize decoder inputs with the last frame of the input sequence
+        # Initialise decoder inputs with the last frame of the input sequence
         decoder_input_pos = position_seq[:, -1, :]
         decoder_input_size = size_seq[:, -1, :]
 

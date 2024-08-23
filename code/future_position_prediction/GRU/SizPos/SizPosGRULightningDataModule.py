@@ -52,7 +52,7 @@ class SizPosGRULightningDataModule(L.LightningDataModule):
             predict_dataset_path (Optional[str], optional): Path to the dataset used for prediction. Only used if stage is 'predict'. Defaults to None.
         """
         if stage == "train" or stage is None:
-            # Initialize training and validation datasets
+            # Initialise training and validation datasets
             self.train_dataset = SizPosGRULightningDataset(
                 self.train_dataset_path,
                 input_frames=self.input_frames,
@@ -66,7 +66,7 @@ class SizPosGRULightningDataModule(L.LightningDataModule):
                 stage="val",
             )
         if stage == "test" or stage is None:
-            # Initialize test dataset
+            # Initialise test dataset
             self.test_dataset = SizPosGRULightningDataset(
                 self.test_dataset_path,
                 input_frames=self.input_frames,
@@ -74,7 +74,7 @@ class SizPosGRULightningDataModule(L.LightningDataModule):
                 stage="test",
             )
         if stage == "predict" and predict_dataset_path is not None:
-            # Initialize prediction dataset
+            # Initialise prediction dataset
             self.predict_dataset = SizPosGRULightningDataset(
                 predict_dataset_path,
                 input_frames=self.input_frames,

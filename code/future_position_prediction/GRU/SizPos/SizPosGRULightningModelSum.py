@@ -86,7 +86,7 @@ class SizPosGRULightningModelSum(L.LightningModule):
             dropout=[dropout, dropout],
         )
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -108,7 +108,7 @@ class SizPosGRULightningModelSum(L.LightningModule):
         """
         batch_size = position_seq.size(0)
 
-        # Initialize hidden state
+        # Initialise hidden state
         h_pos = torch.zeros(
             self.position_encoder.n_layers,
             batch_size,

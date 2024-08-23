@@ -82,7 +82,7 @@ class LSTMPosVelAccLightningModelAverage(L.LightningModule):
             dropout=dropout,
         )
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -133,7 +133,7 @@ class LSTMPosVelAccLightningModelAverage(L.LightningModule):
             encoder_cell_states_vel + encoder_cell_states_acc + encoder_cell_states_bbox
         ) / 3
 
-        # Initialize decoder input with the last frame of the input sequence
+        # Initialise decoder input with the last frame of the input sequence
         decoder_input_pos = bbox_seq[:, -1, :]
         decoder_input_vel = velocity_seq[:, -1, :]
 

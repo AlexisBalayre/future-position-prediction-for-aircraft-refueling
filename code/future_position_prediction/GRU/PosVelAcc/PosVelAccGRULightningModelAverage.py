@@ -56,7 +56,7 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
         super(PosVelAccGRULightningModelAverage, self).__init__()
         self.save_hyperparameters()
 
-        # Initialize the GRU-based encoders and decoders
+        # Initialise the GRU-based encoders and decoders
         self.bbox_encoder = EncoderGRU(
             input_dim=bbox_dim,
             hidden_dim=hidden_dim,
@@ -94,7 +94,7 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
             dropout=[dropout, dropout],
         )
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -118,7 +118,7 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
         """
         batch_size = bbox_seq.size(0)
 
-        # Initialize hidden states for the GRU encoders
+        # Initialise hidden states for the GRU encoders
         h_pos = torch.zeros(
             self.bbox_encoder.n_layers,
             batch_size,

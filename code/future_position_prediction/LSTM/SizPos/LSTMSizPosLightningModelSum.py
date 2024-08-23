@@ -82,7 +82,7 @@ class LSTMSizPosLightningModelSum(L.LightningModule):
             dropout=dropout,
         )
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)

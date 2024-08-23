@@ -88,7 +88,7 @@ class SizPosGRULightningModelConcat(L.LightningModule):
 
         self.combine_hidden = nn.Linear(hidden_dim * 2, hidden_dim)
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -128,7 +128,7 @@ class SizPosGRULightningModelConcat(L.LightningModule):
         """
         batch_size = position_seq.size(0)
 
-        # Initialize hidden state
+        # Initialise hidden state
         h_pos = torch.zeros(
             self.position_encoder.n_layers,
             batch_size,

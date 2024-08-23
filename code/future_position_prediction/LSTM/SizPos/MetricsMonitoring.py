@@ -25,7 +25,7 @@ class MetricsMonitoring:
 
     def __init__(self, image_size: Tuple[int, int]):
         """
-        Initialize the MetricsMonitoring object.
+        Initialise the MetricsMonitoring object.
 
         Args:
             image_size (Tuple[int, int]): The size of the image (width, height) used for normalization.

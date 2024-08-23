@@ -12,7 +12,7 @@ class LSTMEncoder(nn.Module):
         dropout: float = 0.0,
     ):
         """
-        Initialize the LSTM Encoder.
+        Initialise the LSTM Encoder.
 
         Args:
             input_size (int): Number of features in the input X.
@@ -55,11 +55,11 @@ class LSTMEncoder(nn.Module):
         self, batch_size: int, device: torch.device = torch.device("cpu")
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         """
-        Initialize hidden state.
+        Initialise hidden state.
 
         Args:
             batch_size (int): Batch size.
-            device (torch.device, optional): The device on which to initialize the hidden state. Defaults to CPU.
+            device (torch.device, optional): The device on which to Initialise the hidden state. Defaults to CPU.
 
         Returns:
             Tuple[torch.Tensor, torch.Tensor]: Initialized hidden state and cell state.

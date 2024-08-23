@@ -86,7 +86,7 @@ class LSTMSizPosLightningModelConcat(L.LightningModule):
         self.combine_hidden = nn.Linear(hidden_size * 2, hidden_size)
         self.combine_cell = nn.Linear(hidden_size * 2, hidden_size)
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)

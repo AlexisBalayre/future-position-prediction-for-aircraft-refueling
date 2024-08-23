@@ -80,7 +80,7 @@ class LSTMPosVelAccLightningModelClassic(L.LightningModule):
             dropout=dropout,
         )
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -112,7 +112,7 @@ class LSTMPosVelAccLightningModelClassic(L.LightningModule):
         _, (hidden_states_pos, cell_states_pos) = self.position_encoder(bbox_seq)
         _, (hidden_states_vel, cell_states_vel) = self.velocity_encoder(velocity_seq)
 
-        # Initialize decoder input with the last frame of the input sequence
+        # Initialise decoder input with the last frame of the input sequence
         decoder_input_pos = bbox_seq[:, -1, :]
         decoder_input_vel = velocity_seq[:, -1, :]
 

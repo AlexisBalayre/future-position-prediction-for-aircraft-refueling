@@ -83,7 +83,7 @@ class LSTMSizPosLightningModelClassic(L.LightningModule):
             dropout=dropout,
         )
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -115,7 +115,7 @@ class LSTMSizPosLightningModelClassic(L.LightningModule):
         _, (hidden_states_pos, cell_states_pos) = self.position_encoder(position_seq)
         _, (hidden_states_size, cell_states_size) = self.size_encoder(size_seq)
 
-        # Initialize decoder input with the last frame of the input sequence
+        # Initialise decoder input with the last frame of the input sequence
         decoder_input_position = position_seq[:, -1, :]
         decoder_input_size = size_seq[:, -1, :]
 

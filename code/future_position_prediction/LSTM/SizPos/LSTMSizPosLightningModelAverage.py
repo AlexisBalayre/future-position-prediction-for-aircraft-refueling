@@ -83,7 +83,7 @@ class LSTMSizPosLightningModelAverage(L.LightningModule):
             dropout=dropout,
         )
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -127,7 +127,7 @@ class LSTMSizPosLightningModelAverage(L.LightningModule):
             encoder_cell_states_position + encoder_cell_states_size
         ) / 2
 
-        # Initialize decoder input with the last frame of the input sequence
+        # Initialise decoder input with the last frame of the input sequence
         decoder_input_position = position_seq[:, -1, :]
         decoder_input_size = size_seq[:, -1, :]
 

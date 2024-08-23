@@ -17,7 +17,7 @@ class LSTMDecoder(nn.Module):
         dropout: float = 0.0,
     ):
         """
-        Initialize the LSTM Decoder.
+        Initialise the LSTM Decoder.
 
         Args:
             input_size (int): Number of input features.
