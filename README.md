@@ -6,40 +6,60 @@ This repository contains the source code for predicting the future position and 
 
 ## Repository Structure
 
+```plaintext
+.
+├── code/
+│   ├── data_utils/
+│   │   ├── data_preprocessing/
+│   │   ├── dataset_analyse.ipynb
+│   │   ├── dataset_preparation.ipynb
+│   │   ├── synthetic_data_generation.ipynb
+│   ├── framework/
+│   │   ├── evaluation.py
+│   │   ├── filters.py
+│   │   ├── object_detection_model.py
+│   │   ├── sequence_model.py
+│   ├── future_position_prediction/
+│   │   ├── GRU/
+│   │   ├── LSTM/
+│   ├── ml_studio/
+│   ├── object_detection/
+├── data/
+│   ├── AARP/
+│   ├── synthetic/
+├── report/
+├── test/
+├── requirements.txt
+```
+
+### Summary of Main Directories
+
 - **code/**
 
-  - **data_utils/**: Contains scripts for data preprocessing, dataset analysis, and synthetic data generation.
+  - **data_utils/**: Scripts for data preprocessing, analysis, and synthetic data generation.
+    - `data_preprocessing/`: Filtering and preprocessing scripts (e.g., EMA, Gaussian, Rolling Mean, Savitzky-Golay).
+    - `dataset_analyse.ipynb`: Dataset analysis notebook.
+    - `dataset_preparation.ipynb`: Dataset preparation notebook.
+    - `synthetic_data_generation.ipynb`: Synthetic data generation notebook.
+  - **framework/**: Core components such as evaluation metrics, filter implementations, and model definitions.
+    - `evaluation.py`: Model performance evaluation.
+    - `filters.py`: Data post-processing filters.
+    - `object_detection_model.py`: Refuelling port detection logic using YOLOv10.
+    - `sequence_model.py`: Future position prediction logic using GRU and LSTM models.
+  - **future_position_prediction/**: Implementations for predicting future positions.
+    - `GRU/`: GRU-based prediction models.
+    - `LSTM/`: LSTM-based prediction models.
+  - **ml_studio/**: Backend configurations for automating annotation processes.
+  - **object_detection/**: YOLOv10 model configurations and training scripts.
 
-    - `data_preprocessing/`: Includes filters and preprocessing scripts (e.g., EMA, Gaussian, Rolling Mean, Savitzky-Golay).
-    - `dataset_analyse.ipynb`: Jupyter notebook for dataset analysis.
-    - `dataset_preparation.ipynb`: Jupyter notebook for dataset preparation.
-    - `synthetic_data_generation.ipynb`: Jupyter notebook for generating synthetic data.
+- **data/**: Datasets, including annotated frames and synthetic data.
 
-  - **framework/**: Hosts the core framework components such as evaluation metrics, filter implementations, and model definitions.
-
-    - `evaluation.py`: Code for evaluating model performance.
-    - `filters.py`: Contains filtering techniques like EMA, Gaussian, and Savitzky-Golay designed for data post-processing.
-    - `object_detection_model.py`: Contains the logic to detect the refuelling port using YOLOv10.
-    - `sequence_model.py`: Contains the logic to predict future positions using GRU and LSTM models.
-
-  - **future_position_prediction/**: Contains specific implementations and models for predicting future positions.
-
-    - `Baseline/`: Includes baseline methods like Constant Velocity (CV) and Linear Kalman Filter (LKF).
-    - `GRU/`: GRU-based models for position and size prediction, with subdirectories for various configurations.
-    - `LSTM/`: LSTM-based models for position and size prediction, similar to the GRU structure.
-
-  - **ml_studio/**: Contains Label Studio backend configurations for automating the annotation process.
-
-    - `FasterRCNN_backend/`: Faster R-CNN configurations.
-    - `YOLOv10_backend/`: YOLOv10 configurations.
-
-  - **object_detection/**: Includes the YOLOv10 object detection model configurations and training scripts.
-
-- **data/**: Contains datasets, including annotated frames, YOLO datasets, and synthetic data.
+  - **AARP/**: Annotated and raw datasets for refuelling port detection.
+  - **synthetic/**: Synthetic datasets for model training.
 
 - **report/**: LaTeX files for the thesis report.
 
-- **test/**: Framework output files for testing purposes.
+- **test/**: Output files from framework testing.
 
 ## Installation
 
