@@ -4,7 +4,7 @@ import torch.nn as nn
 import lightning as L
 from typing import Tuple, Dict
 
-from utils import (
+from .utils import (
     compute_ADE,
     compute_FDE,
     compute_AIOU,
@@ -12,14 +12,14 @@ from utils import (
     convert_velocity_to_positions,
 )
 
-from MetricsMonitoring import MetricsMonitoring
-from GRUNet.DecoderGRU import DecoderGRU
-from GRUNet.EncoderGRU import EncoderGRU
+from .MetricsMonitoring import MetricsMonitoring
+from .GRUNet.DecoderGRU import DecoderGRU
+from .GRUNet.EncoderGRU import EncoderGRU
 
 
 class PosVelAccGRULightningModelConcat(L.LightningModule):
     """
-    A PyTorch Lightning module for a GRU-based model that predicts future bounding box positions
+    Main PyTorch Lightning module of the PosVelAcc-GRU model that predicts future bounding box positions
     and velocities by concatenating hidden states from separate encoders for bounding boxes,
     velocities, and accelerations.
 
@@ -56,7 +56,7 @@ class PosVelAccGRULightningModelConcat(L.LightningModule):
         super().__init__()
         self.save_hyperparameters()
 
-        # Initialize GRU-based encoders
+        # Initialise GRU-based encoders
         self.bbox_encoder = EncoderGRU(
             input_dim=bbox_dim,
             hidden_dim=hidden_dim,
@@ -79,7 +79,7 @@ class PosVelAccGRULightningModelConcat(L.LightningModule):
             dropout=dropout,
         )
 
-        # Initialize GRU-based decoders
+        # Initialise GRU-based decoders
         self.pos_decoder = DecoderGRU(
             bbox_dim,
             hidden_dim,
@@ -96,9 +96,9 @@ class PosVelAccGRULightningModelConcat(L.LightningModule):
         )
 
         # Combine hidden states from different encoders
-        self.combine_hidden = nn.Linear(hidden_dim * 2, hidden_dim)
+        self.combine_hidden = nn.Linear(hidden_dim * 3, hidden_dim)
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -145,7 +145,7 @@ class PosVelAccGRULightningModelConcat(L.LightningModule):
         batch_size = bbox_seq.size(0)
         device = bbox_seq.device
 
-        # Initialize hidden states
+        # Initialise hidden states
         h_pos = torch.zeros(
             self.bbox_encoder.n_layers,
             batch_size,
@@ -168,13 +168,13 @@ class PosVelAccGRULightningModelConcat(L.LightningModule):
         # Encode the Position, Velocity, and Acceleration
         _, encoder_hidden_states_bbox = self.bbox_encoder(bbox_seq, h_pos)
         _, encoder_hidden_states_vel = self.vel_encoder(velocity_seq, h_vel)
-        # _, encoder_hidden_states_acc = self.acc_encoder(acceleration_seq, h_acc)
+        _, encoder_hidden_states_acc = self.acc_encoder(acceleration_seq, h_acc)
 
         # Combine hidden states
         h_pos = h_vel = self.combine_hidden_states(
             encoder_hidden_states_bbox,
             encoder_hidden_states_vel,
-            # encoder_hidden_states_acc,
+            encoder_hidden_states_acc,
         )
 
         # Decoder with teacher forcing
@@ -356,7 +356,7 @@ class PosVelAccGRULightningModelConcat(L.LightningModule):
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": "val_loss",
+                "monitor": "train_loss",
                 "interval": "epoch",
             },
         }

@@ -1,23 +1,31 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from typing import Tuple, List
 
-from GRUNet.SelfAttentionAggregation import SelfAttentionAggregation
+from .SelfAttentionAggregation import SelfAttentionAggregation
 
 
 class DecoderGRU(nn.Module):
     """
-    A GRU-based decoder with attention mechanism for sequence modeling tasks.
+    A GRU-based decoder with an attention mechanism for sequence modelling tasks.
 
     Args:
         input_dim (int): Dimensionality of the input features.
         hidden_dim (int): Dimensionality of the hidden state in the GRU.
         output_dim (int): Dimensionality of the output features.
         n_layers (int): Number of GRU layers.
-        dropout (list of float, optional): Dropout rates for the intermediate layers. Default is [0, 0].
+        dropout (List[float], optional): Dropout rates for the intermediate layers. Default is [0, 0].
     """
 
-    def __init__(self, input_dim, hidden_dim, output_dim, n_layers, dropout=[0, 0]):
+    def __init__(
+        self,
+        input_dim: int,
+        hidden_dim: int,
+        output_dim: int,
+        n_layers: int,
+        dropout: List[float] = [0, 0],
+    ):
         super(DecoderGRU, self).__init__()
         self.hidden_dim = hidden_dim
         self.n_layers = n_layers
@@ -34,12 +42,12 @@ class DecoderGRU(nn.Module):
         # Self-attention layer
         self.attention = SelfAttentionAggregation(hidden_dim, hidden_dim)
 
-        # Initialize GRU weights
+        # Initialise GRU weights
         self.init_weights()
 
-    def init_weights(self):
+    def init_weights(self) -> None:
         """
-        Initialize weights for the GRU layers using appropriate methods.
+        Initialise weights for the GRU layers using appropriate methods.
         """
         for name, param in self.gru.named_parameters():
             if "bias" in name:

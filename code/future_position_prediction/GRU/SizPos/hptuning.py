@@ -5,19 +5,18 @@ from lightning.pytorch.loggers import CSVLogger
 from lightning.pytorch.callbacks import ModelCheckpoint, EarlyStopping
 import pandas as pd
 
-# Importing necessary modules from the custom TurbulenceModel package and utilities
-from LSTMLightningDataModule import LSTMLightningDataModule
-from GRULightningModelSum import GRULightningModelSum
-from GRULightningModelAverage import GRULightningModelAverage
-from GRULightningModelConcat import GRULightningModelConcat
-from GRULightningModelClassic import GRULightningModelClassic
+from .SizPosGRULightningDataModule import SizPosGRULightningDataModule
+from .SizPosGRULightningModelSum import SizPosGRULightningModelSum
+from .SizPosGRULightningModelAverage import SizPosGRULightningModelAverage
+from .SizPosGRULightningModelConcat import SizPosGRULightningModelConcat
+from .SizPosGRULightningModelClassic import SizPosGRULightningModelClassic
 
-# Main execution block
+# Script to finetune the SizPos-GRU model.
 if __name__ == "__main__":
     # Fixed random seed for reproducibility of results
     L.seed_everything(42)
 
-    # Model initialization with specified architecture parameters
+    # Model initialisation with specified architecture parameters
     train_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/train_filter_savgol.json"
     val_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/val_filter_savgol.json"
     test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test_filter_savgol.json"
@@ -52,7 +51,7 @@ if __name__ == "__main__":
     )
 
     # Data Module
-    data_module = LSTMLightningDataModule(
+    data_module = SizPosGRULightningDataModule(
         train_dataset_path=train_dataset_path,
         val_dataset_path=val_dataset_path,
         test_dataset_path=test_dataset_path,
@@ -73,8 +72,8 @@ if __name__ == "__main__":
                             # Setup the data module
                             data_module.setup("train")
 
-                            # Trainer initialization with configurations for training process
-                            """ trainer_classic_model = L.Trainer(
+                            # Trainer initialisation with configurations for training process
+                            trainer_classic_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
@@ -84,7 +83,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_Best_FIOU",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="classic"),
@@ -99,7 +98,7 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_Best_FIOU",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="sum"),
@@ -114,11 +113,11 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_Best_FIOU",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="average"),
-                            ) """
+                            )
                             trainer_concat_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
@@ -129,14 +128,14 @@ if __name__ == "__main__":
                                     ModelCheckpoint(
                                         save_top_k=1,
                                         mode="max",
-                                        monitor="val_Best_FIOU",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="concat"),
                             )
 
-                            """ # Model without combining hidden states
-                            model_classic = GRULightningModelClassic(
+                            # Model without combining hidden states
+                            model_classic = SizPosGRULightningModelClassic(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -149,7 +148,7 @@ if __name__ == "__main__":
                             )
 
                             # Model (Hidden State Sum)
-                            model_sum = GRULightningModelSum(
+                            model_sum = SizPosGRULightningModelSum(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -162,7 +161,7 @@ if __name__ == "__main__":
                             )
 
                             # Model (Hidden State Average)
-                            model_average = GRULightningModelAverage(
+                            model_average = SizPosGRULightningModelAverage(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -172,10 +171,10 @@ if __name__ == "__main__":
                                 dropout=dropout,
                                 scheduler_factor=scheduler_factor,
                                 scheduler_patience=scheduler_patience,
-                            ) """
+                            )
 
                             # Model (Hidden State Concatenation)
-                            model_concat = GRULightningModelConcat(
+                            model_concat = SizPosGRULightningModelConcat(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -188,13 +187,13 @@ if __name__ == "__main__":
                             )
 
                             # Training phase
-                            """ trainer_classic_model.fit(
+                            trainer_classic_model.fit(
                                 model_classic, datamodule=data_module
                             )
                             trainer_sum_model.fit(model_sum, datamodule=data_module)
                             trainer_average_model.fit(
                                 model_average, datamodule=data_module
-                            ) """
+                            )
                             trainer_concat_model.fit(
                                 model_concat, datamodule=data_module
                             )
@@ -202,39 +201,56 @@ if __name__ == "__main__":
                             # Setup data module for testing
                             data_module.setup("test")
                             
-                            model = model_concat
-                            model_name = "concat"
-                            trainer = trainer_concat_model
+                            for i in range(4):
+                                # Select the model to evaluate
+                                if i == 0:
+                                    model = model_classic
+                                    model_name = "classic"
+                                    trainer = trainer_classic_model
+                                elif i == 1:
+                                    model = model_sum
+                                    model_name = "sum"
+                                    trainer = trainer_sum_model
+                                elif i == 2:
+                                    model = model_average
+                                    model_name = "average"
+                                    trainer = trainer_average_model
+                                elif i == 3:
+                                    model = model_concat
+                                    model_name = "concat"
+                                    trainer = trainer_concat_model
 
-                            # Compute the metrics over the test dataset
-                            test_metrics = trainer.test(
-                                model, datamodule=data_module, ckpt_path="best"
-                            )[0]
+                                # Compute the metrics over the test dataset
+                                test_metrics = trainer.test(
+                                    model, datamodule=data_module, ckpt_path="best"
+                                )[0]
 
-                            # Create a dictionary with the hyperparameters and metrics
-                            results_row = {
-                                "model": model_name,
-                                "batch_size": batch_size,
-                                "hidden_size": hidden_size,
-                                "hidden_depth": hidden_depth,
-                                "learning_rate": learning_rate,
-                                "scheduler_patience": scheduler_patience,
-                                "scheduler_factor": scheduler_factor,
-                                "max_epochs": max_epochs,
-                                "dropout": dropout,
-                                "input_frames": in_frames,
-                                "output_frames": ou_frames,
-                            }
+                                # Create a dictionary with the hyperparameters and metrics
+                                results_row = {
+                                    "model": model_name,
+                                    "batch_size": batch_size,
+                                    "hidden_size": hidden_size,
+                                    "hidden_depth": hidden_depth,
+                                    "learning_rate": learning_rate,
+                                    "scheduler_patience": scheduler_patience,
+                                    "scheduler_factor": scheduler_factor,
+                                    "max_epochs": max_epochs,
+                                    "dropout": dropout,
+                                    "input_frames": in_frames,
+                                    "output_frames": ou_frames,
+                                }
 
-                            # Add test metrics to the results row
-                            for key, value in test_metrics.items():
-                                results_row[f"{key}"] = value
+                                # Add test metrics to the results row
+                                for key, value in test_metrics.items():
+                                    results_row[f"{key}"] = value
 
-                            # Append the results to the dataframe
-                            results = pd.concat(
-                                [results, pd.DataFrame([results_row])],
-                                ignore_index=True,
-                            )
+                                # Append the results to the dataframe
+                                results = pd.concat(
+                                    [results, pd.DataFrame([results_row])],
+                                    ignore_index=True,
+                                )
 
-                            # Save the results to a CSV file
-                            results.to_csv("train_4.csv", index=False)
+                                # Save the results to a CSV file
+                                results.to_csv(
+                                    "results_GRU_SizPos.csv", index=False
+                                )

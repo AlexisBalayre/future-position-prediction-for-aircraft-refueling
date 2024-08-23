@@ -2,12 +2,13 @@ import json
 import numpy as np
 import torch
 from torch.utils.data import Dataset
+from typing import List, Tuple, Dict, Any
 
 
 class PosVelAccGRULightningDataset(Dataset):
     """
     A PyTorch Dataset for loading video sequences and generating input and output tensors
-    for training and evaluating the PosVelAccGRU model.
+    for training and evaluating the PosVelAcc-GRU model.
 
     Args:
         json_file (str): Path to the JSON file containing video data.
@@ -18,7 +19,12 @@ class PosVelAccGRULightningDataset(Dataset):
     """
 
     def __init__(
-        self, json_file, input_frames, output_frames, stage="train", double_train=False
+        self,
+        json_file: str,
+        input_frames: int,
+        output_frames: int,
+        stage: str = "train",
+        double_train: bool = False,
     ):
         self.input_frames = input_frames
         self.output_frames = output_frames
@@ -27,7 +33,7 @@ class PosVelAccGRULightningDataset(Dataset):
         with open(json_file, "r") as f:
             self.data = json.load(f)
 
-        self.samples = []
+        self.samples: List[Tuple[str, List[Dict[str, Any]], List[Dict[str, Any]]]] = []
         for entry in self.data:
             video_id = entry["video_id"]
             frames = entry["frames"]
@@ -50,7 +56,7 @@ class PosVelAccGRULightningDataset(Dataset):
                         (video_id, reversed_input_seq, reversed_output_seq)
                     )
 
-    def __len__(self):
+    def __len__(self) -> int:
         """
         Returns the total number of samples.
 
@@ -59,7 +65,7 @@ class PosVelAccGRULightningDataset(Dataset):
         """
         return len(self.samples)
 
-    def augment_bbox_sequence(self, bboxes):
+    def augment_bbox_sequence(self, bboxes: np.ndarray) -> np.ndarray:
         """
         Applies augmentation to a sequence of bounding boxes by simulating camera movement
         and adding noise.
@@ -96,7 +102,11 @@ class PosVelAccGRULightningDataset(Dataset):
         # Clip values to ensure they remain in [0, 1] range
         return np.clip(augmented_bboxes, 0, 1)
 
-    def __getitem__(self, idx):
+    def __getitem__(
+        self, idx: int
+    ) -> Tuple[
+        str, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor
+    ]:
         """
         Retrieves a single sample of input and output sequences, along with computed velocities and accelerations.
 

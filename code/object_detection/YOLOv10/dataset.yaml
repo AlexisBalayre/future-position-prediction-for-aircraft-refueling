@@ -5,5 +5,5 @@ names:
 
 nc: 3
 
-train: /mnt/beegfs/home/s425500/balanced_dataset/train
-val: /mnt/beegfs/home/s425500/balanced_dataset/val
+train: data/AARP/frames/full_dataset_annotated_YOLO/balanced_dataset/train
+val: data/AARP/frames/full_dataset_annotated_YOLO/balanced_dataset/val

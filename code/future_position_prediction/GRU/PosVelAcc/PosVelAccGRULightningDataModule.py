@@ -1,12 +1,14 @@
 import lightning as L
 from torch.utils.data import DataLoader
+from typing import Optional
 
-from PosVelAccGRUightningDataset import PosVelAccGRUightningDataset
+from .PosVelAccGRULightningDataset import PosVelAccGRULightningDataset
 
 
 class PosVelAccGRULightningDataModule(L.LightningDataModule):
     """
-    A LightningDataModule for managing data loading for the PosVelAccGRU model.
+    A LightningDataModule for managing data loading for the PosVelAcc-GRU model.
+    This module handles the loading and preprocessing of datasets for training, validation, testing, and prediction.
 
     Args:
         train_dataset_path (str): Path to the training dataset JSON file.
@@ -14,69 +16,68 @@ class PosVelAccGRULightningDataModule(L.LightningDataModule):
         test_dataset_path (str): Path to the test dataset JSON file.
         input_frames (int): Number of frames to use as input.
         output_frames (int): Number of frames to predict as output.
-        images_folder (str): Path to the folder containing images.
         batch_size (int, optional): Batch size for data loading. Default is 16.
         num_workers (int, optional): Number of workers for data loading. Default is 4.
     """
 
     def __init__(
         self,
-        train_dataset_path,
-        val_dataset_path,
-        test_dataset_path,
-        input_frames,
-        output_frames,
-        images_folder,
-        batch_size=16,
-        num_workers=4,
+        train_dataset_path: str,
+        val_dataset_path: str,
+        test_dataset_path: str,
+        input_frames: int,
+        output_frames: int,
+        batch_size: int = 16,
+        num_workers: int = 4,
     ):
         super().__init__()
         self.train_dataset_path = train_dataset_path
         self.val_dataset_path = val_dataset_path
         self.test_dataset_path = test_dataset_path
-        self.images_folder = images_folder
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.input_frames = input_frames
         self.output_frames = output_frames
 
-    def setup(self, stage, predict_dataset_path=None):
+    def setup(
+        self, stage: Optional[str] = None, predict_dataset_path: Optional[str] = None
+    ) -> None:
         """
         Setup the datasets for different stages (train, val, test, predict).
 
         Args:
-            stage (str): The stage for which to setup the dataset, either 'train', 'val', 'test', or 'predict'.
+            stage (str, optional): The stage for which to setup the dataset, either 'train', 'val', 'test', or 'predict'.
             predict_dataset_path (str, optional): Path to the dataset for prediction. Required if stage is 'predict'.
         """
         if stage == "train" or stage is None:
-            self.train_dataset = PosVelAccGRUightningDataset(
+            self.train_dataset = PosVelAccGRULightningDataset(
                 self.train_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
                 stage="train",
             )
-            self.val_dataset = PosVelAccGRUightningDataset(
+            self.val_dataset = PosVelAccGRULightningDataset(
                 self.val_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
                 stage="val",
             )
         if stage == "test" or stage is None:
-            self.test_dataset = PosVelAccGRUightningDataset(
+            self.test_dataset = PosVelAccGRULightningDataset(
                 self.test_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
                 stage="test",
             )
         if stage == "predict" and predict_dataset_path is not None:
-            self.predict_dataset = PosVelAccGRUightningDataset(
+            self.predict_dataset = PosVelAccGRULightningDataset(
                 predict_dataset_path,
                 input_frames=self.input_frames,
                 output_frames=self.output_frames,
                 stage="predict",
             )
 
-    def train_dataloader(self):
+    def train_dataloader(self) -> DataLoader:
         """
         Returns the DataLoader for the training dataset.
 
@@ -91,7 +92,7 @@ class PosVelAccGRULightningDataModule(L.LightningDataModule):
             persistent_workers=True,
         )
 
-    def val_dataloader(self):
+    def val_dataloader(self) -> DataLoader:
         """
         Returns the DataLoader for the validation dataset.
 
@@ -106,7 +107,7 @@ class PosVelAccGRULightningDataModule(L.LightningDataModule):
             persistent_workers=True,
         )
 
-    def test_dataloader(self):
+    def test_dataloader(self) -> DataLoader:
         """
         Returns the DataLoader for the test dataset.
 
@@ -121,7 +122,7 @@ class PosVelAccGRULightningDataModule(L.LightningDataModule):
             persistent_workers=True,
         )
 
-    def predict_dataloader(self):
+    def predict_dataloader(self) -> DataLoader:
         """
         Returns the DataLoader for the prediction dataset.
 

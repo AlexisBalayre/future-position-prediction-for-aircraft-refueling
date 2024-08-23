@@ -6,14 +6,13 @@ from lightning.pytorch.callbacks import ModelCheckpoint, EarlyStopping
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Importing necessary modules from the custom TurbulenceModel package and utilities
-from LSTMLightningDataModule import LSTMLightningDataModule
-from LSTMLightningModelSum import LSTMLightningModelSum
-from LSTMLightningModelAverage import LSTMLightningModelAverage
-from LSTMLightningModelConcat import LSTMLightningModelConcat
-from LSTMLightningModelClassic import LSTMLightningModelClassic
+from .LSTMSizPosLightningDataModule import LSTMSizPosLightningDataModule
+from .LSTMSizPosLightningModelSum import LSTMSizPosLightningModelSum
+from .LSTMSizPosLightningModelAverage import LSTMSizPosLightningModelAverage
+from .LSTMSizPosLightningModelConcat import LSTMSizPosLightningModelConcat
+from .LSTMSizPosLightningModelClassic import LSTMSizPosLightningModelClassic
 
-# Main execution block
+# Script to finetune the SizPos-LSTM model.
 if __name__ == "__main__":
     # Fixed random seed for reproducibility of results
     L.seed_everything(42)
@@ -25,16 +24,16 @@ if __name__ == "__main__":
     images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = [30]  # Number of input frames
-    output_frames = [60]  # Number of output frames
-    hidden_sizes = [128]  # Size of the model's hidden layers
-    hidden_depths = [8]  # Number of hidden layers
-    learning_rate = 1e-4  # Initial learning rate
+    input_frames = [15, 30]  # Number of input frames
+    output_frames = [30, 60]  # Number of output frames
+    hidden_sizes = [32, 64, 128, 256, 512]  # Size of the model's hidden layers
+    hidden_depths = [1, 2, 4, 8]  # Number of hidden layers
+    learning_rate = 5e-4  # Initial learning rate
     scheduler_patiences = [15]
     scheduler_factors = [0.5]
     max_epochs = 100  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
-    
+
     # Create a dataframe to store the results
     results = pd.DataFrame(
         columns=[
@@ -52,8 +51,8 @@ if __name__ == "__main__":
         ]
     )
 
-    # Data Module
-    data_module = LSTMLightningDataModule(
+    # Data Module initialization
+    data_module = LSTMSizPosLightningDataModule(
         train_dataset_path=train_dataset_path,
         val_dataset_path=val_dataset_path,
         test_dataset_path=test_dataset_path,
@@ -84,13 +83,13 @@ if __name__ == "__main__":
                                 callbacks=[
                                     ModelCheckpoint(
                                         save_top_k=1,
-                                        mode="max",
-                                        monitor="val_Best_FIOU",
+                                        mode="min",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="classic"),
                             )
-                            """ trainer_sum_model = L.Trainer(
+                            trainer_sum_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
@@ -99,8 +98,8 @@ if __name__ == "__main__":
                                 callbacks=[
                                     ModelCheckpoint(
                                         save_top_k=1,
-                                        mode="max",
-                                        monitor="val_Best_FIOU",
+                                        mode="min",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="sum"),
@@ -114,12 +113,12 @@ if __name__ == "__main__":
                                 callbacks=[
                                     ModelCheckpoint(
                                         save_top_k=1,
-                                        mode="max",
-                                        monitor="val_Best_FIOU",
+                                        mode="min",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="average"),
-                            ) """
+                            )
                             trainer_concat_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
@@ -129,15 +128,15 @@ if __name__ == "__main__":
                                 callbacks=[
                                     ModelCheckpoint(
                                         save_top_k=1,
-                                        mode="max",
-                                        monitor="val_Best_FIOU",
+                                        mode="min",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="concat"),
                             )
 
                             # Model without combining hidden states
-                            model_classic = LSTMLightningModelClassic(
+                            model_classic = LSTMSizPosLightningModelClassic(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -149,8 +148,8 @@ if __name__ == "__main__":
                                 scheduler_patience=scheduler_patience,
                             )
 
-                            """ # Model (Hidden State Sum)
-                            model_sum = LSTMLightningModelSum(
+                            # Model (Hidden State Sum)
+                            model_sum = LSTMSizPosLightningModelSum(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -163,7 +162,7 @@ if __name__ == "__main__":
                             )
 
                             # Model (Hidden State Average)
-                            model_average = LSTMLightningModelAverage(
+                            model_average = LSTMSizPosLightningModelAverage(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -173,10 +172,10 @@ if __name__ == "__main__":
                                 dropout=dropout,
                                 scheduler_factor=scheduler_factor,
                                 scheduler_patience=scheduler_patience,
-                            ) """
+                            )
 
                             # Model (Hidden State Concatenation)
-                            model_concat = LSTMLightningModelConcat(
+                            model_concat = LSTMSizPosLightningModelConcat(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -192,10 +191,10 @@ if __name__ == "__main__":
                             trainer_classic_model.fit(
                                 model_classic, datamodule=data_module
                             )
-                            """ trainer_sum_model.fit(model_sum, datamodule=data_module)
+                            trainer_sum_model.fit(model_sum, datamodule=data_module)
                             trainer_average_model.fit(
                                 model_average, datamodule=data_module
-                            ) """
+                            )
                             trainer_concat_model.fit(
                                 model_concat, datamodule=data_module
                             )
@@ -203,7 +202,7 @@ if __name__ == "__main__":
                             # Setup data module for testing
                             data_module.setup("test")
 
-                            for i in range(2):
+                            for i in range(4):
                                 # Select the model to evaluate
                                 if i == 0:
                                     model = model_classic
@@ -213,15 +212,14 @@ if __name__ == "__main__":
                                     model = model_concat
                                     model_name = "concat"
                                     trainer = trainer_concat_model
-                                """ elif i == 1:
+                                elif i == 2:
                                     model = model_sum
                                     model_name = "sum"
                                     trainer = trainer_sum_model
-                                elif i == 2:
+                                elif i == 3:
                                     model = model_average
                                     model_name = "average"
-                                    trainer = trainer_average_model """
-                                
+                                    trainer = trainer_average_model
 
                                 # Compute the metrics over the test dataset
                                 test_metrics = trainer.test(

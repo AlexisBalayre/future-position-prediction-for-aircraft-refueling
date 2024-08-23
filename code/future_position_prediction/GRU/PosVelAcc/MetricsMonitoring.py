@@ -2,7 +2,7 @@ import torch
 from torch import Tensor
 from typing import Dict, Tuple
 
-from utils import (
+from .utils import (
     compute_ADE,
     compute_FDE,
     compute_AIOU,
@@ -25,7 +25,7 @@ class MetricsMonitoring:
 
     def __init__(self, image_size: Tuple[int, int]):
         """
-        Initialize the MetricsMonitoring object.
+        Initialise the MetricsMonitoring object.
 
         Args:
             image_size (Tuple[int, int]): The size of the image (width, height) used for normalization.
@@ -134,6 +134,7 @@ class MetricsMonitoring:
                 "AIOU_from_vel": 0.0,
                 "FIOU_from_vel": 0.0,
                 "Best_FIOU": 0.0,
+                "Best_FDE": 0.0,
             }
 
         mean_ade = self.total_ade / self.total_samples
@@ -155,4 +156,5 @@ class MetricsMonitoring:
             "AIOU_from_vel": mean_aiou_from_vel,
             "FIOU_from_vel": mean_fiou_from_vel,
             "Best_FIOU": max(mean_fiou, mean_fiou_from_vel),
+            "Best_FDE": min(mean_fde, mean_fde_from_vel),
         }

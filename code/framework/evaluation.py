@@ -1,8 +1,11 @@
 import json
 import torch
 
-from object_detection_model import load_detections, run_detections
-from sequence_model import run_future_positions_pred, save_predictions_to_json
+from code.framework.object_detection_model import load_detections, run_detections
+from code.framework.sequence_model import (
+    run_future_positions_pred,
+    save_predictions_to_json,
+)
 
 
 if __name__ == "__main__":
@@ -10,12 +13,12 @@ if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Load the trained GRU model
-    yolo_weights_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/code/object_detection/YOLOv10/runs/detect/train15/weights/best_yolov10s.pt"
+    yolo_weights_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/code/object_detection/YOLOv10/runs/detect/train24/weights/best.pt"
     gru_model_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/code/future_position_prediction/GRU/SizPos/logs/concat/version_158/checkpoints/epoch=67-step=6392.ckpt"
     hparams_file = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/code/future_position_prediction/GRU/SizPos/logs/concat/version_158/hparams.yaml"
     input_frames = 15
     output_frames = 30
-    input_video_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/videos/video_lab_semiopen/video_lab_semiopen_1______3.avi"
+    input_video_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/AARP/videos/video_lab_semiopen/video_lab_semiopen_1______3.avi"
     video_name = "video_lab_semiopen_1______3"
 
     smooth_filters = ["sa", "ma", "mes", "es", "hybrid", "adaptive", "gaussian", ""]

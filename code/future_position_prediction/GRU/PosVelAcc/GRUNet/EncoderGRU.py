@@ -1,10 +1,11 @@
 import torch
 import torch.nn as nn
+from typing import Tuple
 
 
 class EncoderGRU(nn.Module):
     """
-    A GRU-based encoder for sequence modeling tasks.
+    A GRU-based encoder for sequence modelling tasks.
 
     Args:
         input_dim (int): Dimensionality of the input features.
@@ -31,12 +32,12 @@ class EncoderGRU(nn.Module):
             input_dim, hidden_dim, n_layers, batch_first=True, dropout=dropout
         )
 
-        # Initialize GRU weights
+        # Initialise GRU weights
         self.init_weights()
 
-    def init_weights(self):
+    def init_weights(self) -> None:
         """
-        Initialize weights for the GRU layers using appropriate methods.
+        Initialise weights for the GRU layers using appropriate methods.
         """
         for name, param in self.gru.named_parameters():
             if "bias" in name:
@@ -57,7 +58,9 @@ class EncoderGRU(nn.Module):
             h (torch.Tensor): Initial hidden state tensor of shape (n_layers, batch_size, hidden_dim).
 
         Returns:
-            Tuple[torch.Tensor, torch.Tensor]: The output tensor of shape (batch_size, sequence_length, hidden_dim) and the final hidden state tensor.
+            Tuple[torch.Tensor, torch.Tensor]:
+                - The output tensor of shape (batch_size, sequence_length, hidden_dim).
+                - The final hidden state tensor of shape (n_layers, batch_size, hidden_dim).
         """
         out, h = self.gru(x, h)
         return out, h

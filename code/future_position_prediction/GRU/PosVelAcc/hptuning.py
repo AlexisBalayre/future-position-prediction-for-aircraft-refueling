@@ -6,32 +6,33 @@ from lightning.pytorch.callbacks import ModelCheckpoint, EarlyStopping
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Importing necessary modules from the custom TurbulenceModel package and utilities
-from LSTMLightningDataModule import LSTMLightningDataModule
-from GRULightningModelSum import GRULightningModelSum
-from GRULightningModelAverage import GRULightningModelAverage
-from GRULightningModelConcat import GRULightningModelConcat
-from GRULightningModelClassic import GRULightningModelClassic
+from .PosVelAccGRULightningDataModule import PosVelAccGRULightningDataModule
+from .PosVelAccGRULightningModelSum import PosVelAccGRULightningModelSum
+from .PosVelAccGRULightningModelAverage import PosVelAccGRULightningModelAverage
+from .PosVelAccGRULightningModelConcat import PosVelAccGRULightningModelConcat
+from .PosVelAccGRULightningModelClassic import PosVelAccGRULightningModelClassic
 
-# Main execution block
+# Script to finetune the PosVelAcc-GRU model.
 if __name__ == "__main__":
     # Fixed random seed for reproducibility of results
     L.seed_everything(42)
 
-    # Model initialization with specified architecture parameters
-    train_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/train.json"
-    val_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/val.json"
-    test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/test.json"
-    images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/frames/full_dataset_annotated_fpp/images"
+    # Model initialisation with specified architecture parameters
+    train_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/AARP/frames/full_dataset_annotated_fpp/train.json"
+    val_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/AARP/frames/full_dataset_annotated_fpp/val.json"
+    test_dataset_path = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/AARP/frames/full_dataset_annotated_fpp/test.json"
+    images_folder = "/Users/alexis/Library/CloudStorage/OneDrive-Balayre&Co/Cranfield/Thesis/thesis-github-repository/data/AARP/frames/full_dataset_annotated_fpp/images"
     num_workers = 8  # Number of workers for data loading
     batch_size = 16  # Number of samples per batch
-    input_frames = [15]  # Number of input frames
-    output_frames = [30]  # Number of output frames
-    hidden_sizes = [80]  # Size of the model's hidden layers
-    hidden_depths = [1]  # Number of hidden layers
-    learning_rate = 1e-4  # Initial learning rate
-    scheduler_patiences = [10]
-    scheduler_factors = [0.5]
+    input_frames = [15, 30]  # Number of input frames
+    output_frames = [30, 60]  # Number of output frames
+    hidden_sizes = [32, 64, 128, 256]  # Size of the model's hidden layers
+    hidden_depths = [1, 2, 4, 8]  # Number of hidden layers
+    learning_rate = 5e-4  # Initial learning rate
+    scheduler_patiences = [
+        10
+    ]  # Number of epochs with no improvement after which learning rate will be reduced
+    scheduler_factors = [0.5]  # Factor by which the learning rate will be reduced
     max_epochs = 60  # Maximum number of training epochs
     dropout = 0.1  # Dropout rate
 
@@ -52,8 +53,8 @@ if __name__ == "__main__":
         ]
     )
 
-    # Data Module
-    data_module = LSTMLightningDataModule(
+    # Data Module initialisation
+    data_module = PosVelAccGRULightningDataModule(
         train_dataset_path=train_dataset_path,
         val_dataset_path=val_dataset_path,
         test_dataset_path=test_dataset_path,
@@ -74,7 +75,7 @@ if __name__ == "__main__":
                             # Setup the data module
                             data_module.setup("train")
 
-                            # Trainer initialization with configurations for training process
+                            # Trainer initialisation with configurations for training process
                             trainer_classic_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
@@ -84,13 +85,13 @@ if __name__ == "__main__":
                                 callbacks=[
                                     ModelCheckpoint(
                                         save_top_k=1,
-                                        mode="max",
-                                        monitor="val_Best_FIOU",
+                                        mode="min",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="classic"),
                             )
-                            """ trainer_sum_model = L.Trainer(
+                            trainer_sum_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
                                 devices="auto",  # Automatically selects the available devices
@@ -99,8 +100,8 @@ if __name__ == "__main__":
                                 callbacks=[
                                     ModelCheckpoint(
                                         save_top_k=1,
-                                        mode="max",
-                                        monitor="val_Best_FIOU",
+                                        mode="min",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="sum"),
@@ -114,12 +115,12 @@ if __name__ == "__main__":
                                 callbacks=[
                                     ModelCheckpoint(
                                         save_top_k=1,
-                                        mode="max",
-                                        monitor="val_Best_FIOU",
+                                        mode="min",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="average"),
-                            ) """
+                            )
                             trainer_concat_model = L.Trainer(
                                 max_epochs=max_epochs,  # Maximum number of epochs for training
                                 accelerator="cpu",  # Specifies the training will be on CPU
@@ -129,16 +130,15 @@ if __name__ == "__main__":
                                 callbacks=[
                                     ModelCheckpoint(
                                         save_top_k=1,
-                                        mode="max",
-                                        monitor="val_Best_FIOU",
+                                        mode="min",
+                                        monitor="val_Best_FDE",
                                     ),
                                 ],
                                 logger=CSVLogger("logs", name="concat"),
                             )
 
-
                             # Model without combining hidden states
-                            model_classic = GRULightningModelClassic(
+                            model_classic = PosVelAccGRULightningModelClassic(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -151,8 +151,8 @@ if __name__ == "__main__":
                                 scheduler_patience=scheduler_patience,
                             )
 
-                            """ # Model (Hidden State Sum)
-                            model_sum = GRULightningModelSum(
+                            # Model (Hidden State Sum)
+                            model_sum = PosVelAccGRULightningModelSum(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -166,7 +166,7 @@ if __name__ == "__main__":
                             )
 
                             # Model (Hidden State Average)
-                            model_average = GRULightningModelAverage(
+                            model_average = PosVelAccGRULightningModelAverage(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -177,10 +177,10 @@ if __name__ == "__main__":
                                 dropout=dropout,
                                 scheduler_factor=scheduler_factor,
                                 scheduler_patience=scheduler_patience,
-                            ) """
+                            )
 
                             # Model (Hidden State Concatenation)
-                            model_concat = GRULightningModelConcat(
+                            model_concat = PosVelAccGRULightningModelConcat(
                                 lr=learning_rate,
                                 input_frames=in_frames,
                                 output_frames=ou_frames,
@@ -197,10 +197,10 @@ if __name__ == "__main__":
                             trainer_classic_model.fit(
                                 model_classic, datamodule=data_module
                             )
-                            """ trainer_sum_model.fit(model_sum, datamodule=data_module)
+                            trainer_sum_model.fit(model_sum, datamodule=data_module)
                             trainer_average_model.fit(
                                 model_average, datamodule=data_module
-                            ) """
+                            )
                             trainer_concat_model.fit(
                                 model_concat, datamodule=data_module
                             )
@@ -208,17 +208,9 @@ if __name__ == "__main__":
                             # Setup data module for testing
                             data_module.setup("test")
 
-                            for i in range(2):
+                            for i in range(4):
                                 # Select the model to evaluate
                                 if i == 0:
-                                    model = model_classic
-                                    model_name = "classic"
-                                    trainer = trainer_classic_model
-                                elif i == 1:
-                                    model = model_concat
-                                    model_name = "concat"
-                                    trainer = trainer_concat_model
-                                """ if i == 0:
                                     model = model_classic
                                     model_name = "classic"
                                     trainer = trainer_classic_model
@@ -233,7 +225,7 @@ if __name__ == "__main__":
                                 elif i == 3:
                                     model = model_concat
                                     model_name = "concat"
-                                    trainer = trainer_concat_model """
+                                    trainer = trainer_concat_model
 
                                 # Compute the metrics over the test dataset
                                 test_metrics = trainer.test(
@@ -266,6 +258,4 @@ if __name__ == "__main__":
                                 )
 
                                 # Save the results to a CSV file
-                                results.to_csv(
-                                    "results_without_acc.csv", index=False
-                                )
+                                results.to_csv("results_GRU_PosVelAcc.csv", index=False)

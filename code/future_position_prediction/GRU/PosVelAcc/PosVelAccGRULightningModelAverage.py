@@ -2,9 +2,9 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 import lightning as L
-from typing import Tuple
+from typing import Tuple, Dict
 
-from utils import (
+from .utils import (
     compute_ADE,
     compute_FDE,
     compute_AIOU,
@@ -12,15 +12,15 @@ from utils import (
     convert_velocity_to_positions,
 )
 
-from MetricsMonitoring import MetricsMonitoring
-from GRUNet.DecoderGRU import DecoderGRU
-from GRUNet.EncoderGRU import EncoderGRU
+from .MetricsMonitoring import MetricsMonitoring
+from .GRUNet.DecoderGRU import DecoderGRU
+from .GRUNet.EncoderGRU import EncoderGRU
 
 
 class PosVelAccGRULightningModelAverage(L.LightningModule):
     """
-    A PyTorch Lightning module for a GRU-based model that predicts future bounding box positions
-    and velocities from input sequences of bounding boxes, velocities, and accelerations.
+    Main PyTorch Lightning module of the PosVelAcc-GRU model that predicts future bounding box positions
+    and velocities by averaging the hidden states from the position, velocity, and acceleration encoders.
 
     Args:
         lr (float, optional): Learning rate. Default is 1e-4.
@@ -51,7 +51,8 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
         decoder_layer_nb: int = 1,
         scheduler_patience: int = 5,
         scheduler_factor: float = 0.5,
-    ):
+    ) -> None:
+
         super(PosVelAccGRULightningModelAverage, self).__init__()
         self.save_hyperparameters()
 
@@ -100,10 +101,10 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
 
     def forward(
         self,
-        bbox_seq,
-        velocity_seq,
-        acceleration_seq,
-    ):
+        bbox_seq: torch.Tensor,
+        velocity_seq: torch.Tensor,
+        acceleration_seq: torch.Tensor,
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
         """
         Forward pass through the model.
 
@@ -153,7 +154,7 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
             + encoder_hidden_states_acc
         ) / 3
 
-        # Decoder input initialization with the last frame of the input sequence
+        # Decoder input initialisation with the last frame of the input sequence
         decoder_input_pos = bbox_seq[:, -1, :]
         decoder_input_vel = velocity_seq[:, -1, :]
 
@@ -177,7 +178,7 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
 
         return predictions_position, predictions_velocity
 
-    def _shared_step(self, batch, batch_idx, stage):
+    def _shared_step(self, batch: Tuple, batch_idx: int, stage: str) -> torch.Tensor:
         """
         A shared step function for training, validation, and test steps.
 
@@ -242,25 +243,25 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
 
         return total_loss
 
-    def on_train_epoch_end(self):
+    def on_train_epoch_end(self) -> None:
         """
         Called at the end of the training epoch to log training metrics.
         """
         self._log_metrics("train")
 
-    def on_validation_epoch_end(self):
+    def on_validation_epoch_end(self) -> None:
         """
         Called at the end of the validation epoch to log validation metrics.
         """
         self._log_metrics("val")
 
-    def on_test_epoch_end(self):
+    def on_test_epoch_end(self) -> None:
         """
         Called at the end of the test epoch to log test metrics.
         """
         self._log_metrics("test")
 
-    def _log_metrics(self, stage: str):
+    def _log_metrics(self, stage: str) -> None:
         """
         Logs the computed metrics at the end of an epoch.
 
@@ -276,7 +277,7 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
         )
         metrics_monitor.reset()
 
-    def training_step(self, batch, batch_idx: int) -> torch.Tensor:
+    def training_step(self, batch: Tuple, batch_idx: int) -> torch.Tensor:
         """
         Training step function.
 
@@ -289,7 +290,7 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
         """
         return self._shared_step(batch, batch_idx, "train")
 
-    def validation_step(self, batch, batch_idx: int) -> torch.Tensor:
+    def validation_step(self, batch: Tuple, batch_idx: int) -> torch.Tensor:
         """
         Validation step function.
 
@@ -302,7 +303,7 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
         """
         return self._shared_step(batch, batch_idx, "val")
 
-    def test_step(self, batch, batch_idx: int) -> torch.Tensor:
+    def test_step(self, batch: Tuple, batch_idx: int) -> torch.Tensor:
         """
         Test step function.
 
@@ -315,12 +316,12 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
         """
         return self._shared_step(batch, batch_idx, "test")
 
-    def configure_optimizers(self):
+    def configure_optimizers(self) -> Dict[str, Dict]:
         """
         Configures the optimizer and learning rate scheduler.
 
         Returns:
-            dict: Dictionary containing the optimizer and the learning rate scheduler.
+            Dict[str, Dict]: Dictionary containing the optimizer and the learning rate scheduler.
         """
         optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
@@ -334,7 +335,7 @@ class PosVelAccGRULightningModelAverage(L.LightningModule):
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": "val_loss",
+                "monitor": "train_loss",
                 "interval": "epoch",
             },
         }

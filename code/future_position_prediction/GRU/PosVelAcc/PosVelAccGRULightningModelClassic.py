@@ -2,9 +2,9 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 import lightning as L
-from typing import Tuple
+from typing import Tuple, Dict
 
-from utils import (
+from .utils import (
     compute_ADE,
     compute_FDE,
     compute_AIOU,
@@ -12,14 +12,14 @@ from utils import (
     convert_velocity_to_positions,
 )
 
-from MetricsMonitoring import MetricsMonitoring
-from GRUNet.DecoderGRU import DecoderGRU
-from GRUNet.EncoderGRU import EncoderGRU
+from .MetricsMonitoring import MetricsMonitoring
+from .GRUNet.DecoderGRU import DecoderGRU
+from .GRUNet.EncoderGRU import EncoderGRU
 
 
 class PosVelAccGRULightningModelClassic(L.LightningModule):
     """
-    A PyTorch Lightning module for a GRU-based model that predicts future bounding box positions
+    Main PyTorch Lightning module of the PosVelAcc-GRU model that predicts future bounding box positions
     and velocities from input sequences of bounding boxes and velocities.
 
     Args:
@@ -55,7 +55,7 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
         super(PosVelAccGRULightningModelClassic, self).__init__()
         self.save_hyperparameters()
 
-        # Initialize GRU-based encoders and decoders
+        # Initialise GRU-based encoders and decoders
         self.bbox_encoder = EncoderGRU(
             input_dim=bbox_dim,
             hidden_dim=hidden_dim,
@@ -70,7 +70,6 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
             output_frames_nb=output_frames,
             dropout=dropout,
         )
-
         self.pos_decoder = DecoderGRU(
             bbox_dim,
             hidden_dim,
@@ -86,7 +85,7 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
             dropout=[dropout, dropout],
         )
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -108,7 +107,7 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
         """
         batch_size = bbox_seq.size(0)
 
-        # Initialize hidden states for the GRU encoders
+        # Initialise hidden states for the GRU encoders
         h_pos = torch.zeros(
             self.bbox_encoder.n_layers,
             batch_size,
@@ -126,7 +125,7 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
         _, h_pos = self.bbox_encoder(bbox_seq, h_pos)
         _, h_vel = self.vel_encoder(velocity_seq, h_vel)
 
-        # Decoder input initialization with the last frame of the input sequence
+        # Decoder input initialisation with the last frame of the input sequence
         decoder_input_pos = bbox_seq[:, -1, :]
         decoder_input_vel = velocity_seq[:, -1, :]
 
@@ -150,12 +149,24 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
 
         return predictions_position, predictions_velocity
 
-    def _shared_step(self, batch, batch_idx: int, stage: str) -> torch.Tensor:
+    def _shared_step(
+        self,
+        batch: Tuple[
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+        ],
+        batch_idx: int,
+        stage: str,
+    ) -> torch.Tensor:
         """
         A shared step function for training, validation, and test steps.
 
         Args:
-            batch (Tuple): A batch of data containing video_id, input sequences, and output sequences.
+            batch (Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]): A batch of data containing video_id, input sequences, and output sequences.
             batch_idx (int): Index of the current batch.
             stage (str): Stage name, either "train", "val", or "test".
 
@@ -214,25 +225,25 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
 
         return total_loss
 
-    def on_train_epoch_end(self):
+    def on_train_epoch_end(self) -> None:
         """
         Called at the end of the training epoch to log training metrics.
         """
         self._log_metrics("train")
 
-    def on_validation_epoch_end(self):
+    def on_validation_epoch_end(self) -> None:
         """
         Called at the end of the validation epoch to log validation metrics.
         """
         self._log_metrics("val")
 
-    def on_test_epoch_end(self):
+    def on_test_epoch_end(self) -> None:
         """
         Called at the end of the test epoch to log test metrics.
         """
         self._log_metrics("test")
 
-    def _log_metrics(self, stage: str):
+    def _log_metrics(self, stage: str) -> None:
         """
         Logs the computed metrics at the end of an epoch.
 
@@ -248,12 +259,23 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
         )
         metrics_monitor.reset()
 
-    def training_step(self, batch, batch_idx: int) -> torch.Tensor:
+    def training_step(
+        self,
+        batch: Tuple[
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+        ],
+        batch_idx: int,
+    ) -> torch.Tensor:
         """
         Training step function.
 
         Args:
-            batch (Tuple): A batch of training data.
+            batch (Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]): A batch of training data.
             batch_idx (int): Index of the current batch.
 
         Returns:
@@ -261,12 +283,23 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
         """
         return self._shared_step(batch, batch_idx, "train")
 
-    def validation_step(self, batch, batch_idx: int) -> torch.Tensor:
+    def validation_step(
+        self,
+        batch: Tuple[
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+        ],
+        batch_idx: int,
+    ) -> torch.Tensor:
         """
         Validation step function.
 
         Args:
-            batch (Tuple): A batch of validation data.
+            batch (Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]): A batch of validation data.
             batch_idx (int): Index of the current batch.
 
         Returns:
@@ -274,12 +307,23 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
         """
         return self._shared_step(batch, batch_idx, "val")
 
-    def test_step(self, batch, batch_idx: int) -> torch.Tensor:
+    def test_step(
+        self,
+        batch: Tuple[
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+            torch.Tensor,
+        ],
+        batch_idx: int,
+    ) -> torch.Tensor:
         """
         Test step function.
 
         Args:
-            batch (Tuple): A batch of test data.
+            batch (Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]): A batch of test data.
             batch_idx (int): Index of the current batch.
 
         Returns:
@@ -287,12 +331,12 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
         """
         return self._shared_step(batch, batch_idx, "test")
 
-    def configure_optimizers(self):
+    def configure_optimizers(self) -> Dict[str, Dict]:
         """
         Configures the optimizer and learning rate scheduler.
 
         Returns:
-            dict: Dictionary containing the optimizer and the learning rate scheduler.
+            Dict[str, Dict]: Dictionary containing the optimizer and the learning rate scheduler.
         """
         optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
@@ -306,7 +350,7 @@ class PosVelAccGRULightningModelClassic(L.LightningModule):
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": "val_loss",
+                "monitor": "train_loss",
                 "interval": "epoch",
             },
         }

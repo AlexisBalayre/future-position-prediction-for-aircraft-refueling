@@ -1,2 +1,0 @@
-batch_size,hidden_size,hidden_depth,learning_rate,scheduler_patience,scheduler_factor,max_epochs,dropout,input_frames,output_frames,total_loss,bbox_loss,velocity_loss,velocities_to_positions_loss,ADE_from_vel,FDE_from_vel,AIoU_from_vel,FIoU_from_vel,ADE,FDE,AIoU,FIoU,test_loss,test_velocity_loss,test_ADE,test_FDE,test_AIoU,test_FIoU
-16,256,1,0.001,15,0.5,30,0.1,60,15,,,,,,,,,,,,,0.00042473096982575953,0.00042473096982575953,36.74689865112305,65.18936157226562,0.5521827936172485,0.3627396821975708

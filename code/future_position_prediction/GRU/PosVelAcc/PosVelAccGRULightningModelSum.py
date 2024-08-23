@@ -2,9 +2,9 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 import lightning as L
-from typing import Tuple
+from typing import Tuple, Dict
 
-from utils import (
+from .utils import (
     compute_ADE,
     compute_FDE,
     compute_AIOU,
@@ -12,14 +12,14 @@ from utils import (
     convert_velocity_to_positions,
 )
 
-from MetricsMonitoring import MetricsMonitoring
-from GRUNet.DecoderGRU import DecoderGRU
-from GRUNet.EncoderGRU import EncoderGRU
+from .MetricsMonitoring import MetricsMonitoring
+from .GRUNet.DecoderGRU import DecoderGRU
+from .GRUNet.EncoderGRU import EncoderGRU
 
 
 class PosVelAccGRULightningModelSum(L.LightningModule):
     """
-    A PyTorch Lightning module for a GRU-based model that predicts future bounding box positions
+    Main PyTorch Lightning module of the PosVelAcc-GRU model that predicts future bounding box positions
     and velocities by summing the hidden states from separate encoders for bounding boxes,
     velocities, and accelerations.
 
@@ -56,7 +56,7 @@ class PosVelAccGRULightningModelSum(L.LightningModule):
         super(PosVelAccGRULightningModelSum, self).__init__()
         self.save_hyperparameters()
 
-        # Initialize GRU-based encoders
+        # Initialise GRU-based encoders
         self.bbox_encoder = EncoderGRU(
             input_dim=bbox_dim,
             hidden_dim=hidden_dim,
@@ -79,7 +79,7 @@ class PosVelAccGRULightningModelSum(L.LightningModule):
             dropout=dropout,
         )
 
-        # Initialize GRU-based decoders
+        # Initialise GRU-based decoders
         self.pos_decoder = DecoderGRU(
             bbox_dim,
             hidden_dim,
@@ -95,7 +95,7 @@ class PosVelAccGRULightningModelSum(L.LightningModule):
             dropout=[dropout, dropout],
         )
 
-        # Initialize metrics monitoring
+        # Initialise metrics monitoring
         self.train_metrics = MetricsMonitoring(image_size)
         self.val_metrics = MetricsMonitoring(image_size)
         self.test_metrics = MetricsMonitoring(image_size)
@@ -119,7 +119,7 @@ class PosVelAccGRULightningModelSum(L.LightningModule):
         """
         batch_size = bbox_seq.size(0)
 
-        # Initialize hidden states for the GRU encoders
+        # Initialise hidden states for the GRU encoders
         h_pos = torch.zeros(
             self.bbox_encoder.n_layers,
             batch_size,
@@ -151,7 +151,7 @@ class PosVelAccGRULightningModelSum(L.LightningModule):
             + encoder_hidden_states_acc
         )
 
-        # Decoder input initialization with the last frame of the input sequence
+        # Decoder input initialisation with the last frame of the input sequence
         decoder_input_pos = bbox_seq[:, -1, :]
         decoder_input_vel = velocity_seq[:, -1, :]
 
@@ -313,12 +313,12 @@ class PosVelAccGRULightningModelSum(L.LightningModule):
         """
         return self._shared_step(batch, batch_idx, "test")
 
-    def configure_optimizers(self):
+    def configure_optimizers(self) -> Dict[str, Dict]:
         """
         Configures the optimizer and learning rate scheduler.
 
         Returns:
-            dict: Dictionary containing the optimizer and the learning rate scheduler.
+            Dict[str, Dict]: Dictionary containing the optimizer and the learning rate scheduler.
         """
         optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
@@ -332,7 +332,7 @@ class PosVelAccGRULightningModelSum(L.LightningModule):
             "optimizer": optimizer,
             "lr_scheduler": {
                 "scheduler": scheduler,
-                "monitor": "val_loss",
+                "monitor": "train_loss",
                 "interval": "epoch",
             },
         }

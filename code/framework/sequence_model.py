@@ -1,3 +1,5 @@
+import sys
+import os
 import json
 import torch
 import cv2
@@ -13,7 +15,7 @@ from code.future_position_prediction.GRU.SizPos.utils import (
     convert_velocity_to_positions,
     convert_PosSize_to_PosVel,
 )
-from filters import (
+from code.framework.filters import (
     sg_filter_smoothing,
     moving_average_smoothing,
     exponential_smoothing,

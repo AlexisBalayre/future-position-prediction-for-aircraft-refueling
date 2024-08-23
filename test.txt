@@ -1,0 +1,141 @@
+-code/
+	--data_utils/
+		---data_preprocessing/
+			----preprocess_data_with_ema_filter.py
+			----preprocess_data_with_gaussian_filter
+			----preprocess_data_with_rolling_mean_filter.py
+			----preprocess_data_with_sg_filter.py
+		---dataset_analyse.ipynb
+		---dataset_preparation.ipynb
+		---synthetic_data_generation.ipynb
+	--framework/
+		---evaluation.py
+		---filters.py
+		---object_detection_model.py
+		---sequence_model.py
+	--future_position_prediction/
+		---Baseline/
+			----CV/
+				-----CVLightningDataset.py
+				-----predict.py
+			----LKF/
+				-----LKFLightningDataset.py
+				-----predict.py
+		---GRU/
+			----PosVelAcc/
+				-----Checkpoints/
+				-----GRUNet/
+					------DecoderGRU.py
+					------EncoderGRU.py
+					------SelfAttention.py
+				-----hptuning.py
+				-----MetricsMonitoring.py
+				-----PosVelAccGRULightningDataModule.py
+				-----PosVelAccGRULightningDataset.py
+				-----PosVelAccGRULightningModelAverage.py
+				-----PosVelAccGRULightningModelClassic.py
+				-----PosVelAccGRULightningModelConcat.py
+				-----PosVelAccGRULightningModelSum.py
+				-----testModel.py
+				-----trainModel.py
+				-----utils.py
+            ----SizPos/
+				-----Checkpoints/
+				-----GRUNet/
+					------DecoderGRU.py
+					------EncoderGRU.py
+					------SelfAttention.py
+				-----hptuning.py
+				-----MetricsMonitoring.py
+				-----SizPosGRULightningDataModule.py
+				-----SizPosGRULightningDataset.py
+				-----SizPosGRULightningModelAverage.py
+				-----SizPosGRULightningModelClassic.py
+				-----SizPosGRULightningModelConcat.py
+				-----SizPosGRULightningModelSum.py
+				-----testModel.py
+				-----trainModel.py
+				-----utils.py
+        ---LSTM/
+			----PosVelAcc/
+				-----Checkpoints/
+				-----LSTM/
+					------LSTMDecoder.py
+					------LSTMEncoder.py
+					------SelfAttention.py
+				-----hptuning.py
+				-----MetricsMonitoring.py
+				-----LSTMPosVelAccLightningDataModule.py
+				-----LSTMPosVelAccLightningDataset.py
+				-----LSTMPosVelAccLightningModelAverage.py
+				-----LSTMPosVelAccLightningModelClassic.py
+				-----LSTMPosVelAccLightningModelConcat.py
+				-----LSTMPosVelAccLightningModelSum.py
+				-----testModel.py
+				-----trainModel.py
+				-----utils.py
+            ----SizPos/
+				-----Checkpoints/
+				-----LSTM/
+					------LSTMDecoder.py
+					------LSTMEncoder.py
+					------SelfAttention.py
+				-----hptuning.py
+				-----MetricsMonitoring.py
+				-----LSTMSizPosLightningDataModule.py
+				-----LSTMSizPosLightningDataset.py
+				-----LSTMSizPosLightningModelAverage.py
+				-----LSTMSizPosLightningModelClassic.py
+				-----LSTMSizPosLightningModelConcat.py
+				-----LSTMSizPosLightningModelSum.py
+				-----testModel.py
+				-----trainModel.py
+				-----utils.py		
+	--ml_studio/
+		---FasterRCNN_backend/
+		---YOLOv10_backend/
+	--object_detection/
+		---YOLOv10/
+			----pretrained_base_models/
+			----dataset.yaml
+			----val.yaml
+			----trainer_yolo.py
+			----gpu.sub
+			----runs/
+				----train22/ YOLOv10 N
+				----train23/ YOLOv10 M
+				----train24/ YOLOv10 S
+-data/
+	--AARP/
+		---frames/
+			----full_dataset_annotated_fpp/
+				-----full_dataset_formatted.json
+				-----raw_data.csv
+				-----test_filter_ema
+				-----test_filter_gaussian.json
+				-----test_filter_rolling_mean.json
+				-----test_filter_savgol.json
+				-----test.json
+				-----train_filter_ema
+				-----train_filter_gaussian.json
+				-----train_filter_rolling_mean.json
+				-----train_filter_savgol.json
+				-----train.json
+				-----val_filter_ema
+				-----val_filter_gaussian.json
+				-----val_filter_rolling_mean.json
+				-----val_filter_savgol.json
+				-----val.json
+			----full_dataset_annotated_YOLO/
+				-----all/ YOLO dataset with all frames
+				-----balanced_dataset/ Balanced YOLO Dataset (Used to train YOLOv10)
+				-----close/ YOLO dataset with all frames with Refuelling Port in Closed state
+				-----open/ YOLO dataset with all frames with Refuelling Port in Open state
+				-----refuelling/ YOLO dataset with all frames with Refuelling Port in Refuelling state
+				-----semiopen/  YOLO dataset with all frames with Refuelling Port in semiopen state
+			----full_dataset_raw/ Raw frames 
+		---videos/
+	--synthetic/ Synthetic Dataset for future position prediction model 
+-report/ Thesis Latex Files 
+-test/ Framework Outputs
+-requirements.txt 
