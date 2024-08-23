@@ -1,107 +1,82 @@
-# Framework Directory
+# FasterRCNN Backend for Aircraft Refuelling Port Detection
 
 ## Overview
 
-The `framework/` directory contains core components and utilities used across the project to support the development, evaluation, and application of machine learning models for predicting the future position and size of the pressure refuelling port on commercial aircraft. This directory includes scripts for model evaluation, filtering techniques, object detection, and sequence modeling.
+This directory contains the implementation of a custom machine learning backend for detecting the aircraft refuelling port using a Faster R-CNN model. This backend is designed to be integrated with Label Studio to automate the labeling process and can be trained, deployed, and used to make predictions on images directly within the project.
 
 ## Folder Structure
 
 ```plaintext
-framework/
-├── evaluation.py
-├── filters.py
-├── object_detection_model.py
-└── sequence_model.py
+FasterRCNN_backend/
+├── model.py           # Main model implementation file.
+├── README.md          # This README file.
+├── Dockerfile         # Dockerfile for containerizing the ML backend.
+├── docker-compose.yml # Docker Compose configuration.
+└── requirements.txt   # Python dependencies.
 ```
 
-### Contents
+## Setup and Installation
 
-#### Scripts
+To use this backend within the project, follow these steps:
 
-- **evaluation.py**
+1. **Install Dependencies**:
+   Ensure that Python is installed on your system. Then, install the required Python packages by running:
 
-  - This script is used to evaluate the performance of a trained GRU model for predicting the future positions and sizes of the refuelling port in aircraft video frames. It performs object detection, future position prediction, and computes various performance metrics.
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-  - **Key Features**:
+2. **Set Up Environment Variables**:
+   Create a `.env` file in the `FasterRCNN_backend/` directory with the following content:
 
-    - **Object Detection**: Detects objects in video frames using a pre-trained YOLOv10 model.
-    - **Future Position Prediction**: Predicts future positions of detected objects using a trained GRU model.
-    - **Smoothing Filters**: Applies various smoothing filters to the predictions.
-    - **Linear Kalman Filter (LKF)**: Optionally applies a Linear Kalman Filter to smooth the predictions.
-    - **Metrics Calculation**: Computes metrics such as Final Displacement Error (FDE), Average Displacement Error (ADE), Final Intersection over Union (FIoU), and Average Intersection over Union (AIoU).
-    - **Results Saving**: Saves the predictions and ground truth to a JSON file.
+   ```plaintext
+   LABEL_STUDIO_URL=http://localhost:8080
+   LABEL_STUDIO_API_KEY=your_label_studio_api_key
+   ```
 
-  - **Usage**:
+   Replace `http://localhost:8080` with your Label Studio instance URL and `your_label_studio_api_key` with your API key.
 
-    - Run the script using the command:
+3. **Run the Backend**:
+   You can run the backend using Docker or directly via Python.
 
-      ```bash
-      python -m code.framework.evaluation
-      ```
-
-    - **Example Workflow**:
-      1. **Object Detection**: The script first detects objects in the input video using YOLOv10.
-      2. **Future Position Prediction**: It then predicts the future positions of these objects using a trained GRU model.
-      3. **Smoothing and Kalman Filters**: Various smoothing filters and the option of applying a Linear Kalman Filter (LKF) are used to refine the predictions.
-      4. **Metrics Calculation**: The script calculates key metrics to evaluate the model's performance.
-      5. **Saving Results**: The predictions, along with the ground truth, are saved in a JSON file for further analysis.
-
-  - **Configuration**:
-    - Paths to the YOLO model weights, GRU model checkpoint, and hyperparameters file must be set correctly in the script.
-    - The script allows configuration of input/output frames, smoothing filters, and the use of LKF.
-
-- **filters.py**
-
-  - Implements various filtering techniques used for preprocessing and smoothing the predicted trajectories.
-
-  - **Main Filters**:
-
-    - `Exponential Moving Average (EMA)`
-    - `Gaussian Filter`
-    - `Rolling Mean Filter`
-    - `Savitzky-Golay Filter`
-
-  - **Usage**:
-    - Apply filters to smooth the predictions or data during preprocessing.
-
-- **object_detection_model.py**
-
-  - Defines the object detection model logic, primarily utilizing YOLOv10 for detecting the refuelling port in video frames.
-
-  - **Usage**:
-    - Load a pre-trained YOLO model and detect objects in video frames.
-
-- **sequence_model.py**
-
-  - Contains the sequence model implementations for predicting future positions based on past trajectories, using models like GRU or LSTM.
-
-  - **Usage**:
-    - Initialize and run sequence models to predict future positions of detected objects.
-
-## Getting Started
-
-### Evaluation
-
-To evaluate the performance of a trained GRU model using the `evaluation.py` script, follow these steps:
-
-1. **Prepare the Environment**:
-
-   - Ensure all dependencies are installed.
-   - Set up the necessary model files and data paths in the script.
-
-2. **Run the Script**:
-
-   - Use the following command to run the evaluation:
+   - **With Docker**:
 
      ```bash
-     python -m code.framework.evaluation
+     docker-compose up
      ```
 
-3. **Review Results**:
-   - The script will output various metrics and save the predictions to JSON files.
+   - **Without Docker**:
+     For debugging or development purposes, run the backend directly:
 
-## Notes
+     ```bash
+     label-studio-ml start FasterRCNN_backend -p 9090
+     ```
 
-- The `evaluation.py` script is designed to be flexible, allowing the user to experiment with different smoothing filters and the use of a Linear Kalman Filter (LKF).
-- Ensure the paths to the models and datasets are correctly configured within the script.
-- The script outputs useful metrics that can be used to compare different model configurations or processing techniques.
+## Model Implementation
+
+The main model is implemented in `model.py` and extends the `LabelStudioMLBase` class. Key components include:
+
+- **CustomDataset Class**: Handles loading images and annotations for training the model.
+- **FasterRCNNRefuellingPortDetector Class**: Implements the Faster R-CNN model, including methods for training (`fit`) and making predictions (`predict`).
+
+### Prediction Workflow
+
+1. **Loading Images**: The `predict` method loads images from a given path, converts them to tensors, and feeds them into the Faster R-CNN model.
+2. **Making Predictions**: The model predicts bounding boxes and labels for detected objects.
+3. **Formatting Predictions**: The results are formatted to be compatible with Label Studio’s expected output format.
+
+### Training Workflow
+
+1. **Fetching Annotations**: The `fit` method retrieves annotated data from Label Studio.
+2. **Data Processing**: Annotations are processed into a format suitable for training the Faster R-CNN model.
+3. **Model Training**: The model is trained using the annotated data, with configurable parameters such as batch size and learning rate.
+
+## Example Usage
+
+### Predicting on New Images
+
+Once the backend is running, it will listen for incoming prediction requests from Label Studio. It will process the images, detect the refuelling port, and return the results.
+
+### Training the Model
+
+The model can be retrained using labeled data from Label Studio by triggering the `fit` method, which will process the annotations and update the model.

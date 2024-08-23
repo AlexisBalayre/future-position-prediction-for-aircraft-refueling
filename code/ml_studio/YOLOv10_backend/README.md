@@ -1,58 +1,65 @@
-This guide describes the simplest way to start using ML backend with Label Studio.
+# YOLOv10 Refuelling Port Detector Backend
 
-## Running with Docker (Recommended)
+## Overview
 
-1. Start Machine Learning backend on `http://localhost:9090` with prebuilt image:
+This directory contains the implementation of a custom machine learning backend using YOLOv10 for detecting the refueling port on aircraft in images. This backend is designed to integrate with Label Studio to automate the labeling process, providing predictions directly in Label Studio's format.
 
-```bash
-docker-compose up
+## Folder Structure
+
+```plaintext
+YOLOv10_backend/
+├── model.py           # Main model implementation file for YOLOv10.
+├── README.md          # This README file.
+├── Dockerfile         # Dockerfile for containerizing the ML backend.
+├── docker-compose.yml # Docker Compose configuration.
+└── requirements.txt   # Python dependencies.
 ```
 
-2. Validate that backend is running
+## Setup and Installation
 
-```bash
-$ curl http://localhost:9090/
-{"status":"UP"}
-```
+To use this backend within your project, follow these steps:
 
-3. Connect to the backend from Label Studio running on the same host: go to your project `Settings -> Machine Learning -> Add Model` and specify `http://localhost:9090` as a URL.
+1. **Install Dependencies**:
+   Ensure that Python is installed on your system. Then, install the required Python packages by running:
 
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-## Building from source (Advanced)
+2. **Set Up Environment Variables**:
+   Create a `.env` file in the `YOLOv10_backend/` directory with the following content:
 
-To build the ML backend from source, you have to clone the repository and build the Docker image:
+   ```plaintext
+   LABEL_STUDIO_URL=http://localhost:8080
+   LABEL_STUDIO_API_KEY=your_label_studio_api_key
+   ```
 
-```bash
-docker-compose build
-```
+   Replace `http://localhost:8080` with your Label Studio instance URL and `your_label_studio_api_key` with your API key.
 
-## Running without Docker (Advanced)
+3. **Run the Backend**:
+   You can run the backend using Docker or directly via Python.
 
-To run the ML backend without Docker, you have to clone the repository and install all dependencies using pip:
+   - **With Docker**:
 
-```bash
-python -m venv ml-backend
-source ml-backend/bin/activate
-pip install -r requirements.txt
-```
+     ```bash
+     docker-compose up
+     ```
 
-Then you can start the ML backend:
+   - **Without Docker**:
+     For debugging or development purposes, run the backend directly:
 
-```bash
-label-studio-ml start ./dir_with_your_model
-```
+     ```bash
+     label-studio-ml start YOLOv10_backend -p 9090
+     ```
 
-# Configuration
-Parameters can be set in `docker-compose.yml` before running the container.
+## Model Implementation
 
+The main model is implemented in `model.py` and extends the `LabelStudioMLBase` class. Key components include:
 
-The following common parameters are available:
-- `BASIC_AUTH_USER` - specify the basic auth user for the model server
-- `BASIC_AUTH_PASS` - specify the basic auth password for the model server
-- `LOG_LEVEL` - set the log level for the model server
-- `WORKERS` - specify the number of workers for the model server
-- `THREADS` - specify the number of threads for the model server
+- **Yolov10RefuellingPortDetector Class**: Implements the YOLOv10 model, including methods for setup, prediction, and formatting results for Label Studio.
 
-# Customization
+### Prediction Workflow
 
-The ML backend can be customized by adding your own models and logic inside the `./dir_with_your_model` directory. 
+1. **Setup**: The `setup` method initializes the YOLOv10 model when the backend starts.
+2. **Performing Predictions**: The `predict` method processes tasks received from Label Studio, loading images and running them through the YOLOv10 model.
+3. **Formatting Results**: The `format_results` method formats the model's predictions into a format compatible with Label Studio, including bounding boxes and confidence scores.
