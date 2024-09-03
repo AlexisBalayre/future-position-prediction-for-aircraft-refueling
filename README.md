@@ -52,11 +52,6 @@ This repository contains the source code for predicting the future position and 
   - **ml_studio/**: Backend configurations for automating annotation processes.
   - **object_detection/**: YOLOv10 model configurations and training scripts.
 
-- **data/**: Datasets, including annotated frames and synthetic data.
-
-  - **AARP/**: Annotated and raw datasets for refuelling port detection.
-  - **synthetic/**: Synthetic datasets for model training.
-
 - **report/**: LaTeX files for the thesis report.
 
 - **test/**: Output files from framework testing.
