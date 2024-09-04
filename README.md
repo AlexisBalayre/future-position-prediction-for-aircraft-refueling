@@ -54,8 +54,6 @@ This repository contains the code and resources for the MSc thesis “Future Pos
 
 - **report/**: LaTeX files for the thesis report.
 
-- **test/**: Output files from framework testing.
-
 ## Getting Started
 
 ### Prerequisites
