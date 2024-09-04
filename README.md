@@ -28,7 +28,6 @@ This repository contains the code and resources for the MSc thesis “Future Pos
 │   ├── AARP/
 │   ├── synthetic/
 ├── report/
-├── test/
 ├── requirements.txt
 ```
 
