@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains the source code for predicting the future position and size of the pressure refuelling port on commercial aircraft using advanced deep learning techniques. The project integrates object detection models with sequence models to achieve accurate predictions in various scenarios.
+This repository contains the code and resources for the MSc thesis “Future Position Prediction for Pressure Refuelling Port of Commercial Aircraft.” The project focuses on developing a robust framework that predicts the future position of the refuelling port on commercial aircraft, enhancing the automation of aircraft refuelling systems using deep learning techniques.
 
 ## Repository Structure
 
