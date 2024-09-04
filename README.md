@@ -56,22 +56,48 @@ This repository contains the source code for predicting the future position and 
 
 - **test/**: Output files from framework testing.
 
-## Installation
+## Getting Started
 
-1. Create a new virtual environment using Python 3.12.3:
+### Prerequisites
+
+- Python 3.12.3
+- PyTorch Lightning
+- OpenCV
+- Label Studio
+- Docker
+- YOLOv10
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/AlexisBalayre/future-position-prediction-for-aircraft-refueling
+cd future-position-prediction-for-aircraft-refueling
+```
+
+2. Create a new virtual environment using Python 3.12.3:
 
 ```bash
 python3 -m venv venv
 ```
 
-2. Activate the virtual environment:
+3. Activate the virtual environment:
 
 ```bash
 source venv/bin/activate
 ```
 
-3. Install the required packages:
+4. Install the required packages:
 
 ```bash
 python3 -m pip install -r requirements.txt
 ```
+
+## License
+
+This project is licensed under the terms of the Apache V2 License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+Special thanks to my supervisors, Dr. Boyu Kuang and Dr. Stuart Barnes, and sponsors Airbus, UKRI, and ATI for their support in this research through the ONEheart project.
