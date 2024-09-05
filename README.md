@@ -1,7 +1,7 @@
 # Future Position Prediction for Aircraft Refuelling Port
 ## Overview
 
-This repository contains the code and resources for the MSc thesis “Future Position Prediction for Pressure Refuelling Port of Commercial Aircraft.” The project focuses on developing a robust framework that predicts the future position of the refuelling port on commercial aircraft, enhancing the automation of aircraft refuelling systems using deep learning techniques.
+This repository contains the code and resources for the MSc thesis “Future Position Prediction for Pressure Refuelling Port of Commercial Aircraft”. The project focuses on developing a robust framework that predicts the future position of the refuelling port on commercial aircraft, enhancing the automation of aircraft refuelling systems using deep learning techniques.
 
 ![Framework_Output](https://github.com/user-attachments/assets/03e35f5d-f469-4903-8852-8f01fc7b4893)
 
